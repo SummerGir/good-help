@@ -9,10 +9,6 @@ import com.fasterxml.jackson.datatype.jdk7.Jdk7Module;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
 
 import java.text.SimpleDateFormat;
-
-/**
- * Created by Jiong on 2014/9/5.
- */
 public class MoreAwareObjectMapper extends ObjectMapper {
 
     public MoreAwareObjectMapper() {

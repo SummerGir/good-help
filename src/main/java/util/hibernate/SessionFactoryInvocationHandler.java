@@ -1,4 +1,4 @@
-package eiis.util.hibernate;
+package util.hibernate;
 
 
 import java.lang.reflect.InvocationHandler;
@@ -15,7 +15,7 @@ public class SessionFactoryInvocationHandler implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         if (method.getName().equals("getCurrentSession")) {
-            return eiis.util.spring.ApplicationContext.getCurrent().getBean(EntityManagerToSessionBean.class).getCurrentSession();
+            return util.spring.ApplicationContext.getCurrent().getBean(util.hibernate.EntityManagerToSessionBean.class).getCurrentSession();
         }
         return method.invoke(this.targetObject, args);
     }

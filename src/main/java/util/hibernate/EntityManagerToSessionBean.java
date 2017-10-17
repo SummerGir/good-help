@@ -1,4 +1,4 @@
-package eiis.util.hibernate;
+package util.hibernate;
 
 import org.hibernate.Session;
 import org.springframework.stereotype.Service;

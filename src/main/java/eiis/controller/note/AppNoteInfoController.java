@@ -25,15 +25,13 @@ public class AppNoteInfoController {
     //得到甘特图
     @RequestMapping("getDetailInfo")
     @ResponseBody
-    public String getDetailInfo(HttpServletRequest request) throws Exception {
-        String mainId = request.getParameter("mainId");
-        String openLevel = request.getParameter("openLevel");
-        if(StringUtils.isBlank(openLevel))
-            openLevel = "1";
-        //Map<String,Object> map = detService.getDetailInfo(mainId,Integer.parseInt(openLevel));
-        Map<String,Object> map = null;
-        JSONObject jsonObject = JSONObject.fromObject(map);
-        return jsonObject.toString();
+    public ObjectNode getDetailInfo(HttpServletRequest request) throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode re = mapper.createObjectNode();
+
+        re.put("error", 0);
+        re.put("msg", "操作成功！");
+        return re;
     }
 
     public ObjectNode returnSuccess(String msg) {

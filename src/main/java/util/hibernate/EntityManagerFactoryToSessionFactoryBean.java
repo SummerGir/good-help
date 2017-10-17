@@ -1,4 +1,4 @@
-package eiis.util.hibernate;
+package util.hibernate;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.jpa.HibernateEntityManagerFactory;
@@ -6,13 +6,6 @@ import org.hibernate.jpa.HibernateEntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 import java.lang.reflect.Proxy;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Jiong
- * Date: 13-8-23
- * Time: 下午3:11
- * To change this template use File | Settings | File Templates.
- */
 public class EntityManagerFactoryToSessionFactoryBean implements org.springframework.beans.factory.FactoryBean<SessionFactory> {
 
     @PersistenceUnit
