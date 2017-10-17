@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="OFF">
+    <appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%date{HH:mm:ss.SSS} [%thread] %level %logger{36} - %message%n%exception%n"/>
+        </Console>
+    </appenders>
+    <loggers>
+        <logger name="druid.sql.Statement" level="ERROR" additivity="false">
+            <appender-ref ref="Console"/>
+        </logger>
+        <root level="WARN">
+            <!--OFF (most specific)-->
+            <!--FATAL-->
+            <!--ERROR-->
+            <!--WARN-->
+            <!--INFO-->
+            <!--DEBUG-->
+            <!--TRACE-->
+            <!--ALL (least specific)-->
+            <appender-ref ref="Console"/>
+        </root>
+    </loggers>
+</configuration>
