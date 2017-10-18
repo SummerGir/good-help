@@ -1,0 +1,37 @@
+
+.ui-tabs li .ui-icon-close { float: left; margin: 0.4em 0.2em 0 0; cursor: pointer; }
+
+.ui-tabs .ui-tabs-nav .ui-tabs-paging-next
+{
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    margin-left: 2px;
+    margin-top: 6px;
+    float: right;
+}
+.ui-tabs .ui-tabs-nav .ui-tabs-paging-prev
+{
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    margin-right: 2px;
+    margin-top: 6px;
+    float: left;
+}
+
+.ui-tabs .ui-tabs-nav .ui-tabs-paging-display
+{
+    overflow: hidden;
+    float: left;
+    margin-bottom: -1px !important;
+    margin-bottom: -5px;
+    padding-bottom: 1px !important;
+    padding-bottom: 3px;
+    position: relative;
+}
+
+.ui-tabs .ui-tabs-nav .ui-tabs-paging-full
+{
+    position: relative;
+}
