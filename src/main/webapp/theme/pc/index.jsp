@@ -1,21 +1,22 @@
 <%@ taglib prefix="master" uri="util.masterPage" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: xiucai
+  Date: 2017/10/18
+  Time: 15:06
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <!--子页面标题内容-->
-    <title>
-        <master:ContentPlaceHolder id="title"/>
-    </title>
-    <!--子页面head中的内容-->
-    <master:ContentPlaceHolder id="head"/>
-</head>
-<body>
-<h1>这里是首页</h1>
-<div style="border:1px solid red;width: 100px;height: 100px;">
-    <!--子页面中的正文-->
-    <master:ContentPlaceHolder id="body"/>
-</div>
-
-</body>
-
-</html>
+<master:ContentPage>
+    <master:Content contentPlaceHolderId="title">首页</master:Content>
+    <master:Content contentPlaceHolderId="head">
+        <style>
+            h4{
+                color: blue;
+            }
+        </style>
+    </master:Content>
+    <master:Content contentPlaceHolderId="body">
+        <h4>这里是首页</h4>
+    </master:Content>
+</master:ContentPage>

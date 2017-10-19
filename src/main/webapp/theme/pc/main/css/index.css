@@ -1,0 +1,8 @@
+body{
+    font-size: 12px;
+    line-height: 22px;
+    color: #666;
+    border-top: 3px solid #eee;
+    background: #000 url(../img/back.png) repeat;
+    -webkit-font-smoothing: antialiased;
+}
