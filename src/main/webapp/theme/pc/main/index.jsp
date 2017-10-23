@@ -7,7 +7,7 @@
         <master:ContentPlaceHolder id="title"/>
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/public/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/public/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="/theme/pc/main/css/index.css" rel="stylesheet">
     <script type="text/javascript" src="/public/jquery/jquery.js"></script>
     <script type="text/javascript" src="/public/bootstrap/js/bootstrap.min.js"></script>
@@ -54,6 +54,11 @@
         }
         .main-center2-nav .breadcrumb{
             padding: 13px 0px;
+        }
+    </style>
+    <style type="text/css">
+        .main-right-div-content{
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -129,7 +134,7 @@
             </div>
         </nav>
         <!--子页面中的正文-->
-        <div class="col-md-12"><master:ContentPlaceHolder id="body"/></div>
+        <div class="col-md-12 main-right-div-content"><master:ContentPlaceHolder id="body"/></div>
 
     </div>
 </div>

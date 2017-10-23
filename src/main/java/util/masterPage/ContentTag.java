@@ -13,11 +13,13 @@ public class ContentTag extends BodyTagSupport {
 
         String writeId = (String) this.pageContext.getRequest().getAttribute(Consts.WRITE_PAGE_ID);
 
-        String content = this.bodyContent.getString();
-        this.pageContext.getRequest().setAttribute(writeId + "___" + this.getContentPlaceHolderId(), content);
         try {
-            //清空当前标签的内容
-            this.bodyContent.clear();
+            if(this.bodyContent != null){
+                String content = this.bodyContent.getString();
+                this.pageContext.getRequest().setAttribute(writeId + "___" + this.getContentPlaceHolderId(), content);
+                //清空当前标签的内容
+                this.bodyContent.clear();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
