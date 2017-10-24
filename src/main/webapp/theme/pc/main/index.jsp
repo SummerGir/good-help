@@ -1,5 +1,14 @@
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.List" %>
+<%@ page import="eiis.core.menuTree.service.CoreMenuTreeService" %>
+<%@ page import="com.google.gson.JsonArray" %>
+<%@ page import="net.sf.json.JSONArray" %>
 <%@ taglib prefix="master" uri="util.masterPage" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    List<Map<String,Object>> list = CoreMenuTreeService.getInstance().getMainInfo();
+    JSONArray arr = JSONArray.fromObject(list);
+%>
 <html>
 <head>
     <!--子页面标题内容-->
@@ -60,6 +69,23 @@
         .main-right-div-content{
             margin-top: 10px;
         }
+        .list-group-item-click{
+            border-bottom: 1px solid #167cac;
+            border-top: 1px solid #2094ca;
+            background-color: #0993d3;
+            background: -webkit-gradient(linear, left top, left bottom, from(#1aaef3), to(#0993d3));
+            background: -webkit-linear-gradient(top, #1aaef3, #0993d3);
+            background: -moz-linear-gradient(top, #1aaef3, #0993d3);
+            background: -ms-linear-gradient(top, #1aaef3, #0993d3);
+            background: -o-linear-gradient(top, #1aaef3, #0993d3);
+            background: linear-gradient(top, #1aaef3, #0993d3);
+            box-shadow: none;
+            color: #fff !important;
+            font-weight: bold;
+        }
+        .list-group-item-click a,.list-group-item-click span{
+            color: #fff !important;
+        }
     </style>
 </head>
 <body>
@@ -90,29 +116,67 @@
 
 <div class="main-center-div">
     <!-- 左侧导航栏 开始 -->
-    <div class="panel-group main-left-div" id="accordion">
-        <ul>
-            <li><a class="list-group-item "><h4 class="list-group-item-heading">个人中心</h4></a></li>
-            <li><a class="list-group-item "><h4 class="list-group-item-heading">我的笔记</h4></a></li>
-            <li><a class="list-group-item "><h4 class="list-group-item-heading">消费记录</h4></a></li>
+    <div class="panel-group main-left-div">
+        <ul id="accordion">
             <li>
                 <!--这个类中加一个active表示选中-->
-                <a class="list-group-item " data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><h4 class="list-group-item-heading">系统管理</h4></a>
+                <a class="list-group-item" href="#collapseOne">
+                    <span class="list-group-item-heading">系统管理</span>
+                </a>
             </li>
-            <!--这个类中加一个in表示初始展开-->
-            <li  id="collapseOne" class="list-group panel-collapse collapse">
-                <a href="#" class="list-group-item">
-                    <h4 class="list-group-item-heading">菜单管理</h4>
+            <li>
+                <!--这个类中加一个active表示选中-->
+                <a class="list-group-item" data-toggle="collapse" href="#1">
+                    <span class="list-group-item-heading">系统管理</span>
+                    <span class="pull-right">
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                    </span>
                 </a>
-                <a href="#" class="list-group-item">
-                    <h4 class="list-group-item-heading">用户管理</h4>
+                <!--这个类中加一个in表示初始展开-->
+                <ul id="1" class="list-group panel-collapse collapse">
+                        <li>
+                            <!--这个类中加一个active表示选中-->
+                            <a class="list-group-item" href="#collapseOne">
+                                <span class="list-group-item-heading">系统管理</span>
+                            </a>
+                        </li>
+                </ul>
+            </li>
+            <li>
+                <!--这个类中加一个active表示选中-->
+                <a class="list-group-item" data-toggle="collapse" href="#2">
+                    <span class="list-group-item-heading">系统管理</span>
+                    <span class="pull-right">
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                    </span>
                 </a>
-                <a href="#" class="list-group-item">
-                    <h4 class="list-group-item-heading">图标管理</h4>
-                </a>
+                <!--这个类中加一个in表示初始展开-->
+                <ul id="2" class="list-group panel-collapse collapse">
+                    <li>
+                        <!--这个类中加一个active表示选中-->
+                        <a class="list-group-item" href="#collapseOne">
+                            <span class="list-group-item-heading">系统管理</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
         </ul>
 
+    </div>
+    <div name="menuTree_mode" style="display: none;">
+        <ul>
+            <li>
+                <!--这个类中加一个active表示选中-->
+                <a class="list-group-item" data-toggle="collapse" href="#collapseOne">
+                    <span class="list-group-item-heading">系统管理</span>
+                    <span class="pull-right">
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                    </span>
+                </a>
+                <!--这个类中加一个in表示初始展开-->
+                <div id="collapseOne" class="list-group panel-collapse collapse"></div>
+            </li>
+        </ul>
     </div>
     <!-- 左侧导航栏 完成 -->
 
@@ -138,7 +202,56 @@
 
     </div>
 </div>
+<script type="text/javascript">
+    $(function(){
+//        createItem();
+        $("#accordion .sub").on("click",function(){
+            var clas = "in";
+            var has = $(this).children().hasClass(clas);
+            $(this).children().removeClass(clas);
+            if(has)
+                $(this).children().last().addClass(clas);
+        });
+        $("#accordion .list-group-item").on("click",function(){
+            var clas = "list-group-item-click";
+            var has = $(this).hasClass(clas);
+            $(this).parent().children().removeClass(clas);
+            console.log(has);
+            if(!has)
+                $(this).addClass(clas);
+        });
+    });
+    function createItem(){
+        var menuList = <%=arr%>;
+        var myMode = $("div[name='menuTree_mode']>ul").children().clone();
+        $("#accordion").empty();
 
+        for(var i = 0;i < menuList.length;i++){
+            var obj = menuList[i];
+            var row = $(myMode.clone());
+            //是否存在上级菜单
+            var parentLevel = obj.outlineLevel.substring(0,obj.outlineLevel.lastIndexOf("."));
+            if(parentLevel == ""){
+                parentLevel = "accordion";
+            }
+
+            row.find(".list-group-item>.list-group-item-heading").html(obj.title);
+            if(obj.type){//是应用
+                row.find(".list-group-item").attr("data-toggle","");
+                row.find(".list-group-item").attr("href",obj.url);
+                row.find(".list-group-item>.pull-right").remove();
+                row.find("div").remove();
+            }else{
+                row.addClass("sub");
+                row.find(".list-group-item").attr("href","#"+obj.outlineLevel);
+                row.find("div").attr("id",obj.outlineLevel);
+            }
+            $("#"+parentLevel).append(row);
+        }
+
+
+    }
+</script>
 </body>
 
 </html>
