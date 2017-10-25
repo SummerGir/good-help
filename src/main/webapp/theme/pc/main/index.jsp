@@ -133,7 +133,7 @@
                 var a = $(this).hasClass(clas2);
                 if(a){
                     $(this).removeClass(clas2);
-                    $(this).hide(400);
+                    $(this).slideUp(400);
                 }
             });
             //点击展开
@@ -141,7 +141,7 @@
                 $(this).addClass(clas1);
                 if($(this).hasClass("sub")){
                     $(this).next().addClass(clas2);
-                    $(this).next().show(400);
+                    $(this).next().slideDown(400);
                 }
             }
         });
