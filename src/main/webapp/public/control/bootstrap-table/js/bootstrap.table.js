@@ -6,72 +6,172 @@
     if($.ghTable == undefined){
         $.ghTable = {};
     }
-    $.ghTable.list = function(options){
-        //默认表格控件参数
-        var defaultOpt = {
-            id:"",//需要绑定的Id或class
-            url:"",//表格请求的路径
-            type:"post",//请求方式
-            data:"",//请求的参数
-            dataType:"json",//请求的返回格式
-            toolbar:"",//表格上面的工具栏用哪个容器
-            isPage:true,//是否分页
-            page:1,//加载数据的初始页
-            rows:10,//每页默认条数
-            columns:[]//表格列[{field:'name',title:'名称',align:'left',width:80,template:function(){}},{},{}]
-        };
+    //默认表格控件参数
+    var defaultOpt = {
+        id:"",//需要绑定的Id或class
+        url:"",//表格请求的路径
+        type:"post",//请求方式
+        data:"",//请求的参数
+        dataType:"json",//请求的返回格式
+        toolbar:"",//表格上面的工具栏用哪个容器
+        isPage:true,//是否分页
+        haveHead:false,//是否需要工具栏上方的面板头部
+        page:1,//加载数据的初始页
+        rows:10,//每页默认条数
+        columns:[]//表格列[{field:'name',title:'名称',align:'left',width:80,template:function(){}},{},{}]
+    };
+    $.ghTable.set_table = function(){
+        //定义表格对象
+        var myDiv = $(defaultOpt.id);
+        if(defaultOpt.data == undefined || defaultOpt.data == null || defaultOpt.data == ""){
+            defaultOpt.data = {};
+        }
+        defaultOpt.data["page"] = defaultOpt.page;
+        defaultOpt.data["rows"] = defaultOpt.rows;
+        $.ajax({
+            url: defaultOpt.url,
+            data: defaultOpt.data,
+            type:defaultOpt.type,
+            async: true,
+            dataType: defaultOpt.dataType,
+            success: function (rs) {
+                if(rs == null){
+                    return;
+                }
+                var r = rs.rows;
+                if(r.length > 0){
+
+                    //设置表格的表头
+                    var col = defaultOpt.columns;
+                    //组建tbody中的行
+                    var myTd = '';
+                    for(var m = 0;m < r.length;m++){
+                        var row = r[m];
+                        myTd += '<tr>';
+                        for(var i = 0 ;i < col.length;i++){
+                            var c = col[i];
+                            var val = row[c.name];
+                            var tem = c.template;
+                            if(tem != undefined && tem != null && typeof tem === 'function'){
+                                val = tem(val);
+                            }
+                            myTd += '<td style="'+((c.align==null ||c.align=="")?"":("text-align:"+c.align+";"))+'">'+val+'</td>';
+                        }
+                        myTd += '</tr>';
+                    }
+
+                    myDiv.find(".table-responsive table>tbody").empty();
+                    myDiv.find(".table-responsive table>tbody").append(myTd);
+                }
+
+                defaultOpt.page = rs.page;
+                var p = defaultOpt.page;
+                var records = rs.records;//总条数
+                var s = (p-1)*defaultOpt.rows;
+                s = s < 1?1:s;
+                s = records < 1?0:s;
+                var e = p*defaultOpt.rows;
+                e = e > records?records:e;
+                //生成页
+                myDiv.find(".table-footer .table-info").html("第&nbsp;"+s+"&nbsp;至&nbsp;"+e+"&nbsp;项,共&nbsp;"+records+"&nbsp;项");
+                var total = rs.total;//总页数
+                //第一页时，不能点首页和上一页
+                myDiv.find(".table-footer li").removeClass("disabled");
+                if(defaultOpt.page == 1){
+                    myDiv.find(".table-footer .table-page-first").addClass("disabled");
+                    myDiv.find(".table-footer .table-page-prev").addClass("disabled");
+                }
+                //最后一页时，不能再点下一页和尾页
+                if(defaultOpt.page == total){
+                    myDiv.find(".table-footer .table-page-next").addClass("disabled");
+                    myDiv.find(".table-footer .table-page-last").addClass("disabled");
+                }
+                console.log(defaultOpt.page);
+                var ts = defaultOpt.page-2<1?1:defaultOpt.page-2;
+                var te = defaultOpt.page+2>total?total:defaultOpt.page+2;
+                var myLi = '';
+                for(var i = ts;i <= te;i++){
+                    myLi += '<li class="table-page-number '+(i == defaultOpt.page?"active":"hidden-xs")+'"><a data-page-number="'+i+'" href="#this">'+i+'</a></li>';
+                }
+                myDiv.find(".table-page-number").remove();
+                myDiv.find(".table-footer .table-page-prev").after(myLi);
+                myDiv.find(".table-footer li").unbind("click");
+                myDiv.find(".table-footer li").bind("click",function(){
+                    if($(this).hasClass("disabled")){
+                       return;
+                    }
+                    console.log($(this).html());
+                    if($(this).hasClass("table-page-first")){
+                        //首页
+                        defaultOpt.page = 1;
+                    }else if($(this).hasClass("table-page-last")){
+                        //尾页
+                        defaultOpt.page = total;
+                    }else if($(this).hasClass("table-page-prev")){
+                        //上一页
+                        defaultOpt.page--;
+                    }else if($(this).hasClass("table-page-next")){
+                        //下一页
+                        defaultOpt.page++;
+                    }else if($(this).hasClass("table-page-number")){
+                        //下一页
+                        defaultOpt.page = $(this).find("a").attr("data-page-number");
+                    }
+                    $.ghTable.set_table();
+                });
+
+            },error:function(){
+                console.log("加载表格失败")
+            }
+        });
+    };
+    $.ghTable.set_div= function(options){
+
         //覆盖默认参数
         if(options != null && options != undefined){
             for(var opt in options){
-                defaultOpt[opt] = options;
+                defaultOpt[opt] = options[opt];
             }
         }
         //定义表格对象
         var myDiv = $(defaultOpt.id);
+        myDiv.empty();
         $.ajax({
             url: "/public/control/bootstrap-table/templet.jsp",
-            data: {toolbar:defaultOpt.toolbar,isPage:defaultOpt.isPage,rows: defaultOpt.rows,columns:defaultOpt.columns},
+            data: {isPage:defaultOpt.isPage,haveHead:defaultOpt.haveHead},
             async: false,
             cache: false,
             dataType: "html",
             success: function (data, textStatus, jqXHR) {
-                myDiv.append(data);
+                console.log(defaultOpt);
+                $(defaultOpt.id).html(data);
             }
         });
-        //创建表格样式：斑马条纹、全边框、鼠标悬停特效、紧凑
-        myDiv.addClass("panel panel-default");
-        var myHead = $("<div/>").addClass("panel-heading").append('<div class="row"><div class="col-xs-6 table-panel-caption"></div><div class="col-xs-6"><div class="pull-right table-panel-ribbon"></div></div></div>');
-        //工具栏
-        var mytoolbar = '' +
-            '<div class="row table-toolbar">' +
-                '<div class="col-xs-12" style="padding: 0px 5px;">' +
-                    '<div class="pull-left">' +
-                        '<select class="eiis-combobox input-sm table-page-size form-control eiis-loaded">' +
-                            '<option value="5">显示5项</option>' +
-                            '<option value="10">显示10项</option>' +
-                            '<option value="25" selected="selected">显示25项</option>' +
-                            '<option value="50">显示50项</option>' +
-                            '<option value="100">显示100项</option>' +
-                            '<option value="-1">显示所有</option>' +
-                        '</select>' +
-                    '</div>' +
-                    '<div class="table-custom-ribbon"></div>' +
-                '</div>'+
-            '</div>';
-        //分页栏
-        var myFooter = '' +
-            '<div class="row" style="margin: 0px 0px 10px 0px;">' +
-                '<div class="col-sm-3 col-xs-12" style="min-height: 31px;line-height: 31px;padding: 0px 5px;"><div class="table-info">第 0 至 0 项，共 0 项</div></div>' +
-                '<div class="col-sm-9 col-xs-12" style="padding: 0px 5px;">' +
-                    '<ul class="pagination table-pagination pull-right">' +
-                        '<li class="table-page-first hidden-xs disabled"><a href="#this" data-page-number="1">首页</a></li>' +
-                        '<li class="table-page-prev  disabled"><a href="#this" data-page-number="0">上页</a></li>' +
-                        '<li class="table-page-next"><a href="#this" data-page-number="2">下页</a></li>' +
-                        '<li class="table-page-last hidden-xs"><a href="#this" data-page-number="3">尾页</a></li>' +
-                    '</ul>' +
-                '</div>' +
-            '</div>';
-        myDiv.addClass("table table-striped table-bordered table-hover table-condensed").append(myHead).append($("<div/>").addClass("panel-body table-panel-body").append(mytoolbar).append($("<div/>").addClass("table-responsive")).append(myFooter));
-        //
+        //设置每页条数
+        myDiv.find(".table-toolbar .pull-left select").val(defaultOpt.rows);
+        //绑定工具栏
+        myDiv.find(".table-toolbar .table-custom-ribbon").empty();
+        if(defaultOpt.toolbar != ""){
+            myDiv.find(".table-toolbar .table-custom-ribbon").html($(defaultOpt.toolbar).html());
+            $(defaultOpt.toolbar).remove();
+        }
+
+        //设置表格的表头
+        var col = defaultOpt.columns;
+        if(col.length < 1){
+           console.log("请设置表格");
+           return;
+        }
+        // [{field:'name',title:'名称',align:'left',width:80,template:function(){}},{},{}]
+        var myTh = '<tr>';
+        for(var i = 0 ;i < col.length;i++){
+            var c = col[i];
+            myTh += '<th style="'+((c.align==null ||c.align=="")?"":("text-align:"+c.align+";"))+((c.width==null ||c.width=="")?"":("width:"+c.width+";"))+'">'+c.title+'</th>';
+        }
+        myTh += '</tr>';
+        myDiv.find(".table-responsive table>thead").empty();
+        myDiv.find(".table-responsive table>thead").append(myTh);
+        $.ghTable.set_table();
+
     };
 })(jQuery);
