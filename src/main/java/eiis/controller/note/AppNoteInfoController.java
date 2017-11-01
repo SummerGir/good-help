@@ -46,11 +46,11 @@ public class AppNoteInfoController {
     @RequestMapping("saveMain")
     @ResponseBody
     public ObjectNode saveMain(HttpServletRequest request){
-        String mainId = request.getParameter("mainId");
+        String mainId = request.getParameter("noteId");
         String typeDetailId = request.getParameter("typeDetailId");
         String title = request.getParameter("title");
         String content = request.getParameter("content");
-        String memberId = request.getParameter("memberId");
+        String memberId = "张三";
         AppNoteInfoEntity entity = new AppNoteInfoEntity();
         if(StringUtils.isBlank(mainId)){
             entity.setNoteId(UUID.randomUUID().toString());

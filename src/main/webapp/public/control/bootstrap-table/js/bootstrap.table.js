@@ -39,7 +39,7 @@
                     return;
                 }
                 var r = rs.rows;
-                if(r.length > 0){
+                if(r != null && r.length > 0){
 
                     //设置表格的表头
                     var col = defaultOpt.columns;

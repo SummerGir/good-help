@@ -17,8 +17,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/public/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="/theme/pc/main/css/index.css" rel="stylesheet">
+    <!---->
+    <script type="text/javascript" src="/public/control/util/eiis.foundation.js"></script>
+    <!--jquery-->
     <script type="text/javascript" src="/public/jquery/jquery.js"></script>
-    <script type="text/javascript" src="/public/bootstrap/js/bootstrap.min.js"></script>
+    <!--bootstrap-->
+    <script type="text/javascript" src="/public/bootstrap/js/bootstrap.js"></script>
+
+    <!--提示框-->
+    <script type="text/javascript" src="/public/control/message/message.js"></script>
     <!--子页面head中的内容-->
     <master:ContentPlaceHolder id="head"/>
 
