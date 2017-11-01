@@ -1,21 +1,22 @@
 package eiis.controller.note;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import eiis.app.note.entity.AppNoteInfoEntity;
 import eiis.app.note.service.AppNoteInfoService;
-import net.sf.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import util.dataManage.GenericController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Controller("eiis.controller.app.note.AppNoteInfoController")
 @RequestMapping("/app/note/info")
@@ -24,50 +25,61 @@ public class AppNoteInfoController {
     protected AppNoteInfoService mainService;
 
     //得到甘特图
-    @RequestMapping("getDetailInfo")
+    @RequestMapping("getMainInfo")
     @ResponseBody
-    public String getDetailInfo(HttpServletRequest request, @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer rows) throws Exception {
-        Map<String, Object> table = new HashMap<String, Object>();
+    public String getMainInfo(HttpServletRequest request, @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer rows) throws Exception {
+        String mainId = request.getParameter("mainId");
+        String searchKey = request.getParameter("searchKey");
+        String memberId = request.getParameter("memberId");
+        String beginTime = request.getParameter("beginTime");
+        String overTime = request.getParameter("overTime");
+        String typeDetailId = request.getParameter("typeDetailId");
 
-        List<Map<String,Object>> list =  new ArrayList<>();
+        List<Map<String,Object>> list =  mainService.getMainInfo(mainId,searchKey,memberId,beginTime,overTime,typeDetailId,page,rows);
+        int count = mainService.getMainCount(mainId,searchKey,memberId,beginTime,overTime,typeDetailId);
 
-        int count = list.size();
-        int total = count / rows;
-        if (total == 0) {
-            total = 1;
-        } else {
-            if ((count % rows) != 0) {
-                total++;
-            }
-        }
-        table.put("page", page);
-        table.put("records", count);
-        table.put("total", total);
-        table.put("rows", list);
-        JSONObject jsonObject = JSONObject.fromObject(table);
-        return jsonObject.toString();
+        return GenericController.getTable(list,count,page,rows);
     }
 
-    public ObjectNode returnSuccess(String msg) {
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectNode re = mapper.createObjectNode();
-        if(StringUtils.isBlank(msg)){
-            msg="操作成功！";
+    @RequestMapping("saveMain")
+    @ResponseBody
+    public ObjectNode saveMain(HttpServletRequest request){
+        String mainId = request.getParameter("mainId");
+        String typeDetailId = request.getParameter("typeDetailId");
+        String title = request.getParameter("title");
+        String content = request.getParameter("content");
+        String memberId = request.getParameter("memberId");
+        AppNoteInfoEntity entity = new AppNoteInfoEntity();
+        if(StringUtils.isBlank(mainId)){
+            entity.setNoteId(UUID.randomUUID().toString());
+            entity.setTypeDetailId(typeDetailId);
+        }else{
+            entity = mainService.findOne(mainId);
         }
-        re.put("error", 0);
-        re.put("msg", msg);
-        return re;
+        entity.setTitle(title);
+        entity.setContent(content);
+        entity.setSysTime(new Timestamp(new Date().getTime()));
+        entity.setMemberId(memberId);
+
+        try{
+            mainService.save(entity);
+        }catch (Exception e){
+            e.printStackTrace();
+            return GenericController.returnFaild(null);
+        }
+        return GenericController.returnSuccess(null);
     }
 
-    public ObjectNode returnFaild(String msg) {
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectNode re = mapper.createObjectNode();
-        if(StringUtils.isBlank(msg)){
-            msg="操作失败！";
+    @RequestMapping("deleteMain")
+    @ResponseBody
+    public ObjectNode deleteMain(HttpServletRequest request){
+        String mainId = request.getParameter("mainId");
+        try{
+            mainService.delete(mainId);
+        }catch (Exception e){
+            e.printStackTrace();
+            return GenericController.returnFaild(null);
         }
-        re.put("error", 1);
-        re.put("msg", msg);
-        return re;
+        return GenericController.returnSuccess(null);
     }
-
 }
