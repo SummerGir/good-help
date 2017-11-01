@@ -32,7 +32,8 @@ public class AppNoteInfoController {
         String memberId = request.getParameter("memberId");
         String beginTime = request.getParameter("beginTime");
         String overTime = request.getParameter("overTime");
-        String typeDetailId = request.getParameter("typeDetailId");
+        String typeDetailId = "bbbb";
+        //String typeDetailId = request.getParameter("typeDetailId");
 
         if(StringUtils.isBlank(typeDetailId)){
             return GenericController.getTable(null,0,page,rows);

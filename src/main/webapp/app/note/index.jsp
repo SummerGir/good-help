@@ -75,15 +75,23 @@
                     page:1,//加载数据的初始页
                     rows:5,//每页默认条数
                     columns:[
-                        {name:'title',title:"菜单",align:'left'},
-                        {name:'menuLevel',title:'等级',align:'center',width:'15%'},
-                        {name:'outlineLevel',title:"大纲级别",align:'center',width:'25%'}
+                        {name:'title',title:"标题",align:'left'},
+                        {name:'content',title:'内容',align:'left',width:'15%'},
+                        {name:'sysTime',title:"编制日期",align:'center',width:'25%'}
                         ]//表格列[{field:'name',title:'名称',align:'left',width:80,template:function(){}},{},{}]
                 };
                 $.ghTable.set_div(option);
+                $("#myTableTest").on("table.created", function() {
+//                    $.message("创建表格");
+                });
+                $("#myTableTest").on("table.row.selected", function(event,eventData) {
+//                    console.log(event);
+//                    console.log(eventData);
+//                    $.message("选中数据");
+                });
             });
             function add_main(){
-
+                console.log( $("#myTableTest").ghTable("getSelected"));
                 $('#addNote').modal('show');
             }
             function save_main(){

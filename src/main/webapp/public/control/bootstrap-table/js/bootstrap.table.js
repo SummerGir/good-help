@@ -23,6 +23,13 @@
     $.ghTable.set_table = function(){
         //定义表格对象
         var myDiv = $(defaultOpt.id);
+        var selectedRow;
+        myDiv.setSelected = function(selectedRow){
+            this.selectedRow = selectedRow;
+        };
+        myDiv.getSelected = function(){
+            return this.selectedRow;
+        };
         if(defaultOpt.data == undefined || defaultOpt.data == null || defaultOpt.data == ""){
             defaultOpt.data = {};
         }
@@ -39,15 +46,17 @@
                     return;
                 }
                 var r = rs.rows;
+                //首先清空表格中的内容
+                myDiv.find(".table-responsive table>tbody").empty();
+                //定义表格产生事件
+                myDiv.triggerHandler("table.created");
                 if(r != null && r.length > 0){
 
-                    //设置表格的表头
                     var col = defaultOpt.columns;
                     //组建tbody中的行
-                    var myTd = '';
                     for(var m = 0;m < r.length;m++){
                         var row = r[m];
-                        myTd += '<tr>';
+                        var myTd = $("<tr/>").attr("data-num",m);
                         for(var i = 0 ;i < col.length;i++){
                             var c = col[i];
                             var val = row[c.name];
@@ -55,13 +64,23 @@
                             if(tem != undefined && tem != null && typeof tem === 'function'){
                                 val = tem(val);
                             }
-                            myTd += '<td style="'+((c.align==null ||c.align=="")?"":("text-align:"+c.align+";"))+'">'+val+'</td>';
+                            myTd.append('<td style="'+((c.align==null ||c.align=="")?"":("text-align:"+c.align+";"))+'">'+val+'</td>');
                         }
-                        myTd += '</tr>';
+                        myDiv.find(".table-responsive table>tbody").append(myTd);
+                        myTd.bind("click",function(){
+                            var m = $(this).attr("data-num");
+                            var clas = "info";
+                            if(!$(this).hasClass(clas)){
+                                $(this).parent().children().removeClass(clas);
+                                $(this).addClass(clas);
+                            }else{
+                                $(this).parent().children().removeClass(clas);
+                            }
+                            myDiv.triggerHandler("table.row.selected", [{row: r[m], tr: $(this)}]);
+                            $.ghTable.setSelected(r[m]);
+                        });
                     }
 
-                    myDiv.find(".table-responsive table>tbody").empty();
-                    myDiv.find(".table-responsive table>tbody").append(myTd);
                 }
 
                 defaultOpt.page = rs.page;

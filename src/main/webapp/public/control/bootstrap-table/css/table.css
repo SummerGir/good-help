@@ -5,6 +5,11 @@
 .table-toolbar {
     padding: 1px;
 }
+.table-responsive table>tbody>.active,.table-responsive table>tbody>.active td{
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
 
 /*.table-toolbar-fixed-top {*/
     /*position: fixed;*/
