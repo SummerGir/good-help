@@ -48,6 +48,7 @@ public class AppNoteInfoService   extends
 	//得到菜单列表
 	public List<Map<String,Object>> getMainInfo(String mainId,String searchKey,String memberId,String beginTime,String overTime,String typeDetailId,int page,int rows)throws Exception{
 		Map<String,Object> values = new HashedMap();
+		values.put("typeDetailId",typeDetailId);
 		if(StringUtils.isNotBlank(mainId)){
 			values.put("mainId",mainId);
 		}if(StringUtils.isNotBlank(searchKey)){
@@ -58,16 +59,13 @@ public class AppNoteInfoService   extends
 			values.put("beginTime",beginTime);
 		}if(StringUtils.isNotBlank(overTime)){
 			values.put("overTime",overTime);
-		}if(StringUtils.isNotBlank(typeDetailId)){
-			values.put("typeDetailId",typeDetailId);
 		}
-		String baseSql = "select ani.NOTE_ID,ani.TITLE,ani.CONTENT,ani.SYS_TIME,ani.MEMBER_ID,cmi.MEMBER_NAME from app_note_info ani left join core_member_info cmi on ani.MEMBER_ID=cmi.MEMBER_ID where 1=1 " +
+		String baseSql = "select ani.NOTE_ID,ani.TITLE,ani.CONTENT,ani.SYS_TIME,ani.MEMBER_ID,cmi.MEMBER_NAME from app_note_info ani left join core_member_info cmi on ani.MEMBER_ID=cmi.MEMBER_ID where ani.TYPE_DETAIL_ID=:typeDetailId " +
 				(StringUtils.isNotBlank(mainId)?" and ani.NOTE_ID=:mainId ":"")+
 				(StringUtils.isNotBlank(searchKey)?" and (locate(:searchKey,ani.TITLE)>0 or locate(:searchKey,ani.CONTENT)>0) ":"")+
 				(StringUtils.isNotBlank(memberId)?" and ani.MEMBER_ID=:memberId ":"")+
 				(StringUtils.isNotBlank(beginTime)?" and ani.SYS_TIME>=:beginTime ":"")+
 				(StringUtils.isNotBlank(overTime)?" and ani.SYS_TIME<=:overTime ":"")+
-				(StringUtils.isNotBlank(typeDetailId)?" and ani.TYPE_DETAIL_ID=:typeDetailId ":"")+
 				" order by ani.SYS_TIME desc";
 		String[] fields = {"noteId", "title", "content", "sysTime", "memberId","memberName"};
 
@@ -82,14 +80,13 @@ public class AppNoteInfoService   extends
 		return list;
 	}
 	public int getMainCount(String mainId,String searchKey,String memberId,String beginTime,String overTime,String typeDetailId){
-		String baseSql = "select count(1) from app_note_info ani where 1=1 " +
+		String baseSql = "select count(1) from app_note_info ani where ani.TYPE_DETAIL_ID=:typeDetailId " +
 				(StringUtils.isNotBlank(mainId)?" and ani.NOTE_ID=:mainId ":"")+
 				(StringUtils.isNotBlank(searchKey)?" and (locate(:searchKey,ani.TITLE)>0 or locate(:searchKey,ani.CONTENT)>0) ":"")+
 				(StringUtils.isNotBlank(memberId)?" and ani.MEMBER_ID=:memberId ":"")+
 				(StringUtils.isNotBlank(beginTime)?" and ani.SYS_TIME>=:beginTime ":"")+
-				(StringUtils.isNotBlank(overTime)?" and ani.SYS_TIME<=:overTime ":"")+
-				(StringUtils.isNotBlank(typeDetailId)?" and ani.TYPE_DETAIL_ID=:typeDetailId ":"");
-		Query query = entityManager.createNativeQuery(baseSql);
+				(StringUtils.isNotBlank(overTime)?" and ani.SYS_TIME<=:overTime ":"");
+		Query query = entityManager.createNativeQuery(baseSql).setParameter("typeDetailId",typeDetailId);
 		if(StringUtils.isNotBlank(mainId)){
 			query.setParameter("mainId",mainId);
 		}if(StringUtils.isNotBlank(searchKey)){
@@ -100,8 +97,6 @@ public class AppNoteInfoService   extends
 			query.setParameter("beginTime",beginTime);
 		}if(StringUtils.isNotBlank(overTime)){
 			query.setParameter("overTime",overTime);
-		}if(StringUtils.isNotBlank(typeDetailId)){
-			query.setParameter("typeDetailId",typeDetailId);
 		}
 		int count = 0;
 		List list = query.getResultList();

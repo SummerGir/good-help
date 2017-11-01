@@ -13,12 +13,12 @@
         <script type="text/javascript" src="/public/control/bootstrap-table/js/bootstrap.table.js"></script>
     </master:Content>
     <master:Content contentPlaceHolderId="body">
-        <div id="myTableTest"> aaa</div>
+        <div id="myTableTest"></div>
         <script type="text/javascript">
             $(document).ready(function(){
                 var option = {
                     id:"#myTableTest",//需要绑定的Id或class
-                    url:"/app/note/info/getDetailInfo.do",//表格请求的路径
+                    url:"/app/note/info/getMainInfo.do",//表格请求的路径
                     type:"post",//请求方式
                     data:"",//请求的参数
                     dataType:"json",//请求的返回格式

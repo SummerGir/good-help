@@ -24,7 +24,6 @@ public class AppNoteInfoController {
     @Autowired
     protected AppNoteInfoService mainService;
 
-    //得到甘特图
     @RequestMapping("getMainInfo")
     @ResponseBody
     public String getMainInfo(HttpServletRequest request, @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer rows) throws Exception {
@@ -35,6 +34,9 @@ public class AppNoteInfoController {
         String overTime = request.getParameter("overTime");
         String typeDetailId = request.getParameter("typeDetailId");
 
+        if(StringUtils.isBlank(typeDetailId)){
+            return GenericController.getTable(null,0,page,rows);
+        }
         List<Map<String,Object>> list =  mainService.getMainInfo(mainId,searchKey,memberId,beginTime,overTime,typeDetailId,page,rows);
         int count = mainService.getMainCount(mainId,searchKey,memberId,beginTime,overTime,typeDetailId);
 
