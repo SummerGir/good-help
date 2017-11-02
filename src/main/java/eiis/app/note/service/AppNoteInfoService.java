@@ -13,6 +13,7 @@ import util.spring.ApplicationContext;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -70,10 +71,14 @@ public class AppNoteInfoService   extends
 		String[] fields = {"noteId", "title", "content", "sysTime", "memberId","memberName"};
 
 		List<Map<String, Object>> list = getNativeMapList(entityManager, baseSql, values, fields, page, rows);
+
 		for (Map<String, Object> m : list) {
 			for (Map.Entry<String, Object> e : m.entrySet()) {
 				if (e.getValue() == null) {
 					m.put(e.getKey(), "");
+				}
+				if("sysTime".equals(e.getKey().toString())){
+					m.put(e.getKey(),e.getValue().toString().split(" ")[0]);
 				}
 			}
 		}

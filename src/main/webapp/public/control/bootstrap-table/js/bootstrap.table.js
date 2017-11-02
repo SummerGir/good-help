@@ -3,11 +3,9 @@
  */
 //定义一个匿名函数
 (function ($,undefined){
-    if($.ghTable == undefined){
-        $.ghTable = {};
-    }
     //默认表格控件参数
     var defaultOpt = {
+        isCreate:false,
         id:"",//需要绑定的Id或class
         url:"",//表格请求的路径
         type:"post",//请求方式
@@ -20,16 +18,9 @@
         rows:10,//每页默认条数
         columns:[]//表格列[{field:'name',title:'名称',align:'left',width:80,template:function(){}},{},{}]
     };
-    $.ghTable.set_table = function(){
+    var set_table = function(){
         //定义表格对象
         var myDiv = $(defaultOpt.id);
-        var selectedRow;
-        myDiv.setSelected = function(selectedRow){
-            this.selectedRow = selectedRow;
-        };
-        myDiv.getSelected = function(){
-            return this.selectedRow;
-        };
         if(defaultOpt.data == undefined || defaultOpt.data == null || defaultOpt.data == ""){
             defaultOpt.data = {};
         }
@@ -73,11 +64,12 @@
                             if(!$(this).hasClass(clas)){
                                 $(this).parent().children().removeClass(clas);
                                 $(this).addClass(clas);
+                                myDiv.triggerHandler("table.row.selected", [{row: r[m], tr: $(this)}]);
                             }else{
                                 $(this).parent().children().removeClass(clas);
+                                myDiv.triggerHandler("table.row.selected", [{row: null, tr: null}]);
                             }
-                            myDiv.triggerHandler("table.row.selected", [{row: r[m], tr: $(this)}]);
-                            $.ghTable.setSelected(r[m]);
+
                         });
                     }
 
@@ -105,7 +97,6 @@
                     myDiv.find(".table-footer .table-page-next").addClass("disabled");
                     myDiv.find(".table-footer .table-page-last").addClass("disabled");
                 }
-                console.log(defaultOpt.page);
                 var ts = defaultOpt.page-2<1?1:defaultOpt.page-2;
                 var te = defaultOpt.page+2>total?total:defaultOpt.page+2;
                 var myLi = '';
@@ -119,7 +110,6 @@
                     if($(this).hasClass("disabled")){
                        return;
                     }
-                    console.log($(this).html());
                     if($(this).hasClass("table-page-first")){
                         //首页
                         defaultOpt.page = 1;
@@ -136,7 +126,7 @@
                         //下一页
                         defaultOpt.page = $(this).find("a").attr("data-page-number");
                     }
-                    $.ghTable.set_table();
+                    set_table();
                 });
 
             },error:function(){
@@ -144,7 +134,7 @@
             }
         });
     };
-    $.ghTable.set_div= function(options){
+    $.fn.ghTable= function(options){
 
         //覆盖默认参数
         if(options != null && options != undefined){
@@ -152,45 +142,52 @@
                 defaultOpt[opt] = options[opt];
             }
         }
-        //定义表格对象
-        var myDiv = $(defaultOpt.id);
-        myDiv.empty();
-        $.ajax({
-            url: "/public/control/bootstrap-table/templet.jsp",
-            data: {isPage:defaultOpt.isPage,haveHead:defaultOpt.haveHead},
-            async: false,
-            cache: false,
-            dataType: "html",
-            success: function (data, textStatus, jqXHR) {
-                console.log(defaultOpt);
-                $(defaultOpt.id).html(data);
+        if(!defaultOpt.isCreate){
+            defaultOpt.isCreate = true;
+            //定义表格对象
+            var myDiv = $(defaultOpt.id);
+            myDiv.empty();
+            $.ajax({
+                url: "/public/control/bootstrap-table/templet.jsp",
+                data: {isPage:defaultOpt.isPage,haveHead:defaultOpt.haveHead},
+                async: false,
+                cache: false,
+                dataType: "html",
+                success: function (data, textStatus, jqXHR) {
+                    $(defaultOpt.id).html(data);
+                }
+            });
+            //设置每页条数,如果不分页，则显示全部
+            if(!defaultOpt.isPage){
+                defaultOpt.rows = -1;
+                myDiv.find(".table-toolbar .pull-left select").prop("disabled",true);
             }
-        });
-        //设置每页条数
-        myDiv.find(".table-toolbar .pull-left select").val(defaultOpt.rows);
-        //绑定工具栏
-        myDiv.find(".table-toolbar .table-custom-ribbon").empty();
-        if(defaultOpt.toolbar != ""){
-            myDiv.find(".table-toolbar .table-custom-ribbon").html($(defaultOpt.toolbar).html());
-            $(defaultOpt.toolbar).remove();
+            myDiv.find(".table-toolbar .pull-left select").val(defaultOpt.rows);
+            //绑定工具栏
+            myDiv.find(".table-toolbar .table-custom-ribbon").empty();
+            if(defaultOpt.toolbar != ""){
+                myDiv.find(".table-toolbar .table-custom-ribbon").html($(defaultOpt.toolbar).html());
+                $(defaultOpt.toolbar).hide();
+            }
+
+            //设置表格的表头
+            var col = defaultOpt.columns;
+            if(col.length < 1){
+                console.log("请设置表格");
+                return;
+            }
+            // [{field:'name',title:'名称',align:'left',width:80,template:function(){}},{},{}]
+            var myTh = '<tr>';
+            for(var i = 0 ;i < col.length;i++){
+                var c = col[i];
+                myTh += '<th style="'+((c.align==null ||c.align=="")?"":("text-align:"+c.align+";"))+((c.width==null ||c.width=="")?"":("width:"+c.width+";"))+'">'+c.title+'</th>';
+            }
+            myTh += '</tr>';
+            myDiv.find(".table-responsive table>thead").empty();
+            myDiv.find(".table-responsive table>thead").append(myTh);
         }
 
-        //设置表格的表头
-        var col = defaultOpt.columns;
-        if(col.length < 1){
-           console.log("请设置表格");
-           return;
-        }
-        // [{field:'name',title:'名称',align:'left',width:80,template:function(){}},{},{}]
-        var myTh = '<tr>';
-        for(var i = 0 ;i < col.length;i++){
-            var c = col[i];
-            myTh += '<th style="'+((c.align==null ||c.align=="")?"":("text-align:"+c.align+";"))+((c.width==null ||c.width=="")?"":("width:"+c.width+";"))+'">'+c.title+'</th>';
-        }
-        myTh += '</tr>';
-        myDiv.find(".table-responsive table>thead").empty();
-        myDiv.find(".table-responsive table>thead").append(myTh);
-        $.ghTable.set_table();
+        set_table();
 
     };
 })(jQuery);

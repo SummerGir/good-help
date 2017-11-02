@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<div class="modal fade" tabindex="-1" aria-hidden="true" data-backdrop="static">
+<div class="modal fade" tabindex="-1" aria-hidden="true" data-backdrop="static" >
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -15,7 +15,7 @@
                     <span></span>
                 </h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" >
 
             </div>
             <div class="modal-footer">

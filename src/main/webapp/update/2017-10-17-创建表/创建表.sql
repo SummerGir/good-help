@@ -41,12 +41,16 @@ CREATE TABLE `app_type_detail` (
 	`TYPE_ID` CHAR(36) NOT NULL COMMENT '对应app_type_info表主键',
 	`DETAIL_NAME` VARCHAR(100) NOT NULL COMMENT '笔记类型（工作、生活等），日程消费类型（逛超市、买菜、外卖等），支付方式（现金、信用卡等）',
 	`DETAIL_CODE` VARCHAR(50) NOT NULL,
+	`COMMENT` VARCHAR(1000) NULL DEFAULT NULL COMMENT '备注',
+	`IS_VALID` BIT(1) NOT NULL COMMENT '是否有效',
 	PRIMARY KEY (`TYPE_DETAIL_ID`)
 )
 COMMENT='类型明细表'
 COLLATE='utf8_general_ci'
 ENGINE=InnoDB
 ;
+
+
 
 CREATE TABLE `core_member_info` (
 	`MEMBER_ID` CHAR(36) NOT NULL COMMENT '用户编号',
