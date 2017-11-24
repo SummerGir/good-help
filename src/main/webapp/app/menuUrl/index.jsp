@@ -1,6 +1,8 @@
 <%@ page import="eiis.app.type.entity.TypeSelectEntity" %>
 <%@ page import="eiis.app.type.service.AppTypeDetailService" %>
 <%@ page import="org.apache.commons.lang3.StringUtils" %>
+<%@ page import="util.context.Context" %>
+<%@ page import="eiis.core.menuTree.entity.CoreMenuTreeInfoEntity" %>
 <%@ taglib prefix="master" uri="util.masterPage" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--
@@ -11,28 +13,17 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%
-    String typeDetailId = request.getParameter("typeDetailId");
-    String typeCode = "note";
-    TypeSelectEntity pse = AppTypeDetailService.getInstance().getTypeSelect(typeCode,typeDetailId);
-    typeDetailId= StringUtils.isNotBlank(pse.getSelectedTypeId())?pse.getSelectedTypeId():"00000000-00000000-00000000";
-    StringBuffer listOp = pse.getListOp();
-    StringBuffer finishedProOp = pse.getFinishedProOp();
-    StringBuffer doingProOp = pse.getDoingProOp();
 
+    CoreMenuTreeInfoEntity menuTree = Context.menuTree;
 %>
 <master:ContentPage>
-    <master:Content contentPlaceHolderId="title">随手记</master:Content>
+    <master:Content contentPlaceHolderId="title"><%=menuTree.getTitle()%></master:Content>
     <master:Content contentPlaceHolderId="head">
         <script type="text/javascript" src="/public/control/bootstrap-table/js/bootstrap.table.js"></script>
     </master:Content>
     <master:Content contentPlaceHolderId="body">
         <div class="row">
-            <jsp:include page="/app/type/select.jsp" >
-                <jsp:param name="listOp" value="<%=listOp%>"/>
-                <jsp:param name="finishedProOp" value="<%=finishedProOp%>"/>
-                <jsp:param name="doingProOp" value="<%=doingProOp%>"/>
-            </jsp:include>
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <!--表格-->
                 <div id="myTableTest"></div>
                 <!--表格的工具栏-->
@@ -92,13 +83,12 @@
         <script type="text/javascript">
             var myTable = $("#myTableTest");
             var selectedRow;
-            var _typeDetailId = "<%=typeDetailId%>";
             var loading = false;//控制项目列表频繁点击
             var option = {
                 id:"#myTableTest",//需要绑定的Id或class
-                url:"/app/note/getMainInfo.do",//表格请求的路径
+                url:"/core/menuUrl/getMainInfo.do",//表格请求的路径
                 type:"post",//请求方式
-                data:{typeDetailId:_typeDetailId},//请求的参数
+                data:{},//请求的参数
                 dataType:"json",//请求的返回格式
                 toolbar:"#main_table_customRibbon",//表格上面的工具栏用哪个容器
                 isPage:true,//是否分页
@@ -106,7 +96,9 @@
                 rows:5,//每页默认条数
                 columns:[
                     {name:'title',title:"标题",align:'left'},
-                    {name:'content',title:'内容',align:'left'},
+                    {name:'code',title:'编码',align:'left'},
+                    {name:'url',title:"路径",align:'left',width:'20%'},
+                    {name:'parameter',title:"参数",align:'left'},
                     {name:'sysTime',title:"编制日期",align:'center',width:'20%'}
                 ]//表格列[{field:'name',title:'名称',align:'left',width:80,template:function(){}},{},{}]
             };
@@ -122,16 +114,6 @@
                 });
             });
 
-            //点击项目名称
-            function click_type(typeDetailId,e){
-                if(loading)return;
-                loading = true;
-                $("#types_list li[class='active']").removeClass("active");
-                $(e).addClass("active");
-                _typeDetailId = typeDetailId;
-                option.data.typeDetailId = _typeDetailId;
-                myTable.ghTable(option);
-            }
             function add_main(){
                 $('#my_modal').modal('show');
             }
@@ -183,9 +165,8 @@
                     }
                 });
                 if(!flag) return;
-                postData["typeDetailId"] = _typeDetailId;
                 $.ajax({
-                    url:"/app/note/saveMain.do",  //请求路径
+                    url:"/core/menuUrl/saveMain.do",  //请求路径
                     data:postData, //请求参数
                     type:"post", //请求方式
                     async:true,  //是否异步，默认值true

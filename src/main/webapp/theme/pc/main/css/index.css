@@ -70,6 +70,9 @@ body{
 .list-group-item-click a,.list-group-item-click span{
     color: #fff !important;
 }
+.list-group-item-heading{
+    margin-left: 5px;
+}
 #accordion{
     border-right: 1px solid #ccc;
     background-color: #f8f8f8;
@@ -94,8 +97,8 @@ body{
 #accordion>li>ul a{
     padding: 8px 35px;
 }
-#accordion>li>ul a:hover{
-    background-color: #efefef;
+.list-group-item2-click,#accordion>li>ul a:hover{
+    background-color: #efefef !important;
     /*border-bottom: 1px solid #efefef !important;*/
     border-top: 1px solid #efefef !important;
 }

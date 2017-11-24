@@ -1,5 +1,9 @@
 package util.filter;
 
+import eiis.controller.core.memberInfo.CoreMemberInfoController;
+import eiis.core.memberInfo.service.CoreMemberInfoService;
+import util.context.Context;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,19 +36,11 @@ public class ContextInitFilter implements Filter {
             return;
         }
 
-        //if (Files.isDirectory(WebPathUtils.getWebAppRealPath(httpServletRequest.getRequestURI()))) {
-        //    if (httpServletRequest.getRequestURI().equals("/")) {
-        //        httpServletResponse.sendRedirect("/theme/current/index.jsp");
-        //    } else {
-        //        httpServletResponse.sendRedirect(WebPathUtils.resolveRelativePath(httpServletRequest.getRequestURI(), "index.jsp"));
-        //    }
-        //    return;
-        //}
+        if(Context.member == null){
+            System.out.println("请登录");
+            CoreMemberInfoService.getInstance().setMember();
+        }
 
-        //创建当前用户的上下文
-        //Context.createContext(
-        //        new EIISHttpServletRequest(httpServletRequest),
-        //        new EIISHttpServletResponse(httpServletResponse));
 
         chain.doFilter(httpServletRequest, httpServletResponse);
     }
