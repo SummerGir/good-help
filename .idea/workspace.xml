@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list id="3a8bab9e-4dd7-4031-b59a-bb3295f1022c" name="不提交" comment="" />
-    <list default="true" id="b54cd474-9a71-4f17-90d5-c6339f2637ba" name="Default" comment="">
+    <list default="true" id="b54cd474-9a71-4f17-90d5-c6339f2637ba" name="Default" comment="Commit Message">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -77,7 +77,8 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-2" />
+    <option name="x" value="38" />
+    <option name="y" value="6" />
     <option name="width" value="998" />
     <option name="height" value="1040" />
   </component>
@@ -260,7 +261,7 @@
       <workItem from="1508156087282" duration="728000" />
       <workItem from="1508159553530" duration="1252000" />
       <workItem from="1559030888777" duration="2799000" />
-      <workItem from="1559034166061" duration="174000" />
+      <workItem from="1559034166061" duration="551000" />
     </task>
     <task id="LOCAL-00001" summary="创建项目">
       <created>1508155980410</created>
@@ -297,14 +298,21 @@
       <option name="project" value="LOCAL" />
       <updated>1559032543997</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Commit Message">
+      <created>1559034375394</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1559034375394</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5059000" />
+    <option name="totallyTimeSpent" value="5436000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-2" y="0" width="998" height="1040" extended-state="0" />
+    <frame x="38" y="6" width="998" height="1040" extended-state="0" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -372,7 +380,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="创建项目" />
-    <option name="LAST_COMMIT_MESSAGE" value="创建项目" />
+    <MESSAGE value="Commit Message" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commit Message" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
