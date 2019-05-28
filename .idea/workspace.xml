@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list id="3a8bab9e-4dd7-4031-b59a-bb3295f1022c" name="不提交" comment="" />
+    <list id="3a8bab9e-4dd7-4031-b59a-bb3295f1022c" name="不提交" comment="不提交" />
     <list default="true" id="b54cd474-9a71-4f17-90d5-c6339f2637ba" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -246,7 +246,7 @@
       <workItem from="1508156087282" duration="728000" />
       <workItem from="1508159553530" duration="1252000" />
       <workItem from="1559030888777" duration="2799000" />
-      <workItem from="1559034166061" duration="1905000" />
+      <workItem from="1559034166061" duration="2185000" />
     </task>
     <task id="LOCAL-00001" summary="创建项目">
       <created>1508155980410</created>
@@ -304,11 +304,18 @@
       <option name="project" value="LOCAL" />
       <updated>1559035371968</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Commit Message">
+      <created>1559036110834</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1559036110834</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6790000" />
+    <option name="totallyTimeSpent" value="7070000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-5" y="6" width="1041" height="1040" extended-state="0" />
