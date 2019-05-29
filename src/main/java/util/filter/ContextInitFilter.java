@@ -18,31 +18,33 @@ public class ContextInitFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response,
-                         FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain){
+        try{
+            HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+            httpServletRequest.getSession(); //解决部分浏览器偶尔会丢失session的问题所加的代码 tj
+            HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 
-        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        httpServletRequest.getSession(); //解决部分浏览器偶尔会丢失session的问题所加的代码 tj
-        HttpServletResponse httpServletResponse = (HttpServletResponse) response;
+            //设置request与response的编码
+            httpServletRequest.setCharacterEncoding("utf-8");
+            httpServletResponse.setCharacterEncoding("utf-8");
+            httpServletResponse.addHeader("Access-Control-Allow-Origin", httpServletRequest.getHeader("Origin"));
+            httpServletResponse.addHeader("Access-Control-Allow-Credentials", "true");//开启 Cookie 支持，但 Origin 不能为 *。
+            httpServletResponse.addHeader("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept, Authorization");
 
-        //设置request与response的编码
-        httpServletRequest.setCharacterEncoding("utf-8");
-        httpServletResponse.setCharacterEncoding("utf-8");
-        httpServletResponse.addHeader("Access-Control-Allow-Origin", httpServletRequest.getHeader("Origin"));
-        httpServletResponse.addHeader("Access-Control-Allow-Credentials", "true");//开启 Cookie 支持，但 Origin 不能为 *。
-        httpServletResponse.addHeader("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept, Authorization");
+            if(httpServletRequest.getMethod().equalsIgnoreCase("OPTIONS")){
+                return;
+            }
 
-        if(httpServletRequest.getMethod().equalsIgnoreCase("OPTIONS")){
-            return;
+            if(Context.member == null){
+                System.out.println("请登录");
+                CoreMemberInfoService.getInstance().setMember();
+            }
+
+            chain.doFilter(httpServletRequest, httpServletResponse);
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
-        if(Context.member == null){
-            System.out.println("请登录");
-            CoreMemberInfoService.getInstance().setMember();
-        }
-
-
-        chain.doFilter(httpServletRequest, httpServletResponse);
     }
 
     @Override
