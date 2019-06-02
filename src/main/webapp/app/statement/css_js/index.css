@@ -1,0 +1,18 @@
+.my-col{
+    display: flex;
+}
+.my-col .my-left-div{
+    height: 36px;
+    line-height: 36px;
+    margin-right: 10px;
+    width: 60px;
+}
+.my-col .my-right-div{
+    flex: 1;
+}
+.my-search-div{
+    text-align: right;
+}
+.my-search-div button{
+    width: 50%;!important;
+}
