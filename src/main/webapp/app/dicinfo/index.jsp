@@ -67,7 +67,7 @@
                         <div class="row">
                             <div class="col-xs-6 col-md-6">
                                 <h5>字典价格:</h5>
-                                <input type="text" class="form-control" name="price" placeholder="请填写字典价格：" required="required" onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')">
+                                <input type="text" class="form-control" name="price" placeholder="请填写字典价格：" required="required" onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')" onblur="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')">
                             </div>
                             <div class="col-xs-6 col-md-6">
                                 <h5>字典优先级:</h5>

@@ -67,6 +67,7 @@ public class AppDicInfoService extends GenericService<AppDicInfoEntity,String>{
         }
         return list;
     }
+
     public int getMainCount(){
         String baseSql = "select count(1) from app_dic_info";
         Query query = entityManager.createNativeQuery(baseSql);
@@ -76,5 +77,19 @@ public class AppDicInfoService extends GenericService<AppDicInfoEntity,String>{
             count = Integer.parseInt(list.get(0).toString());
         }
         return count;
+    }
+
+    public StringBuffer getDicOption(Boolean isHave)throws Exception{
+        List<Map<String,Object>> list = getMainInfo(1,-1);
+        StringBuffer sb = new StringBuffer();
+        if(isHave){
+            sb.append("<option value='' style='display:\'none\''>-请选择材料-</option>");
+        }
+
+        for(Map<String,Object> map : list){
+            sb.append("<option value='"+ map.get("dicId").toString() +"' pr='"+ map.get("price").toString() +"'>"+ map.get("dicName").toString() +"</option>");
+        }
+
+        return sb;
     }
 }

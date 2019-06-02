@@ -14,9 +14,7 @@ import util.spring.ApplicationContext;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service("eiis.app.meterialinput.service.AppMeterialInputService")
 public class AppMeterialInputService extends
@@ -47,6 +45,7 @@ public class AppMeterialInputService extends
 	public void delete(String mainId) throws Exception {
 		dao.delete(mainId);
 	}
+
 	//得到列表
 	public List<Map<String,Object>> getMainInfo(String mainId,String searchKey,int page,int rows)throws Exception{
 		Map<String,Object> values = new HashedMap();
@@ -55,11 +54,11 @@ public class AppMeterialInputService extends
 		}if(StringUtils.isNotBlank(searchKey)){
 			values.put("searchKey",searchKey);
 		}
-		String baseSql = "select main.INPUT_ID,main.INPUT_CODE,main.IS_VALID,main.SYS_TIME,main.`COMMENT`,group_concat(dic.DIC_NAME),sum(det.MONEY) from app_meterial_input main join app_meterial_input_detail det on main.INPUT_ID=det.INPUT_ID join app_dic_info dic on det.DIC_ID=dic.DIC_ID where 1=1 " +
+		String baseSql = "select main.INPUT_ID,main.INPUT_CODE,main.YEAR,main.MONTH,main.NUMBER,main.EXCEPTION,main.IS_VALID,main.SYS_TIME,main.`COMMENT`,group_concat(dic.DIC_NAME SEPARATOR  ';'),sum(det.MONEY) from app_meterial_input main join app_meterial_input_detail det on main.INPUT_ID=det.INPUT_ID join app_dic_info dic on det.DIC_ID=dic.DIC_ID where 1=1 " +
 				(StringUtils.isNotBlank(mainId)?" main.INPUT_ID=:mainId ":"")+
 				(StringUtils.isNotBlank(searchKey)?" and locate(:searchKey,main.INPUT_CODE)>0 ":"")+
 				" group by main.INPUT_ID order by main.SYS_TIME desc";
-		String[] fields = {"inputId", "inputCode", "isValid", "sysTime", "comment","dicName","money"};
+		String[] fields = {"inputId", "inputCode","year","month","number","exception", "isValid", "sysTime", "comment","dicName","money"};
 
 		List<Map<String, Object>> list = getNativeMapList(entityManager, baseSql, values, fields, page, rows);
 
@@ -73,6 +72,15 @@ public class AppMeterialInputService extends
 					m.put(e.getKey(),String.format("%.2f",Double.parseDouble(e.getValue().toString())));
 				}else if("isValid".equals(e.getKey().toString())){
 					m.put(e.getKey(),"true".equals(e.getValue().toString()) ? "已对账" : "未对账");
+				}else if("dicName".equals(e.getKey().toString())){
+					List<String> dicNames = new ArrayList<>();
+					for(String s : e.getValue().toString().split("[,;]")){
+						if(!dicNames.contains(s)){
+							dicNames.add(s);
+						}
+					}
+
+					m.put(e.getKey(),StringUtils.join(dicNames,";"));
 				}
 			}
 		}
@@ -102,7 +110,7 @@ public class AppMeterialInputService extends
 		int n = 5;
 		StringBuffer sb = new StringBuffer();
 		if(isHave){
-			sb.append("<option value='' style='display:\'none\''>-请选择年份-</option>");
+			sb.append("<option value='' style='display:none'>-请选择年份-</option>");
 		}
 		while (n > 0){
 			sb.append("<option value='"+ c.get(Calendar.YEAR) +"'>"+ c.get(Calendar.YEAR) +"年</option>");
@@ -116,14 +124,16 @@ public class AppMeterialInputService extends
 		int n = 12;
 		StringBuffer sb = new StringBuffer();
 		if(isHave){
-			sb.append("<option value='' style='display:\'none\''>-请选择月份-</option>");
+			sb.append("<option value='' style='display:none'>-请选择月份-</option>");
 		}
-		while (n > 0){
-			int m = c.get(Calendar.MONTH) + 1 ;
-			sb.append("<option value='"+ m +"'>"+ (m > 9 ? m : ("0" + m)) +"月</option>");
-			c.set(Calendar.MONTH,c.get(Calendar.MONTH) - 1);
-			n--;
-		}
+        int m = c.get(Calendar.MONTH) + 1 ;
+        for (int i = 1; i <= n; i++) {
+            String sel = "";
+            if(m == i){
+                sel = "selected='selected'";
+            }
+            sb.append("<option value='"+ i +"' "+ sel +">"+ (i > 9 ? i : ("0" + i)) +"月</option>");
+        }
 		return sb;
 	}
 
@@ -132,7 +142,7 @@ public class AppMeterialInputService extends
 		int n = 12;
 		StringBuffer sb = new StringBuffer();
 		if(isHave){
-			sb.append("<option value='' style='display:\'none\''>-请选择例外-</option>");
+			sb.append("<option value='' style='display:none'>-请选择字母-</option>");
 		}
 
 		String[] z = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};

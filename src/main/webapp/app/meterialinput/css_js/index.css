@@ -1,0 +1,40 @@
+.detail-div{
+    margin-top: 30px;
+}
+.detail-div table thead{
+    background-color: #efefef;
+}
+
+.detail-div table tbody .caozuo>div{
+    display: flex;
+    text-align: center;
+}
+.detail-div table tbody .caozuo>div>div{
+    flex: 1;
+    margin: 0px 8px;
+    font-size: 20px;
+    line-height: 30px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.detail-div table tbody .caozuo>div>div:first-child{
+    border: 1px solid #5cb85c;
+    color: #5cb85c;
+}
+.detail-div table tbody .caozuo>div>div:last-child{
+    border: 1px solid #d9534f;
+    color: #d9534f;
+}
+
+.detail-div table>tfoot td{
+    text-align: center;
+    padding: 20px;
+}
+.detail-div table>tfoot td>div{
+    display: inline;
+    padding: 10px;
+    border: 1px solid #5cb85c;
+    color: #5cb85c;
+    border-radius: 4px;
+    cursor: pointer;
+}
