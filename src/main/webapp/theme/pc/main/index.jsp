@@ -48,10 +48,10 @@
 <body>
 
 <!-- 顶部导航栏 开始 -->
-<nav class="navbar navbar-inverse navbar-fixed-top main-top-nav" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top main-top-nav" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/theme/pc/index.jsp">好管家</a>
+            <a class="navbar-brand" style="padding-top: 15px;" href="/theme/pc/index.jsp">&nbsp;&nbsp;&nbsp;&nbsp;好&nbsp;&nbsp;&nbsp;&nbsp;管&nbsp;&nbsp;&nbsp;&nbsp;家</a>
         </div>
         <div>
             <ul class="nav navbar-nav navbar-right">
@@ -121,21 +121,21 @@
 
     <!-- 右侧导航栏 开始 -->
     <div class="main-right-div">
-        <nav class="navbar navbar-default main-center2-nav" role="navigation">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <span style="font-size: 15px;margin-right: 5px;" class="<%=(menuTree.getIcon()==null || StringUtils.isBlank(menuTree.getIcon().toString()))?"glyphicon glyphicon-file":menuTree.getIcon()%>"></span>
-                    <span style="font-size: 16px;font-weight: bold;color: #000 ;line-height: 45px;">
-                        <%=menuTree.getTitle() == null ? "" : menuTree.getTitle()%>
-                    </span>
-                </div>
-                <div class="navbar-header  navbar-right">
-                    <ol class="breadcrumb">
-                        <%--<li class="active">用户管理</li>--%>
-                    </ol>
-                </div>
-            </div>
-        </nav>
+        <%--<nav class="navbar navbar-default main-center2-nav" role="navigation">--%>
+            <%--<div class="container-fluid">--%>
+                <%--<div class="navbar-header">--%>
+                    <%--<span style="font-size: 15px;margin-right: 5px;" class="<%=(menuTree.getIcon()==null || StringUtils.isBlank(menuTree.getIcon().toString()))?"glyphicon glyphicon-file":menuTree.getIcon()%>"></span>--%>
+                    <%--<span style="font-size: 16px;font-weight: bold;color: #000 ;line-height: 45px;">--%>
+                        <%--<%=menuTree.getTitle() == null ? "" : menuTree.getTitle()%>--%>
+                    <%--</span>--%>
+                <%--</div>--%>
+                <%--<div class="navbar-header  navbar-right">--%>
+                    <%--<ol class="breadcrumb">--%>
+                        <%--&lt;%&ndash;<li class="active">用户管理</li>&ndash;%&gt;--%>
+                    <%--</ol>--%>
+                <%--</div>--%>
+            <%--</div>--%>
+        <%--</nav>--%>
         <!--子页面中的正文-->
         <div class="col-md-12 main-right-div-content"><master:ContentPlaceHolder id="body"/></div>
 
@@ -148,9 +148,9 @@
         //左侧导航栏点击事件
         $("#accordion a").on("click",function(){
 
-            var clas1 = "list-group-item-click";
+            var clas1 = "list-group-item2-click";
             var clas2 = "my-in";
-            var clas3 = "list-group-item2-click";
+            var clas3 = "list-group-item-click";
             //是否选中过
             var has = $(this).hasClass(clas1);
             var parentId = "#"+$(this).parent().parent().attr("id");
@@ -223,7 +223,7 @@
     function selectMenu(){
         var mId = menuTreeId;
         if(mId != ""){
-            $("#item_"+mId).addClass("list-group-item2-click");
+            $("#item_"+mId).addClass("list-group-item-click");
             var parent = $("#item_"+mId).parent().parent();
             var i = 0;
             while ("accordion" != $(parent).attr("id") && "" != $(parent).attr("id")){

@@ -28,7 +28,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-10">
-                        <div class="row">
+                        <div class="row" style="margin-bottom: 10px;">
                             <div class="col-md-4 my-col">
                                 <div class="my-left-div">单据编号：</div>
                                 <div class="my-right-div"><input type="text" class="form-control" name="inputCode" placeholder="请填写单据编号："></div>
@@ -62,7 +62,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4 my-col">
-                                <div class="my-left-div">结束日期</div>
+                                <div class="my-left-div">结束日期：</div>
                                 <div class="my-right-div">
                                     <input class="form-control" name="endTime" type="text" value="" readonly="readonly" style="background-color: #fff" placeholder="请选择结束日期：">
                                 </div>
@@ -70,7 +70,10 @@
                         </div>
                     </div>
                     <div class="col-md-2 my-search-div">
-                        <button onclick="search()" type="button" class="btn btn-primary"> <i class="glyphicon glyphicon-search"></i>查询</button>
+                        <button onclick="search()" type="button" class="btn btn-primary" style="margin-bottom: 10px;"> <i class="glyphicon glyphicon-search"></i>查询</button>
+                        <button onclick="search_show('search_form')" type="button" class="btn btn-primary">
+                            <i class="glyphicon glyphicon-refresh"></i>重置
+                        </button>
                     </div>
                 </div>
 
@@ -149,6 +152,19 @@
                 });
                 $("#myTableTest .form-inline>.table-toolbar").hide();
             });
+
+            //重置
+            function search_show(form){
+                $(".search-div input,.search-div select,.search-div textarea").each(function(){
+                    var name = $(this).attr("name");
+                    if("month" == name){
+                        return;
+                    }
+                    $(this).val("");
+                });
+                $(".search-div *[name='month']").val($(".search-div *[name='month']>option:first").attr("value"));
+                search()
+            }
 
             function search() {
                 var postData = {};

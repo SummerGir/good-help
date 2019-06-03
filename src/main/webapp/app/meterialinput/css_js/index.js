@@ -25,6 +25,13 @@ $(document).ready(function(){
     myTable.on("table.row.selected", function(event,eventData) {
         selectedRow = eventData.row;
     });
+    myTable.on("table.column.isValid.foramt", function (a, eventData) {
+        var row = eventData.row;
+        if(row.isValid == "已对账"){
+            eventData.ed.html("<span style='color:#5cb85c'>"+ row.isValid +"</span>");
+        }
+
+    });
 });
 
 //重置

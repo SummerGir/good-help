@@ -27,13 +27,13 @@ public class Context {
     private static CoreMemberInfoEntity member = null;//当前登录用户
     private static String MEMBER_SESSION_KEY = "member";
     public static CoreMemberInfoEntity getMember(){
-        if(member == null)
-            member = (CoreMemberInfoEntity) getSession(MEMBER_SESSION_KEY);
+//        if(member == null)
+//            member = (CoreMemberInfoEntity) getSession(MEMBER_SESSION_KEY);
         return member;
     }
     public static void setMember(CoreMemberInfoEntity mem){
         member = mem;
-        setSession(MEMBER_SESSION_KEY,member);
+//        setSession(MEMBER_SESSION_KEY,member);
     }
 
 
@@ -42,9 +42,10 @@ public class Context {
     private static CoreMenuTreeInfoEntity app = null;//当前访问页面
     private static String APP_SESSION_KEY = "app";
     public static CoreMenuTreeInfoEntity getMenuTree(String code){
+//        if(app == null){
+//            app = (CoreMenuTreeInfoEntity) getSession(APP_SESSION_KEY);
+//        }
         if(app == null){
-            app = (CoreMenuTreeInfoEntity) getSession(APP_SESSION_KEY);
-        }if(app == null){
             app = CoreMenuTreeService.getInstance().findOneByCode(code);
         }if(app == null){
             CoreMenuTreeInfoEntity entity = new CoreMenuTreeInfoEntity();
@@ -54,7 +55,7 @@ public class Context {
             entity.setUrlId("");
             return entity;
         }else{
-            setSession(APP_SESSION_KEY,app);
+//            setSession(APP_SESSION_KEY,app);
         }
         return app;
     }
@@ -65,9 +66,14 @@ public class Context {
     //-------------------session相关------------------------------
 
     public static Object getSession(String key) {
-        return request.getSession().getAttribute(key);
+        if(request != null){
+            return request.getSession().getAttribute(key);
+        }
+        return null;
     }
     public static void setSession(String key,Object o){
-        request.getSession().setAttribute(key,o);
+        if(request != null){
+            request.getSession().setAttribute(key,o);
+        }
     }
 }

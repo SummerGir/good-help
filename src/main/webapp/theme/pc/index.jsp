@@ -10,6 +10,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
+    if(true){
+        request.getRequestDispatcher("/app/meterialinput/index.jsp").forward(request,response);
+        return;
+    }
     String menuCode = "index";
     CoreMenuTreeInfoEntity menuTree = Context.getMenuTree(menuCode);
     String title = menuTree.getTitle();

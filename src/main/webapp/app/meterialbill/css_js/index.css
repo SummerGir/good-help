@@ -4,8 +4,8 @@ button>i{
 #myTableTest table tbody tr>td:last-child{
     padding: 0px;!important;
 }#myTableTest table tbody tr>td:last-child>input{
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
 }
 .panel{
     margin-bottom: 10px;!important;

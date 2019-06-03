@@ -33,7 +33,7 @@ public class CoreMenuTreeService  extends
 
 	//得到菜单列表
 	public List<Map<String,Object>> getMainInfo()throws Exception{
-		String baseSql = "select a.MENU_ID,a.MENU_LEVEL,a.OUTLINE_LEVEL,a.TITLE,a.ICON,a.TYPE,ui.CODE,ui.URL,ui.PARAMETER from core_menu_tree_info a left join core_menu_url_info ui on a.URL_ID=ui.URL_ID order by substr(a.OUTLINE_LEVEL,1,instr(a.OUTLINE_LEVEL,'.')-1),a.MENU_LEVEL";
+		String baseSql = "select a.MENU_ID,a.MENU_LEVEL,a.OUTLINE_LEVEL,a.TITLE,a.ICON,a.TYPE,ui.CODE,ui.URL,ui.PARAMETER from core_menu_tree_info a left join core_menu_url_info ui on a.URL_ID=ui.URL_ID where a.IS_SHOW=1 order by substr(a.OUTLINE_LEVEL,1,instr(a.OUTLINE_LEVEL,'.')-1),a.MENU_LEVEL";
 		String[] fields = {"menuId", "menuLevel", "outlineLevel", "title", "icon","type","code", "url", "parameter"};
 
 		List<Map<String, Object>> list = getNativeMapList(entityManager, baseSql, null, fields, 1, -1);

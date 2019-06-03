@@ -15,6 +15,7 @@ public class CoreMenuTreeInfoEntity {
     private String urlId;
     private String icon;
     private Boolean type;
+    private Boolean isShow;
 
     @Id
     @Column(name = "MENU_ID")
@@ -86,31 +87,13 @@ public class CoreMenuTreeInfoEntity {
         this.type = type;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        CoreMenuTreeInfoEntity that = (CoreMenuTreeInfoEntity) o;
-
-        if (menuId != null ? !menuId.equals(that.menuId) : that.menuId != null) return false;
-        if (menuLevel != null ? !menuLevel.equals(that.menuLevel) : that.menuLevel != null) return false;
-        if (outlineLevel != null ? !outlineLevel.equals(that.outlineLevel) : that.outlineLevel != null) return false;
-        if (title != null ? !title.equals(that.title) : that.title != null) return false;
-        if (urlId != null ? !urlId.equals(that.urlId) : that.urlId != null) return false;
-        if (icon != null ? !icon.equals(that.icon) : that.icon != null) return false;
-        return type != null ? type.equals(that.type) : that.type == null;
+    @Basic
+    @Column(name = "IS_SHOW")
+    public Boolean getIsShow() {
+        return isShow;
     }
 
-    @Override
-    public int hashCode() {
-        int result = menuId != null ? menuId.hashCode() : 0;
-        result = 31 * result + (menuLevel != null ? menuLevel.hashCode() : 0);
-        result = 31 * result + (outlineLevel != null ? outlineLevel.hashCode() : 0);
-        result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (urlId != null ? urlId.hashCode() : 0);
-        result = 31 * result + (icon != null ? icon.hashCode() : 0);
-        result = 31 * result + (type != null ? type.hashCode() : 0);
-        return result;
+    public void setIsShow(Boolean isShow) {
+        this.isShow = isShow;
     }
 }
