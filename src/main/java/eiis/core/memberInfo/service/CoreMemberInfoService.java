@@ -32,6 +32,6 @@ public class CoreMemberInfoService extends GenericService<CoreMemberInfoEntity, 
     public void setMember(){
         CoreMemberInfoEntity entity = findOne("0df6d960-b87c-11e7-96df-64510645b30f");
         System.out.println("当前登录人："+entity.getMemberName());
-        Context.member = entity;
+        Context.setMember(entity);
     }
 }

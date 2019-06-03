@@ -8,12 +8,15 @@
 <%@ taglib prefix="master" uri="util.masterPage" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
+    JSONArray arr = new JSONArray();
     List<Map<String,Object>> list = CoreMenuTreeService.getInstance().getMainInfo();
-    JSONArray arr = JSONArray.fromObject(list);
-    CoreMenuTreeInfoEntity menuTree = Context.menuTree;
-    String menuTreeId = menuTree == null?"":menuTree.getMenuId().toString();//选中的菜单
-    if(menuTree == null)
-        menuTree = new CoreMenuTreeInfoEntity();
+    if(list != null && list.size() > 0){
+        arr = JSONArray.fromObject(list);
+    }
+
+    CoreMenuTreeInfoEntity menuTree = Context.getMenuTree(null);
+    String menuTreeId = menuTree == null?"":menuTree.getMenuId();//选中的菜单
+
 %>
 <html>
 <head>
@@ -30,6 +33,11 @@
     <script type="text/javascript" src="/public/jquery/jquery.js"></script>
     <!--bootstrap-->
     <script type="text/javascript" src="/public/bootstrap/js/bootstrap.js"></script>
+    <!--bootstrap datetimepicker-->
+    <script type="text/javascript" src="/public/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="/public/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <link href="/public/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+
 
     <!--提示框-->
     <script type="text/javascript" src="/public/control/message/message.js"></script>
@@ -49,7 +57,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <span class="glyphicon glyphicon-user"></span><%=Context.member==null?"登录":Context.member.getMemberName().toString()%>
+                        <span class="glyphicon glyphicon-user"></span><%=Context.getMember()==null?"登录":Context.getMember().getMemberName().toString()%>
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
@@ -118,7 +126,7 @@
                 <div class="navbar-header">
                     <span style="font-size: 15px;margin-right: 5px;" class="<%=(menuTree.getIcon()==null || StringUtils.isBlank(menuTree.getIcon().toString()))?"glyphicon glyphicon-file":menuTree.getIcon()%>"></span>
                     <span style="font-size: 16px;font-weight: bold;color: #000 ;line-height: 45px;">
-                        <%=menuTree.getTitle()%>
+                        <%=menuTree.getTitle() == null ? "" : menuTree.getTitle()%>
                     </span>
                 </div>
                 <div class="navbar-header  navbar-right">

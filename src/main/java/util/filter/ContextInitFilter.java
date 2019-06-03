@@ -35,7 +35,8 @@ public class ContextInitFilter implements Filter {
                 return;
             }
 
-            if(Context.member == null){
+            Context.createContext(httpServletRequest,(HttpServletResponse) response);
+            if(Context.getMember() == null){
                 System.out.println("请登录");
                 CoreMemberInfoService.getInstance().setMember();
             }

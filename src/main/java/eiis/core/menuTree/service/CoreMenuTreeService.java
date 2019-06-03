@@ -46,4 +46,16 @@ public class CoreMenuTreeService  extends
 		}
 		return list;
 	}
+
+	public CoreMenuTreeInfoEntity findOneByCode(String code){
+		List<CoreMenuTreeInfoEntity> list = entityManager.createQuery("select en from CoreMenuTreeInfoEntity en,CoreMenuUrlInfoEntity en2 where en.urlId=en2.urlId and en2.code=:code").setParameter("code",code).getResultList();
+		if(list != null && list.size() > 0){
+			if(list.size() > 1)
+				System.out.println("菜单code："+code+"重复了。");
+			return list.get(0);
+		}else{
+			System.out.println("菜单code："+code+"没有找到。");
+			return null;
+		}
+	}
 }

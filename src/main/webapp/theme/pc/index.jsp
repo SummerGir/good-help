@@ -1,3 +1,5 @@
+<%@ page import="eiis.core.menuTree.entity.CoreMenuTreeInfoEntity" %>
+<%@ page import="util.context.Context" %>
 <%@ taglib prefix="master" uri="util.masterPage" %>
 <%--
   Created by IntelliJ IDEA.
@@ -7,8 +9,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String menuCode = "index";
+    CoreMenuTreeInfoEntity menuTree = Context.getMenuTree(menuCode);
+    String title = menuTree.getTitle();
+%>
 <master:ContentPage>
-    <master:Content contentPlaceHolderId="title">首页</master:Content>
+    <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
     <master:Content contentPlaceHolderId="head">
         <style>
             h4{

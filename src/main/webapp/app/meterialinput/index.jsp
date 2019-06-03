@@ -3,6 +3,8 @@
 <%@ page import="org.apache.commons.lang3.StringUtils" %>
 <%@ page import="eiis.app.meterialinput.service.AppMeterialInputService" %>
 <%@ page import="eiis.app.dicinfo.service.AppDicInfoService" %>
+<%@ page import="util.context.Context" %>
+<%@ page import="eiis.core.menuTree.entity.CoreMenuTreeInfoEntity" %>
 <%@ taglib prefix="master" uri="util.masterPage" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--
@@ -14,6 +16,10 @@
 --%>
 <%
 
+    String menuCode = "ywzx_djlr";
+    CoreMenuTreeInfoEntity menuTree = Context.getMenuTree(menuCode);
+    String title = menuTree.getTitle();
+
     StringBuffer sbYear = AppMeterialInputService.getYearOption(false);
     StringBuffer sbMonth = AppMeterialInputService.getMonthOption(false);
     StringBuffer sbExc = AppMeterialInputService.getExcOption(true);
@@ -21,7 +27,7 @@
 
 %>
 <master:ContentPage>
-    <master:Content contentPlaceHolderId="title">单据录入</master:Content>
+    <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
     <master:Content contentPlaceHolderId="head">
         <script type="text/javascript" src="/public/control/bootstrap-table/js/bootstrap.table.js"></script>
         <link href="/app/meterialinput/css_js/index.css" rel="stylesheet"/>

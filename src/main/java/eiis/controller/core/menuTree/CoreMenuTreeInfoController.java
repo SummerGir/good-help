@@ -22,7 +22,7 @@ public class CoreMenuTreeInfoController {
     @ResponseBody
     public ObjectNode setMenuTree(@RequestParam(defaultValue = "") String menuId){
         CoreMenuTreeInfoEntity entity = service.findOne(menuId);
-        Context.menuTree = entity;
+        Context.setMenuTree(entity);
         System.out.println("记录当前访问菜单："+entity.getTitle());
         return GenericController.returnSuccess(null);
     }
