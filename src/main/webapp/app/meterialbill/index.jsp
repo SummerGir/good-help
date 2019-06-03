@@ -15,7 +15,7 @@
     String menuCode = "meterial_bill";
     CoreMenuTreeInfoEntity menuTree = Context.getMenuTree(menuCode);
     String title = menuTree.getTitle();
-    StringBuffer sbMonth = AppMeterialBillService.getYearAndMonthOption(true,true);
+    StringBuffer sbMonth = AppMeterialBillService.getYearAndMonthOption(false,true);
 %>
 <master:ContentPage>
     <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
@@ -24,6 +24,32 @@
         <link href="/app/meterialbill/css_js/index.css" rel="stylesheet"/>
     </master:Content>
     <master:Content contentPlaceHolderId="body">
+        <div class="count-div">
+            <div class="row">
+                <div class="col-md-4 my-col">
+                    <div class="my-left-div">已对账：</div>
+                    <div class="my-right-div">123456元</div>
+                </div>
+                <div class="col-md-4 my-col">
+                    <div class="my-left-div">未对账：</div>
+                    <div class="my-right-div">50元</div>
+                </div>
+                <div class="col-md-4 my-col">
+                    <div class="my-left-div">总金额：</div>
+                    <div class="my-right-div">52431元</div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 my-col">
+                    <div class="my-left-div">材料统计：</div>
+                    <div class="my-right-div">
+                        门：18.5套；线条：20套
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="panel panel-default search-div">
             <div class="panel-body">
                 <div class="row">
@@ -76,6 +102,7 @@
 
             </div>
         </div>
+
         <div class="row">            
             <div class="col-md-12">
                 <!--表格-->
@@ -98,9 +125,7 @@
                 columns:[
                     {name:'inputCode',title:'编号',align:'left'},
                     {name:'money',title:"价格",align:'center',width:'30%'},
-                    {name:'caozuo',title:"是否对账",align:'center',width:'30%',format:function(text){
-                        return "a"
-                    }}
+                    {name:'caozuo',title:"是否对账",align:'center',width:'30%'}
                 ]
             };
             $(document).ready(function(){
