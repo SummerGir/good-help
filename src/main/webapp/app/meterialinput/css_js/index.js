@@ -29,6 +29,8 @@ $(document).ready(function(){
         var row = eventData.row;
         if(row.isValid == "已对账"){
             eventData.ed.html("<span style='color:#5cb85c'>"+ row.isValid +"</span>");
+        }else{
+            eventData.ed.html("<span style='color:#d9534f'>"+ row.isValid +"</span>");
         }
 
     });

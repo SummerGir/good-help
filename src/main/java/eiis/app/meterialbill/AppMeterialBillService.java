@@ -51,7 +51,7 @@ public class AppMeterialBillService extends StatementGenericService {
 				(StringUtils.isNotBlank(year)?" and ami.YEAR = :year":"")+
 				(StringUtils.isNotBlank(month)?" and ami.MONTH = :month":"")+
 				(StringUtils.isNotBlank(isValid)?" and ami.IS_VALID = :isValid":"")+
-				" group by ami.INPUT_ID order by ami.INPUT_CODE";
+				" group by ami.INPUT_ID order by ami.YEAR,ami.MONTH,(ami.NUMBER+0),ami.EXCEPTION";
 
 		String[] fields = {"inputId","inputCode", "money","isValid"};
 
