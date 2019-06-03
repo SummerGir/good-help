@@ -29,6 +29,11 @@
     <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
     <master:Content contentPlaceHolderId="head">
         <script type="text/javascript" src="/public/control/bootstrap-table/js/bootstrap.table.js"></script>
+        <style type="text/css">
+            button>i{
+                margin-right: 5px;
+            }
+        </style>
     </master:Content>
     <master:Content contentPlaceHolderId="body">
         <!--画表格-->
@@ -43,9 +48,9 @@
                 <div id="myTableTest"></div>
                 <!--表格的工具栏-->
                 <div id="main_table_customRibbon" style="display: none">
-                    <button onclick="$('#search_form').modal()" type="button" class="btn btn-info">
-                        <i class="glyphicon glyphicon-search"></i> 搜索
-                    </button>
+                    <%--<button onclick="$('#search_form').modal()" type="button" class="btn btn-info">--%>
+                        <%--<i class="glyphicon glyphicon-search"></i> 搜索--%>
+                    <%--</button>--%>
                     <button onclick="add_main()" type="button" class="btn btn-success" id="add_main">
                         <i class="glyphicon glyphicon-plus"></i> 新增
                     </button>
@@ -86,8 +91,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="button" class="btn btn-primary" onclick="save_main()">提交保存</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>关闭</button>
+                        <button type="button" class="btn btn-primary" onclick="save_main()"><i class="glyphicon glyphicon-floppy-save"></i>保存</button>
 
                     </div>
                 </div>

@@ -1,8 +1,14 @@
+button>i{
+    margin-right: 5px;
+}
 .detail-div{
     margin-top: 30px;
 }
 .detail-div table thead{
     background-color: #efefef;
+}
+.detail-div table thead th{
+    text-align: center;
 }
 
 .detail-div table tbody .caozuo>div{

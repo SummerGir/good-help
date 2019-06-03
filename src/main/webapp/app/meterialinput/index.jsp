@@ -39,6 +39,9 @@
                 <div id="myTableTest"></div>
                 <!--表格的工具栏-->
                 <div id="main_table_customRibbon" style="display: none;">
+                    <button onclick="search_show('search_form')" type="button" class="btn btn-primary">
+                        <i class="glyphicon glyphicon-refresh"></i>显示所有
+                    </button>
                     <button onclick="$('#search_form').modal()" type="button" class="btn btn-info">
                         <i class="glyphicon glyphicon-search"></i> 搜索
                     </button>
@@ -57,8 +60,35 @@
         </div>
 
         <!-- 模态框（Modal） -->
+        <div id="search_form" class="modal fade" tabindex="-1" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog" style="width: 55%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">
+                            搜索
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="inputId" value=""/>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12" style="display: flex">
+                                <label style="width: 80px;line-height: 36px;">关键字：</label>
+                                <input type="text" class="form-control" name="searchKey" placeholder="请填写单据编号：" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>关闭</button>
+                        <button onclick="getSearch('search_form')" type="button" class="btn btn-info"><i class="glyphicon glyphicon-search"></i>搜索</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+
+        <!-- 模态框（Modal） -->
         <div id="my_modal" class="modal fade" tabindex="-1" aria-hidden="true" data-backdrop="static">
-            <div class="modal-dialog" style="width: 60%;">
+            <div class="modal-dialog" style="width: 55%;">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -108,7 +138,7 @@
                                 <table class="table table-striped table-bordered table-condensed">
                                     <thead>
                                     <tr>
-                                        <th width="15%">操作</th>
+                                        <th width="15%">增/减操作</th>
                                         <th>材料</th>
                                         <th width="20%">数量</th>
                                         <th width="20%">价格</th>
@@ -126,10 +156,9 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="button" class="btn btn-primary" onclick="save_main()">
-                            提交保存
-                        </button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>关闭</button>
+                        <%--<button type="button" class="btn btn-primary" onclick="save_main(false)">提交保存</button>--%>
+                        <button type="button" class="btn btn-primary" onclick="save_main(true)"><i class="glyphicon glyphicon-floppy-save"></i>保存</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal -->

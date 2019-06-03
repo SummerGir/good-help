@@ -1,22 +1,43 @@
+button>i{
+    margin-right: 5px;
+}
+#myTableTest table tbody tr>td:last-child{
+    padding: 0px;!important;
+}#myTableTest table tbody tr>td:last-child>input{
+    width: 28px;
+    height: 28px;
+}
+.panel{
+    margin-bottom: 10px;!important;
+}
 .count-div .my-col{
     display: flex;
     margin-bottom: 10px;
     font-size: 16px;
+    position: relative;
+    font-weight: bolder;
 }
 .count-div .my-col .my-left-div{
     width: 120px;
     padding: 10px;
     background-color: #2dcc72;
     color: #fff;
-    font-weight: bolder;
     text-align: right;
+    border: 1px solid #ccc;
+    border-right: none;
 }
 .count-div .my-col .my-right-div{
     flex: 1;
     background-color: #fff;
     padding: 10px;
+    border: 1px solid #ccc;
+    border-left: none;
 }
-
+.count-div .my-col .money-unit{
+    position: absolute;
+    right: 20px;
+    top: 10px;
+}
 
 .search-div .my-col{
     display: flex;

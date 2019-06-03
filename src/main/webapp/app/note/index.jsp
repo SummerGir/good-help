@@ -1,6 +1,7 @@
 <%@ page import="eiis.app.type.entity.TypeSelectEntity" %>
 <%@ page import="eiis.app.type.service.AppTypeDetailService" %>
 <%@ page import="org.apache.commons.lang3.StringUtils" %>
+<%@ page import="eiis.core.menuTree.entity.CoreMenuTreeInfoEntity" %>
 <%@ taglib prefix="master" uri="util.masterPage" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--
@@ -11,9 +12,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%
+    String menuCode = "cost";
+    CoreMenuTreeInfoEntity menuTree = Context.getMenuTree(menuCode);
+    String title = menuTree.getTitle();
+
     String typeDetailId = request.getParameter("typeDetailId");
-    String typeCode = "note";
-    TypeSelectEntity pse = AppTypeDetailService.getInstance().getTypeSelect(typeCode,typeDetailId);
+    TypeSelectEntity pse = AppTypeDetailService.getInstance().getTypeSelect(menuCode,typeDetailId);
     typeDetailId= StringUtils.isNotBlank(pse.getSelectedTypeId())?pse.getSelectedTypeId():"00000000-00000000-00000000";
     StringBuffer listOp = pse.getListOp();
     StringBuffer finishedProOp = pse.getFinishedProOp();
@@ -21,9 +25,14 @@
 
 %>
 <master:ContentPage>
-    <master:Content contentPlaceHolderId="title">随手记</master:Content>
+    <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
     <master:Content contentPlaceHolderId="head">
         <script type="text/javascript" src="/public/control/bootstrap-table/js/bootstrap.table.js"></script>
+        <style type="text/css">
+            button>i{
+                margin-right: 5px;
+            }
+        </style>
     </master:Content>
     <master:Content contentPlaceHolderId="body">
         <div class="row">
@@ -37,9 +46,9 @@
                 <div id="myTableTest"></div>
                 <!--表格的工具栏-->
                 <div id="main_table_customRibbon" style="display: none;">
-                    <button onclick="$('#search_form').modal()" type="button" class="btn btn-info">
-                        <i class="glyphicon glyphicon-search"></i> 搜索
-                    </button>
+                    <%--<button onclick="$('#search_form').modal()" type="button" class="btn btn-info">--%>
+                        <%--<i class="glyphicon glyphicon-search"></i> 搜索--%>
+                    <%--</button>--%>
                     <button onclick="add_main()" type="button" class="btn btn-success" id="add_main">
                         <i class="glyphicon glyphicon-plus"></i> 新增
                     </button>
@@ -80,9 +89,9 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>关闭</button>
                         <button type="button" class="btn btn-primary" onclick="save_main()">
-                            提交保存
+                            <i class="glyphicon glyphicon-floppy-save"></i>保存
                         </button>
                     </div>
                 </div><!-- /.modal-content -->

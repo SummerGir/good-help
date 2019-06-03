@@ -49,8 +49,8 @@ public class AppDicInfoService extends GenericService<AppDicInfoEntity,String>{
     //得到菜单列表
     public List<Map<String,Object>> getMainInfo(int page,int rows) throws Exception{
 
-        String baseSql = "select adi.DIC_ID,adi.DIC_NAME,adi.DIC_CODE,adi.PRICE,adi.PRIORITY_LEVEL,adi.SYS_TIME,adi.`COMMENT` from app_dic_info adi order by adi.PRIORITY_LEVEL";
-        String[] fields = {"dicId", "dicName", "dicCode", "price", "priorityLevel","sysTime","comment"};
+        String baseSql = "select adi.DIC_ID,adi.DIC_NAME,adi.DIC_CODE,adi.UNIT_NAME,adi.PRICE,adi.PRIORITY_LEVEL,adi.SYS_TIME,adi.`COMMENT` from app_dic_info adi order by adi.PRIORITY_LEVEL";
+        String[] fields = {"dicId", "dicName", "dicCode","unitName", "price", "priorityLevel","sysTime","comment"};
 
         List<Map<String, Object>> list = getNativeMapList(entityManager, baseSql, null, fields, page, rows);
         for (Map<String, Object> m : list) {

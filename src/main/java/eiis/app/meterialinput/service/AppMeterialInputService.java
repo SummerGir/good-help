@@ -54,7 +54,7 @@ public class AppMeterialInputService extends
 		}if(StringUtils.isNotBlank(searchKey)){
 			values.put("searchKey",searchKey);
 		}
-		String baseSql = "select main.INPUT_ID,main.INPUT_CODE,main.YEAR,main.MONTH,main.NUMBER,main.EXCEPTION,main.IS_VALID,main.SYS_TIME,main.`COMMENT`,group_concat(dic.DIC_NAME SEPARATOR  ';'),sum(det.MONEY) from app_meterial_input main join app_meterial_input_detail det on main.INPUT_ID=det.INPUT_ID join app_dic_info dic on det.DIC_ID=dic.DIC_ID where 1=1 " +
+		String baseSql = "select main.INPUT_ID,main.INPUT_CODE,main.YEAR,main.MONTH,main.NUMBER,main.EXCEPTION,main.IS_VALID,main.SYS_TIME,main.`COMMENT`,group_concat(dic.DIC_NAME SEPARATOR  ';'),sum(det.MONEY) from app_meterial_input main left join app_meterial_input_detail det on main.INPUT_ID=det.INPUT_ID left join app_dic_info dic on det.DIC_ID=dic.DIC_ID where 1=1 " +
 				(StringUtils.isNotBlank(mainId)?" main.INPUT_ID=:mainId ":"")+
 				(StringUtils.isNotBlank(searchKey)?" and locate(:searchKey,main.INPUT_CODE)>0 ":"")+
 				" group by main.INPUT_ID order by main.SYS_TIME desc";
@@ -65,7 +65,11 @@ public class AppMeterialInputService extends
 		for (Map<String, Object> m : list) {
 			for (Map.Entry<String, Object> e : m.entrySet()) {
 				if (e.getValue() == null) {
-					m.put(e.getKey(), "");
+					if("money".equals(e.getKey().toString())){
+						m.put(e.getKey(), "0.00");
+					}else{
+						m.put(e.getKey(), "");
+					}
 				}else if("sysTime".equals(e.getKey().toString())){
 					m.put(e.getKey(),e.getValue().toString().split(" ")[0]);
 				}else if("money".equals(e.getKey().toString())){
@@ -89,8 +93,8 @@ public class AppMeterialInputService extends
 
 	public int getMainCount(String mainId,String searchKey){
 		String baseSql = "select count(1) from app_meterial_input main where 1=1 " +
-				(StringUtils.isNotBlank(mainId)?" and ani.INPUT_ID=:mainId ":"")+
-				(StringUtils.isNotBlank(searchKey)?" and locate(:searchKey,ani.INPUT_CODE)>0 ":"");
+				(StringUtils.isNotBlank(mainId)?" and main.INPUT_ID=:mainId ":"")+
+				(StringUtils.isNotBlank(searchKey)?" and locate(:searchKey,main.INPUT_CODE)>0 ":"");
 		Query query = entityManager.createNativeQuery(baseSql);
 		if(StringUtils.isNotBlank(mainId)){
 			query.setParameter("mainId",mainId);

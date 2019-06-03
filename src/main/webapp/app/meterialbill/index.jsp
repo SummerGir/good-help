@@ -24,32 +24,6 @@
         <link href="/app/meterialbill/css_js/index.css" rel="stylesheet"/>
     </master:Content>
     <master:Content contentPlaceHolderId="body">
-        <div class="count-div">
-            <div class="row">
-                <div class="col-md-4 my-col">
-                    <div class="my-left-div">已对账：</div>
-                    <div class="my-right-div">123456元</div>
-                </div>
-                <div class="col-md-4 my-col">
-                    <div class="my-left-div">未对账：</div>
-                    <div class="my-right-div">50元</div>
-                </div>
-                <div class="col-md-4 my-col">
-                    <div class="my-left-div">总金额：</div>
-                    <div class="my-right-div">52431元</div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12 my-col">
-                    <div class="my-left-div">材料统计：</div>
-                    <div class="my-right-div">
-                        门：18.5套；线条：20套
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div class="panel panel-default search-div">
             <div class="panel-body">
                 <div class="row">
@@ -96,7 +70,7 @@
                         </div>
                     </div>
                     <div class="col-md-2 my-search-div">
-                        <button onclick="search()" type="button" class="btn btn-primary"> 查询</button>
+                        <button onclick="search()" type="button" class="btn btn-primary"> <i class="glyphicon glyphicon-search"></i>查询</button>
                     </div>
                 </div>
 
@@ -110,7 +84,32 @@
             </div>
         </div>
 
+        <div class="count-div">
+            <div class="row">
+                <div class="col-md-4 my-col">
+                    <div class="my-left-div">已对账：</div>
+                    <div class="my-right-div" name="isValid_1"></div>
+                    <div class="money-unit">￥</div>
+                </div>
+                <div class="col-md-4 my-col">
+                    <div class="my-left-div">未对账：</div>
+                    <div class="my-right-div" name="isValid_0"></div>
+                    <div class="money-unit">￥</div>
+                </div>
+                <div class="col-md-4 my-col">
+                    <div class="my-left-div">总金额：</div>
+                    <div class="my-right-div" name="allMoney"></div>
+                    <div class="money-unit">￥</div>
+                </div>
+            </div>
 
+            <div class="row">
+                <div class="col-md-12 my-col">
+                    <div class="my-left-div">材料统计：</div>
+                    <div class="my-right-div" name="dicInfo"></div>
+                </div>
+            </div>
+        </div>
 
         <script type="text/javascript">
             var myTable = $("#myTableTest");
@@ -119,9 +118,10 @@
             var option = {
                 id:"#myTableTest",//需要绑定的Id或class
                 url:"/app/meterialBill/getMainInfo.do",//表格请求的路径
+                data:{},
                 toolbar:"#main_table_customRibbon",//表格上面的工具栏用哪个容器
                 allowSelected:false,//列不允许选中
-                rows:25,//每页默认条数
+                rows:5,//每页默认条数
                 columns:[
                     {name:'inputCode',title:'编号',align:'left'},
                     {name:'money',title:"价格",align:'center',width:'30%'},
@@ -134,7 +134,7 @@
                     format: 'yyyy-mm-dd',
                     minView:2
                 });
-                myTable.ghTable(option);
+                search();
                 myTable.on("table.created", function() {
 //                    $.message("创建表格");
                     loading = false;
@@ -159,6 +159,7 @@
                 });
                 option.data = postData;
                 myTable.ghTable(option);//刷新列表，可以不传参
+                getMainMoneyInfo();
             }
 
             function se_valid(e){
@@ -175,9 +176,27 @@
                     success:function(rs){ ////成功之后回调
                         if(rs.error == 0){
                             myTable.ghTable(option);//刷新列表，可以不传参
+                            getMainMoneyInfo();
                         }else{
                             $.message(rs.msg);
                         }
+                    }
+                });
+            }
+
+            function getMainMoneyInfo(){
+                $.ajax({
+                    url:"/app/meterialBill/getMainMoneyInfo.do",  //请求路径
+                    data:option.data, //请求参数
+                    type:"post", //请求方式
+                    async:true,  //是否异步，默认值true
+                    dataType:'json',
+                    success:function(rs){ ////成功之后回调
+                        console.log(rs);
+                        $(".count-div div[name='isValid_0']").html(rs.isValid_0);
+                        $(".count-div div[name='isValid_1']").html(rs.isValid_1);
+                        $(".count-div div[name='allMoney']").html(rs.allMoney);
+                        $(".count-div div[name='dicInfo']").html(rs.dicInfo);
                     }
                 });
             }

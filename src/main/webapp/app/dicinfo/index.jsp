@@ -21,6 +21,11 @@
     <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
     <master:Content contentPlaceHolderId="head">
         <script type="text/javascript" src="/public/control/bootstrap-table/js/bootstrap.table.js"></script>
+        <style type="text/css">
+            button>i{
+                margin-right: 5px;
+            }
+        </style>
     </master:Content>
     <master:Content contentPlaceHolderId="body">
         <div class="row">            
@@ -29,9 +34,9 @@
                 <div id="myTableTest"></div>
                 <!--表格的工具栏-->
                 <div id="main_table_customRibbon" style="display: none;">
-                    <button onclick="$('#search_form').modal()" type="button" class="btn btn-info">
-                        <i class="glyphicon glyphicon-search"></i> 搜索
-                    </button>
+                    <%--<button onclick="$('#search_form').modal()" type="button" class="btn btn-info">--%>
+                        <%--<i class="glyphicon glyphicon-search"></i> 搜索--%>
+                    <%--</button>--%>
                     <button onclick="add_main()" type="button" class="btn btn-success" id="add_main">
                         <i class="glyphicon glyphicon-plus"></i> 新增
                     </button>
@@ -65,8 +70,8 @@
                                 <input type="text" class="form-control" name="dicName" placeholder="请填写字典名称：" required="required">
                             </div>
                             <div class="col-xs-6 col-md-6">
-                                <h5>字典编号:</h5>
-                                <input type="text" class="form-control" name="dicCode" placeholder="请填写字典编号：" required="required">
+                                <h5>字典单位:</h5>
+                                <input type="text" class="form-control" name="unitName" placeholder="请填写字典单位：" required="required">
                             </div>
                         </div>
 
@@ -83,14 +88,14 @@
                         <div class="row">
                             <div class="col-xs-12 col-md-12">
                                 <h5>备注说明:</h5>
-                                <textarea rows="3" class="form-control" name="comment" placeholder="请填写笔记内容：" ></textarea>
+                                <textarea rows="3" class="form-control" name="comment" placeholder="请填写备注说明：" ></textarea>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>关闭</button>
                         <button type="button" class="btn btn-primary" onclick="save_main()">
-                            提交保存
+                            <i class="glyphicon glyphicon-floppy-save"></i>保存
                         </button>
                     </div>
                 </div><!-- /.modal-content -->
@@ -106,8 +111,8 @@
                 url:"/app/dicinfo/getMainInfo.do",//表格请求的路径
                 toolbar:"#main_table_customRibbon",//表格上面的工具栏用哪个容器
                 columns:[
-                    {name:'dicName',title:"标题",align:'left'},
-                    {name:'dicCode',title:'编号',align:'left',width:'15%'},
+                    {name:'dicName',title:"名称",align:'left'},
+                    {name:'unitName',title:'单位',align:'left',width:'15%'},
                     {name:'price',title:"价格",align:'center',width:'10%'},
                     {name:'priorityLevel',title:"优先级",align:'center',width:'10%'},
                     {name:'sysTime',title:"编制日期",align:'center',width:'15%'},

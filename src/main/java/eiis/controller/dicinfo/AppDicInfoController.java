@@ -43,7 +43,7 @@ public class AppDicInfoController {
 
         String dicId = request.getParameter("dicId");
         String dicName = request.getParameter("dicName");
-        String dicCode = request.getParameter("dicCode");
+        String unitName = request.getParameter("unitName");
         String price = request.getParameter("price");
         String priorityLevel = request.getParameter("priorityLevel");
         String sysTime = request.getParameter("sysTime");
@@ -56,7 +56,8 @@ public class AppDicInfoController {
             entity = service.findOne(dicId);
         }
         entity.setDicName(dicName);
-        entity.setDicCode(dicCode);
+        entity.setDicCode("");
+        entity.setUnitName(unitName);
         entity.setPrice(new BigDecimal(price));
         entity.setPriorityLevel(Integer.parseInt(priorityLevel));
         entity.setSysTime(new Timestamp(new Date().getTime()));

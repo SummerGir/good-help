@@ -78,7 +78,8 @@ public class AppMeterialInputController {
             entity.setInputCode(entity.getMonth() + "-" + entity.getNumber() + (StringUtils.isNotBlank(entity.getException()) ? ("-" + entity.getException()) : ""));
 
             List<AppMeterialInputDetailEntity> list = new ArrayList<>();
-            JSONArray detail = jb.getJSONArray("detail");
+            JSONArray detail = jb.get("detail") == null ? new JSONArray() : jb.getJSONArray("detail");
+
             for (int i = 0; i < detail.size(); i++) {
                 JSONObject jd = detail.getJSONObject(i);
                 AppMeterialInputDetailEntity en = new AppMeterialInputDetailEntity();
@@ -96,7 +97,9 @@ public class AppMeterialInputController {
             //保存主表信息
             mainService.save(entity);
             //保存全新的明细信息
-            detailService.save(list);
+            if(list.size() > 0){
+                detailService.save(list);
+            }
         }catch (Exception e){
             e.printStackTrace();
             return GenericController.returnFaild(null);

@@ -10,6 +10,7 @@ public class AppDicInfoEntity {
     private String dicId;
     private String dicName;
     private String dicCode;
+    private String unitName;
     private BigDecimal price;
     private Integer priorityLevel;
     private Timestamp sysTime;
@@ -43,6 +44,16 @@ public class AppDicInfoEntity {
 
     public void setDicCode(String dicCode) {
         this.dicCode = dicCode;
+    }
+
+    @Basic
+    @Column(name = "UNIT_NAME")
+    public String getUnitName() {
+        return unitName;
+    }
+
+    public void setUnitName(String unitName) {
+        this.unitName = unitName;
     }
 
     @Basic
@@ -85,34 +96,4 @@ public class AppDicInfoEntity {
         this.comment = comment;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        AppDicInfoEntity that = (AppDicInfoEntity) o;
-
-        if (dicId != null ? !dicId.equals(that.dicId) : that.dicId != null) return false;
-        if (dicName != null ? !dicName.equals(that.dicName) : that.dicName != null) return false;
-        if (dicCode != null ? !dicCode.equals(that.dicCode) : that.dicCode != null) return false;
-        if (price != null ? !price.equals(that.price) : that.price != null) return false;
-        if (priorityLevel != null ? !priorityLevel.equals(that.priorityLevel) : that.priorityLevel != null)
-            return false;
-        if (sysTime != null ? !sysTime.equals(that.sysTime) : that.sysTime != null) return false;
-        if (comment != null ? !comment.equals(that.comment) : that.comment != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = dicId != null ? dicId.hashCode() : 0;
-        result = 31 * result + (dicName != null ? dicName.hashCode() : 0);
-        result = 31 * result + (dicCode != null ? dicCode.hashCode() : 0);
-        result = 31 * result + (price != null ? price.hashCode() : 0);
-        result = 31 * result + (priorityLevel != null ? priorityLevel.hashCode() : 0);
-        result = 31 * result + (sysTime != null ? sysTime.hashCode() : 0);
-        result = 31 * result + (comment != null ? comment.hashCode() : 0);
-        return result;
-    }
 }

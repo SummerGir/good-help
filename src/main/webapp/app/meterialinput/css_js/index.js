@@ -7,12 +7,11 @@ var option = {
     data:{},//请求的参数
     toolbar:"#main_table_customRibbon",//表格上面的工具栏用哪个容器
     columns:[
-        {name:'inputCode',title:"单据编号",align:'left'},
+        {name:'inputCode',title:"单据编号",align:'left',width:'15%'},
         {name:'dicName',title:'材料名称',align:'left'},
-        {name:'money',title:'单据金额',align:'center'},
+        {name:'money',title:'单据金额',align:'center',width:'20%'},
         {name:'sysTime',title:"录入日期",align:'center',width:'20%'},
-        {name:'isValid',title:"是否对账",align:'center',width:'20%'},
-        {name:'comment',title:"备注说明",align:'left',width:'20%'}
+        {name:'isValid',title:"是否对账",align:'center',width:'20%'}
     ]//表格列[{field:'name',title:'名称',align:'left',width:80,template:function(){}},{},{}]
 };
 
@@ -27,6 +26,28 @@ $(document).ready(function(){
         selectedRow = eventData.row;
     });
 });
+
+//重置
+function search_show(form){
+    $("#"+form+" input,#"+form+" select").each(function(){
+        var name = $(this).attr("name");
+        $(this).val("");
+    });
+    getSearch(form)
+}
+
+//搜索
+function getSearch(form){
+    var postData = {};
+    $("#"+form+" input,#"+form+" select").each(function(){
+        var name = $(this).attr("name");
+        postData[name] = $(this).val();
+    });
+
+    option.data = postData;
+    myTable.ghTable(option);
+    $('#'+form).modal('hide');
+}
 
 function add_main(){
     $("#my_modal input,#my_modal select,#my_modal textarea").each(function () {
@@ -72,7 +93,7 @@ function edit_main(){
     });
 }
 
-function save_main(){
+function save_main(type){
     var postData = get_data();
     if(postData){
         $.ajax({
@@ -82,11 +103,18 @@ function save_main(){
             async:true,  //是否异步，默认值true
             dataType:'json',
             success:function(rs){ ////成功之后回调
-                $.message(rs.msg);
-                if(rs.error == 0){
-                    $('#my_modal').modal('hide');
+                if(type){
+                    //继续新增
                     loadTable();
+                    add_main();
+                }else{
+                    $.message(rs.msg);
+                    if(rs.error == 0){
+                        $('#my_modal').modal('hide');
+                        loadTable();
+                    }
                 }
+
             }
         });
     }
@@ -129,7 +157,11 @@ function get_data(){
         detail.push(d);
     });
     if(!flag) return;
-    return {main:main,detail:detail};
+    var postData = {main:main};
+    if(detail.length > 0){
+        postData.detail = detail;
+    }
+    return postData;
 }
 
 function delete_main(){
