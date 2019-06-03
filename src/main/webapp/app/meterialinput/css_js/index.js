@@ -4,13 +4,8 @@ var loading = false;//控制项目列表频繁点击
 var option = {
     id:"#myTableTest",//需要绑定的Id或class
     url:"/app/meterialinput/getMainInfo.do",//表格请求的路径
-    type:"post",//请求方式
     data:{},//请求的参数
-    dataType:"json",//请求的返回格式
     toolbar:"#main_table_customRibbon",//表格上面的工具栏用哪个容器
-    isPage:true,//是否分页
-    page:1,//加载数据的初始页
-    rows:25,//每页默认条数
     columns:[
         {name:'inputCode',title:"单据编号",align:'left'},
         {name:'dicName',title:'材料名称',align:'left'},
@@ -34,7 +29,7 @@ $(document).ready(function(){
 });
 
 function add_main(){
-    $("#my_modal *").each(function () {
+    $("#my_modal input,#my_modal select,#my_modal textarea").each(function () {
         var name = $(this).attr("name");
         if("year" == name || "month" == name)
             return;

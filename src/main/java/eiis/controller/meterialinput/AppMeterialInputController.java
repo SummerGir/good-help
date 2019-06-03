@@ -70,7 +70,7 @@ public class AppMeterialInputController {
             }
             entity.setYear(main.getInt("year"));
             entity.setMonth(main.getInt("month"));
-            entity.setNumber(main.getInt("number"));
+            entity.setNumber(main.getString("number"));
             entity.setException(main.getString("exception"));
             entity.setIsValid(false);
             entity.setSysTime(new Timestamp(new Date().getTime()));
@@ -97,6 +97,25 @@ public class AppMeterialInputController {
             mainService.save(entity);
             //保存全新的明细信息
             detailService.save(list);
+        }catch (Exception e){
+            e.printStackTrace();
+            return GenericController.returnFaild(null);
+        }
+        return GenericController.returnSuccess(null);
+    }
+
+    @RequestMapping("saveIsValid")
+    @ResponseBody
+    public ObjectNode saveIsValid(HttpServletRequest request){
+        String mainId = request.getParameter("mainId");
+        String isValid = request.getParameter("isValid");
+        if(StringUtils.isBlank(mainId))
+            return GenericController.returnFaild("没有获取到单据编号");
+        try{
+            AppMeterialInputEntity entity = mainService.findOne(mainId);
+            entity.setIsValid(Boolean.parseBoolean(isValid));
+            //保存主表信息
+            mainService.save(entity);
         }catch (Exception e){
             e.printStackTrace();
             return GenericController.returnFaild(null);

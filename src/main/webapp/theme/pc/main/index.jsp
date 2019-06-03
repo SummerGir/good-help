@@ -34,7 +34,7 @@
     <!--bootstrap-->
     <script type="text/javascript" src="/public/bootstrap/js/bootstrap.js"></script>
     <!--bootstrap datetimepicker-->
-    <script type="text/javascript" src="/public/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="/public/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
     <script type="text/javascript" src="/public/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
     <link href="/public/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
@@ -51,7 +51,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top main-top-nav" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">好管家</a>
+            <a class="navbar-brand" href="/theme/pc/index.jsp">好管家</a>
         </div>
         <div>
             <ul class="nav navbar-nav navbar-right">

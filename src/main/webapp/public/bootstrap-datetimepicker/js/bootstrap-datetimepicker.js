@@ -82,9 +82,9 @@
     // when page switch the datetimepicker div will be removed also.
     this.container = options.container || 'body';
 
-    this.language = options.language || this.element.data('date-language') || 'en';
+    this.language = options.language || this.element.data('date-language') || 'zh-CN';
     this.language = this.language in dates ? this.language : this.language.split('-')[0]; // fr-CA fallback to fr
-    this.language = this.language in dates ? this.language : 'en';
+    this.language = this.language in dates ? this.language : 'zh-CN';
     this.isRTL = dates[this.language].rtl || false;
     this.formatType = options.formatType || this.element.data('format-type') || 'standard';
     this.format = DPGlobal.parseFormat(options.format || this.element.data('date-format') || dates[this.language].format || DPGlobal.getDefaultFormat(this.formatType, 'input'), this.formatType);
@@ -188,7 +188,7 @@
     }
     this.viewSelect = DPGlobal.convertViewMode(this.viewSelect);
 
-    this.forceParse = true;
+    this.forceParse = false;
     if ('forceParse' in options) {
       this.forceParse = options.forceParse;
     } else if ('dateForceParse' in this.element.data()) {
@@ -232,7 +232,7 @@
 
     $(document).on('mousedown touchend', this.clickedOutside);
 
-    this.autoclose = false;
+    this.autoclose = true;
     if ('autoclose' in options) {
       this.autoclose = options.autoclose;
     } else if ('dateAutoclose' in this.element.data()) {
@@ -246,11 +246,11 @@
       this.keyboardNavigation = this.element.data('date-keyboard-navigation');
     }
 
-    this.todayBtn = (options.todayBtn || this.element.data('date-today-btn') || false);
-    this.clearBtn = (options.clearBtn || this.element.data('date-clear-btn') || false);
-    this.todayHighlight = (options.todayHighlight || this.element.data('date-today-highlight') || false);
+    this.todayBtn = (options.todayBtn || this.element.data('date-today-btn') || true);
+    this.clearBtn = (options.clearBtn || this.element.data('date-clear-btn') || true);
+    this.todayHighlight = (options.todayHighlight || this.element.data('date-today-highlight') || true);
 
-    this.weekStart = 0;
+    this.weekStart = 1;
     if (typeof options.weekStart !== 'undefined') {
       this.weekStart = options.weekStart;
     } else if (typeof this.element.data('date-weekstart') !== 'undefined') {
@@ -1858,8 +1858,7 @@
       '</thead>',
     contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>',
     footTemplate: '<tfoot>' + 
-                    '<tr><th colspan="7" class="today"></th></tr>' +
-                    '<tr><th colspan="7" class="clear"></th></tr>' +
+                    '<tr><th colspan="4" class="today"></th><th colspan="3" class="clear"></th></tr>' +
                   '</tfoot>'
   };
   DPGlobal.template = '<div class="datetimepicker">' +

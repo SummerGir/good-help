@@ -6,6 +6,7 @@
     line-height: 36px;
     margin-right: 10px;
     width: 60px;
+    text-align: right;
 }
 .my-col .my-right-div{
     flex: 1;

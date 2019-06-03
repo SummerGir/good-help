@@ -87,13 +87,8 @@
             var option = {
                 id:"#myTableTest",//需要绑定的Id或class
                 url:"/core/menuUrl/getMainInfo.do",//表格请求的路径
-                type:"post",//请求方式
                 data:{},//请求的参数
-                dataType:"json",//请求的返回格式
                 toolbar:"#main_table_customRibbon",//表格上面的工具栏用哪个容器
-                isPage:true,//是否分页
-                page:1,//加载数据的初始页
-                rows:5,//每页默认条数
                 columns:[
                     {name:'title',title:"标题",align:'left'},
                     {name:'code',title:'编码',align:'left'},

@@ -1,6 +1,7 @@
 package eiis.controller.statement.meterialinput;
 
 import eiis.app.statement.meterialinput.service.AppStatementMeterialInputService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,11 +26,22 @@ public class AppStatementMeterialInputController {
         String inputCode = request.getParameter("inputCode");
         String beginTime = request.getParameter("beginTime");
         String endTime = request.getParameter("endTime");
-        String month = request.getParameter("month");
+        String time = request.getParameter("month");
+        String isValid = request.getParameter("isValid");
+        String month = "";
+        String year = "";
+        if(StringUtils.isNotBlank(time)){
+            String[] t = time.split("-");
+            if(t.length == 2){
+                month = t[1];
+                year = t[0];
+            }
+        }
 
-        List<Map<String, Object>> list = service.getMainInfo(inputCode,beginTime,endTime,month,page, rows);
 
-        int count = service.getMainCount(inputCode,beginTime,endTime,month,page, rows);
+        List<Map<String, Object>> list = service.getMainInfo(inputCode,beginTime,endTime,year,month,isValid,page, rows);
+
+        int count = service.getMainCount(inputCode,beginTime,endTime,year,month,isValid);
         return GenericController.getTable(list,count,page, rows);
     }
 }

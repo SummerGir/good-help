@@ -12,6 +12,7 @@
         data:"",//请求的参数
         dataType:"json",//请求的返回格式
         toolbar:"",//表格上面的工具栏用哪个容器
+        allowSelected:true,//表格上面的工具栏用哪个容器
         isPage:true,//是否分页
         haveHead:false,//是否需要工具栏上方的面板头部
         page:1,//加载数据的初始页
@@ -57,20 +58,26 @@
                             }
                             myTd.append('<td style="'+((c.align==null ||c.align=="")?"":("text-align:"+c.align+";"))+'">'+val+'</td>');
                         }
-                        myDiv.find(".table-responsive table>tbody").append(myTd);
-                        myTd.bind("click",function(){
-                            var m = $(this).attr("data-num");
-                            var clas = "info";
-                            if(!$(this).hasClass(clas)){
-                                $(this).parent().children().removeClass(clas);
-                                $(this).addClass(clas);
-                                myDiv.triggerHandler("table.row.selected", [{row: r[m], tr: $(this)}]);
-                            }else{
-                                $(this).parent().children().removeClass(clas);
-                                myDiv.triggerHandler("table.row.selected", [{row: null, tr: null}]);
-                            }
+                        myTd.find("td").each(function(i,o){
 
+                            myDiv.triggerHandler("table.column."+ col[i].name +".foramt", [{row: r[m], ed: $(this)}]);
                         });
+                        myDiv.find(".table-responsive table>tbody").append(myTd);
+                        if(defaultOpt.allowSelected){
+                            myTd.bind("click",function(){
+                                var m = $(this).attr("data-num");
+                                var clas = "info";
+                                if(!$(this).hasClass(clas)){
+                                    $(this).parent().children().removeClass(clas);
+                                    $(this).addClass(clas);
+                                    myDiv.triggerHandler("table.row.selected", [{row: r[m], tr: $(this)}]);
+                                }else{
+                                    $(this).parent().children().removeClass(clas);
+                                    myDiv.triggerHandler("table.row.selected", [{row: null, tr: null}]);
+                                }
+
+                            });
+                        }
                     }
 
                 }

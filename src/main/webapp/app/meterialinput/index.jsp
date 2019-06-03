@@ -16,7 +16,7 @@
 --%>
 <%
 
-    String menuCode = "ywzx_djlr";
+    String menuCode = "meterial_input";
     CoreMenuTreeInfoEntity menuTree = Context.getMenuTree(menuCode);
     String title = menuTree.getTitle();
 

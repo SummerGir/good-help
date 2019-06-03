@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "app_meterial_input_detail", schema = "good-helper", catalog = "")
+@Table(name = "app_meterial_input_detail")
 public class AppMeterialInputDetailEntity {
     private String detailId;
     private String inputId;

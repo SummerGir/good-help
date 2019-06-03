@@ -4,13 +4,13 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "app_meterial_input", schema = "good-helper", catalog = "")
+@Table(name = "app_meterial_input")
 public class AppMeterialInputEntity {
     private String inputId;
     private String inputCode;
     private Integer year;
     private Integer month;
-    private Integer number;
+    private String number;
     private String exception;
     private Boolean isValid;
     private Timestamp sysTime;
@@ -58,11 +58,11 @@ public class AppMeterialInputEntity {
 
     @Basic
     @Column(name = "NUMBER")
-    public Integer getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(Integer number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 

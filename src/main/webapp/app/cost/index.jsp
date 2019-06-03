@@ -2,6 +2,8 @@
 <%@ page import="eiis.app.type.entity.TypeSelectEntity" %>
 <%@ page import="eiis.app.type.service.AppTypeDetailService" %>
 <%@ page import="org.apache.commons.lang.StringUtils" %>
+<%@ page import="eiis.core.menuTree.entity.CoreMenuTreeInfoEntity" %>
+<%@ page import="util.context.Context" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %><%--
   Created by IntelliJ IDEA.
   User: Jane
@@ -11,9 +13,12 @@
 --%>
 
 <%
+    String menuCode = "cost";
+    CoreMenuTreeInfoEntity menuTree = Context.getMenuTree(menuCode);
+    String title = menuTree.getTitle();
+
     String typeDetailId = request.getParameter("typeDetailId");
-    String typeCode = "cost";
-    TypeSelectEntity pse = AppTypeDetailService.getInstance().getTypeSelect(typeCode,typeDetailId);
+    TypeSelectEntity pse = AppTypeDetailService.getInstance().getTypeSelect(menuCode,typeDetailId);
     typeDetailId= StringUtils.isNotBlank(pse.getSelectedTypeId())?pse.getSelectedTypeId():"00000000-00000000-00000000";
     StringBuffer listOp = pse.getListOp();
     StringBuffer finishedProOp = pse.getFinishedProOp();
@@ -21,7 +26,7 @@
 
 %>
 <master:ContentPage>
-    <master:Content contentPlaceHolderId="title">消费单</master:Content>
+    <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
     <master:Content contentPlaceHolderId="head">
         <script type="text/javascript" src="/public/control/bootstrap-table/js/bootstrap.table.js"></script>
     </master:Content>
@@ -98,13 +103,8 @@
             var option = {
                 id:"#myTableTest",//需要绑定的Id或class
                 url:"/app/cost/getMainInfo.do",//表格请求的路径
-                type:"post",//请求方式
                 data:{typeDetailId:_typeDetailId},//请求的参数
-                dataType:"json",//请求的返回格式
                 toolbar:"#main_table_customRibbon",//表格上面的工具栏用哪个容器
-                isPage:true,//是否分页
-                page:1,//加载数据的初始页
-                rows:5,//每页默认条数
                 columns:[
                     {name:'title',title:"标题",align:'left'},
                     {name:'content',title:'内容',align:'left'},

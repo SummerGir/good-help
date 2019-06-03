@@ -3,6 +3,8 @@ package util.context;
 import eiis.core.memberInfo.entity.CoreMemberInfoEntity;
 import eiis.core.menuTree.entity.CoreMenuTreeInfoEntity;
 import eiis.core.menuTree.service.CoreMenuTreeService;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -62,23 +64,10 @@ public class Context {
 
     //-------------------session相关------------------------------
 
-    private static HttpSession session = null;
-    private static HttpSession createSession(){
-        if (session == null) {
-            session = request.getSession();
-        }
-        return session;
-    }
     public static Object getSession(String key) {
-        if(session == null){
-            createSession();
-        }
-        return session.getAttribute(key);
+        return request.getSession().getAttribute(key);
     }
     public static void setSession(String key,Object o){
-        if(session == null){
-            createSession();
-        }
-        session.setAttribute(key,o);
+        request.getSession().setAttribute(key,o);
     }
 }

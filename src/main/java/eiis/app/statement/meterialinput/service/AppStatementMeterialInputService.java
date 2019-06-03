@@ -29,29 +29,35 @@ public class AppStatementMeterialInputService extends StatementGenericService {
 
 
 	//得到列表
-	public List<Map<String,Object>> getMainInfo(String searchKey,String beginTime, String endTime, String month, int page,int rows) throws Exception{
+	public List<Map<String,Object>> getMainInfo(String searchKey,String beginTime, String endTime, String year, String month, String isValid, int page,int rows) throws Exception{
 
 		Map<String,Object> values = new HashedMap();
 		if(StringUtils.isNotBlank(searchKey)){
 			values.put("searchKey",searchKey);
-		}else if(StringUtils.isNotBlank(beginTime)){
+		}if(StringUtils.isNotBlank(beginTime)){
 			beginTime += " 00:00:00";
 			values.put("beginTime",beginTime);
-		}else if(StringUtils.isNotBlank(endTime)){
+		}if(StringUtils.isNotBlank(endTime)){
 			endTime += " 23:59:59";
 			values.put("endTime",endTime);
-		}else if(StringUtils.isNotBlank(month)){
+		}if(StringUtils.isNotBlank(year)){
+			values.put("year",year);
+		}if(StringUtils.isNotBlank(month)){
 			values.put("month",month);
+		}if(StringUtils.isNotBlank(isValid)){
+			values.put("isValid",isValid);
 		}
 
-		String baseSql = "select ami.INPUT_CODE,sum(amid.MONEY) from app_meterial_input ami join app_meterial_input_detail amid on ami.INPUT_ID=amid.INPUT_ID where 1=1 " +
+		String baseSql = "select ami.INPUT_ID,ami.INPUT_CODE,sum(amid.MONEY),ami.IS_VALID from app_meterial_input ami join app_meterial_input_detail amid on ami.INPUT_ID=amid.INPUT_ID where 1=1 " +
 				(StringUtils.isNotBlank(searchKey)?" and locate(:searchKey,ami.INPUT_CODE)>0 ":"")+
 				(StringUtils.isNotBlank(beginTime)?" and ami.SYS_TIME >= :beginTime ":"")+
 				(StringUtils.isNotBlank(endTime)?" and ami.SYS_TIME <= :endTime ":"")+
+				(StringUtils.isNotBlank(year)?" and ami.YEAR = :year":"")+
 				(StringUtils.isNotBlank(month)?" and ami.MONTH = :month":"")+
+				(StringUtils.isNotBlank(isValid)?" and ami.IS_VALID = :isValid":"")+
 				" group by ami.INPUT_ID order by ami.INPUT_CODE";
 
-		String[] fields = {"inputCode", "money"};
+		String[] fields = {"inputId","inputCode", "money","isValid"};
 
 		List<Map<String, Object>> list = getNativeMapList(entityManager, baseSql, values, fields, page, rows);
 
@@ -67,12 +73,14 @@ public class AppStatementMeterialInputService extends StatementGenericService {
 		return list;
 	}
 
-	public int getMainCount(String searchKey,String beginTime, String endTime, String month, int page,int rows){
+	public int getMainCount(String searchKey,String beginTime, String endTime, String year, String month, String isValid){
 		String baseSql = "select count(1) from app_meterial_input ami join app_meterial_input_detail amid on ami.INPUT_ID=amid.INPUT_ID where 1=1 " +
 				(StringUtils.isNotBlank(searchKey)?" and locate(:searchKey,ami.INPUT_CODE)>0 ":"")+
 				(StringUtils.isNotBlank(beginTime)?" and ami.SYS_TIME >= :beginTime ":"")+
 				(StringUtils.isNotBlank(endTime)?" and ami.SYS_TIME <= :endTime ":"")+
+				(StringUtils.isNotBlank(year)?" and ami.YEAR = :year":"")+
 				(StringUtils.isNotBlank(month)?" and ami.MONTH = :month":"")+
+				(StringUtils.isNotBlank(isValid)?" and ami.IS_VALID = :isValid":"")+
 				" group by ami.INPUT_ID";
 		Query query = entityManager.createNativeQuery(baseSql);
 
@@ -82,8 +90,12 @@ public class AppStatementMeterialInputService extends StatementGenericService {
 			query.setParameter("beginTime",beginTime);
 		}if(StringUtils.isNotBlank(beginTime)){
 			query.setParameter("endTime",endTime);
+		}if(StringUtils.isNotBlank(year)){
+			query.setParameter("year",year);
 		}if(StringUtils.isNotBlank(month)){
 			query.setParameter("month",month);
+		}if(StringUtils.isNotBlank(isValid)){
+			query.setParameter("isValid",isValid);
 		}
 		int count = 0;
 		List list = query.getResultList();
@@ -94,17 +106,23 @@ public class AppStatementMeterialInputService extends StatementGenericService {
 	}
 
 
-	public static StringBuffer getYearAndMonthOption(Boolean isHave){
+	public static StringBuffer getYearAndMonthOption(Boolean isHave,Boolean defSel){
 		Calendar c = Calendar.getInstance();
 		int n = 12 * 3;
 		StringBuffer sb = new StringBuffer();
 		if(isHave){
-			sb.append("<option value='' style='display:\'none\''>-请选择月份-</option>");
+			sb.append("<option value='' style='display:\'none\''>全部</option>");
 		}
+
 		while (n > 0){
+			String sel = "";
+			if(defSel){
+				sel = "selected='selected'";
+				defSel = Boolean.FALSE;
+			}
 			int y = c.get(Calendar.YEAR);
 			int m = c.get(Calendar.MONTH) + 1 ;
-			sb.append("<option value='" + y + "-" + m +"'>" + y + "年" + (m > 9 ? m : ("0" + m)) +"月</option>");
+			sb.append("<option value='" + y + "-" + m +"' "+ sel +">" + y + "年" + (m > 9 ? m : ("0" + m)) +"月</option>");
 			c.set(Calendar.MONTH,c.get(Calendar.MONTH) - 1);
 			n--;
 		}

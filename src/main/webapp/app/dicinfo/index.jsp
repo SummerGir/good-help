@@ -1,6 +1,8 @@
 <%@ page import="eiis.app.type.entity.TypeSelectEntity" %>
 <%@ page import="eiis.app.type.service.AppTypeDetailService" %>
 <%@ page import="org.apache.commons.lang3.StringUtils" %>
+<%@ page import="util.context.Context" %>
+<%@ page import="eiis.core.menuTree.entity.CoreMenuTreeInfoEntity" %>
 <%@ taglib prefix="master" uri="util.masterPage" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--
@@ -10,9 +12,13 @@
   Time: 23:33
   To change this template use File | Settings | File Templates.
 --%>
-
+<%
+    String menuCode = "dic_info";
+    CoreMenuTreeInfoEntity menuTree = Context.getMenuTree(menuCode);
+    String title = menuTree.getTitle();
+%>
 <master:ContentPage>
-    <master:Content contentPlaceHolderId="title">货单管理</master:Content>
+    <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
     <master:Content contentPlaceHolderId="head">
         <script type="text/javascript" src="/public/control/bootstrap-table/js/bootstrap.table.js"></script>
     </master:Content>
@@ -98,12 +104,7 @@
             var option = {
                 id:"#myTableTest",//需要绑定的Id或class
                 url:"/app/dicinfo/getMainInfo.do",//表格请求的路径
-                type:"post",//请求方式
-                dataType:"json",//请求的返回格式
                 toolbar:"#main_table_customRibbon",//表格上面的工具栏用哪个容器
-                isPage:true,//是否分页
-                page:1,//加载数据的初始页
-                rows:5,//每页默认条数
                 columns:[
                     {name:'dicName',title:"标题",align:'left'},
                     {name:'dicCode',title:'编号',align:'left',width:'15%'},
