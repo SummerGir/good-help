@@ -1,6 +1,6 @@
-package eiis.controller.statement.meterialinput;
+package eiis.controller.meterialbill;
 
-import eiis.app.statement.meterialinput.service.AppStatementMeterialInputService;
+import eiis.app.meterialbill.AppMeterialBillService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
-@Controller("eiis.controller.statement.meterialinput.AppStatementMeterialInputController")
-@RequestMapping("/statement/meterialInput")
-public class AppStatementMeterialInputController {
+@Controller("eiis.controller.meterialbill.AppMeterialBillController")
+@RequestMapping("/app/meterialBill")
+public class AppMeterialBillController {
     @Autowired
-    protected AppStatementMeterialInputService service;
+    protected AppMeterialBillService service;
 
     @RequestMapping("getMainInfo")
     @ResponseBody

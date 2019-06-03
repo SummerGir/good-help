@@ -1,14 +1,9 @@
-package eiis.app.statement.meterialinput.service;
+package eiis.app.meterialbill;
 
-import eiis.app.meterialinput.dao.AppMeterialInputDao;
-import eiis.app.meterialinput.entity.AppMeterialInputEntity;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import util.dataManage.GenericDao;
-import util.dataManage.GenericService;
 import util.dataManage.StatementGenericService;
 import util.spring.ApplicationContext;
 
@@ -18,14 +13,14 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
-@Service("eiis.app.statement.meterialinput.service.AppStatementMeterialInputService")
-public class AppStatementMeterialInputService extends StatementGenericService {
+@Service("eiis.app.meterialbill.AppMeterialBillService")
+public class AppMeterialBillService extends StatementGenericService {
 
 
 	@Autowired
 	protected EntityManager entityManager;
 
-	protected AppStatementMeterialInputService() {}
+	protected AppMeterialBillService() {}
 
 
 	//得到列表
@@ -129,7 +124,7 @@ public class AppStatementMeterialInputService extends StatementGenericService {
 		return sb;
 	}
 
-	public static AppStatementMeterialInputService getInstance() {return ApplicationContext.getCurrent().getBean(AppStatementMeterialInputService.class);}
+	public static AppMeterialBillService getInstance() {return ApplicationContext.getCurrent().getBean(AppMeterialBillService.class);}
 
 
 }

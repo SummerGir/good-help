@@ -1,9 +1,6 @@
-<%@ page import="eiis.app.type.entity.TypeSelectEntity" %>
-<%@ page import="eiis.app.type.service.AppTypeDetailService" %>
-<%@ page import="org.apache.commons.lang3.StringUtils" %>
-<%@ page import="eiis.app.statement.meterialinput.service.AppStatementMeterialInputService" %>
-<%@ page import="util.context.Context" %>
+<%@ page import="eiis.app.meterialbill.AppMeterialBillService" %>
 <%@ page import="eiis.core.menuTree.entity.CoreMenuTreeInfoEntity" %>
+<%@ page import="util.context.Context" %>
 <%@ taglib prefix="master" uri="util.masterPage" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--
@@ -15,16 +12,16 @@
 --%>
 
 <%
-    String menuCode = "statment_meterial_input";
+    String menuCode = "meterial_bill";
     CoreMenuTreeInfoEntity menuTree = Context.getMenuTree(menuCode);
     String title = menuTree.getTitle();
-    StringBuffer sbMonth = AppStatementMeterialInputService.getYearAndMonthOption(true,true);
+    StringBuffer sbMonth = AppMeterialBillService.getYearAndMonthOption(true,true);
 %>
 <master:ContentPage>
-    <master:Content contentPlaceHolderId="title">单据报表</master:Content>
+    <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
     <master:Content contentPlaceHolderId="head">
         <script type="text/javascript" src="/public/control/bootstrap-table/js/bootstrap.table.js"></script>
-        <link href="/app/statement/css_js/index.css" rel="stylesheet"/>
+        <link href="/app/meterialbill/css_js/index.css" rel="stylesheet"/>
     </master:Content>
     <master:Content contentPlaceHolderId="body">
         <div class="panel panel-default search-div">
@@ -94,14 +91,14 @@
             var loading = false;//控制项目列表频繁点击
             var option = {
                 id:"#myTableTest",//需要绑定的Id或class
-                url:"/statement/meterialInput/getMainInfo.do",//表格请求的路径
+                url:"/app/meterialBill/getMainInfo.do",//表格请求的路径
                 toolbar:"#main_table_customRibbon",//表格上面的工具栏用哪个容器
                 allowSelected:false,//列不允许选中
                 rows:25,//每页默认条数
                 columns:[
                     {name:'inputCode',title:'编号',align:'left'},
                     {name:'money',title:"价格",align:'center',width:'30%'},
-                    {name:'caozuo',title:"操作",align:'center',width:'30%',format:function(text){
+                    {name:'caozuo',title:"是否对账",align:'center',width:'30%',format:function(text){
                         return "a"
                     }}
                 ]
