@@ -227,7 +227,7 @@ function delete_main(){
     }
     $.message({
         button:$.message.button.yesNo
-        ,text:"确定要删除此数据?"
+        ,text:"确定要删除单据"+ selectedRow.inputCode +"?"
         ,result:function(result){
             if(result == $.message.result.yes){
                 $.post("/app/meterialinput/deleteMain.do", {
