@@ -4,22 +4,35 @@ var loading = false;//控制项目列表频繁点击
 var option = {
     id:"#myTableTest",//需要绑定的Id或class
     url:"/app/meterialinput/getMainInfo.do",//表格请求的路径
-    data:{},//请求的参数
+    data:{queryData:queryData},//请求的参数
     toolbar:"#main_table_customRibbon",//表格上面的工具栏用哪个容器
+    rows:-1,
     columns:[
         {name:'inputCode',title:"单据编号",align:'left',width:'15%'},
         {name:'dicName',title:'材料名称',align:'left'},
-        {name:'money',title:'单据金额',align:'center',width:'20%'},
-        {name:'sysTime',title:"录入日期",align:'center',width:'20%'},
-        {name:'isValid',title:"是否对账",align:'center',width:'20%'}
+        {name:'money',title:'单据金额',align:'center',width:'18%'},
+        {name:'sysTime',title:"录入日期",align:'center',width:'18%'},
+        {name:'isValid',title:"是否对账",align:'center',width:'18%'}
     ]//表格列[{field:'name',title:'名称',align:'left',width:80,template:function(){}},{},{}]
 };
 
+var isLoad = false;
 $(document).ready(function(){
     myTable.ghTable(option);
     myTable.on("table.created", function() {
 //                    $.message("创建表格");
         loading = false;
+
+        if(!isLoad){
+            $("#myTableTest .my-table-left-select").empty().append('<input class="form-control" name="queryData" type="text" readonly="readonly" style="background-color: #fff" placeholder="请选择查询日期：" value="'+ queryData +'" onchange="getSearch2(this)">');
+
+            //初始化日历控件
+            $("#myTableTest .my-table-left-select input[name='queryData']").datetimepicker({
+                format: 'yyyy-mm-dd',
+                minView:2
+            });
+            isLoad = true;
+        }
     });
     //行选中
     myTable.on("table.row.selected", function(event,eventData) {
@@ -52,10 +65,15 @@ function getSearch(form){
         var name = $(this).attr("name");
         postData[name] = $(this).val();
     });
-
+    postData["queryData"] = $("#myTableTest .my-table-left-select input[name='queryData']").val()
     option.data = postData;
     myTable.ghTable(option);
     $('#'+form).modal('hide');
+}
+//搜索
+function getSearch2(e){
+    option.data = {queryData:$(e).val()};
+    myTable.ghTable(option);
 }
 
 function add_main(){

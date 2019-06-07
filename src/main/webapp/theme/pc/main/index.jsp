@@ -41,6 +41,12 @@
 
     <!--提示框-->
     <script type="text/javascript" src="/public/control/message/message.js"></script>
+
+    <style type="text/css">
+        .form-control:focus{
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 14px rgba(233,0,0, .9);!important;
+        }
+    </style>
     <!--子页面head中的内容-->
     <master:ContentPlaceHolder id="head"/>
 

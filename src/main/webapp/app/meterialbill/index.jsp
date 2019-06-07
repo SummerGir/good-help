@@ -27,7 +27,7 @@
         <div class="panel panel-default search-div">
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-10">
+                    <div class="col-md-9">
                         <div class="row" style="margin-bottom: 10px;">
                             <div class="col-md-4 my-col">
                                 <div class="my-left-div">单据编号：</div>
@@ -54,22 +54,22 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-4 my-col">
-                                <div class="my-left-div">开始日期：</div>
-                                <div class="my-right-div">
-                                    <input class="form-control" name="beginTime" type="text" value="" readonly="readonly" style="background-color: #fff" placeholder="请选择开始日期：">
-                                </div>
-                            </div>
-                            <div class="col-md-4 my-col">
-                                <div class="my-left-div">结束日期：</div>
-                                <div class="my-right-div">
-                                    <input class="form-control" name="endTime" type="text" value="" readonly="readonly" style="background-color: #fff" placeholder="请选择结束日期：">
-                                </div>
-                            </div>
-                        </div>
+                        <%--<div class="row">--%>
+                            <%--<div class="col-md-4 my-col">--%>
+                                <%--<div class="my-left-div">开始日期：</div>--%>
+                                <%--<div class="my-right-div">--%>
+                                    <%--<input class="form-control" name="beginTime" type="text" value="" readonly="readonly" style="background-color: #fff" placeholder="请选择开始日期：">--%>
+                                <%--</div>--%>
+                            <%--</div>--%>
+                            <%--<div class="col-md-4 my-col">--%>
+                                <%--<div class="my-left-div">结束日期：</div>--%>
+                                <%--<div class="my-right-div">--%>
+                                    <%--<input class="form-control" name="endTime" type="text" value="" readonly="readonly" style="background-color: #fff" placeholder="请选择结束日期：">--%>
+                                <%--</div>--%>
+                            <%--</div>--%>
+                        <%--</div>--%>
                     </div>
-                    <div class="col-md-2 my-search-div">
+                    <div class="col-md-3 my-search-div">
                         <button onclick="search()" type="button" class="btn btn-primary" style="margin-bottom: 10px;"> <i class="glyphicon glyphicon-search"></i>查询</button>
                         <button onclick="search_show('search_form')" type="button" class="btn btn-primary">
                             <i class="glyphicon glyphicon-refresh"></i>重置
@@ -126,8 +126,8 @@
                 allowSelected:false,//列不允许选中
                 rows:5,//每页默认条数
                 columns:[
-                    {name:'inputCode',title:'编号',align:'left'},
-                    {name:'money',title:"价格",align:'center',width:'30%'},
+                    {name:'inputCode',title:'单据编号',align:'left'},
+                    {name:'money',title:"单据金额",align:'center',width:'30%'},
                     {name:'caozuo',title:"是否对账",align:'center',width:'30%'}
                 ]
             };

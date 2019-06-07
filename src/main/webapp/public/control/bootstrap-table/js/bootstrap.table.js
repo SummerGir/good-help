@@ -85,13 +85,18 @@
                 defaultOpt.page = rs.page;
                 var p = defaultOpt.page;
                 var records = rs.records;//总条数
-                var s = (p-1)*defaultOpt.rows;
-                s = s < 1?1:s;
-                s = records < 1?0:s;
-                var e = p*defaultOpt.rows;
-                e = e > records?records:e;
-                //生成页
-                myDiv.find(".table-footer .table-info").html("第&nbsp;"+s+"&nbsp;至&nbsp;"+e+"&nbsp;项,共&nbsp;"+records+"&nbsp;项");
+                if(defaultOpt.rows > 0){
+                    var s = (p-1)*defaultOpt.rows;
+                    s = s < 1?1:s;
+                    s = records < 1?0:s;
+                    var e = p*defaultOpt.rows;
+                    e = e > records?records:e;
+                    //生成页
+                    myDiv.find(".table-footer .table-info").html("第&nbsp;"+s+"&nbsp;至&nbsp;"+e+"&nbsp;项,共&nbsp;"+records+"&nbsp;项");
+                }else{
+                    myDiv.find(".table-footer .table-info").html("显示所有,共&nbsp;"+records+"&nbsp;项");
+                }
+
                 var total = rs.total;//总页数
                 //第一页时，不能点首页和上一页
                 myDiv.find(".table-footer li").removeClass("disabled");

@@ -20,7 +20,7 @@
         <div class="form-inline">
             <div class="row table-toolbar" style="margin: 0px;padding: 5px 0px 4px 0px;background-color: #f5f5f5;">
                 <div class="col-xs-12" style="padding: 0px 5px;">
-                    <div class="pull-left">
+                    <div class="pull-left my-table-left-select">
                         <select class="eiis-combobox input-sm table-page-size">
                             <option value="5">显示5项</option>
                             <option value="10" selected="selected">显示10项</option>

@@ -5,6 +5,8 @@
 <%@ page import="eiis.app.dicinfo.service.AppDicInfoService" %>
 <%@ page import="util.context.Context" %>
 <%@ page import="eiis.core.menuTree.entity.CoreMenuTreeInfoEntity" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
 <%@ taglib prefix="master" uri="util.masterPage" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--
@@ -25,6 +27,7 @@
     StringBuffer sbExc = AppMeterialInputService.getExcOption(true);
     StringBuffer sbDic = AppDicInfoService.getInstance().getDicOption(false);
 
+    String queryData = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 %>
 <master:ContentPage>
     <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
@@ -167,7 +170,7 @@
 
         <script type="text/javascript">
             var _sbDic = "<%=sbDic.toString()%>";
-
+            var queryData = "<%=queryData%>";
         </script>
         <script src="/app/meterialinput/css_js/index.js" type="text/javascript"></script>
     </master:Content>

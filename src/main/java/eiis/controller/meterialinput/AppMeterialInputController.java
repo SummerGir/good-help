@@ -34,9 +34,10 @@ public class AppMeterialInputController {
     public String getMainInfo(HttpServletRequest request, @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer rows) throws Exception {
         String mainId = request.getParameter("mainId");
         String searchKey = request.getParameter("searchKey");
+        String queryData = request.getParameter("queryData");
 
-        List<Map<String,Object>> list =  mainService.getMainInfo(mainId,searchKey,page,rows);
-        int count = mainService.getMainCount(mainId,searchKey);
+        List<Map<String,Object>> list =  mainService.getMainInfo(mainId,searchKey,queryData,page,rows);
+        int count = mainService.getMainCount(mainId,searchKey,queryData);
 
         return GenericController.getTable(list,count,page,rows);
     }
