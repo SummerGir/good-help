@@ -88,7 +88,7 @@
 
         <!-- 模态框（Modal） -->
         <div id="my_modal" class="modal fade" tabindex="-1" aria-hidden="true" data-backdrop="static">
-            <div class="modal-dialog" style="width: 55%;">
+            <div class="modal-dialog" style="width: 60%;">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -96,8 +96,9 @@
                             新增/修改 一条数据
                         </h4>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" style="padding-bottom: 0px;">
                         <input type="hidden" name="inputId" value=""/>
+                        <input type="hidden" class="form-control" name="allMoney" placeholder="自动计算单据金额：" disabled="disabled">
                         <div class="row">
                             <div class="col-xs-3 col-md-3">
                                 <h5>年份:</h5>
@@ -122,20 +123,20 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-xs-9 col-md-9">
-                                <h5>备注说明:</h5>
-                                <input type="text" class="form-control" name="comment" placeholder="备注说明（可不填写）：">
-                            </div>
-                            <div class="col-xs-3 col-md-3">
-                                <h5>单据金额:</h5>
-                                <input type="text" class="form-control" name="allMoney" placeholder="自动计算单据金额：" disabled="disabled">
-                            </div>
-                        </div>
+                        <%--<div class="row">--%>
+                            <%--<div class="col-xs-9 col-md-9">--%>
+                                <%--<h5>备注说明:</h5>--%>
+                                <%--<input type="text" class="form-control" name="comment" placeholder="备注说明（可不填写）：">--%>
+                            <%--</div>--%>
+                            <%--<div class="col-xs-3 col-md-3">--%>
+                                <%--<h5>单据金额:</h5>--%>
+                                <%--<input type="text" class="form-control" name="allMoney" placeholder="自动计算单据金额：" disabled="disabled">--%>
+                            <%--</div>--%>
+                        <%--</div>--%>
 
                         <div class="row detail-div">
                             <div class="col-xs-12 col-md-12">
-                                <table class="table table-striped table-bordered table-condensed">
+                                <table class="table table-striped table-bordered table-condensed" style="margin: 0px;">
                                     <thead>
                                     <tr>
                                         <th width="15%">增/减操作</th>

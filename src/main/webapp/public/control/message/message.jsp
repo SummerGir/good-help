@@ -15,7 +15,7 @@
                     <span></span>
                 </h4>
             </div>
-            <div class="modal-body" >
+            <div class="modal-body" style="font-size: 15px;">
 
             </div>
             <div class="modal-footer">
@@ -33,9 +33,8 @@
                 <button type="button" class="btn btn-default btn-danger modal-message-button-ignore" data-result="ignore"><i
                         class="fa fa-share-square-o"></i> 忽略
                 </button>
-                <button type="button" class="btn btn-default modal-message-button-yes" data-type="submit" data-result="yes">是
-                </button>
                 <button type="button" class="btn btn-default modal-message-button-no" data-type="reset" data-result="no">否</button>
+                <button type="button" class="btn btn-primary modal-message-button-yes" data-type="submit" data-result="yes">是</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->

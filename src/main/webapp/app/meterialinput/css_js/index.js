@@ -104,26 +104,47 @@ function edit_main(){
 
 function save_main(type){
     var postData = get_data();
-    if(postData){
-        $.ajax({
-            url:"/app/meterialinput/saveMain.do",  //请求路径
-            data:{postData: JSON.stringify(postData)}, //请求参数
-            type:"post", //请求方式
-            async:true,  //是否异步，默认值true
-            dataType:'json',
-            success:function(rs){ ////成功之后回调
-                if(type){
-                    //继续新增
-                    loadTable();
-                    add_main();
-                }else{
-                    $.message(rs.msg);
-                    if(rs.error == 0){
-                        $('#my_modal').modal('hide');
-                        loadTable();
-                    }
-                }
 
+    if(postData){
+        var main = postData.main;
+        var code = "编号：" + main.year.substr(2) + (main.month > 9 ? main.month : ("0" + main.month)) + "-" + main.number;
+        if(main.exception != ''){
+            code += "-" + main.exception;
+        }
+        code += "\n";
+
+        var detail = postData.detail;
+        for(var i = 0 ; i < detail.length ; i++){
+            code += detail[i].dicName + "：" + detail[i].detailNum + " " + detail[i].unitName + " ," + detail[i].money + " 元\n";
+        }
+        code += "总金额：<span style='color: red;'>" + main.allMoney + " 元</span>\n";
+        $.message({
+            button:$.message.button.yesNo
+            ,text:"确定要保存此数据?\n\n" + code
+            ,result:function(result){
+                if(result == $.message.result.yes){
+                    $.ajax({
+                        url:"/app/meterialinput/saveMain.do",  //请求路径
+                        data:{postData: JSON.stringify(postData)}, //请求参数
+                        type:"post", //请求方式
+                        async:true,  //是否异步，默认值true
+                        dataType:'json',
+                        success:function(rs){ ////成功之后回调
+                            if(type){
+                                //继续新增
+                                loadTable();
+                                add_main();
+                            }else{
+                                $.message(rs.msg);
+                                if(rs.error == 0){
+                                    $('#my_modal').modal('hide');
+                                    loadTable();
+                                }
+                            }
+
+                        }
+                    });
+                }
             }
         });
     }
@@ -161,6 +182,14 @@ function get_data(){
                 return false;
             }else{
                 d[name] = $(this).val();
+                if(name = "dicId"){
+                    $(this).find("option").each(function(){
+                        if($(this).attr("value") == d["dicId"]){
+                            d["dicName"] = $(this).text();
+                            d["unitName"] = $(this).attr("un");
+                        }
+                    });
+                }
             }
         });
         detail.push(d);
@@ -222,7 +251,7 @@ function sz_rows(e,type,val){
         str += '</div>';
         str += '</td>';
         str += '<td><select class="form-control" name="dicId" required="required" onfocus="sz_border(this)" onchange="sz_price(this,'+ len +')">'+ _sbDic +'</select></td>';
-        str += '<td><input type="text" class="form-control" name="detailNum" onfocus="sz_border(this)" onblur="sz_money('+ len +')" placeholder="请填写数量：" required="required"  onkeyup="value=value.replace(/[^\\d{1,}\\.\\d{1,}|\\d{1,}]/g,\'\')"  onblur="value=value.replace(/[^\\d{1,}\\.\\d{1,}|\\d{1,}]/g,\'\')"></td>';
+        str += '<td><input type="text" class="form-control" name="detailNum" onfocus="sz_border(this)" onkeyup="sz_NumCol(this,'+ len +')" placeholder="请填写数量：" required="required"   onblur="value=value.replace(/[^\\d{1,}\\.\\d{1,}|\\d{1,}]/g,\'\')"></td>';
         str += '<td><input type="text" class="form-control" name="detailPrice" placeholder="自动获取" disabled="disabled"></td>';
         str += '<td><input type="text" class="form-control" name="money" placeholder="自动计算" disabled="disabled"></td>';
         str += '</tr>';
@@ -249,6 +278,10 @@ function sz_rows(e,type,val){
     }
 }
 
+function sz_NumCol(e,len){
+$(e).val(($(e).val()+"").replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,''));
+sz_money(len);
+}
 function sz_price(e,len){
     if(e == null || e == undefined)
         return;

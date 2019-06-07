@@ -87,7 +87,7 @@ public class AppDicInfoService extends GenericService<AppDicInfoEntity,String>{
         }
 
         for(Map<String,Object> map : list){
-            sb.append("<option value='"+ map.get("dicId").toString() +"' pr='"+ map.get("price").toString() +"'>"+ map.get("dicName").toString() +"</option>");
+            sb.append("<option value='"+ map.get("dicId").toString() +"' pr='"+ map.get("price").toString() +"' un='" + map.get("unitName").toString() +"'>"+ map.get("dicName").toString() +"</option>");
         }
 
         return sb;

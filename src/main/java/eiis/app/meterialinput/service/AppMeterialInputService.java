@@ -54,7 +54,7 @@ public class AppMeterialInputService extends
 		}if(StringUtils.isNotBlank(searchKey)){
 			values.put("searchKey",searchKey);
 		}
-		String baseSql = "select main.INPUT_ID,main.INPUT_CODE,main.YEAR,main.MONTH,main.NUMBER,main.EXCEPTION,main.IS_VALID,main.SYS_TIME,main.`COMMENT`,group_concat(dic.DIC_NAME SEPARATOR  ';'),sum(det.MONEY) from app_meterial_input main left join app_meterial_input_detail det on main.INPUT_ID=det.INPUT_ID left join app_dic_info dic on det.DIC_ID=dic.DIC_ID where 1=1 " +
+		String baseSql = "select main.INPUT_ID,main.INPUT_CODE,main.YEAR,main.MONTH,main.NUMBER,main.EXCEPTION,main.IS_VALID,main.SYS_TIME,main.`COMMENT`,group_concat(concat(dic.DIC_NAME,'：',det.DETAIL_NUM,dic.UNIT_NAME) SEPARATOR  ' ; '),sum(det.MONEY) from app_meterial_input main left join app_meterial_input_detail det on main.INPUT_ID=det.INPUT_ID left join app_dic_info dic on det.DIC_ID=dic.DIC_ID where 1=1 " +
 				(StringUtils.isNotBlank(mainId)?" main.INPUT_ID=:mainId ":"")+
 				(StringUtils.isNotBlank(searchKey)?" and locate(:searchKey,main.INPUT_CODE)>0 ":"")+
 				" group by main.INPUT_ID order by main.SYS_TIME desc";

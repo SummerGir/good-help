@@ -74,8 +74,8 @@ public class AppMeterialInputController {
             entity.setException(main.getString("exception"));
             entity.setIsValid(false);
             entity.setSysTime(new Timestamp(new Date().getTime()));
-            entity.setComment(main.getString("comment"));
-            entity.setInputCode(entity.getMonth() + "-" + entity.getNumber() + (StringUtils.isNotBlank(entity.getException()) ? ("-" + entity.getException()) : ""));
+//            entity.setComment(main.getString("comment"));
+            entity.setInputCode(String.valueOf(entity.getYear()).substring(2) + (entity.getMonth() > 9 ? entity.getMonth() : ("0" + entity.getMonth())) + "-" + entity.getNumber() + (StringUtils.isNotBlank(entity.getException()) ? ("-" + entity.getException()) : ""));
 
             List<AppMeterialInputDetailEntity> list = new ArrayList<>();
             JSONArray detail = jb.get("detail") == null ? new JSONArray() : jb.getJSONArray("detail");
