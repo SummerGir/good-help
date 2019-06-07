@@ -63,9 +63,9 @@
         if (isBodyHtml) {
             bodyHtml = option.body;
         } else {
-            bodyHtml = $('<div/>').text(option.text).html();
+            bodyHtml = $('<div/>').html(option.text).html();
 
-            bodyHtml = bodyHtml.replace(/ /g, "&nbsp;");
+            // bodyHtml = bodyHtml.replace(/ /g, "&nbsp;");
             bodyHtml = bodyHtml.replace(/\r\n/g, "<br />");
             bodyHtml = bodyHtml.replace(/\n/g, "<br />");
             bodyHtml = bodyHtml.replace(/\t/g, "&nbsp;&nbsp;&nbsp;&nbsp;");
