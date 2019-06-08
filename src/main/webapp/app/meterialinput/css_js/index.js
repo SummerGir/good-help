@@ -79,7 +79,17 @@ function search_show(form){
         var name = $(this).attr("name");
         $(this).val("");
     });
-    getSearch(form)
+    $("#myTableTest .my-table-left-select input[name='queryData']").val(queryData);
+
+    var postData = {};
+    $("#"+form+" input,#"+form+" select").each(function(){
+        var name = $(this).attr("name");
+        postData[name] = $(this).val();
+    });
+    postData["queryData"] = queryData;
+    option.data = postData;
+    myTable.ghTable(option);
+    $('#'+form).modal('hide');
 }
 
 //搜索
@@ -89,7 +99,7 @@ function getSearch(form){
         var name = $(this).attr("name");
         postData[name] = $(this).val();
     });
-    postData["queryData"] = $("#myTableTest .my-table-left-select input[name='queryData']").val()
+    postData["queryData"] = "";
     option.data = postData;
     myTable.ghTable(option);
     $('#'+form).modal('hide');
