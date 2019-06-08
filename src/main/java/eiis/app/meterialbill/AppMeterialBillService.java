@@ -183,6 +183,9 @@ public class AppMeterialBillService extends StatementGenericService {
 			str += m.get("dicName").toString() + "：" + m.get("detailNum").toString() + " " + m.get("unitName").toString() + "； ";
 		}
 
+		if(StringUtils.isBlank(str)){
+			str = "暂无数据！";
+		}
 		Map<String,Object> map = new HashMap<>();
 		map.put("isValid_0",String.format("%.2f",isValid_0));
 		map.put("isValid_1",String.format("%.2f",isValid_1));

@@ -15,7 +15,7 @@
     String menuCode = "meterial_bill";
     CoreMenuTreeInfoEntity menuTree = Context.getMenuTree(menuCode);
     String title = menuTree.getTitle();
-    StringBuffer sbMonth = AppMeterialBillService.getYearAndMonthOption(false,true);
+    StringBuffer sbMonth = AppMeterialBillService.getYearAndMonthOption(true,true);
 %>
 <master:ContentPage>
     <master:Content contentPlaceHolderId="title"><%=title%></master:Content>

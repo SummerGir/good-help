@@ -33,6 +33,7 @@ $(document).ready(function(){
             });
             isLoad = true;
         }
+        getMainMoneyInfo();
     });
     //行选中
     myTable.on("table.row.selected", function(event,eventData) {
@@ -48,6 +49,29 @@ $(document).ready(function(){
 
     });
 });
+
+function getMainMoneyInfo(){
+    var queryData = $("#myTableTest .my-table-left-select input[name='queryData']").val();
+    if(queryData == "" || queryData == null){
+        return;
+    }
+    var beginTime = queryData + " 00:00:00";
+    var endTime = queryData + " 23:59:59";
+    $.ajax({
+        url:"/app/meterialBill/getMainMoneyInfo.do",  //请求路径
+        data:{beginTime: beginTime,endTime: endTime}, //请求参数
+        type:"post", //请求方式
+        async:true,  //是否异步，默认值true
+        dataType:'json',
+        success:function(rs){ ////成功之后回调
+            console.log(rs);
+            $(".count-div div[name='isValid_0']").html(rs.isValid_0);
+            $(".count-div div[name='isValid_1']").html(rs.isValid_1);
+            $(".count-div div[name='allMoney']").html(rs.allMoney);
+            $(".count-div div[name='dicInfo']").html(rs.dicInfo);
+        }
+    });
+}
 
 //重置
 function search_show(form){

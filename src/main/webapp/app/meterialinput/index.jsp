@@ -36,6 +36,31 @@
         <link href="/app/meterialinput/css_js/index.css" rel="stylesheet"/>
     </master:Content>
     <master:Content contentPlaceHolderId="body">
+
+        <div class="count-div">
+            <div class="row">
+                <%--<div class="col-md-4 my-col">--%>
+                    <%--<div class="my-left-div">已对账：</div>--%>
+                    <%--<div class="my-right-div" name="isValid_1"></div>--%>
+                    <%--<div class="money-unit">￥</div>--%>
+                <%--</div>--%>
+                <%--<div class="col-md-4 my-col">--%>
+                    <%--<div class="my-left-div">未对账：</div>--%>
+                    <%--<div class="my-right-div" name="isValid_0"></div>--%>
+                    <%--<div class="money-unit">￥</div>--%>
+                <%--</div>--%>
+                <div class="col-md-8 my-col">
+                    <div class="my-left-div">材料统计：</div>
+                    <div class="my-right-div" name="dicInfo"></div>
+                </div>
+                <div class="col-md-4 my-col">
+                    <div class="my-left-div">总金额：</div>
+                    <div class="my-right-div" name="allMoney"></div>
+                    <div class="money-unit">￥</div>
+                </div>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-md-12">
                 <!--表格-->
