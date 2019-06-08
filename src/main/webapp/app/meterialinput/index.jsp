@@ -68,7 +68,7 @@
                 <!--表格的工具栏-->
                 <div id="main_table_customRibbon" style="display: none;">
                     <button onclick="search_show('search_form')" type="button" class="btn btn-primary">
-                        <i class="glyphicon glyphicon-refresh"></i>显示所有
+                        <i class="glyphicon glyphicon-refresh"></i>刷新
                     </button>
                     <button onclick="$('#search_form').modal()" type="button" class="btn btn-info">
                         <i class="glyphicon glyphicon-search"></i> 搜索

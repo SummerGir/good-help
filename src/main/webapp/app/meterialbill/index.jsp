@@ -24,68 +24,6 @@
         <link href="/app/meterialbill/css_js/index.css" rel="stylesheet"/>
     </master:Content>
     <master:Content contentPlaceHolderId="body">
-        <div class="panel panel-default search-div">
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-9">
-                        <div class="row" style="margin-bottom: 10px;">
-                            <div class="col-md-4 my-col">
-                                <div class="my-left-div">单据编号：</div>
-                                <div class="my-right-div"><input type="text" class="form-control" name="inputCode" placeholder="请填写单据编号："></div>
-
-                            </div>
-                            <div class="col-md-4 my-col">
-                                <div class="my-left-div">单据月份：</div>
-                                <div class="my-right-div">
-                                    <select class="form-control" name="month">
-                                        <%=sbMonth.toString()%>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4 my-col">
-                                <div class="my-left-div">是否对账：</div>
-                                <div class="my-right-div">
-                                    <select class="form-control" name="isValid">
-                                        <option value="">全部</option>
-                                        <option value="0">未对账</option>
-                                        <option value="1">已对账</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <%--<div class="row">--%>
-                            <%--<div class="col-md-4 my-col">--%>
-                                <%--<div class="my-left-div">开始日期：</div>--%>
-                                <%--<div class="my-right-div">--%>
-                                    <%--<input class="form-control" name="beginTime" type="text" value="" readonly="readonly" style="background-color: #fff" placeholder="请选择开始日期：">--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
-                            <%--<div class="col-md-4 my-col">--%>
-                                <%--<div class="my-left-div">结束日期：</div>--%>
-                                <%--<div class="my-right-div">--%>
-                                    <%--<input class="form-control" name="endTime" type="text" value="" readonly="readonly" style="background-color: #fff" placeholder="请选择结束日期：">--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
-                        <%--</div>--%>
-                    </div>
-                    <div class="col-md-3 my-search-div">
-                        <button onclick="search()" type="button" class="btn btn-primary" style="margin-bottom: 10px;"> <i class="glyphicon glyphicon-search"></i>查询</button>
-                        <button onclick="search_show('search_form')" type="button" class="btn btn-primary">
-                            <i class="glyphicon glyphicon-refresh"></i>重置
-                        </button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="row">            
-            <div class="col-md-12">
-                <!--表格-->
-                <div id="myTableTest"></div>
-            </div>
-        </div>
 
         <div class="count-div">
             <div class="row">
@@ -114,17 +52,80 @@
             </div>
         </div>
 
+        <div class="panel panel-default search-div">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="row" style="margin-bottom: 10px;">
+                            <div class="col-md-4 my-col">
+                                <div class="my-left-div">单据编号：</div>
+                                <div class="my-right-div"><input type="text" class="form-control" name="inputCode" onkeyup="search()" placeholder="请填写单据编号："></div>
+
+                            </div>
+                            <div class="col-md-4 my-col">
+                                <div class="my-left-div">单据月份：</div>
+                                <div class="my-right-div">
+                                    <select class="form-control" name="month" onchange="search()">
+                                        <%=sbMonth.toString()%>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4 my-col">
+                                <div class="my-left-div">是否对账：</div>
+                                <div class="my-right-div">
+                                    <select class="form-control" name="isValid" onchange="search()">
+                                        <option value="">全部</option>
+                                        <option value="0">未对账</option>
+                                        <option value="1">已对账</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <%--<div class="row">--%>
+                            <%--<div class="col-md-4 my-col">--%>
+                                <%--<div class="my-left-div">开始日期：</div>--%>
+                                <%--<div class="my-right-div">--%>
+                                    <%--<input class="form-control" name="beginTime" type="text" value="" readonly="readonly" style="background-color: #fff" placeholder="请选择开始日期：">--%>
+                                <%--</div>--%>
+                            <%--</div>--%>
+                            <%--<div class="col-md-4 my-col">--%>
+                                <%--<div class="my-left-div">结束日期：</div>--%>
+                                <%--<div class="my-right-div">--%>
+                                    <%--<input class="form-control" name="endTime" type="text" value="" readonly="readonly" style="background-color: #fff" placeholder="请选择结束日期：">--%>
+                                <%--</div>--%>
+                            <%--</div>--%>
+                        <%--</div>--%>
+                    </div>
+                    <div class="col-md-3 my-search-div">
+                        <%--<button onclick="search()" type="button" class="btn btn-primary" style="margin-bottom: 10px;"> <i class="glyphicon glyphicon-search"></i>查询</button>--%>
+                        <button onclick="search_show('search_form')" type="button" class="btn btn-primary">
+                            <i class="glyphicon glyphicon-refresh"></i>刷新
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">            
+            <div class="col-md-12">
+                <!--表格-->
+                <div id="myTableTest"></div>
+            </div>
+        </div>
         <script type="text/javascript">
             var myTable = $("#myTableTest");
             var selectedRow;
             var loading = false;//控制项目列表频繁点击
+            var thisDate = $(".search-div *[name='month']").val();
             var option = {
                 id:"#myTableTest",//需要绑定的Id或class
                 url:"/app/meterialBill/getMainInfo.do",//表格请求的路径
                 data:{},
                 toolbar:"#main_table_customRibbon",//表格上面的工具栏用哪个容器
                 allowSelected:false,//列不允许选中
-                rows:5,//每页默认条数
+                rows:50,//每页默认条数
                 columns:[
                     {name:'inputCode',title:'单据编号',align:'left'},
                     {name:'money',title:"单据金额",align:'center',width:'30%'},
@@ -162,6 +163,7 @@
                     }
                     $(this).val("");
                 });
+
                 $(".search-div *[name='month']").val($(".search-div *[name='month']>option:first").attr("value"));
                 search()
             }
