@@ -159,7 +159,7 @@ function save_main(type){
 
     if(postData){
         var main = postData.main;
-        var code = "编号：" + main.year.substr(2) + (main.month > 9 ? main.month : ("0" + main.month)) + "-" + main.number;
+        var code = "编号："+ main.year.substr(2) + (main.month > 9 ? main.month : ("0" + main.month)) + "-" + main.number;
         if(main.exception != ''){
             code += "-" + main.exception;
         }
@@ -170,6 +170,9 @@ function save_main(type){
             code += detail[i].dicName + "：" + detail[i].detailNum + " " + detail[i].unitName + " ," + detail[i].money + " 元\n";
         }
         code += "总金额：<span style='color: red;'>" + main.allMoney + " 元</span>\n";
+
+        var text = "总金额是"+ main.allMoney +"元，请确认";
+        play_pronunciation(text);
         $.message({
             button:$.message.button.yesNo
             ,text:"确定要保存此数据?\n\n" + code
@@ -215,7 +218,11 @@ function get_data(){
         if ($(this).attr("required") && !$(this).val()) {
             flag = false;
             $(this).css("border", "1px solid red");
-            $.message($(this).prev().text() + " 不能为空!");
+
+            var text = "请输入" + $(this).prev().text();
+            text = text.replaceAll(":","");
+            play_pronunciation(text);
+            // $.message(text);
             return false;
         }else{
             main[name] = $(this).val();
@@ -230,7 +237,20 @@ function get_data(){
             if ($(this).attr("required") && !$(this).val()) {
                 flag = false;
                 $(this).css("border", "1px solid red");
-                $.message("不能为空!");
+
+                var len = $(this).parents("tr").attr("class");
+                if(len){
+                    len = len.replaceAll("my-row-","");
+                }
+                var text = "";
+                if(name == "detailNum"){
+                    text += "请输入第" + len + "行的数量";
+                }else if(name == "dicId"){
+                    text += "请选择第" + len + "行的材料";
+                }
+                console.log(text);
+                play_pronunciation(text);
+                // $.message(text);
                 return false;
             }else{
                 d[name] = $(this).val();
@@ -303,7 +323,7 @@ function sz_rows(e,type,val){
         str += '</div>';
         str += '</td>';
         str += '<td><select class="form-control" name="dicId" required="required" onfocus="sz_border(this)" onchange="sz_price(this,'+ len +')">'+ _sbDic +'</select></td>';
-        str += '<td><input type="text" class="form-control" name="detailNum" onfocus="sz_border(this)" onkeyup="sz_NumCol(this,'+ len +')" placeholder="请填写数量：" required="required"   onblur="value=value.replace(/[^\\d{1,}\\.\\d{1,}|\\d{1,}]/g,\'\')"></td>';
+        str += '<td><input type="text" class="form-control" val_type="double" name="detailNum" onfocus="sz_border(this)" onkeyup="sz_NumCol(event,this,'+ len +')" placeholder="请填写数量：" required="required"   onblur="value=value.replace(/[^\\d{1,}\\.\\d{1,}|\\d{1,}]/g,\'\')"></td>';
         str += '<td><input type="text" class="form-control" name="detailPrice" placeholder="自动获取" disabled="disabled"></td>';
         str += '<td><input type="text" class="form-control" name="money" placeholder="自动计算" disabled="disabled"></td>';
         str += '</tr>';
@@ -330,9 +350,9 @@ function sz_rows(e,type,val){
     }
 }
 
-function sz_NumCol(e,len){
-$(e).val(($(e).val()+"").replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,''));
-sz_money(len);
+function sz_NumCol(event,e,len){
+    check_text(event,e);
+    sz_money(len);
 }
 function sz_price(e,len){
     if(e == null || e == undefined)

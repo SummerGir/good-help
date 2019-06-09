@@ -36,7 +36,6 @@
         <link href="/app/meterialinput/css_js/index.css" rel="stylesheet"/>
     </master:Content>
     <master:Content contentPlaceHolderId="body">
-
         <div class="count-div">
             <div class="row">
                 <%--<div class="col-md-4 my-col">--%>
@@ -141,8 +140,8 @@
                                 </select>
                             </div>
                             <div class="col-xs-3 col-md-3">
-                                <h5>编号:</h5>
-                                <input type="text" class="form-control" name="number" placeholder="请填写编号：" required="required" onfocus="sz_border(this)" onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')" onblur="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')">
+                                <h5>单据编号:</h5>
+                                <input type="text" class="form-control need_listen" val_type="double" name="number" placeholder="请填写编号：" required="required" onfocus="sz_border(this)">
                             </div>
                             <div class="col-xs-3 col-md-3">
                                 <h5>字母:</h5>
@@ -196,7 +195,11 @@
         <script type="text/javascript">
             var _sbDic = "<%=sbDic.toString()%>";
             var queryData = "<%=queryData%>";
+
         </script>
+
         <script src="/app/meterialinput/css_js/index.js" type="text/javascript"></script>
+        <!-- 百度文字转语音-->
+        <script type="text/javascript" src="/public/baidu-tts/index.js"></script>
     </master:Content>
 </master:ContentPage>
