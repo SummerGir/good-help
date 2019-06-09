@@ -159,11 +159,11 @@ function save_main(type){
 
     if(postData){
         var main = postData.main;
-        var code = "编号："+ main.year.substr(2) + (main.month > 9 ? main.month : ("0" + main.month)) + "-" + main.number;
+        var inputCode = main.year.substr(2) + (main.month > 9 ? main.month : ("0" + main.month)) + "-" + main.number;
         if(main.exception != ''){
-            code += "-" + main.exception;
+            inputCode += "-" + main.exception;
         }
-        code += "\n";
+        var code = "编号：" + inputCode + "\n";
 
         var detail = postData.detail;
         for(var i = 0 ; i < detail.length ; i++){
@@ -189,6 +189,9 @@ function save_main(type){
                                 //继续新增
                                 loadTable();
                                 add_main();
+
+                                var text = inputCode.replaceAll("-","杠") + "保存成功";
+                                play_pronunciation(text);
                             }else{
                                 $.message(rs.msg);
                                 if(rs.error == 0){
@@ -248,7 +251,7 @@ function get_data(){
                 }else if(name == "dicId"){
                     text += "请选择第" + len + "行的材料";
                 }
-                console.log(text);
+                // console.log(text);
                 play_pronunciation(text);
                 // $.message(text);
                 return false;
@@ -279,9 +282,12 @@ function delete_main(){
         $.message("请先选中一行数据！");
         return;
     }
+
+    var text = "确定删除单据"+ selectedRow.inputCode.replaceAll("-","杠") + "吗";
+    play_pronunciation(text);
     $.message({
         button:$.message.button.yesNo
-        ,text:"确定要删除单据"+ selectedRow.inputCode +"?"
+        ,text:"确定要删除单据"+ selectedRow.inputCode + "吗" +"?"
         ,result:function(result){
             if(result == $.message.result.yes){
                 $.post("/app/meterialinput/deleteMain.do", {
