@@ -41,16 +41,16 @@
                 <div class="row">
                     <div class="col-md-12 count-div">
                         <div class="row">
-                            <div class="col-md-7 my-col">
+                            <div class="col-xs-6 col-sm-6 col-md-6 my-col">
                                 <div class="my-left-div">材料统计：</div>
                                 <div class="my-right-div" name="dicInfo"></div>
                             </div>
-                            <div class="col-md-3 my-col">
+                            <div class="col-xs-3 col-sm-3 col-md-3 my-col">
                                 <div class="my-left-div">总金额：</div>
                                 <div class="my-right-div" name="allMoney"></div>
                                 <div class="money-unit">￥</div>
                             </div>
-                            <div class="col-md-2 my-col">
+                            <div class="col-xs-3 col-sm-3 col-md-3 my-col">
                                 <div class="my-left-div">录入量：</div>
                                 <div class="my-right-div" name="inputNum"></div>
                                 <div class="money-unit">条</div>
@@ -59,13 +59,13 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 my-col">
+                    <div class="col-xs-3 col-sm-3 col-md-3 my-col">
                         <div class="my-left-div2">录入日期：</div>
                         <div class="my-right-div2" style="padding: 0px;">
                             <input class="form-control" name="queryData" type="text" readonly="readonly" placeholder="请选择查询日期：" value="<%=queryData%>" onchange="getSearch2(this)" />
                         </div>
                     </div>
-                    <div class="col-md-9" style="text-align: right;">
+                    <div class="col-xs-9 col-sm-9 col-md-9" style="text-align: right;">
                         <button onclick="search_show('search_form')" type="button" class="btn btn-primary">
                             <i class="glyphicon glyphicon-refresh"></i>刷新
                         </button>
