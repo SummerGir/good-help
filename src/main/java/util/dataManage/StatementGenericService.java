@@ -28,17 +28,29 @@ public class StatementGenericService{
 		query.setFirstResult((page - 1) * rows);
 		if(rows>0)query.setMaxResults(rows);
 		List<Map<String, Object>> result = new ArrayList<Map<String,Object>>();
-		List<Object[]> list = query.getResultList();
-		for(int i = 0 ; i < list.size() ; i++){
-			Object[] row = list.get(i);
-			if( i == 0 && row.length != fieldNames.length){
-				throw new IllegalAccessException("结果集列名 与 字段名数组(fieldNames) 长度不一致!");
+
+		if(fieldNames.length > 1){
+			List<Object[]> list = query.getResultList();
+			for(int i = 0 ; i < list.size() ; i++){
+				Object[] row = list.get(i);
+				if( i == 0 && row.length != fieldNames.length){
+					throw new IllegalAccessException("结果集列名 与 字段名数组(fieldNames) 长度不一致!");
+				}
+				Map<String,Object> map = new HashMap<String, Object>();
+				for(int v = 0 ; v < row.length ; v++){
+					map.put(fieldNames[v],row[v]);
+				}
+				result.add(map);
 			}
-			Map<String,Object> map = new HashMap<String, Object>();
-			for(int v = 0 ; v < row.length ; v++){
-				map.put(fieldNames[v],row[v]);
+		}else{
+			List<Object> list = query.getResultList();
+			for(int i = 0 ; i < list.size() ; i++){
+				Object row = list.get(i);
+
+				Map<String,Object> map = new HashMap<String, Object>();
+				map.put(fieldNames[0],row);
+				result.add(map);
 			}
-			result.add(map);
 		}
 		return result;
 	}

@@ -14,7 +14,6 @@
         toolbar:"",//表格上面的工具栏用哪个容器
         allowSelected:true,//表格上面的工具栏用哪个容器
         isPage:true,//是否分页
-        haveHead:false,//是否需要工具栏上方的面板头部
         page:1,//加载数据的初始页
         rows:10,//每页默认条数
         columns:[]//表格列[{field:'name',title:'名称',align:'left',width:80,template:function(){}},{},{}]
@@ -42,9 +41,9 @@
                 myDiv.find(".table-responsive table>tbody").empty();
                 //定义表格产生事件
                 myDiv.triggerHandler("table.created");
+                var col = defaultOpt.columns;
                 if(r != null && r.length > 0){
 
-                    var col = defaultOpt.columns;
                     //组建tbody中的行
                     for(var m = 0;m < r.length;m++){
                         var row = r[m];
@@ -80,6 +79,10 @@
                         }
                     }
 
+                }else{
+                    var myTd = $("<tr/>").attr("data-num",0);
+                    myTd.append('<td colspan="'+ col.length +'" style="text-align: center;">暂无数据</td>');
+                    myDiv.find(".table-responsive table>tbody").append(myTd);
                 }
 
                 defaultOpt.page = rs.page;
@@ -93,7 +96,9 @@
                     e = e > records?records:e;
                     //生成页
                     myDiv.find(".table-footer .table-info").html("第&nbsp;"+s+"&nbsp;至&nbsp;"+e+"&nbsp;项,共&nbsp;"+records+"&nbsp;项");
+                    myDiv.find(".table-toolbar .pull-left select").show();
                 }else{
+                    myDiv.find(".table-toolbar .pull-left select").hide();
                     myDiv.find(".table-footer .table-info").html("显示所有,共&nbsp;"+records+"&nbsp;项");
                 }
 
@@ -161,7 +166,7 @@
             myDiv.empty();
             $.ajax({
                 url: "/public/control/bootstrap-table/templet.jsp",
-                data: {isPage:defaultOpt.isPage,haveHead:defaultOpt.haveHead},
+                data: {isPage:defaultOpt.isPage},
                 async: false,
                 cache: false,
                 dataType: "html",

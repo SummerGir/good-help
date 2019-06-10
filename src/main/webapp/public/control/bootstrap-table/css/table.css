@@ -67,3 +67,11 @@ tr.info > td{
 tr.info > td *{
     color: #f5fdfa;
 }
+
+.table-footer{
+    display: flex;
+    margin-bottom: 10px;
+}
+.table-footer .my-table-right{
+    flex: 1;
+}

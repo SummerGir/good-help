@@ -13,48 +13,64 @@ button>i{
 .panel{
     margin-bottom: 10px;!important;
 }
-.count-div .my-col{
+
+.my-col{
     display: flex;
     margin-bottom: 10px;
-    font-size: 16px;
+    font-size: 15px;
     position: relative;
     font-weight: bolder;
 }
-.count-div .my-col .my-left-div{
-    width: 120px;
-    padding: 10px;
-    background-color: #2dcc72;
+.my-col .my-left-div{
+    width: 100px;
+    padding: 5px 10px;
+    background-color: #337ab7;
+    border: 1px solid #2e6da4;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
     color: #fff;
     text-align: right;
-    border: 1px solid #ccc;
     border-right: none;
 }
-.count-div .my-col .my-right-div{
+.my-col .my-left-div2{
+    width: 100px;
+    padding: 5px 10px;
+    background-color: #f0ad4e;
+    border: 1px solid #eea236;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    color: #fff;
+    text-align: right;
+    border-right: none;
+}
+.my-col .my-right-div{
     flex: 1;
     background-color: #fff;
-    padding: 10px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    padding: 5px 30px 5px 10px;
     border: 1px solid #ccc;
     border-left: none;
 }
-.count-div .my-col .money-unit{
+.my-col .my-right-div2{
+    flex: 1;
+    background-color: #fff;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    padding: 0px;
+    border: 1px solid #ccc;
+    border-left: none;
+}
+.my-col .my-right-div2>input,.my-col .my-right-div2>select{
+    background-color: #fff;
+    border:none;
+}
+.my-col .money-unit{
     position: absolute;
     right: 20px;
-    top: 10px;
+    top: 7px;
 }
 
-.search-div .my-col{
-    display: flex;
-}
-.search-div .my-col .my-left-div{
-    height: 36px;
-    line-height: 36px;
-    margin-right: 10px;
-    width: 60px;
-    text-align: right;
-}
-.search-div .my-col .my-right-div{
-    flex: 1;
-}
 .search-div .my-search-div{
     text-align: right;
 }

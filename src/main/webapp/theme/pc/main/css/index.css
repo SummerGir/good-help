@@ -10,52 +10,46 @@ body{
 .main-top-nav{
     border-radius:0px;
 }
-.main-top-nav .dropdown>a>span{
-    margin-right: 5px;
+.main-top-nav .web-top{
+    display: flex;
+    padding: 0px 15px;
 }
-.main-center-div{
-    margin-top: 51px;
+.main-top-nav .web-top-center{
+    display: flex;
+    flex: 1;
+    margin: 0px 50px;
+    font-size: 16px;
+    font-weight: bolder;
 }
-.main-left-div{
-    width: 200px;
-    float: left;
+.main-top-nav .web-top-center .menu-item{
+    padding: 22px 15px 0px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #f8f8f8;
 }
-.main-left-div ul,.main-left-div li{
-    list-style: none;
-    list-style-type: none;
-    margin: 0px;
+.main-top-nav .web-top-center .menu-item2{
+    padding: 10px 20px;
+    font-size: 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #f8f8f8;
+}
+.main-top-nav .web-top-center .dropdown-menu{
     padding: 0px;
 }
-.main-left-div ul,.main-left-div li,.main-left-div a{
-    background-color: #f8f8f8;
+
+.main-top-nav .web-top-center .menu-item i,.main-top-nav .web-top-center .menu-item2 i{
+    padding-right: 5px;
+    font-size: 13px;
 }
-.main-left-div .list-group-item{
-    border-radius:0px;
-    border-top: none;
-}
-.main-right-div{
-    margin-left: 200px;
-}
-.main-center2-nav{
-    border-radius:0px;
-    margin: 0px;
-    height: 50px;
-}
-.main-center2-nav ol,main-center2-nav li{
-    margin: 0px;
-}
-.main-center2-nav .breadcrumb{
-    padding: 13px 0px;
+.main-top-nav .web-top-center .menu-item b{
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
-.main-right-div-content{
-    margin-top: 5px;
+.main-top-nav .web-top-right .dropdown>a>span{
+    margin-right: 5px;
 }
 
-/*左侧导航栏样式 开始*/
-.list-group-item-click,#accordion>li>a:hover{
-    border-bottom: 1px solid #167cac !important;
-    border-top: 1px solid #2094ca !important;
+.list-group-item-click2{
     background-color: #0993d3;
     background: -webkit-gradient(linear, left top, left bottom, from(#1aaef3), to(#0993d3));
     background: -webkit-linear-gradient(top, #1aaef3, #0993d3);
@@ -66,40 +60,22 @@ body{
     box-shadow: none;
     color: #fff !important;
     font-weight: bold;
+    border-bottom: 1px solid #999 !important;
 }
-.list-group-item-click a,.list-group-item-click span{
-    color: #fff !important;
-}
-.list-group-item-heading{
-    margin-left: 5px;
-}
-#accordion{
-    border-right: 1px solid #ccc;
-    background-color: #f8f8f8;
-    background: -webkit-gradient(linear, left top, left bottom, from(#f9f9f9), to(#f2f2f2));
-    background: -webkit-linear-gradient(top, #f9f9f9, #f2f2f2);
-    background: -moz-linear-gradient(top, #f9f9f9, #f2f2f2);
-    background: -ms-linear-gradient(top, #f9f9f9, #f2f2f2);
-    background: -o-linear-gradient(top, #f9f9f9, #f2f2f2);
-    background: linear-gradient(top, #f9f9f9, #f2f2f2);
-    box-shadow: inset 0px 1px 1px #fff;
-}
-#accordion a{
-    display: block;
-    padding: 10px 20px;
-    font-size: 13px;
-    color: #777;
-    text-decoration: none;
-    border-bottom: 1px solid #ccc;
-    border-top: 1px solid #fff;
+.list-group-item-click,.main-top-nav .web-top-center .menu-item:hover,.main-top-nav .web-top-center .menu-item2:hover{
+    background-color: #ddd;
+    border-bottom: 1px solid #999 !important;
 }
 
-#accordion>li>ul a{
-    padding: 8px 35px;
+
+.main-center-div{
+    margin: 60px 10px 20px 10px;
+    overflow-x: hidden;
+    position: relative;
 }
-.list-group-item2-click,#accordion>li>ul a:hover{
-    background-color: #efefef !important;
-    /*border-bottom: 1px solid #efefef !important;*/
-    border-top: 1px solid #efefef !important;
+.main-center-nav{
+    position: fixed;
+    left: 10px;
+    z-index: 1;
+    right: 10px;
 }
-/*左侧导航栏样式 结束*/

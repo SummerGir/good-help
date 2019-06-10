@@ -2,6 +2,7 @@
 <%@ page import="eiis.app.type.service.AppTypeDetailService" %>
 <%@ page import="org.apache.commons.lang3.StringUtils" %>
 <%@ page import="eiis.core.menuTree.entity.CoreMenuTreeInfoEntity" %>
+<%@ page import="util.context.Context" %>
 <%@ taglib prefix="master" uri="util.masterPage" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--
@@ -12,7 +13,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%
-    String menuCode = "cost";
+    String menuCode = "note";
     CoreMenuTreeInfoEntity menuTree = Context.getMenuTree(menuCode);
     String title = menuTree.getTitle();
 
@@ -35,7 +36,25 @@
         </style>
     </master:Content>
     <master:Content contentPlaceHolderId="body">
-        <div class="row">
+        <div class="panel panel-default need-nav">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12" style="text-align: right;">
+                        <button onclick="add_main()" type="button" class="btn btn-success" id="add_main">
+                            <i class="glyphicon glyphicon-plus"></i> 新增
+                        </button>
+                        <button onclick="edit_main()" type="button" class="btn btn-warning" id="edit_main">
+                            <i class="glyphicon glyphicon-edit"></i>修改
+                        </button>
+                        <button onclick="delete_main()" type="button" class="btn btn-danger" id="delete_main">
+                            <i class="glyphicon glyphicon-trash"></i> 删除
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 68px;">
             <jsp:include page="/app/type/select.jsp" >
                 <jsp:param name="listOp" value="<%=listOp%>"/>
                 <jsp:param name="finishedProOp" value="<%=finishedProOp%>"/>
@@ -44,22 +63,6 @@
             <div class="col-md-10">
                 <!--表格-->
                 <div id="myTableTest"></div>
-                <!--表格的工具栏-->
-                <div id="main_table_customRibbon" style="display: none;">
-                    <%--<button onclick="$('#search_form').modal()" type="button" class="btn btn-info">--%>
-                        <%--<i class="glyphicon glyphicon-search"></i> 搜索--%>
-                    <%--</button>--%>
-                    <button onclick="add_main()" type="button" class="btn btn-success" id="add_main">
-                        <i class="glyphicon glyphicon-plus"></i> 新增
-                    </button>
-                    <button onclick="edit_main()" type="button" class="btn btn-warning" id="edit_main">
-                        <i class="glyphicon glyphicon-edit"></i>修改
-                    </button>
-                    <button onclick="delete_main()" type="button" class="btn btn-danger" id="delete_main">
-                        <i class="glyphicon glyphicon-trash"></i> 删除
-                    </button>
-                </div>
-
             </div>
         </div>
 
@@ -115,6 +118,7 @@
                 ]//表格列[{field:'name',title:'名称',align:'left',width:80,template:function(){}},{},{}]
             };
             $(document).ready(function(){
+                clone_my_nav("need-nav");
                 myTable.ghTable(option);
                 myTable.on("table.created", function() {
 //                    $.message("创建表格");

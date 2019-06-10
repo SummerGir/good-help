@@ -63,7 +63,7 @@ function play_pronunciation(text){
 
     var str = '';
     str += '<audio id="'+ id +'" autoplay="autoplay">';
-    str += '<source type="audio/mpeg" src="'+ src +'?lan=zh&amp;ie=UTF-8&amp;spd='+ spd +'&amp;pit='+ pit  +'&amp;vol='+ vol +'&amp;per='+ per +'&amp;text='+ text +'">';
+    str += '<source type="audio/mpeg" src="'+ src +'?lan=zh&amp;ie=UTF-8&amp;spd='+ spd +'&amp;pit='+ pit  +'&amp;vol='+ vol +'&amp;per='+ per +'&amp;text='+ encodeURI(text) +'">';
     str += '</source>';
     str += '</audio>';
     $("body").append(str);

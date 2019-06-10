@@ -186,10 +186,29 @@ public class AppMeterialBillService extends StatementGenericService {
 		if(StringUtils.isBlank(str)){
 			str = "暂无数据！";
 		}
+
+
+		baseSql = "select count(1) from app_meterial_input ami where 1=1 " +
+				(StringUtils.isNotBlank(searchKey)?" and locate(:searchKey,ami.INPUT_CODE)>0 ":"")+
+				(StringUtils.isNotBlank(beginTime)?" and ami.SYS_TIME >= :beginTime ":"")+
+				(StringUtils.isNotBlank(endTime)?" and ami.SYS_TIME <= :endTime ":"")+
+				(StringUtils.isNotBlank(year)?" and ami.YEAR = :year":"")+
+				(StringUtils.isNotBlank(month)?" and ami.MONTH = :month":"")+
+				(StringUtils.isNotBlank(isValid)?" and ami.IS_VALID = :isValid":"");
+
+		String[] fields3 = {"inputNum"};
+
+		list = getNativeMapList(entityManager, baseSql, values, fields3, 1, -1);
+
+		int inputNum = 0;
+		if(list.size() > 0 && list.get(0) != null){
+			inputNum = Integer.parseInt(list.get(0).get("inputNum").toString());
+		}
 		Map<String,Object> map = new HashMap<>();
 		map.put("isValid_0",String.format("%.2f",isValid_0));
 		map.put("isValid_1",String.format("%.2f",isValid_1));
 		map.put("allMoney",String.format("%.2f",isValid_0 + isValid_1));
+		map.put("inputNum",inputNum);
 		map.put("dicInfo",str);
 		return map;
 	}

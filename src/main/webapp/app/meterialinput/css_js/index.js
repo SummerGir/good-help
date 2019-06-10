@@ -5,8 +5,7 @@ var option = {
     id:"#myTableTest",//需要绑定的Id或class
     url:"/app/meterialinput/getMainInfo.do",//表格请求的路径
     data:{queryData:queryData},//请求的参数
-    toolbar:"#main_table_customRibbon",//表格上面的工具栏用哪个容器
-    rows:-1,
+    isPage:false,//不分页
     columns:[
         {name:'inputCode',title:"单据编号",align:'left',width:'15%'},
         {name:'dicName',title:'材料名称',align:'left'},
@@ -18,16 +17,17 @@ var option = {
 
 var isLoad = false;
 $(document).ready(function(){
+    clone_my_nav("need-nav");
+
     myTable.ghTable(option);
     myTable.on("table.created", function() {
 //                    $.message("创建表格");
         loading = false;
 
         if(!isLoad){
-            $("#myTableTest .my-table-left-select").empty().append('<input class="form-control" name="queryData" type="text" readonly="readonly" style="background-color: #fff" placeholder="请选择查询日期：" value="'+ queryData +'" onchange="getSearch2(this)">');
 
             //初始化日历控件
-            $("#myTableTest .my-table-left-select input[name='queryData']").datetimepicker({
+            $(".need-nav input[name='queryData']").datetimepicker({
                 format: 'yyyy-mm-dd',
                 minView:2
             });
@@ -51,7 +51,7 @@ $(document).ready(function(){
 });
 
 function getMainMoneyInfo(){
-    var queryData = $("#myTableTest .my-table-left-select input[name='queryData']").val();
+    var queryData = $(".need-nav input[name='queryData']").val();
     if(queryData == "" || queryData == null){
         return;
     }
@@ -68,6 +68,7 @@ function getMainMoneyInfo(){
             $(".count-div div[name='isValid_0']").html(rs.isValid_0);
             $(".count-div div[name='isValid_1']").html(rs.isValid_1);
             $(".count-div div[name='allMoney']").html(rs.allMoney);
+            $(".count-div div[name='inputNum']").html(rs.inputNum);
             $(".count-div div[name='dicInfo']").html(rs.dicInfo);
         }
     });
@@ -79,7 +80,7 @@ function search_show(form){
         var name = $(this).attr("name");
         $(this).val("");
     });
-    $("#myTableTest .my-table-left-select input[name='queryData']").val(queryData);
+    $(".need-nav input[name='queryData']").val(queryData);
 
     var postData = {};
     $("#"+form+" input,#"+form+" select").each(function(){

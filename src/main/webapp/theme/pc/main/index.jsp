@@ -4,7 +4,6 @@
 <%@ page import="net.sf.json.JSONArray" %>
 <%@ page import="util.context.Context" %>
 <%@ page import="eiis.core.menuTree.entity.CoreMenuTreeInfoEntity" %>
-<%@ page import="org.apache.commons.lang3.StringUtils" %>
 <%@ taglib prefix="master" uri="util.masterPage" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
@@ -55,11 +54,12 @@
 
 <!-- 顶部导航栏 开始 -->
 <nav class="navbar navbar-default navbar-fixed-top main-top-nav" role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" style="padding-top: 15px;" href="/theme/pc/index.jsp">&nbsp;&nbsp;&nbsp;&nbsp;好&nbsp;&nbsp;&nbsp;&nbsp;管&nbsp;&nbsp;&nbsp;&nbsp;家</a>
+    <div class="web-top">
+        <div class="web-top-left">
+            <a class="navbar-brand" style="padding-top: 15px;" href="/theme/pc/index.jsp">好&nbsp;&nbsp;&nbsp;&nbsp;管&nbsp;&nbsp;&nbsp;&nbsp;家</a>
         </div>
-        <div>
+        <div class="web-top-center" id="accordion"></div>
+        <div class="web-top-right">
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -78,177 +78,97 @@
 <!-- 顶部导航栏 完成 -->
 
 <div class="main-center-div">
-    <!-- 左侧导航栏 开始 -->
-    <div class="panel-group main-left-div">
-        <ul id="accordion">
-            <%--<li>--%>
-                <%--<!--这个类中加一个active表示选中-->--%>
-                <%--<a class="list-group-item" href="#collapseOne">--%>
-                    <%--<span class="list-group-item-heading">系统管理</span>--%>
-                <%--</a>--%>
-            <%--</li>--%>
-            <%--<li>--%>
-                <%--<!--这个类中加一个active表示选中-->--%>
-                <%--<a class="list-group-item" data-toggle="collapse" href="#1">--%>
-                    <%--<span class="list-group-item-heading">系统管理</span>--%>
-                    <%--<span class="pull-right">--%>
-                        <%--<i class="glyphicon glyphicon-chevron-right"></i>--%>
-                    <%--</span>--%>
-                <%--</a>--%>
-                <%--<!--这个类中加一个in表示初始展开-->--%>
-                <%--<ul id="1" class="list-group panel-collapse collapse">--%>
-                        <%--<li>--%>
-                            <%--<!--这个类中加一个active表示选中-->--%>
-                            <%--<a class="list-group-item" href="#collapseOne">--%>
-                                <%--<span class="list-group-item-heading">系统管理</span>--%>
-                            <%--</a>--%>
-                        <%--</li>--%>
-                <%--</ul>--%>
-            <%--</li>--%>
-        </ul>
-
-    </div>
-    <!-- 左侧导航栏 模版 -->
-    <div name="menuTree_mode" style="display: none;">
-        <ul>
-            <li>
-                <a href="#collapseOne">
-                    <span class="list-group-item-icon"></span>
-                    <span class="list-group-item-heading">系统管理</span>
-                    <span class="pull-right">
-                        <i class="glyphicon glyphicon-chevron-right"></i>
-                    </span>
-                </a>
-                <ul id="collapseOne"  style="display: none;"></ul>
-            </li>
-        </ul>
-    </div>
-    <!-- 左侧导航栏 完成 -->
-
-    <!-- 右侧导航栏 开始 -->
-    <div class="main-right-div">
-        <%--<nav class="navbar navbar-default main-center2-nav" role="navigation">--%>
-            <%--<div class="container-fluid">--%>
-                <%--<div class="navbar-header">--%>
-                    <%--<span style="font-size: 15px;margin-right: 5px;" class="<%=(menuTree.getIcon()==null || StringUtils.isBlank(menuTree.getIcon().toString()))?"glyphicon glyphicon-file":menuTree.getIcon()%>"></span>--%>
-                    <%--<span style="font-size: 16px;font-weight: bold;color: #000 ;line-height: 45px;">--%>
-                        <%--<%=menuTree.getTitle() == null ? "" : menuTree.getTitle()%>--%>
-                    <%--</span>--%>
-                <%--</div>--%>
-                <%--<div class="navbar-header  navbar-right">--%>
-                    <%--<ol class="breadcrumb">--%>
-                        <%--&lt;%&ndash;<li class="active">用户管理</li>&ndash;%&gt;--%>
-                    <%--</ol>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-        <%--</nav>--%>
-        <!--子页面中的正文-->
-        <div class="col-md-12 main-right-div-content"><master:ContentPlaceHolder id="body"/></div>
-
-    </div>
+    <div class="main-center-nav"></div>
+    <master:ContentPlaceHolder id="body"/>
 </div>
 <script type="text/javascript">
     var menuTreeId = "<%=menuTreeId%>";
     $(function(){
         createLeftItem();
         //左侧导航栏点击事件
-        $("#accordion a").on("click",function(){
-
-            var clas1 = "list-group-item2-click";
-            var clas2 = "my-in";
-            var clas3 = "list-group-item-click";
-            //是否选中过
-            var has = $(this).hasClass(clas1);
-            var parentId = "#"+$(this).parent().parent().attr("id");
-            $(this).parents(parentId).children().each(function(){
-                $(this).children().first().removeClass(clas1);
-                $(this).children().first().removeClass(clas3);
-            });
-            //
-            $(this).parents(parentId).find("ul").each(function(i,o){
-                var a = $(this).hasClass(clas2);
-                if(a){
-                    $(this).removeClass(clas2);
-                    $(this).slideUp(400);
-                }
-            });
-            //点击展开
-            if(!has){
-                //有下级菜单
-                if($(this).hasClass("sub")){
-                    $(this).addClass(clas1);
-                    $(this).next().addClass(clas2);
-                    $(this).next().slideDown(400);
-                }else{//无下级菜单
-                    //第一级菜单
-                    if("accordion" == $(this).parent().parent().attr("id")){
-                        $(this).addClass(clas1);
-                    }else{
-                        $(this).addClass(clas3);
-                    }
-                }
-            }
-        });
         selectMenu();
     });
     //创建左侧导航栏
     function createLeftItem(){
+        var isC = true;
+        var maxN = 4;
         var menuList = <%=arr%>;
-        var myMode = $("div[name='menuTree_mode']>ul").children().clone();
-        $("#accordion").empty();
+        $(".web-top-center").empty();
         for(var i = 0;i < menuList.length;i++){
             var obj = menuList[i];
-            var row = $(myMode.clone());
+
             //是否存在上级菜单
             var parentLevel = obj.outlineLevel.substring(0,obj.outlineLevel.lastIndexOf("."));
+            var thisN = obj.outlineLevel.split("\.")[0];
+
             if(parentLevel == ""){
                 parentLevel = "accordion";
             }
 
-
-            row.find(".list-group-item-heading").html(obj.title);
-            if(obj.type){//是应用
-//                row.find("a").attr("data-toggle","");
-
-                row.find(".list-group-item-icon").addClass(obj.icon?obj.icon:"glyphicon glyphicon-file");
-                row.find("a").attr("id","item_"+obj.menuId);
-                row.find("a").attr("href","#");
-                row.find("a").attr("onClick","click_item('"+(obj.url==""?"#":obj.url)+"','"+obj.menuId+"')");
-                row.find(".pull-right").remove();
-                row.find("ul").remove();
+            var str = '';
+            if(thisN <= maxN){
+                if(obj.type){//是应用
+                    str +='<div class="'+ (parentLevel == "accordion" ? "menu-item":"menu-item2") +'" id="item_'+ obj.menuId +'" onClick="click_item(\''+ (obj.url==""?"#":obj.url) +'\',\''+ obj.menuId +'\')">';
+                    str += '<i class="'+ (obj.icon?obj.icon:"glyphicon glyphicon-file") +'"></i>';
+                    str += obj.title;
+                    str += '</div>';
+                }else{
+                    str +='<div class="menu-item dropdown" id="item_'+ obj.menuId +'">';
+                    str += '<div id="item_'+ obj.menuId +'" class="dropdown-toggle" data-toggle="dropdown">';
+                    str += '<i class="'+ (obj.icon?obj.icon:"glyphicon glyphicon-folder-open") +'"></i>';
+                    str += obj.title;
+                    str += '<b class="caret"></b>';
+                    str += '</div>';
+                    str += '<ul class="dropdown-menu" id="'+ obj.outlineLevel +'"></ul>';
+                    str += '</div>';
+                }
             }else{
-                row.find(".list-group-item-icon").addClass(obj.icon?obj.icon:"glyphicon glyphicon-folder-open");
-                row.find("a").attr("id","item_"+obj.menuId);
-                row.find("a").addClass("sub");
-                row.find("a").attr("href","#");
-                row.find("ul").attr("id",obj.outlineLevel);
+                parentLevel = "other";
+                if(obj.type){//是应用
+                    str +='<div class="menu-item2" id="item_'+ obj.menuId +'" onClick="click_item(\''+ (obj.url==""?"#":obj.url) +'\',\''+ obj.menuId +'\')">';
+                    str += '<i class="'+ (obj.icon?obj.icon:"glyphicon glyphicon-file") +'"></i>';
+                    str += obj.title;
+                    str += '</div>';
+                }
             }
-            $("#"+parentLevel).append(row);
+            $("#"+parentLevel).append(str);
+
+
+            str = '';
+            if(thisN == maxN && menuList.length > maxN && isC){
+                str +='<div class="menu-item dropdown" id="item_other">';
+                str += '<div class="dropdown-toggle" data-toggle="dropdown">';
+                str += '<i class="glyphicon glyphicon-th-list"></i>更多<b class="caret"></b>';
+                str += '</div>';
+                str += '<ul class="dropdown-menu" id="other"></ul>';
+                str += '</div>';
+                $("#accordion").append(str);
+                isC = false;
+            }
         }
     }
+
     function selectMenu(){
         var mId = menuTreeId;
         if(mId != ""){
-            $("#item_"+mId).addClass("list-group-item-click");
-            var parent = $("#item_"+mId).parent().parent();
-            var i = 0;
-            while ("accordion" != $(parent).attr("id") && "" != $(parent).attr("id")){
-                var p = $(parent).prev();
-//                $(p).addClass("list-group-item-click");
-                $(p).trigger("click");
-                mId = $(p).attr("id");
-                parent = $("#"+mId).parent().parent();
-                i++;
-                if(i > 5){
-                    break;
-                }
+            $("#item_"+mId).addClass("list-group-item-click2");
+
+            if($("#item_"+mId).parents(".menu-item").length > 0){
+                $("#item_"+mId).parents(".menu-item").addClass("list-group-item-click");
             }
         }
     }
+
     function click_item(url,menuId){
         $.post("/core/menuTree/setMenuTree.do",{menuId:menuId},function(){
             window.location.href=url;
         },"json");
+    }
+
+    function clone_my_nav(clas){
+        var h = $("."+clas).clone();
+        $("."+clas).remove();
+        $(".main-center-nav").empty().append(h);
     }
 </script>
 </body>

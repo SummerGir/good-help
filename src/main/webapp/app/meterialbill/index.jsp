@@ -25,54 +25,59 @@
     </master:Content>
     <master:Content contentPlaceHolderId="body">
 
-        <div class="count-div">
-            <div class="row">
-                <div class="col-md-4 my-col">
-                    <div class="my-left-div">已对账：</div>
-                    <div class="my-right-div" name="isValid_1"></div>
-                    <div class="money-unit">￥</div>
-                </div>
-                <div class="col-md-4 my-col">
-                    <div class="my-left-div">未对账：</div>
-                    <div class="my-right-div" name="isValid_0"></div>
-                    <div class="money-unit">￥</div>
-                </div>
-                <div class="col-md-4 my-col">
-                    <div class="my-left-div">总金额：</div>
-                    <div class="my-right-div" name="allMoney"></div>
-                    <div class="money-unit">￥</div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12 my-col">
-                    <div class="my-left-div">材料统计：</div>
-                    <div class="my-right-div" name="dicInfo"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="panel panel-default search-div">
+        <div class="panel panel-default need-nav">
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-md-12 count-div">
+                        <div class="row">
+                            <div class="col-md-12 my-col">
+                                <div class="my-left-div">材料统计：</div>
+                                <div class="my-right-div" name="dicInfo"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-9 col-sm-9 col-md-9">
+                                <div class="row">
+                                    <div class="col-xs-4 col-sm-4 col-md-4 my-col">
+                                        <div class="my-left-div">已对账：</div>
+                                        <div class="my-right-div" name="isValid_1"></div>
+                                        <div class="money-unit">￥</div>
+                                    </div>
+                                    <div class="col-xs-4 col-sm-4 col-md-4 my-col">
+                                        <div class="my-left-div">未对账：</div>
+                                        <div class="my-right-div" name="isValid_0"></div>
+                                        <div class="money-unit">￥</div>
+                                    </div>
+                                    <div class="col-xs-4 col-sm-4 col-md-4 my-col">
+                                        <div class="my-left-div">总金额：</div>
+                                        <div class="my-right-div" name="allMoney"></div>
+                                        <div class="money-unit">￥</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row search-div">
+                    <div class="col-xs-9 col-sm-9 col-md-9">
                         <div class="row" style="margin-bottom: 10px;">
-                            <div class="col-md-4 my-col">
-                                <div class="my-left-div">单据编号：</div>
-                                <div class="my-right-div"><input type="text" class="form-control" name="inputCode" onkeyup="search()" placeholder="请填写单据编号："></div>
+                            <div class="col-xs-4 col-sm-4 col-md-4 my-col">
+                                <div class="my-left-div2">单据编号：</div>
+                                <div class="my-right-div2"><input type="text" class="form-control" name="inputCode" onkeyup="search()" placeholder="请填写单据编号："></div>
 
                             </div>
-                            <div class="col-md-4 my-col">
-                                <div class="my-left-div">单据月份：</div>
-                                <div class="my-right-div">
+                            <div class="col-xs-4 col-sm-4 col-md-4 my-col">
+                                <div class="my-left-div2">单据月份：</div>
+                                <div class="my-right-div2">
                                     <select class="form-control" name="month" onchange="search()">
                                         <%=sbMonth.toString()%>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-4 my-col">
-                                <div class="my-left-div">是否对账：</div>
-                                <div class="my-right-div">
+                            <div class="col-xs-4 col-sm-4 col-md-4 my-col">
+                                <div class="my-left-div2">是否对账：</div>
+                                <div class="my-right-div2">
                                     <select class="form-control" name="isValid" onchange="search()">
                                         <option value="">全部</option>
                                         <option value="0">未对账</option>
@@ -82,33 +87,32 @@
                             </div>
                         </div>
 
-                        <%--<div class="row">--%>
+                            <%--<div class="row">--%>
                             <%--<div class="col-md-4 my-col">--%>
-                                <%--<div class="my-left-div">开始日期：</div>--%>
-                                <%--<div class="my-right-div">--%>
-                                    <%--<input class="form-control" name="beginTime" type="text" value="" readonly="readonly" style="background-color: #fff" placeholder="请选择开始日期：">--%>
-                                <%--</div>--%>
+                            <%--<div class="my-left-div">开始日期：</div>--%>
+                            <%--<div class="my-right-div">--%>
+                            <%--<input class="form-control" name="beginTime" type="text" value="" readonly="readonly" style="background-color: #fff" placeholder="请选择开始日期：">--%>
+                            <%--</div>--%>
                             <%--</div>--%>
                             <%--<div class="col-md-4 my-col">--%>
-                                <%--<div class="my-left-div">结束日期：</div>--%>
-                                <%--<div class="my-right-div">--%>
-                                    <%--<input class="form-control" name="endTime" type="text" value="" readonly="readonly" style="background-color: #fff" placeholder="请选择结束日期：">--%>
-                                <%--</div>--%>
+                            <%--<div class="my-left-div">结束日期：</div>--%>
+                            <%--<div class="my-right-div">--%>
+                            <%--<input class="form-control" name="endTime" type="text" value="" readonly="readonly" style="background-color: #fff" placeholder="请选择结束日期：">--%>
                             <%--</div>--%>
-                        <%--</div>--%>
+                            <%--</div>--%>
+                            <%--</div>--%>
                     </div>
-                    <div class="col-md-3 my-search-div">
-                        <%--<button onclick="search()" type="button" class="btn btn-primary" style="margin-bottom: 10px;"> <i class="glyphicon glyphicon-search"></i>查询</button>--%>
-                        <button onclick="search_show('search_form')" type="button" class="btn btn-primary">
+                    <div class="col-xs-3 col-sm-3 col-md-3 my-search-div">
+                            <%--<button onclick="search()" type="button" class="btn btn-primary" style="margin-bottom: 10px;"> <i class="glyphicon glyphicon-search"></i>查询</button>--%>
+                        <button onclick="search_show('search_form')" type="button" class="btn btn-info">
                             <i class="glyphicon glyphicon-refresh"></i>刷新
                         </button>
                     </div>
                 </div>
-
             </div>
         </div>
 
-        <div class="row">            
+        <div class="row" style="margin-top: 175px;">
             <div class="col-md-12">
                 <!--表格-->
                 <div id="myTableTest"></div>
@@ -123,7 +127,6 @@
                 id:"#myTableTest",//需要绑定的Id或class
                 url:"/app/meterialBill/getMainInfo.do",//表格请求的路径
                 data:{},
-                toolbar:"#main_table_customRibbon",//表格上面的工具栏用哪个容器
                 allowSelected:false,//列不允许选中
                 rows:50,//每页默认条数
                 columns:[
@@ -133,6 +136,7 @@
                 ]
             };
             $(document).ready(function(){
+                clone_my_nav("need-nav");
                 //初始化日历控件
                 $(".search-div input[name='beginTime'],.search-div input[name='endTime']").datetimepicker({
                     format: 'yyyy-mm-dd',
@@ -164,7 +168,15 @@
                     $(this).val("");
                 });
 
-                $(".search-div *[name='month']").val($(".search-div *[name='month']>option:first").attr("value"));
+                var isHave = false;
+                $(".search-div *[name='month']>option").each(function(){
+                    var v = $(this).attr("value");
+                    if(v != "" && !isHave){
+                        $(".search-div *[name='month']").val(v);
+                        isHave = true;
+                    }
+                });
+
                 search()
             }
 

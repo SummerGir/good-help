@@ -36,53 +36,60 @@
         <link href="/app/meterialinput/css_js/index.css" rel="stylesheet"/>
     </master:Content>
     <master:Content contentPlaceHolderId="body">
-        <div class="count-div">
-            <div class="row">
-                <%--<div class="col-md-4 my-col">--%>
-                    <%--<div class="my-left-div">已对账：</div>--%>
-                    <%--<div class="my-right-div" name="isValid_1"></div>--%>
-                    <%--<div class="money-unit">￥</div>--%>
-                <%--</div>--%>
-                <%--<div class="col-md-4 my-col">--%>
-                    <%--<div class="my-left-div">未对账：</div>--%>
-                    <%--<div class="my-right-div" name="isValid_0"></div>--%>
-                    <%--<div class="money-unit">￥</div>--%>
-                <%--</div>--%>
-                <div class="col-md-8 my-col">
-                    <div class="my-left-div">材料统计：</div>
-                    <div class="my-right-div" name="dicInfo"></div>
+        <div class="panel panel-default need-nav">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12 count-div">
+                        <div class="row">
+                            <div class="col-md-7 my-col">
+                                <div class="my-left-div">材料统计：</div>
+                                <div class="my-right-div" name="dicInfo"></div>
+                            </div>
+                            <div class="col-md-3 my-col">
+                                <div class="my-left-div">总金额：</div>
+                                <div class="my-right-div" name="allMoney"></div>
+                                <div class="money-unit">￥</div>
+                            </div>
+                            <div class="col-md-2 my-col">
+                                <div class="my-left-div">录入量：</div>
+                                <div class="my-right-div" name="inputNum"></div>
+                                <div class="money-unit">条</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-4 my-col">
-                    <div class="my-left-div">总金额：</div>
-                    <div class="my-right-div" name="allMoney"></div>
-                    <div class="money-unit">￥</div>
+                <div class="row">
+                    <div class="col-md-3 my-col">
+                        <div class="my-left-div2">录入日期：</div>
+                        <div class="my-right-div2" style="padding: 0px;">
+                            <input class="form-control" name="queryData" type="text" readonly="readonly" placeholder="请选择查询日期：" value="<%=queryData%>" onchange="getSearch2(this)" />
+                        </div>
+                    </div>
+                    <div class="col-md-9" style="text-align: right;">
+                        <button onclick="search_show('search_form')" type="button" class="btn btn-primary">
+                            <i class="glyphicon glyphicon-refresh"></i>刷新
+                        </button>
+                        <button onclick="$('#search_form').modal()" type="button" class="btn btn-info">
+                            <i class="glyphicon glyphicon-search"></i> 搜索
+                        </button>
+                        <button onclick="add_main()" type="button" class="btn btn-success" id="add_main">
+                            <i class="glyphicon glyphicon-plus"></i> 新增
+                        </button>
+                        <button onclick="edit_main()" type="button" class="btn btn-warning" id="edit_main">
+                            <i class="glyphicon glyphicon-edit"></i>修改
+                        </button>
+                        <button onclick="delete_main()" type="button" class="btn btn-danger" id="delete_main">
+                            <i class="glyphicon glyphicon-trash"></i> 删除
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" style="margin-top: 123px;">
             <div class="col-md-12">
                 <!--表格-->
                 <div id="myTableTest"></div>
-                <!--表格的工具栏-->
-                <div id="main_table_customRibbon" style="display: none;">
-                    <button onclick="search_show('search_form')" type="button" class="btn btn-primary">
-                        <i class="glyphicon glyphicon-refresh"></i>刷新
-                    </button>
-                    <button onclick="$('#search_form').modal()" type="button" class="btn btn-info">
-                        <i class="glyphicon glyphicon-search"></i> 搜索
-                    </button>
-                    <button onclick="add_main()" type="button" class="btn btn-success" id="add_main">
-                        <i class="glyphicon glyphicon-plus"></i> 新增
-                    </button>
-                    <button onclick="edit_main()" type="button" class="btn btn-warning" id="edit_main">
-                        <i class="glyphicon glyphicon-edit"></i>修改
-                    </button>
-                    <button onclick="delete_main()" type="button" class="btn btn-danger" id="delete_main">
-                        <i class="glyphicon glyphicon-trash"></i> 删除
-                    </button>
-                </div>
-
             </div>
         </div>
 
