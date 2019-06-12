@@ -57,7 +57,9 @@
 <nav class="navbar navbar-default navbar-fixed-top main-top-nav" role="navigation">
     <div class="web-top">
         <div class="web-top-left">
-            <a class="navbar-brand" style="padding-top: 15px;" href="/theme/pc/index.jsp">好&nbsp;&nbsp;&nbsp;&nbsp;管&nbsp;&nbsp;&nbsp;&nbsp;家</a>
+            <a class="navbar-brand" style="padding: 0px;" href="/theme/pc/index.jsp">
+                <img src="/theme/pc/main/img/pcLogo2.png" style="width: 90px" alt="好管家">
+            </a>
         </div>
         <div class="web-top-center" id="accordion"></div>
         <div class="web-top-right">

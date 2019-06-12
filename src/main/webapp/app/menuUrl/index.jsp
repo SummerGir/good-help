@@ -33,7 +33,7 @@
                 <div id="myTableTest"></div>
                 <!--表格的工具栏-->
                 <div id="main_table_customRibbon" style="display: none;">
-                    <%--<button onclick="$('#search_form').modal()" type="button" class="btn btn-info">--%>
+                    <%--<button onclick="$('#search_form').modal()" type="button" class="btn btn-primary">--%>
                         <%--<i class="glyphicon glyphicon-search"></i> 搜索--%>
                     <%--</button>--%>
                     <button onclick="add_main()" type="button" class="btn btn-success" id="add_main">

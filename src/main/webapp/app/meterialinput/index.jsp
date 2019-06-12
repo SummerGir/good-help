@@ -69,7 +69,7 @@
                         <button onclick="search_show('search_form')" type="button" class="btn btn-primary">
                             <i class="glyphicon glyphicon-refresh"></i>刷新
                         </button>
-                        <button onclick="$('#search_form').modal()" type="button" class="btn btn-info">
+                        <button onclick="$('#search_form').modal()" type="button" class="btn btn-primary">
                             <i class="glyphicon glyphicon-search"></i> 搜索
                         </button>
                         <button onclick="add_main()" type="button" class="btn btn-success" id="add_main">
@@ -114,7 +114,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>关闭</button>
-                        <button onclick="getSearch('search_form')" type="button" class="btn btn-info"><i class="glyphicon glyphicon-search"></i>搜索</button>
+                        <button onclick="getSearch('search_form')" type="button" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i>搜索</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal -->

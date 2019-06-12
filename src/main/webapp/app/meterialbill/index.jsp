@@ -104,7 +104,7 @@
                     </div>
                     <div class="col-xs-3 col-sm-3 col-md-3 my-search-div">
                             <%--<button onclick="search()" type="button" class="btn btn-primary" style="margin-bottom: 10px;"> <i class="glyphicon glyphicon-search"></i>查询</button>--%>
-                        <button onclick="search_show('search_form')" type="button" class="btn btn-info">
+                        <button onclick="search_show('search_form')" type="button" class="btn btn-primary">
                             <i class="glyphicon glyphicon-refresh"></i>刷新
                         </button>
                     </div>
