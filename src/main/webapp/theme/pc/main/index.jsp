@@ -24,6 +24,7 @@
         <master:ContentPlaceHolder id="title"/>
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon"type="image/x-icon" href="/theme/pc/main/img/logoIco.ico"media="screen" />
     <link href="/public/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="/public/esg-font/iconfont.css" rel="stylesheet">
     <link href="/theme/pc/main/css/index.css" rel="stylesheet">
