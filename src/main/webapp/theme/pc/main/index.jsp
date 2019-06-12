@@ -42,7 +42,39 @@
 
     <!--提示框-->
     <script type="text/javascript" src="/public/control/message/message.js"></script>
+    <script type="text/javascript" src="/public/utilities/require/require.min.js"></script>
 
+    <script type="text/javascript">
+        require.config({
+            packages: [
+                /*{
+                 name: "jquery",
+                 location: '/public/jquery',
+                 main: 'jquery-1.11.2'
+                 },*/
+                {
+                    name: 'echarts3',
+                    location: '/public/baidu/echarts3-1-10',
+                    main: 'echarts.min'
+                },
+                {
+                    name: 'echarts',
+                    location: '/public/baidu/echarts',
+                    main: 'echarts'
+                },
+                {
+                    name: 'zrender',
+                    location: '/public/baidu/zrender',
+                    main: 'zrender'
+                },
+                {
+                    name: 'underscore',
+                    location: '/public/utilities/underscore',
+                    main: 'underscore-min'
+                }
+            ]
+        });
+    </script>
     <style type="text/css">
         .form-control:focus{
             box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 14px rgba(233,0,0, .9);!important;

@@ -1,0 +1,43 @@
+
+.rowLeft{
+    float: left;
+    width: 100%;
+    margin-right: -70px;
+    padding-right: 70px;
+}
+.rowRight{
+    float: right;
+    width: 70px;
+    right: 0px;
+    position: relative;
+}
+.row{
+    margin: auto !important;
+    padding: 2px;!important;
+}
+.col-md-3{
+    margin-top : 3px;!important;
+    padding: 0 10px 0 0;!important;
+}
+.content .table_data{
+    padding: 0 20px;!important;
+}
+.datagrid-header-row div{
+    text-align: center !important;
+}
+.col-left{
+    line-height : 32px;!important;
+}
+.col-right{
+    float : right;!important;
+}
+.validatebox-text{
+    width : 80% !important;
+}
+.tagsinput .tags{
+    overflow: hidden;!important;
+}
+.button-tiny{
+    background-color : #046eb8;!important;
+    border-radius : 5px;!important;
+}
