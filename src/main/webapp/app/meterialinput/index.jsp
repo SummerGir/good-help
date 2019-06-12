@@ -53,7 +53,7 @@
                             <div class="col-xs-3 col-sm-3 col-md-3 my-col">
                                 <div class="my-left-div">录入量：</div>
                                 <div class="my-right-div" name="inputNum"></div>
-                                <div class="money-unit">条</div>
+                                <div class="money-unit">张</div>
                             </div>
                         </div>
                     </div>
@@ -173,7 +173,7 @@
                                 <table class="table table-striped table-bordered table-condensed" style="margin: 0px;">
                                     <thead>
                                     <tr>
-                                        <th width="15%">增/减操作</th>
+                                        <th width="15%">减一项</th>
                                         <th>材料</th>
                                         <th width="20%">数量</th>
                                         <th width="20%">价格</th>
@@ -183,7 +183,11 @@
                                     <tbody></tbody>
                                     <tfoot>
                                     <tr>
-                                        <td colspan="5"><div onclick="sz_rows(null,true,null)" title="加一项">加一项</div></td>
+                                        <td colspan="5">
+                                            <div onclick="sz_rows(null,true,null)" title="加一项">
+                                                <i class="glyphicon glyphicon-plus" style="margin-right: 5px;"></i>加一项
+                                            </div>
+                                        </td>
                                     </tr>
                                     </tfoot>
                                 </table>

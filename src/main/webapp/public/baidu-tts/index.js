@@ -49,17 +49,18 @@ function check_text(event,e){
         play_pronunciation(text);
     }
 }
-function play_pronunciation(text){
+function play_pronunciation(text,spd){
     if(text == '' || text == null || text == undefined)
         return;
+    if(spd == null || spd == undefined)
+        spd = "8";//语速，0-9
     var id = "my_auto";
     $("body>#my_auto").remove();
 
     var src = "http://tts.baidu.com/text2audio";
-    var spd = '5';//语速，0-9
     var pit = '5';//语调，0-9
     var vol = '15';//音量，0-15
-    var per = '3';//发音人选择, 0为普通女声，1为普通男生，3为情感合成-度逍遥，4为情感合成-度丫丫，默认为普通女声
+    var per = '0';//发音人选择, 0为普通女声，1为普通男生，3为情感合成-度逍遥，4为情感合成-度丫丫，默认为普通女声
 
     var str = '';
     str += '<audio id="'+ id +'" autoplay="autoplay">';

@@ -167,13 +167,15 @@ function save_main(type){
         var code = "编号：" + inputCode + "\n";
 
         var detail = postData.detail;
-        for(var i = 0 ; i < detail.length ; i++){
-            code += detail[i].dicName + "：" + detail[i].detailNum + " " + detail[i].unitName + " ," + detail[i].money + " 元\n";
+        if(detail != undefined && detail != null){
+            for(var i = 0 ; i < detail.length ; i++){
+                code += detail[i].dicName + "：" + detail[i].detailNum + " " + detail[i].unitName + " ," + detail[i].money + " 元\n";
+            }
         }
         code += "总金额：<span style='color: red;'>" + main.allMoney + " 元</span>\n";
 
-        var text = "总金额是"+ main.allMoney +"元，请确认";
-        play_pronunciation(text);
+        var text = "总金额为"+ main.allMoney +"元，请确认";
+        play_pronunciation(text,"6");
         $.message({
             button:$.message.button.yesNo
             ,text:"确定要保存此数据?\n\n" + code
@@ -319,15 +321,19 @@ function sz_tbody(vals){
 }
 
 function sz_rows(e,type,val){
+    var selVal = new Array();
+    $(".detail-div table tbody>tr").each(function(){
+        selVal.push($(this).find("*[name='dicId']").val());
+    });
     var str = '';
     var len = $(".detail-div table tbody>tr").length + 1;
     if(type){
         str += '<tr class="my-row-'+ len +'">';
         str += '<td class="caozuo">';
-        str += '<div>';
-        str += '<div onclick="sz_rows(this,true,null)" title="在下面添加一条">+</div>';
-        str += '<div onclick="sz_rows(this,false,null)" title="删除这一条">-</div>';
-        str += '</div>';
+        // str += '<div>';
+        // str += '<div onclick="sz_rows(this,true,null)" title="在下面添加一条">+</div>';
+        str += '<div onclick="sz_rows(this,false,null)" title="删除这一条" class="glyphicon glyphicon-trash"></div>';
+        // str += '</div>';
         str += '</td>';
         str += '<td><select class="form-control" name="dicId" required="required" onfocus="sz_border(this)" onchange="sz_price(this,'+ len +')">'+ _sbDic +'</select></td>';
         str += '<td><input type="text" class="form-control" val_type="double" name="detailNum" onfocus="sz_border(this)" onkeyup="sz_NumCol(event,this,'+ len +')" placeholder="请填写数量：" required="required"   onblur="value=value.replace(/[^\\d{1,}\\.\\d{1,}|\\d{1,}]/g,\'\')"></td>';
@@ -346,14 +352,26 @@ function sz_rows(e,type,val){
             sz_allMoney();
         }
     }
-    
-    if(val != null && val != undefined){
-        $(".my-row-" + len).find("*[name='dicId']").val(val.dicId);
-        $(".my-row-" + len).find("*[name='detailNum']").val(val.detailNum);
-        $(".my-row-" + len).find("*[name='detailPrice']").val(val.detailPrice);
-        $(".my-row-" + len).find("*[name='money']").val(val.money);
-    }else{
-        sz_price($(".my-row-" + len).find("*[name='dicId']"));
+
+    if(type){
+        if(val != null && val != undefined){
+            $(".my-row-" + len).find("*[name='dicId']").val(val.dicId);
+            $(".my-row-" + len).find("*[name='detailNum']").val(val.detailNum);
+            $(".my-row-" + len).find("*[name='detailPrice']").val(val.detailPrice);
+            $(".my-row-" + len).find("*[name='money']").val(val.money);
+        }else{
+            if(selVal.length > 0){
+                $(".my-row-" + len).find("*[name='dicId']>option").each(function(){
+                    var v = $(this).attr("value");
+                    if(!selVal.contains(v)){
+                        $(".my-row-" + len).find("*[name='dicId']").val(v);
+                        return;
+                    }
+                    console.log(v);
+                });
+            }
+            sz_price($(".my-row-" + len).find("*[name='dicId']"));
+        }
     }
 }
 
