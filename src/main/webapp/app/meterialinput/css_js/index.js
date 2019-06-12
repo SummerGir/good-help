@@ -18,7 +18,7 @@ var option = {
 var isLoad = false;
 $(document).ready(function(){
     clone_my_nav("need-nav");
-    $("#myTableTest").parent().parent().css({"margin-top": $(".main-center-nav").height() + "px"});
+    $(".main-center").css({"margin-top": $(".main-center-nav").height() + "px"});
     myTable.ghTable(option);
     myTable.on("table.created", function() {
 //                    $.message("创建表格");

@@ -36,7 +36,7 @@
         <link href="/app/meterialinput/css_js/index.css" rel="stylesheet"/>
     </master:Content>
     <master:Content contentPlaceHolderId="body">
-        <div class="panel panel-default need-nav" style="margin-bottom: 10px;">
+        <div class="panel panel-default need-nav">
             <div class="panel-body" style="padding-bottom: 0px;">
                 <div class="row">
                     <div class="col-md-12 count-div">

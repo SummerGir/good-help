@@ -28,7 +28,7 @@
         </style>
     </master:Content>
     <master:Content contentPlaceHolderId="body">
-        <div class="panel panel-default need-nav" style="margin-bottom: 10px;">
+        <div class="panel panel-default need-nav">
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12" style="text-align: right;">
@@ -123,7 +123,7 @@
             };
             $(document).ready(function(){
                 clone_my_nav("need-nav");
-                $("#myTableTest").parent().parent().css({"margin-top": $(".main-center-nav").height() + "px"});
+                $(".main-center").css({"margin-top": $(".main-center-nav").height() + "px"});
                 myTable.ghTable(option);
                 myTable.on("table.created", function() {
 //                    $.message("创建表格");

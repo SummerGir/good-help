@@ -25,6 +25,7 @@
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/public/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/public/esg-font/iconfont.css" rel="stylesheet">
     <link href="/theme/pc/main/css/index.css" rel="stylesheet">
     <!---->
     <script type="text/javascript" src="/public/control/util/eiis.foundation.js"></script>
@@ -62,8 +63,8 @@
         <div class="web-top-right">
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <span class="glyphicon glyphicon-user"></span><%=Context.getMember()==null?"登录":Context.getMember().getMemberName().toString()%>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="font-size: 16px;">
+                        <span class="esg-font icon-gangwei"></span><%=Context.getMember()==null?"登录":Context.getMember().getMemberName().toString()%>
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
@@ -79,7 +80,8 @@
 
 <div class="main-center-div">
     <div class="main-center-nav"></div>
-    <master:ContentPlaceHolder id="body"/>
+    <div class="main-center"><master:ContentPlaceHolder id="body"/></div>
+
 </div>
 <script type="text/javascript">
     var menuTreeId = "<%=menuTreeId%>";
@@ -96,7 +98,6 @@
         var jg = t_w >= maxW ? 120 : 90;
         var maxN = parseInt(t_w / jg) - 1;
 
-        console.log("maxN："+maxN)
         var menuList = <%=arr%>;
         $(".web-top-center").empty();
         for(var i = 0;i < menuList.length;i++){
@@ -114,13 +115,13 @@
             if(thisN <= maxN){
                 if(obj.type){//是应用
                     str +='<div class="'+ (parentLevel == "accordion" ? "menu-item":"menu-item2") +'" id="item_'+ obj.menuId +'" onClick="click_item(\''+ (obj.url==""?"#":obj.url) +'\',\''+ obj.menuId +'\')">';
-                    str += '<i class="'+ (obj.icon?obj.icon:"glyphicon glyphicon-file") +'"></i>';
+                    str += '<i class="icon esg-font '+ (obj.icon?obj.icon:"icon-wenben") +'"></i>';
                     str += obj.title;
                     str += '</div>';
                 }else{
                     str +='<div class="menu-item dropdown" id="item_'+ obj.menuId +'">';
                     str += '<div id="item_'+ obj.menuId +'" class="dropdown-toggle" data-toggle="dropdown">';
-                    str += '<i class="'+ (obj.icon?obj.icon:"glyphicon glyphicon-folder-open") +'"></i>';
+                    str += '<i class="icon esg-font '+ (obj.icon?obj.icon:"icon-wenben") +'"></i>';
                     str += obj.title;
                     str += '<b class="caret"></b>';
                     str += '</div>';
@@ -131,7 +132,7 @@
                 parentLevel = "other";
                 if(obj.type){//是应用
                     str +='<div class="menu-item2" id="item_'+ obj.menuId +'" onClick="click_item(\''+ (obj.url==""?"#":obj.url) +'\',\''+ obj.menuId +'\')">';
-                    str += '<i class="'+ (obj.icon?obj.icon:"glyphicon glyphicon-file") +'"></i>';
+                    str += '<i class="icon esg-font '+ (obj.icon?obj.icon:"icon-wenben") +'"></i>';
                     str += obj.title;
                     str += '</div>';
                 }
@@ -143,7 +144,7 @@
             if(thisN == maxN && menuList.length > maxN && isC){
                 str +='<div class="menu-item dropdown" id="item_other">';
                 str += '<div class="dropdown-toggle" data-toggle="dropdown">';
-                str += '<i class="glyphicon glyphicon-th-list"></i>更多<b class="caret"></b>';
+                str += '<i class="icon esg-font icon-gerenyingyon"></i>更多<b class="caret"></b>';
                 str += '</div>';
                 str += '<ul class="dropdown-menu" id="other"></ul>';
                 str += '</div>';

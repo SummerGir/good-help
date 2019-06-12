@@ -1,5 +1,5 @@
 body{
-    font-size: 12px;
+    font-size: 14px;
     line-height: 22px;
     color: #666;
     border-top: 3px solid #eee;
@@ -50,7 +50,7 @@ body{
 
 .main-top-nav .web-top-center .menu-item i,.main-top-nav .web-top-center .menu-item2 i{
     padding-right: 5px;
-    font-size: 13px;
+    font-size: 18px;
 }
 .main-top-nav .web-top-center .menu-item b{
     margin-left: 5px;

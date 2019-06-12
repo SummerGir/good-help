@@ -1,3 +1,5 @@
+<%@ page import="util.context.Context" %>
+<%@ page import="eiis.core.menuTree.entity.CoreMenuTreeInfoEntity" %>
 <%@ taglib prefix="master" uri="util.masterPage" %>
 <%--
   Created by IntelliJ IDEA.
@@ -7,8 +9,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String menuCode = "xtgl_bstbk";
+    CoreMenuTreeInfoEntity menuTree = Context.getMenuTree(menuCode);
+    String title = menuTree.getTitle();
+%>
 <master:ContentPage>
-    <master:Content contentPlaceHolderId="title">Bootstrap 图标</master:Content>
+    <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
     <master:Content contentPlaceHolderId="head">
         <style type="text/css">
             .bs-glyphicons {

@@ -55,7 +55,7 @@
         </div>
 
         <!--画表格-->
-        <div class="row" style="margin-top: 68px;">
+        <div class="row">
             <jsp:include page="/app/type/select.jsp" >
                 <jsp:param name="listOp" value="<%=listOp%>"/>
                 <jsp:param name="finishedProOp" value="<%=finishedProOp%>"/>
@@ -121,6 +121,7 @@
             };
             $(document).ready(function(){
                 clone_my_nav("need-nav");
+                $(".main-center").css({"margin-top": $(".main-center-nav").height() + "px"});
                 myTable.ghTable(option);
                 myTable.on("table.created", function() {
 //                    $.message("创建表格");
