@@ -229,7 +229,7 @@ public class AppMeterialBillService extends StatementGenericService {
 			}
 			int y = c.get(Calendar.YEAR);
 			int m = c.get(Calendar.MONTH) + 1 ;
-			sb.append("<option value='" + y + "-" + m +"' "+ sel +">" + y + "年" + (m > 9 ? m : ("0" + m)) +"月</option>");
+			sb.append("<option value='" + y + "-" + m +"' "+ sel +">" + String.valueOf(y).substring(2) + "年" + (m > 9 ? m : ("0" + m)) +"月</option>");
 			c.set(Calendar.MONTH,c.get(Calendar.MONTH) - 1);
 			n--;
 		}

@@ -37,7 +37,6 @@ body{
     cursor: pointer;
     border-bottom: 1px solid #f8f8f8;
     height: 50px;
-    overflow: hidden;
 }
 .main-top-nav .web-top-center .menu-item2{
     padding: 10px 20px;

@@ -91,7 +91,12 @@
     //创建左侧导航栏
     function createLeftItem(){
         var isC = true;
-        var maxN = 4;
+        var maxW = 992;
+        var t_w = $(".web-top-center").width();
+        var jg = t_w >= maxW ? 120 : 90;
+        var maxN = parseInt(t_w / jg) - 1;
+
+        console.log("maxN："+maxN)
         var menuList = <%=arr%>;
         $(".web-top-center").empty();
         for(var i = 0;i < menuList.length;i++){
@@ -146,6 +151,9 @@
                 isC = false;
             }
         }
+
+        if($("#other>div").length < 1)
+            $("#item_other").remove();
     }
 
     function selectMenu(){
