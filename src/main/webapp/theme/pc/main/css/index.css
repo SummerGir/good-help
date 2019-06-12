@@ -22,16 +22,16 @@ body{
     font-weight: bolder;
 }
 
-@media (max-width: 992px) {
+/*@media (max-width: 992px) {*/
 
-    .main-top-nav .web-top-center{
-        font-size: 15px;
-    }
-    .main-top-nav .web-top-center .menu-item i,.main-top-nav .web-top-center .menu-item2 i{
-        display: none;
-    }
+    /*.main-top-nav .web-top-center{*/
+        /*font-size: 15px;*/
+    /*}*/
+    /*.main-top-nav .web-top-center .menu-item i,.main-top-nav .web-top-center .menu-item2 i{*/
+        /*display: none;*/
+    /*}*/
 
-}
+/*}*/
 .main-top-nav .web-top-center .menu-item{
     padding: 22px 15px 0px 15px;
     cursor: pointer;
