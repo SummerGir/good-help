@@ -25,8 +25,8 @@
     </master:Content>
     <master:Content contentPlaceHolderId="body">
 
-        <div class="panel panel-default need-nav">
-            <div class="panel-body">
+        <div class="panel panel-default need-nav" style="margin-bottom: 10px;">
+            <div class="panel-body" style="padding-bottom: 0px;">
                 <div class="row">
                     <div class="col-md-12 count-div">
                         <div class="row">
@@ -112,7 +112,7 @@
             </div>
         </div>
 
-        <div class="row" style="margin-top: 175px;">
+        <div class="row">
             <div class="col-md-12">
                 <!--表格-->
                 <div id="myTableTest"></div>
@@ -137,6 +137,7 @@
             };
             $(document).ready(function(){
                 clone_my_nav("need-nav");
+                $("#myTableTest").parent().parent().css({"margin-top": $(".main-center-nav").height() + "px"});
                 //初始化日历控件
                 $(".search-div input[name='beginTime'],.search-div input[name='endTime']").datetimepicker({
                     format: 'yyyy-mm-dd',

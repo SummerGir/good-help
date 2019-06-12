@@ -97,6 +97,12 @@
                     //生成页
                     myDiv.find(".table-footer .table-info").html("第&nbsp;"+s+"&nbsp;至&nbsp;"+e+"&nbsp;项,共&nbsp;"+records+"&nbsp;项");
                     myDiv.find(".table-toolbar .pull-left select").show();
+
+                    myDiv.find(".table-toolbar .pull-left select").bind("click",function(){
+                        defaultOpt.page = 1;
+                        defaultOpt.rows = $(this).val();
+                        set_table();
+                    });
                 }else{
                     myDiv.find(".table-toolbar .pull-left select").hide();
                     myDiv.find(".table-footer .table-info").html("显示所有,共&nbsp;"+records+"&nbsp;项");
