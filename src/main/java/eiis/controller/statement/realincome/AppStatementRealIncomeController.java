@@ -22,11 +22,26 @@ public class AppStatementRealIncomeController {
     @ResponseBody
     @RequestMapping("/loadTableData")
     public String loadTableData(HttpServletRequest request){
-        String cycleType = request.getParameter("cycleType");
+        String year = request.getParameter("year");
         Map<String,Object> map = new HashMap<>();
         try{
-            if(StringUtils.isNotBlank(cycleType)){
-                map = service.loadTableData(Integer.parseInt(cycleType));
+            if(StringUtils.isNotBlank(year)){
+                map = service.loadTableData(Integer.parseInt(year));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return JSONObject.fromObject(map).toString();
+    }
+    @ResponseBody
+    @RequestMapping("/loadDetailTableData")
+    public String loadDetailTableData(HttpServletRequest request){
+        String type = request.getParameter("type");
+        String cycle = request.getParameter("cycle");
+        Map<String,Object> map = new HashMap<>();
+        try{
+            if(StringUtils.isNotBlank(type) && StringUtils.isNotBlank(cycle)){
+                map = service.loadDetailTableData(type,cycle);
             }
         }catch (Exception e){
             e.printStackTrace();

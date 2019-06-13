@@ -1,4 +1,6 @@
-
+.need-nav .panel-body{
+    padding: 10px;
+}
 .rowLeft{
     float: left;
     width: 100%;
@@ -40,4 +42,8 @@
 .button-tiny{
     background-color : #046eb8;!important;
     border-radius : 5px;!important;
+}
+.can-click{
+    color:blue;
+    cursor: pointer;
 }

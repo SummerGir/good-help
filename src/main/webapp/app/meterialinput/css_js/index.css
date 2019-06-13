@@ -1,68 +1,6 @@
 
-.my-col{
-    display: flex;
-    margin-bottom: 10px;
-    font-size: 15px;
-    position: relative;
-    font-weight: bolder;
-}
-.my-col .my-left-div{
-    width: 100px;
-    padding: 5px 10px;
-    background-color: #337ab7;
-    border: 1px solid #2e6da4;
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
-    color: #fff;
-    text-align: right;
-    border-right: none;
-}
-.my-col .my-left-div2{
-    width: 100px;
-    padding: 5px 10px;
-    background-color: #f0ad4e;
-    border: 1px solid #eea236;
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
-    color: #fff;
-    text-align: right;
-    border-right: none;
-}
-.my-col .my-right-div{
-    flex: 1;
-    background-color: #efefef;
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
-    padding: 5px 30px 5px 10px;
-    border: 1px solid #ccc;
-    border-left: none;
-}
-.my-col .my-right-div2{
-    flex: 1;
-    background-color: #fff;
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
-    padding: 0px;
-    border: 1px solid #ccc;
-    border-left: none;
-}
-.my-col .my-right-div2>input,.my-col .my-right-div2>select{
-    background-color: #fff;
-    border:none;
-}
-.my-col .money-unit{
-    position: absolute;
-    right: 20px;
-    top: 7px;
-}
 
 
-table{
-    font-weight: bolder;
-}
-button>i{
-    margin-right: 5px;
-}
 .detail-div{
     margin-top: 30px;
 }
@@ -97,9 +35,4 @@ button>i{
     color: #5cb85c;
     border-radius: 4px;
     cursor: pointer;
-}
-
-.form-control{
-    height: 32px;
-    padding: 5px 10px;
 }
