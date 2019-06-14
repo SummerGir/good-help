@@ -20,7 +20,9 @@
 <master:ContentPage>
     <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
     <master:Content contentPlaceHolderId="head">
-        <script type="text/javascript" src="/public/control/bootstrap-table/js/bootstrap.table.js"></script>
+        <script type="text/javascript">
+            GoodHelper.Loading(GoodHelper.Common.BootstrapTable);
+        </script>
         <style type="text/css">
             button>i{
                 margin-right: 5px;
@@ -121,7 +123,7 @@
                     {name:'comment',title:"备注",align:'left',width:'30%'}
                 ]
             };
-            $(document).ready(function(){
+            $(window).load(function(){
                 clone_my_nav("need-nav");
                 $(".main-center").css({"margin-top": $(".main-center-nav").height() + "px"});
                 myTable.ghTable(option);

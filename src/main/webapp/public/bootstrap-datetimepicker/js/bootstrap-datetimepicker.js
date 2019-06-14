@@ -82,9 +82,9 @@
     // when page switch the datetimepicker div will be removed also.
     this.container = options.container || 'body';
 
-    this.language = options.language || this.element.data('date-language') || 'zh-CN';
+    this.language = options.language || this.element.data('date-language') || 'zhCN';
     this.language = this.language in dates ? this.language : this.language.split('-')[0]; // fr-CA fallback to fr
-    this.language = this.language in dates ? this.language : 'zh-CN';
+    this.language = this.language in dates ? this.language : 'zhCN';
     this.isRTL = dates[this.language].rtl || false;
     this.formatType = options.formatType || this.element.data('format-type') || 'standard';
     this.format = DPGlobal.parseFormat(options.format || this.element.data('date-format') || dates[this.language].format || DPGlobal.getDefaultFormat(this.formatType, 'input'), this.formatType);
@@ -1504,6 +1504,17 @@
       suffix:      ['st', 'nd', 'rd', 'th'],
       today:       'Today',
       clear:       'Clear'
+    },
+    zhCN:{
+        days: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"],
+        daysShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+        daysMin:  ["日", "一", "二", "三", "四", "五", "六", "日"],
+        months: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+        monthsShort: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+        today: "今天",
+        clear: "清空",
+        suffix: [],
+        meridiem: ["上午", "下午"]
     }
   };
 

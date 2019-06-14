@@ -1,0 +1,142 @@
+.treeSelectContainer{
+    width : 100%;
+    height : 100%;
+    position: relative;
+}
+.treeSelectContainer>.inputContainer{
+    position: relative;
+    border: 1px solid #ccc;
+    background-color: #ffffff;
+    border-radius: 3px;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+.treeSelectContainer>.inputContainer.focused{
+    box-shadow: 0 0 3px 0 #95B8E7;
+}
+.treeSelectContainer>.inputContainer.open .presentationIcon{
+    border-color: transparent transparent #888 transparent;
+    border-width:0 4px 5px 4px;
+    top: -20%;
+}
+.treeSelectContainer>.inputContainer>div{
+    position: absolute;
+    top: 0;
+}
+.treeSelectContainer>.inputContainer>.selectInput{
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    padding-left: 5px;
+    padding-right: 20px;
+}
+.treeSelectContainer>.inputContainer>.selectInput>input{
+    height: 100%;
+    width: 100%;
+    border: none;
+    letter-spacing : 1px;
+    cursor: default;
+}
+.treeSelectContainer>.inputContainer>.presentation{
+    height: 100%;
+    width: 20px;
+    right: 0;
+}
+.treeSelectContainer>.inputContainer>.presentation>b{
+    border-color: #888 transparent transparent transparent;
+    border-style: solid;
+    border-width: 5px 4px 0 4px;
+    top: 50%;
+    left: 6px;
+    position: relative;
+}
+.treeSelectPane{
+    color: #666;
+    padding: 5px 0;
+    position: relative;
+    border: 1px solid #dddddd;
+    background-color: #ffffff;
+}
+.treeSelectPane>._treeSelectPane{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+._treeSelectPane>div{
+    overflow: auto;
+    height: 100%;
+    width: 100%;
+}
+.treeSelectPane._input{
+    display: none;
+    position: absolute;
+    z-index: 1111;
+}
+.treeSelectPane._input>._treeSelectPane>.title{
+    display: none;
+}
+.treeSelectPane._pane{
+    position: relative;
+    padding-top: 25px;
+}
+.treeSelectPane._pane>._treeSelectPane>.title{
+    position: absolute;
+    width: 100%;
+    height: 25px;
+    top: -25px;
+    line-height: 25px;
+    padding-left: 4px;
+    background: linear-gradient(to bottom,#F9F9F9 0,#efefef 100%);
+}
+.treeSelectPane .tree-node-selected{
+    background: none !important;
+    color: #666666;
+}
+.treeSelectPane .tree-node._disabled{
+    background: none !important;
+    color: #666666 !important;
+    cursor: default !important;
+}
+.treeSelectPane .tree-node._readonly{
+    background: #e9e9e9 !important;
+    color: #666666 !important;
+    cursor: default !important;
+}
+.treeSelectPane .tree-node>.tree-checkbox3{
+    background: url('/public/jquery-easyui/selectPlugins/tree_icons1.png') no-repeat -1px 0;
+}
+.treeSelectPane .tree-node{
+    height: 20px;
+}
+._treeSelectPane>.mask{
+    left: 0;
+    top: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 12;
+    background-color: rgba(210,210,210,0.4);
+    display: none;
+}
+._treeSelectPane>.mask>canvas{
+    left: 50%;
+    top: 50%;
+    margin-left: -30px;
+    margin-top: -30px;
+    position: absolute;
+    z-index: 13;
+}
+._treeSelectPane>.noData{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 70px;
+    height: 22px;
+    color: #a1a1a1;
+    font-size: 12px;
+    text-align: center;
+    margin-left: -35px;
+    margin-top: -11px;
+    z-index: 11;
+    display: none;
+}

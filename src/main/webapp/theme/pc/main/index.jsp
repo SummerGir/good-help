@@ -24,57 +24,26 @@
         <master:ContentPlaceHolder id="title"/>
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 设置浏览器窗口图标 -->
     <link rel="shortcut icon"type="image/x-icon" href="/theme/pc/main/img/logoIco.ico"media="screen" />
-    <link href="/public/bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link href="/public/esg-font/iconfont.css" rel="stylesheet">
-    <link href="/theme/pc/main/css/index.css" rel="stylesheet">
-    <!---->
-    <script type="text/javascript" src="/public/control/util/eiis.foundation.js"></script>
-    <!--jquery-->
+
     <script type="text/javascript" src="/public/jquery/jquery.js"></script>
-    <!--bootstrap-->
-    <script type="text/javascript" src="/public/bootstrap/js/bootstrap.js"></script>
-    <!--bootstrap datetimepicker-->
-    <script type="text/javascript" src="/public/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
-    <script type="text/javascript" src="/public/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
-    <link href="/public/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-
-
-    <!--提示框-->
-    <script type="text/javascript" src="/public/control/message/message.js"></script>
-    <script type="text/javascript" src="/public/utilities/require/require.min.js"></script>
+    <script type="text/javascript" src="/public/control/resourcesload/goodhelper.js"></script>
 
     <script type="text/javascript">
-        require.config({
-            packages: [
-                /*{
-                 name: "jquery",
-                 location: '/public/jquery',
-                 main: 'jquery-1.11.2'
-                 },*/
-                {
-                    name: 'echarts3',
-                    location: '/public/baidu/echarts3-1-10',
-                    main: 'echarts.min'
-                },
-                {
-                    name: 'echarts',
-                    location: '/public/baidu/echarts',
-                    main: 'echarts'
-                },
-                {
-                    name: 'zrender',
-                    location: '/public/baidu/zrender',
-                    main: 'zrender'
-                },
-                {
-                    name: 'underscore',
-                    location: '/public/utilities/underscore',
-                    main: 'underscore-min'
-                }
-            ]
-        });
+        $(function(){
+            GoodHelper.Loading(GoodHelper.Common.Util);
+            GoodHelper.Loading(GoodHelper.Common.FontIcon);
+            GoodHelper.Loading(GoodHelper.Common.Bootstrap);
+        })
     </script>
+
+    <link href="/theme/pc/main/css/index.css" rel="stylesheet">
+    <!---->
+    <!--jquery-->
+    <!--bootstrap-->
+    <!--bootstrap datetimepicker-->
+
     <style type="text/css">
         .form-control:focus{
             box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 14px rgba(233,0,0, .9);!important;

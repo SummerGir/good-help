@@ -20,7 +20,9 @@
 <master:ContentPage>
     <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
     <master:Content contentPlaceHolderId="head">
-        <script type="text/javascript" src="/public/control/bootstrap-table/js/bootstrap.table.js"></script>
+        <script type="text/javascript">
+            GoodHelper.Loading(GoodHelper.Common.BootstrapTable);
+        </script>
         <link href="/app/meterialbill/css_js/index.css" rel="stylesheet"/>
     </master:Content>
     <master:Content contentPlaceHolderId="body">
@@ -135,7 +137,7 @@
                     {name:'caozuo',title:"是否对账",align:'center',width:'30%'}
                 ]
             };
-            $(document).ready(function(){
+            $(window).load(function(){
                 clone_my_nav("need-nav");
                 $(".main-center").css({"margin-top": $(".main-center-nav").height() + "px"});
                 //初始化日历控件

@@ -30,11 +30,11 @@
 <master:ContentPage>
     <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
     <master:Content contentPlaceHolderId="head">
-        <link rel="stylesheet" type="text/css" href="/public/jquery-easyui/themes/default/easyui.css">
-        <link rel="stylesheet" type="text/css" href="/public/jquery-easyui/themes/icon.css">
+        <script type="text/javascript">
+            GoodHelper.Loading(GoodHelper.Common.EasyUI);
+            GoodHelper.Loading(GoodHelper.Common.ECharts);
+        </script>
         <link rel="stylesheet" type="text/css" href="/app/statement/css_js/indexBase.css">
-        <script src="/public/jquery-easyui/jquery.easyui.min.js"></script>
-        <script src="/public/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
     </master:Content>
     <master:Content contentPlaceHolderId="body">
         <div class="panel panel-default need-nav">

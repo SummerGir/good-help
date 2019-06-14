@@ -1,14 +1,11 @@
 var detailTable;
-$(function(){
+$(window).load(function(){
     detailCharts=$("#detailCharts");
     loadTable();
     loadDetailTable();
 
-    require(['echarts3'],function (ecs) {
-        eCharts = ecs;
-        loadCharts();
-        loadTableData();
-    });
+    loadCharts();
+    loadTableData();
 
     window.onresize=function(){
         if(myCharts){

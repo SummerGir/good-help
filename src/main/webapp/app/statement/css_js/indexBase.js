@@ -1,7 +1,7 @@
 var real_Path; //excel的下载路径
 var mainTable;
 var detailCharts;
-var myCharts,eCharts;
+var myCharts,echarts;
 var sizeBase = 4;
 
 var option = {
@@ -36,8 +36,8 @@ var option = {
 
 //初始化折线图
 function loadCharts(){
-    if(eCharts){
-        myCharts=eCharts.init(detailCharts[0], {width : "auto",backgroundColor: "#fff"});
+    if(echarts){
+        myCharts=echarts.init(detailCharts[0], {width : "auto",backgroundColor: "#fff"});
     }
 }
 

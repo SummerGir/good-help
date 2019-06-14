@@ -16,7 +16,8 @@ var option = {
 };
 
 var isLoad = false;
-$(document).ready(function(){
+
+$(window).load(function(){
     clone_my_nav("need-nav");
     $(".main-center").css({"margin-top": $(".main-center-nav").height() + "px"});
     myTable.ghTable(option);

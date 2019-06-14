@@ -32,7 +32,12 @@
 <master:ContentPage>
     <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
     <master:Content contentPlaceHolderId="head">
-        <script type="text/javascript" src="/public/control/bootstrap-table/js/bootstrap.table.js"></script>
+        <script type="text/javascript">
+            GoodHelper.Loading(GoodHelper.Common.BootstrapTable);
+            GoodHelper.Loading(GoodHelper.Common.BootstrapDateTimepicker);
+            GoodHelper.Loading(GoodHelper.Common.BaiduTTS);
+        </script>
+
         <link href="/app/meterialinput/css_js/index.css" rel="stylesheet"/>
     </master:Content>
     <master:Content contentPlaceHolderId="body">
@@ -210,7 +215,5 @@
         </script>
 
         <script src="/app/meterialinput/css_js/index.js" type="text/javascript"></script>
-        <!-- 百度文字转语音-->
-        <script type="text/javascript" src="/public/baidu-tts/index.js"></script>
     </master:Content>
 </master:ContentPage>

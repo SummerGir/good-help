@@ -29,7 +29,7 @@
     padding: 20px;
 }
 .detail-div table>tfoot td>div{
-    display: inline;
+    display:"/public/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" inline;
     padding: 10px;
     border: 1px solid #5cb85c;
     color: #5cb85c;

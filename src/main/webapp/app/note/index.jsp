@@ -28,7 +28,9 @@
 <master:ContentPage>
     <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
     <master:Content contentPlaceHolderId="head">
-        <script type="text/javascript" src="/public/control/bootstrap-table/js/bootstrap.table.js"></script>
+        <script type="text/javascript">
+            GoodHelper.Loading(GoodHelper.Common.BootstrapTable);
+        </script>
         <style type="text/css">
             button>i{
                 margin-right: 5px;
@@ -117,7 +119,7 @@
                     {name:'sysTime',title:"编制日期",align:'center',width:'20%'}
                 ]//表格列[{field:'name',title:'名称',align:'left',width:80,template:function(){}},{},{}]
             };
-            $(document).ready(function(){
+            $(window).load(function(){
                 clone_my_nav("need-nav");
                 $(".main-center").css({"margin-top": $(".main-center-nav").height() + "px"});
                 myTable.ghTable(option);
