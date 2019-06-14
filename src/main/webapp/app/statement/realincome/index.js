@@ -1,8 +1,18 @@
-var detailTable;
+var detailTable = $("#detailTable");
+var option_detail = {
+    id:"#detailTable",//需要绑定的Id或class
+    url:"/app/statement/realincome/loadDetailTableData.do",//表格请求的路径
+    isPage:false,//不分页
+    columns:[
+        {name:'myTime',title:"标题",align:'center',width:'20%'},
+        {name:'myMoney',title:'金额',align:'right',width:'20%'},
+        {name:'dicInfo',title:'材料明细',align:'left'}
+    ]//表格列[{field:'name',title:'名称',align:'left',width:80,template:function(){}},{},{}]
+};
 $(window).load(function(){
+    clone_my_nav("need-nav");
     detailCharts=$("#detailCharts");
     loadTable();
-    loadDetailTable();
 
     loadCharts();
     loadTableData();
@@ -30,7 +40,7 @@ function loadTable(){
         var name = jbTypes[type];
         col[0].push({title : name + "分析",colspan:3});
         index ++;
-        col[1].push({field:"count_" + type,title:name + "金额",readonly:true,width : lw[index] + '%',align: 'center',
+        col[1].push({field:"count_" + type,title:name + "金额",readonly:true,width : lw[index] + '%',align: 'right',
             formatter: function(value,row,index){
                 if(value > 0){
                     return "<span class='can-click'>"+ value +"</span>";
@@ -38,9 +48,9 @@ function loadTable(){
                 return "";
             }});
         index ++;
-        col[1].push({field:"add_" + type,title:"增长量",readonly:true,width : lw[index] + '%',align: 'center'});
+        col[1].push({field:"add_" + type,title:"增长量",readonly:true,width : lw[index] + '%',align: 'right'});
         index ++;
-        col[1].push({field:"ratio_" + type,title:"同比增长",readonly:true,width : lw[index] + '%',align: 'center'});
+        col[1].push({field:"ratio_" + type,title:"同比增长",readonly:true,width : lw[index] + '%',align: 'right'});
     }
     mainTable=$("#mainTable").datagrid({
         height: 'auto',
@@ -63,43 +73,14 @@ function loadTable(){
         },onSelect : function(index,data){
 
         },onClickCell:function(index,field,value){
+            mainTable.datagrid('selectRow',index);
             var data = mainTable.datagrid('getSelected');
+            // console.log(data);
+            // console.log(value);
             var type = field.substr(field.length - 1);
-            if(field == "count_0" || field == "count_1"){//工作金额
+            if((field == "count_0" || field == "count_1") && (value != '' && value > 0)){//工作金额
                 loadDetailTableData(data,type);
             }
-        }
-    });
-}
-
-//初始化表格
-function loadDetailTable(){
-    var col = [[
-        {title : "日期",field : "myTime",width : '20%',align: 'center'},
-        {title : "金额",field : "myMoney",width : '20%',align: 'center'},
-        {title : "材料明细",field : "dicInfo",width : '60%'}
-    ]];
-
-    detailTable=$("#detailTable").datagrid({
-        height: 'auto',
-        width: '100%',
-        singleSelect: true,//单选
-        fitColumns: true,
-        autoRowHeight: true,
-        scrollbarSize: 0,
-        columns:col,
-        onLoadSuccess: function (data) {
-            if(data.rows.length===0){
-                //关闭加载提示框
-                detailTable.datagrid("loaded");
-                return;
-            }
-
-            detailTable.datagrid("loaded");
-        },onLoadError : function() {
-            detailTable.datagrid("loaded");
-        },onSelect : function(index,data){
-
         }
     });
 }
@@ -144,26 +125,10 @@ function loadDetailTableData(data,type){
         return;
     }
 
-    detailTable.datagrid("loading");
-    $.ajax({
-        type : "post",
-        url : "/app/statement/realincome/loadDetailTableData.do",
-        data : {type: type,cycle: data.cycle},
-        dataType : "json",
-        success : function(msg){
-            if($.isEmptyObject(msg)){
-                detailTable.datagrid('loadData',{rows:[],footer:[]});
-                return;
-            }
-            try{
-                detailTable.datagrid('loadData',msg);
-                //如果页面出现滚动条，会导致表格宽度变化，所以在这里重置一遍宽度
-                detailTable.datagrid('resize',{width:'100%'});
-            }catch (e){
-                detailTable.datagrid("loaded");
-            }
-        }
-    });
+    option_detail.data = {type: type,cycle: data.cycle};
+    detailTable.ghTable(option_detail);
+    $('#my_modal').modal('show');
+
 }
 
 //加载折线图数据

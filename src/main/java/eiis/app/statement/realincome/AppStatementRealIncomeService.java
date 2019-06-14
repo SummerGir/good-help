@@ -121,11 +121,11 @@ public class AppStatementRealIncomeService extends StatementBase {
             values.put("startTime",sdf.format(c.getTime()));
             c.set(Calendar.MONTH,c.get(Calendar.MONTH) + 1);
             values.put("endTime",sdf.format(c.getTime()));
-            baseSql = "select d.myTime,d.myMoney,group_concat(d.dicInfo SEPARATOR  ' ; ') from (select date_format(a.SYS_TIME,'%Y年%m月%d日') myTime,sum(b.MONEY) myMoney,concat(c.DIC_NAME,'：',count(b.DETAIL_NUM),c.UNIT_NAME) dicInfo from app_meterial_input a join app_meterial_input_detail b on a.INPUT_ID=b.INPUT_ID join app_dic_info c on b.DIC_ID=c.DIC_ID where a.SYS_TIME>=:startTime and a.SYS_TIME<:endTime group by myTime,b.DIC_ID ) d group by d.myTimeorder by d.myTime";
+            baseSql = "select d.myTime,sum(d.myMoney),group_concat(d.dicInfo SEPARATOR  ' ; ') from (select date_format(a.SYS_TIME,'%Y年%m月%d日') myTime,sum(b.MONEY) myMoney,concat(c.DIC_NAME,'：',count(b.DETAIL_NUM),c.UNIT_NAME) dicInfo from app_meterial_input a join app_meterial_input_detail b on a.INPUT_ID=b.INPUT_ID join app_dic_info c on b.DIC_ID=c.DIC_ID where a.SYS_TIME>=:startTime and a.SYS_TIME<:endTime group by myTime,b.DIC_ID order by c.PRIORITY_LEVEL) d group by d.myTime order by d.myTime";
         }else{
             values.put("myYear",cycle.substring(0,4));
             values.put("myMonth",cycle.substring(5,7));
-            baseSql = "select d.myTime,d.myMoney,group_concat(d.dicInfo SEPARATOR  ' ; ') from (select date_format(a.SYS_TIME,'%Y年%m月%d日') myTime,sum(b.MONEY) myMoney,concat(c.DIC_NAME,'：',count(b.DETAIL_NUM),c.UNIT_NAME) dicInfo from app_meterial_input a join app_meterial_input_detail b on a.INPUT_ID=b.INPUT_ID join app_dic_info c on b.DIC_ID=c.DIC_ID where a.YEAR=:myYear and a.MONTH=:myMonth group by myTime,b.DIC_ID ) d group by d.myTimeorder by d.myTime";
+            baseSql = "select d.myTime,sum(d.myMoney),group_concat(d.dicInfo SEPARATOR  ' ; ') from (select a.INPUT_CODE myTime,sum(b.MONEY) myMoney,concat(c.DIC_NAME,'：',count(b.DETAIL_NUM),c.UNIT_NAME) dicInfo from app_meterial_input a join app_meterial_input_detail b on a.INPUT_ID=b.INPUT_ID join app_dic_info c on b.DIC_ID=c.DIC_ID where a.YEAR=:myYear and a.MONTH=:myMonth group by myTime,b.DIC_ID order by c.PRIORITY_LEVEL ) d group by d.myTime order by d.myTime";
         }
 
         String[] fields = {"myTime", "myMoney","dicInfo"};

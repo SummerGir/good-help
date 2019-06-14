@@ -140,7 +140,6 @@
             };
             $(window).load(function(){
                 clone_my_nav("need-nav");
-                $(".main-center").css({"margin-top": $(".main-center-nav").height() + "px"});
                 //初始化日历控件
 //                $(".search-div input[name='beginTime'],.search-div input[name='endTime']").datetimepicker({
 //                    format: 'yyyy-mm-dd',

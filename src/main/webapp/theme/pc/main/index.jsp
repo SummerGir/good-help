@@ -182,6 +182,8 @@
         var h = $("."+clas).clone();
         $("."+clas).remove();
         $(".main-center-nav").empty().append(h);
+
+        $(".main-center").css({"margin-top": $(".main-center-nav").height() + "px"});
     }
 </script>
 </body>

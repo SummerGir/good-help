@@ -31,6 +31,7 @@
     <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
     <master:Content contentPlaceHolderId="head">
         <script type="text/javascript">
+            GoodHelper.Loading(GoodHelper.Common.BootstrapTable);
             GoodHelper.Loading(GoodHelper.Common.EasyUI);
             GoodHelper.Loading(GoodHelper.Common.ECharts);
         </script>
@@ -58,20 +59,17 @@
             </div>
         </div>
 
-        <div style="width: 100%;height: 100%">
-            <div id="layout_div" style="position: relative;">
-                <!-- 上表 开始 -->
-                <div id="tab_main" class="table_data">
-                    <div id="mainTable" ></div>
-                </div>
-                <!-- 底表 开始 -->
-                <div id="tab" class="panel panel-default" style="margin: 0 20px;background: #ffffff">
-                    <div class="table_data" style="position: relative;min-width: 960px;padding: 8px 20px;border: 1px solid #FFFFFF;overflow: hidden">
-                        <div id="detailCharts" class="tab-content" style="height: 400px"></div>
-                    </div>
+        <div id="layout_div" style="position: relative;">
+            <!-- 上表 开始 -->
+            <div id="tab_main" class="table_data">
+                <div id="mainTable" ></div>
+            </div>
+            <!-- 底表 开始 -->
+            <div id="tab" class="panel panel-default" style="margin: 0px;background: #ffffff">
+                <div class="table_data" style="position: relative;min-width: 960px;padding: 8px 20px;border: 1px solid #FFFFFF;overflow: hidden">
+                    <div id="detailCharts" class="tab-content" style="height: 400px"></div>
                 </div>
             </div>
-
         </div>
 
         <div id="my_modal" class="modal fade" tabindex="-1" aria-hidden="true" data-backdrop="static">
@@ -80,7 +78,7 @@
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4 class="modal-title">
-                            新增/修改 一条数据
+                            查看详细信息
                         </h4>
                     </div>
                     <div class="modal-body" style="padding-bottom: 0px;">

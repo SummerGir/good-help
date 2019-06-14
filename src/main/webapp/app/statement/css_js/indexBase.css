@@ -1,5 +1,8 @@
 .need-nav .panel-body{
-    padding: 10px;
+    padding: 10px;!important;
+}
+#layout_div .panel-body{
+    padding: 0px;!important;
 }
 .rowLeft{
     float: left;
