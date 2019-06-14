@@ -1,6 +1,5 @@
 var GoodHelper = {};
 (function(window){
-    console.log("222");
     GoodHelper.Common = {};
 
     GoodHelper.Common.Util = {
@@ -49,7 +48,7 @@ var GoodHelper = {};
     <!-- 图表-->
     GoodHelper.Common.ECharts = {
         js: [
-            "/public/baidu/echarts3-1-10/echarts.js"
+            "/public/baidu/echarts3-1-10/echarts.min.js"
         ]
     };
 
@@ -63,8 +62,6 @@ var GoodHelper = {};
 
     //根据传入的GoodHelper.Common类型进行动态加载css和js文件
     GoodHelper.Loading = function(obj){
-        console.log("加载");
-
         if(obj == undefined || !obj){
             return;
         }
@@ -89,7 +86,6 @@ var GoodHelper = {};
         if(!path || path.length < 1){
             throw new Error("资源路径为空");
         }
-        console.log(path);
         var head = document.getElementsByTagName('head')[0];
         var script = document.createElement('script');
         script.src = path;
@@ -102,7 +98,6 @@ var GoodHelper = {};
         if(!path || path.length < 1){
             throw new Error("资源路径为空");
         }
-        console.log(path);
         var head = document.getElementsByTagName("head")[0];
         var link = document.createElement("link");
         link.href = path;

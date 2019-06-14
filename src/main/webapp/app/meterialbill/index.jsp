@@ -22,6 +22,7 @@
     <master:Content contentPlaceHolderId="head">
         <script type="text/javascript">
             GoodHelper.Loading(GoodHelper.Common.BootstrapTable);
+//            GoodHelper.Loading(GoodHelper.Common.BootstrapDateTimepicker);
         </script>
         <link href="/app/meterialbill/css_js/index.css" rel="stylesheet"/>
     </master:Content>
@@ -141,10 +142,10 @@
                 clone_my_nav("need-nav");
                 $(".main-center").css({"margin-top": $(".main-center-nav").height() + "px"});
                 //初始化日历控件
-                $(".search-div input[name='beginTime'],.search-div input[name='endTime']").datetimepicker({
-                    format: 'yyyy-mm-dd',
-                    minView:2
-                });
+//                $(".search-div input[name='beginTime'],.search-div input[name='endTime']").datetimepicker({
+//                    format: 'yyyy-mm-dd',
+//                    minView:2
+//                });
                 search();
                 myTable.on("table.created", function() {
 //                    $.message("创建表格");
