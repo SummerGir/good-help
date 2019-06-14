@@ -155,10 +155,11 @@ function edit_main(){
     });
 }
 
-function save_main(type){
+function save_main(){
     var postData = get_data();
 
     if(postData){
+
         var main = postData.main;
         var inputCode = main.year.substr(2) + (main.month > 9 ? main.month : ("0" + main.month)) + "-" + main.number;
         if(main.exception != ''){
@@ -174,38 +175,59 @@ function save_main(type){
         }
         code += "总金额：<span style='color: red;'>" + main.allMoney + " 元</span>\n";
 
-        var text = "总金额为"+ main.allMoney +"元，请确认";
-        play_pronunciation(text,"6");
-        $.message({
-            button:$.message.button.yesNo
-            ,text:"确定要保存此数据?\n\n" + code
-            ,result:function(result){
-                if(result == $.message.result.yes){
-                    $.ajax({
-                        url:"/app/meterialinput/saveMain.do",  //请求路径
-                        data:{postData: JSON.stringify(postData)}, //请求参数
-                        type:"post", //请求方式
-                        async:true,  //是否异步，默认值true
-                        dataType:'json',
-                        success:function(rs){ ////成功之后回调
-                            if(type){
-                                //继续新增
-                                loadTable();
-                                add_main();
 
-                                var text = inputCode.replaceAll("-","杠") + "保存成功";
-                                play_pronunciation(text);
-                            }else{
-                                $.message(rs.msg);
-                                if(rs.error == 0){
-                                    $('#my_modal').modal('hide');
-                                    loadTable();
-                                }
+        postData.isSave = false;
+        //判断单号是否重复
+        $.ajax({
+            url:"/app/meterialinput/saveMain.do",  //请求路径
+            data:{postData: JSON.stringify(postData)}, //请求参数
+            type:"post", //请求方式
+            async:true,  //是否异步，默认值true
+            dataType:'json',
+            success:function(rs){ ////成功之后回调
+                //不重复
+                if(rs.error == 0){
+                    var text = "总金额为"+ main.allMoney +"元，请确认";
+                    play_pronunciation(text,"6");
+                    $.message({
+                        button:$.message.button.yesNo
+                        ,text:"确定要保存此数据?\n\n" + code
+                        ,result:function(result){
+                            if(result == $.message.result.yes){
+                                postData.isSave = true;
+                                $.ajax({
+                                    url:"/app/meterialinput/saveMain.do",  //请求路径
+                                    data:{postData: JSON.stringify(postData)}, //请求参数
+                                    type:"post", //请求方式
+                                    async:true,  //是否异步，默认值true
+                                    dataType:'json',
+                                    success:function(rs1){ ////成功之后回调
+                                        if(rs1.error == 0){
+                                            //继续新增
+                                            loadTable();
+                                            add_main();
+
+                                            var text = inputCode.replaceAll("-","杠") + "保存成功";
+                                            play_pronunciation(text);
+                                            $('#my_modal').modal('hide');
+                                            loadTable();
+                                        }else{
+                                            $.message(rs1.msg);
+                                        }
+                                    }
+                                });
                             }
-
                         }
                     });
+                }else{
+                    play_pronunciation(rs.msg,"6");
+                    $.message(rs.msg);
+
+                    var id = "search_form";
+                    $("#"+id+" input[name='searchKey']").val(inputCode);
+                    getSearch('search_form');
                 }
+
             }
         });
     }

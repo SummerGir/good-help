@@ -201,8 +201,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>关闭</button>
-                        <%--<button type="button" class="btn btn-primary" onclick="save_main(false)">提交保存</button>--%>
-                        <button type="button" class="btn btn-primary" onclick="save_main(true)"><i class="glyphicon glyphicon-floppy-save"></i>保存</button>
+                        <button type="button" class="btn btn-primary" onclick="save_main()"><i class="glyphicon glyphicon-floppy-save"></i>保存</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal -->

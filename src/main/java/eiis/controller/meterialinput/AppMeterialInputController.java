@@ -78,28 +78,36 @@ public class AppMeterialInputController {
 //            entity.setComment(main.getString("comment"));
             entity.setInputCode(String.valueOf(entity.getYear()).substring(2) + (entity.getMonth() > 9 ? entity.getMonth() : ("0" + entity.getMonth())) + "-" + entity.getNumber() + (StringUtils.isNotBlank(entity.getException()) ? ("-" + entity.getException()) : ""));
 
-            List<AppMeterialInputDetailEntity> list = new ArrayList<>();
-            JSONArray detail = jb.get("detail") == null ? new JSONArray() : jb.getJSONArray("detail");
+            Boolean isSave = jb.getBoolean("isSave");
+            if(isSave){
+                List<AppMeterialInputDetailEntity> list = new ArrayList<>();
+                JSONArray detail = jb.get("detail") == null ? new JSONArray() : jb.getJSONArray("detail");
 
-            for (int i = 0; i < detail.size(); i++) {
-                JSONObject jd = detail.getJSONObject(i);
-                AppMeterialInputDetailEntity en = new AppMeterialInputDetailEntity();
-                en.setDetailId(UUID.randomUUID().toString());
-                en.setInputId(entity.getInputId());
-                en.setDicId(jd.getString("dicId"));
-                en.setDetailNum(new BigDecimal(jd.getDouble("detailNum")));
-                en.setDetailPrice(new BigDecimal(jd.getDouble("detailPrice")));
-                en.setMoney(new BigDecimal(en.getDetailNum().doubleValue() * en.getDetailPrice().doubleValue()));
-                en.setComment("");
-                list.add(en);
-            }
-            //删除旧的明细信息
-            detailService.delete(entity.getInputId());
-            //保存主表信息
-            mainService.save(entity);
-            //保存全新的明细信息
-            if(list.size() > 0){
-                detailService.save(list);
+                for (int i = 0; i < detail.size(); i++) {
+                    JSONObject jd = detail.getJSONObject(i);
+                    AppMeterialInputDetailEntity en = new AppMeterialInputDetailEntity();
+                    en.setDetailId(UUID.randomUUID().toString());
+                    en.setInputId(entity.getInputId());
+                    en.setDicId(jd.getString("dicId"));
+                    en.setDetailNum(new BigDecimal(jd.getDouble("detailNum")));
+                    en.setDetailPrice(new BigDecimal(jd.getDouble("detailPrice")));
+                    en.setMoney(new BigDecimal(en.getDetailNum().doubleValue() * en.getDetailPrice().doubleValue()));
+                    en.setComment("");
+                    list.add(en);
+                }
+                //删除旧的明细信息
+                detailService.delete(entity.getInputId());
+                //保存主表信息
+                mainService.save(entity);
+                //保存全新的明细信息
+                if(list.size() > 0){
+                    detailService.save(list);
+                }
+            }else{
+                List<Map<String,Object>> list =  mainService.getMainInfo(inputId,entity.getInputCode(),"",1,-1);
+                if(list != null && list.size() > 0){
+                    return GenericController.returnFaild("编号：" + entity.getInputCode() + "已存在，请检查");
+                }
             }
         }catch (Exception e){
             e.printStackTrace();
