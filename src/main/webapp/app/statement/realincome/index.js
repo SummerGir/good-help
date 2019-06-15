@@ -4,7 +4,7 @@ var option_detail = {
     url:"/app/statement/realincome/loadDetailTableData.do",//表格请求的路径
     isPage:false,//不分页
     columns:[
-        {name:'myTime',title:"标题",align:'center',width:'20%'},
+        {name:'myTime',title:"标题",align:'left',width:'20%'},
         {name:'myMoney',title:'金额',align:'right',width:'20%'},
         {name:'dicInfo',title:'材料明细',align:'left'}
     ]//表格列[{field:'name',title:'名称',align:'left',width:80,template:function(){}},{},{}]
