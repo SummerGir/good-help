@@ -15,6 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Service("eiis.app.dicinfo.service.AppDicInfoService")
 public class AppDicInfoService extends GenericService<AppDicInfoEntity,String>{
@@ -46,10 +47,26 @@ public class AppDicInfoService extends GenericService<AppDicInfoEntity,String>{
     public void delete(String costID) throws Exception {
         dao.delete(costID);
     }
+
+    @Transactional
+    public void saveDicLevel(String dicId) throws Exception {
+        AppDicInfoEntity entity = dao.findOne(dicId);
+        entity.setPriorityLevel(entity.getPriorityLevel() + 1);
+        save(entity);
+    }
+    @Transactional
+    public void saveDicLevel(Set<String> set) throws Exception {
+        List<AppDicInfoEntity> list = dao.findAll(set);
+        for(AppDicInfoEntity entity : list){
+            entity.setPriorityLevel(entity.getPriorityLevel() + 1);
+        }
+        save(list);
+    }
+
     //得到菜单列表
     public List<Map<String,Object>> getMainInfo(int page,int rows) throws Exception{
 
-        String baseSql = "select adi.DIC_ID,adi.DIC_NAME,adi.DIC_CODE,adi.UNIT_NAME,adi.PRICE,adi.PRIORITY_LEVEL,adi.SYS_TIME,adi.`COMMENT` from app_dic_info adi order by adi.PRIORITY_LEVEL";
+        String baseSql = "select adi.DIC_ID,adi.DIC_NAME,adi.DIC_CODE,adi.UNIT_NAME,adi.PRICE,adi.PRIORITY_LEVEL,adi.SYS_TIME,adi.`COMMENT` from app_dic_info adi order by adi.PRIORITY_LEVEL desc,adi.DIC_NAME";
         String[] fields = {"dicId", "dicName", "dicCode","unitName", "price", "priorityLevel","sysTime","comment"};
 
         List<Map<String, Object>> list = getNativeMapList(entityManager, baseSql, null, fields, page, rows);

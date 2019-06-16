@@ -1,11 +1,11 @@
 package eiis.controller.meterialinput;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import eiis.app.dicinfo.service.AppDicInfoService;
 import eiis.app.meterialinput.entity.AppMeterialInputDetailEntity;
 import eiis.app.meterialinput.entity.AppMeterialInputEntity;
 import eiis.app.meterialinput.service.AppMeterialInputDetailService;
 import eiis.app.meterialinput.service.AppMeterialInputService;
-import eiis.app.note.entity.AppNoteInfoEntity;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
@@ -28,6 +28,8 @@ public class AppMeterialInputController {
     protected AppMeterialInputService mainService;
     @Autowired
     protected AppMeterialInputDetailService detailService;
+    @Autowired
+    protected AppDicInfoService dicInfoService;
 
     @RequestMapping("getMainInfo")
     @ResponseBody
@@ -50,6 +52,23 @@ public class AppMeterialInputController {
         List<Map<String,Object>> list =  detailService.getDetailInfo(mainId);
 
         return JSONArray.fromObject(list).toString();
+    }
+
+    @RequestMapping("checkInputCode")
+    @ResponseBody
+    public ObjectNode checkInputCode(HttpServletRequest request){
+        String mainId = request.getParameter("mainId");
+        String inputCode = request.getParameter("inputCode");
+        try{
+            boolean isHave = mainService.checkInputCode(mainId,inputCode);
+            if(isHave){
+                return GenericController.returnSuccess(null);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return GenericController.returnFaild(null);
+        }
+        return GenericController.returnFaild(null);
     }
 
     @RequestMapping("saveMain")
@@ -76,38 +95,33 @@ public class AppMeterialInputController {
             entity.setException(main.getString("exception"));
             entity.setIsValid(false);
 //            entity.setComment(main.getString("comment"));
-            entity.setInputCode(String.valueOf(entity.getYear()).substring(2) + (entity.getMonth() > 9 ? entity.getMonth() : ("0" + entity.getMonth())) + "-" + entity.getNumber() + (StringUtils.isNotBlank(entity.getException()) ? ("-" + entity.getException()) : ""));
+            entity.setInputCode(main.getString("inputCode"));
 
-            Boolean isSave = jb.getBoolean("isSave");
-            if(isSave){
-                List<AppMeterialInputDetailEntity> list = new ArrayList<>();
-                JSONArray detail = jb.get("detail") == null ? new JSONArray() : jb.getJSONArray("detail");
+            List<AppMeterialInputDetailEntity> list = new ArrayList<>();
+            JSONArray detail = jb.get("detail") == null ? new JSONArray() : jb.getJSONArray("detail");
 
-                for (int i = 0; i < detail.size(); i++) {
-                    JSONObject jd = detail.getJSONObject(i);
-                    AppMeterialInputDetailEntity en = new AppMeterialInputDetailEntity();
-                    en.setDetailId(UUID.randomUUID().toString());
-                    en.setInputId(entity.getInputId());
-                    en.setDicId(jd.getString("dicId"));
-                    en.setDetailNum(new BigDecimal(jd.getDouble("detailNum")));
-                    en.setDetailPrice(new BigDecimal(jd.getDouble("detailPrice")));
-                    en.setMoney(new BigDecimal(en.getDetailNum().doubleValue() * en.getDetailPrice().doubleValue()));
-                    en.setComment("");
-                    list.add(en);
-                }
-                //删除旧的明细信息
-                detailService.delete(entity.getInputId());
-                //保存主表信息
-                mainService.save(entity);
-                //保存全新的明细信息
-                if(list.size() > 0){
-                    detailService.save(list);
-                }
-            }else{
-                List<Map<String,Object>> list =  mainService.getMainInfo(inputId,entity.getInputCode(),"",1,-1);
-                if(list != null && list.size() > 0){
-                    return GenericController.returnFaild("编号：" + entity.getInputCode() + "已存在，请检查");
-                }
+            Set<String> set = new HashSet<>();
+            for (int i = 0; i < detail.size(); i++) {
+                JSONObject jd = detail.getJSONObject(i);
+                AppMeterialInputDetailEntity en = new AppMeterialInputDetailEntity();
+                en.setDetailId(UUID.randomUUID().toString());
+                en.setInputId(entity.getInputId());
+                en.setDicId(jd.getString("dicId"));
+                en.setDetailNum(new BigDecimal(jd.getDouble("detailNum")));
+                en.setDetailPrice(new BigDecimal(jd.getDouble("detailPrice")));
+                en.setMoney(new BigDecimal(en.getDetailNum().doubleValue() * en.getDetailPrice().doubleValue()));
+                en.setComment("");
+                list.add(en);
+                set.add(en.getDicId().toString());
+            }
+            //删除旧的明细信息
+            detailService.delete(entity.getInputId());
+            //保存主表信息
+            mainService.save(entity);
+            //保存全新的明细信息
+            if(list.size() > 0){
+                dicInfoService.saveDicLevel(set);
+                detailService.save(list);
             }
         }catch (Exception e){
             e.printStackTrace();

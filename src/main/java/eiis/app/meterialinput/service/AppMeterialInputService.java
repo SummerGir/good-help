@@ -117,6 +117,22 @@ public class AppMeterialInputService extends
 		return count;
 	}
 
+	//检查code是否存在
+	public boolean checkInputCode(String mainId,String inputCode){
+		String baseSql = "select count(1) from app_meterial_input main where main.INPUT_CODE=:inputCode " +
+				(StringUtils.isNotBlank(mainId)?" and main.INPUT_ID=:mainId ":"");
+		Query query = entityManager.createNativeQuery(baseSql).setParameter("inputCode",inputCode);
+		if(StringUtils.isNotBlank(mainId)){
+			query.setParameter("mainId",mainId);
+		}
+		int count = 0;
+		List list = query.getResultList();
+		if(list != null && list.size() > 0){
+			count = Integer.parseInt(list.get(0).toString());
+		}
+		return count > 0;
+	}
+
 	public static StringBuffer getYearOption(Boolean isHave){
 		Calendar c = Calendar.getInstance();
 		int n = 5;

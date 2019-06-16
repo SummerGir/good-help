@@ -165,6 +165,7 @@ function save_main(){
         if(main.exception != ''){
             inputCode += "-" + main.exception;
         }
+        postData.main.inputCode = inputCode;
         var code = "编号：" + inputCode + "\n";
 
         var detail = postData.detail;
@@ -176,17 +177,16 @@ function save_main(){
         code += "总金额：<span style='color: red;'>" + main.allMoney + " 元</span>\n";
 
 
-        postData.isSave = false;
         //判断单号是否重复
         $.ajax({
-            url:"/app/meterialinput/saveMain.do",  //请求路径
-            data:{postData: JSON.stringify(postData)}, //请求参数
+            url:"/app/meterialinput/checkInputCode.do",  //请求路径
+            data:{mainId: postData.inputId,inputCode: inputCode}, //请求参数
             type:"post", //请求方式
             async:true,  //是否异步，默认值true
             dataType:'json',
             success:function(rs){ ////成功之后回调
                 //不重复
-                if(rs.error == 0){
+                if(rs.error == 1){
                     var text = "总金额为"+ main.allMoney +"元，请确认";
                     play_pronunciation(text,"6");
                     $.message({
@@ -194,7 +194,6 @@ function save_main(){
                         ,text:"确定要保存此数据?\n\n" + code
                         ,result:function(result){
                             if(result == $.message.result.yes){
-                                postData.isSave = true;
                                 $.ajax({
                                     url:"/app/meterialinput/saveMain.do",  //请求路径
                                     data:{postData: JSON.stringify(postData)}, //请求参数
@@ -220,8 +219,9 @@ function save_main(){
                         }
                     });
                 }else{
-                    play_pronunciation(rs.msg,"6");
-                    $.message(rs.msg);
+                    var text = "编号：" + inputCode + "已存在，请检查";
+                    $.message(text);
+                    play_pronunciation(text.replaceAll("-","杠"),"6");
 
                     var id = "search_form";
                     $("#"+id+" input[name='searchKey']").val(inputCode);
@@ -383,10 +383,12 @@ function sz_rows(e,type,val){
             $(".my-row-" + len).find("*[name='money']").val(val.money);
         }else{
             if(selVal.length > 0){
+                var isSet = false;
                 $(".my-row-" + len).find("*[name='dicId']>option").each(function(){
                     var v = $(this).attr("value");
-                    if(!selVal.contains(v)){
+                    if(!selVal.contains(v) && !isSet){
                         $(".my-row-" + len).find("*[name='dicId']").val(v);
+                        isSet = true;
                         return;
                     }
                     console.log(v);
