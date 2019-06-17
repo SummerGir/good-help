@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     JSONArray arr = new JSONArray();
-    List<Map<String,Object>> list = CoreMenuTreeService.getInstance().getMainInfo();
+    List<Map<String,Object>> list = CoreMenuTreeService.getInstance().getMainInfo(null,"1");
     if(list != null && list.size() > 0){
         arr = JSONArray.fromObject(list);
     }

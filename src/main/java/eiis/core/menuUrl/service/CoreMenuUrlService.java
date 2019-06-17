@@ -13,6 +13,7 @@ import util.spring.ApplicationContext;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -93,5 +94,25 @@ public class CoreMenuUrlService extends
 			count = Integer.parseInt(list.get(0).toString());
 		}
 		return count;
+	}
+
+	public StringBuffer getMenuUrlOptions(Boolean isHave){
+		Calendar c = Calendar.getInstance();
+		int n = 5;
+		StringBuffer sb = new StringBuffer();
+		if(isHave){
+			sb.append("<option value='' style='display:none'>-请选择菜单路径-</option>");
+		}
+
+		try{
+			List<Map<String,Object>> list = getMainInfo(null,null,1,-1);
+			for(Map<String,Object> m : list){
+				sb.append("<option value='"+ m.get("urlId").toString() +"'>"+ m.get("urlTitle").toString() +"</option>");
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+
+		return sb;
 	}
 }
