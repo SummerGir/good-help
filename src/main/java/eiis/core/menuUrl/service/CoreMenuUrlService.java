@@ -6,6 +6,7 @@ import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import util.dataManage.GenericDao;
 import util.dataManage.GenericService;
 import util.spring.ApplicationContext;
@@ -34,6 +35,19 @@ public class CoreMenuUrlService extends
 		return ApplicationContext.getCurrent().getBean(CoreMenuUrlService.class);
 	}
 
+	@Transactional
+	public void save(CoreMenuUrlInfoEntity entity) throws Exception {
+		dao.save(entity);
+	}
+	@Transactional
+	public void save(List<CoreMenuUrlInfoEntity> list) throws Exception {
+		dao.save(list);
+	}
+	@Transactional
+	public void delete(String mainId) throws Exception {
+		dao.delete(mainId);
+	}
+
 	//得到菜单列表
 	public List<Map<String,Object>> getMainInfo(String mainId,String searchKey,int page,int rows)throws Exception{
 		Map<String,Object> values = new HashedMap();
@@ -46,7 +60,7 @@ public class CoreMenuUrlService extends
 				(StringUtils.isNotBlank(mainId)?" and cmui.URL_ID=:mainId ":"")+
 				(StringUtils.isNotBlank(searchKey)?" and (locate(:searchKey,cmui.TITLE)>0 or locate(:searchKey,cmui.CODE)>0) ":"")+
 				" order by cmui.SYS_TIME desc";
-		String[] fields = {"urlId", "title", "code", "url", "parameter","sysTime"};
+		String[] fields = {"urlId", "urlTitle", "urlCode", "urlStr", "parameter","sysTime"};
 
 		List<Map<String, Object>> list = getNativeMapList(entityManager, baseSql, values, fields, page, rows);
 
@@ -62,8 +76,9 @@ public class CoreMenuUrlService extends
 		}
 		return list;
 	}
+
 	public int getMainCount(String mainId,String searchKey){
-		String baseSql = "select cmui.URL_ID,cmui.TITLE,cmui.CODE,cmui.URL,cmui.PARAMETER,cmui.SYS_TIME from core_menu_url_info cmui where 1=1 " +
+		String baseSql = "select count(1) from core_menu_url_info cmui where 1=1 " +
 				(StringUtils.isNotBlank(mainId)?" and cmui.URL_ID=:mainId ":"")+
 				(StringUtils.isNotBlank(searchKey)?" and (locate(:searchKey,cmui.TITLE)>0 or locate(:searchKey,cmui.CODE)>0) ":"");
 		Query query = entityManager.createNativeQuery(baseSql);

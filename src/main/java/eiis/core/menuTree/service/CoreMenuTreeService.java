@@ -9,6 +9,8 @@ import util.dataManage.GenericService;
 import util.spring.ApplicationContext;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,9 +46,59 @@ public class CoreMenuTreeService  extends
 				}
 			}
 		}
+
 		return list;
 	}
 
+	public List<Map<String,Object>> getMenuTree(List<Map<String,Object>> list){
+		List<Map<String,Object>> listMenu = new ArrayList<>();
+		Map<String,Object> map = new HashMap<>();
+		map.put("id","root");
+		map.put("text","好管家");
+		map.put("outlineLevel","0");
+		map.put("iconCls","");
+		map.put("state","open");
+		List<Map<String,Object>> lc = getMenuTree(list,"0");
+		if(lc.size() > 0)
+			map.put("children",lc);
+
+		listMenu.add(map);
+		return listMenu;
+	}
+	private List<Map<String,Object>> getMenuTree(List<Map<String,Object>> list,String pl){
+		System.out.println("getMenuTree："+pl);
+		List<Map<String,Object>> listChildren = new ArrayList<>();
+		for(Map<String,Object> m : list){
+			boolean isC = false;
+			String outlineLevel = m.get("outlineLevel").toString();
+			if(outlineLevel.split("\\.").length > 1){
+				String parentLevel = m.get("outlineLevel").toString();
+				parentLevel = parentLevel.substring(0,parentLevel.length() - 2);
+				if(parentLevel.equals(pl)){
+					isC = true;
+				}
+			}else if("0".equals(pl)){
+				isC = true;
+			}
+
+			if(isC){
+				System.out.println("找到子级："+outlineLevel);
+				Map<String,Object> map = new HashMap<>();
+				map.put("id",m.get("menuId"));
+				map.put("text",m.get("title"));
+				map.put("outlineLevel",m.get("outlineLevel"));
+				map.put("iconCls","");
+				List<Map<String,Object>> lc = getMenuTree(list,outlineLevel);
+				if(lc.size() > 0){
+					map.put("children",lc);
+					map.put("state","closed");
+				}
+				listChildren.add(map);
+			}
+		}
+
+		return listChildren;
+	}
 	public CoreMenuTreeInfoEntity findOneByCode(String code){
 		List<CoreMenuTreeInfoEntity> list = entityManager.createQuery("select en from CoreMenuTreeInfoEntity en,CoreMenuUrlInfoEntity en2 where en.urlId=en2.urlId and en2.code=:code").setParameter("code",code).getResultList();
 		if(list != null && list.size() > 0){

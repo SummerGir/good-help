@@ -1,0 +1,10 @@
+#member_tree > ul {
+    border: none !important;
+}
+
+/*左边 菜单树  开始*/
+#left_div .panel-heading{
+    text-align: right;
+}
+
+/*左边 菜单树  结束*/

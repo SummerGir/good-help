@@ -1,0 +1,234 @@
+.tree {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  color: black;
+  font-weight: bold;
+  font-family: tahoma, arial, helvetica;
+}
+.tree li {
+  white-space: nowrap;
+}
+.tree li ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.tree-node {
+  height: 22px;
+  white-space: nowrap;
+  margin-right: 10px;
+}
+.tree-hit {
+  cursor: pointer;
+}
+.tree-expanded, .tree-collapsed, .tree-open, .tree-close, .tree-folder, .tree-file, .tree-checkbox, .tree-indent{
+  display: inline-block;
+  width: 18px;
+  height: 22px;
+  vertical-align: top;
+  overflow: hidden;
+}
+.tree-title {
+  font-size: 13px;
+  display: inline-block;
+  text-decoration: none;
+  vertical-align: top;
+  white-space: nowrap;
+  padding: 0 8px;
+  height: 22px;
+  line-height: 22px;
+}
+.tree-node-proxy {
+  font-size: 13px;
+  line-height: 20px;
+  padding: 0 2px 0 20px;
+  border-width: 1px;
+  border-style: solid;
+  z-index: 9900000;
+}
+.tree-dnd-icon {
+  display: inline-block;
+  position: absolute;
+  width: 20px;
+  height: 22px;
+  left: 2px;
+  top: 50%;
+  margin-top: -9px;
+}
+.tree-node-top {
+  border-top: 1px dotted red;
+}
+.tree-node-bottom {
+  border-bottom: 1px dotted red;
+}
+.tree-node-append .tree-title {
+  border: 1px dotted red;
+}
+.tree-editor {
+  border: 1px solid #95B8E7;
+  font-size: 13px;
+  line-height: 18px;
+  padding: 0 4px;
+  margin: 0;
+  width: 80px;
+  outline-style: none;
+  vertical-align: top;
+  position: absolute;
+  top: 0;
+}
+.tree-node-proxy {
+  background-color: #ffffff;
+  color: #000000;
+  border-color: #95B8E7;
+}
+.tree-node-hover {
+  background: #eaf2ff;
+  color: #000000;
+}
+.tree-node-selected {
+  background: #ffe48d;
+  color: #000000;
+}
+.tree-node-hidden {
+  display: none;
+}
+#menuTree{
+  padding: 25px 0px 31px 0px;
+  min-height: 125px;
+  margin-top: 5px;
+}
+.checkImg{
+  margin: 0px 5px;
+  display: inline-block;
+  width: 20px;
+  height: 22px;
+  vertical-align: top;
+  overflow: hidden;
+  cursor: pointer;
+}
+.tree-table{
+  position: absolute;
+  top:0px;
+  color: black;
+  font-weight: bold;
+  font-family: tahoma, arial, helvetica;
+}
+.tree-table .two-th{
+  margin-right: 10px;
+}
+.tree-table .first-th,.tree-table .two-th,.check-div{
+  width: 60px;
+  text-align: center;
+  float: right;
+}
+/*.tree-table .two-th{*/
+  /*border-left: 1px solid #ccc;*/
+  /*border-right: 1px solid #ccc;*/
+/*}*/
+.tree-table .three-th{
+  padding-left: 10px;
+  float: left;
+}
+
+.check-div{
+  height: 22px;
+}
+
+/**/
+/*.tree-collapsed {*/
+  /*background: url('../images/tree_icons.png') no-repeat 0px 0px;*/
+/*}*/
+
+/*!**!*/
+/*.tree-expanded {*/
+  /*background: url('../images/tree_icons.png') no-repeat -18px 0px;*/
+/*}*/
+
+/*!**!*/
+/*.tree-collapsed-hover {*/
+  /*background: url('../images/tree_icons.png') no-repeat -32px 0px;*/
+/*}*/
+
+/*!**!*/
+/*.tree-expanded-hover {*/
+  /*background: url('../images/tree_icons.png') no-repeat -50px 0px;*/
+/*}*/
+
+/**/
+.tree-lines .tree-node-last .tree-collapsed, .tree-lines .tree-root-one .tree-collapsed {
+  background: url('../images/tree_icons.png') no-repeat 0px -13px;
+}
+
+/**/
+.tree-lines .tree-node-last .tree-expanded, .tree-lines .tree-root-one .tree-expanded {
+  background: url('../images/tree_icons.png') no-repeat -30px -13px
+}
+
+/**/
+.tree-open {
+  background: url('../images/tree_icons.png') no-repeat -60px -13px
+}
+
+/**/
+.tree-close {
+  background: url('../images/tree_icons.png') no-repeat -90px -13px
+}
+
+/*收缩*/
+.tree-lines .tree-collapsed, .tree-lines .tree-root-first .tree-collapsed {
+  background: url('../images/tree_icons.png') no-repeat -120px -13px
+}
+
+/*展开*/
+.tree-lines .tree-expanded, .tree-lines .tree-root-first .tree-expanded {
+  background: url('../images/tree_icons.png') no-repeat -150px -13px
+}
+
+/**/
+.tree-joinbottom {
+  background: url('../images/tree_icons.png') no-repeat -180px -13px
+}
+
+/**/
+.tree-line {
+  background: url('../images/tree_icons.png') no-repeat -210px -13px
+}
+
+/**/
+.tree-join {
+  background: url('../images/tree_icons.png') no-repeat -240px -13px
+}
+
+/*收缩的文件夹图标*/
+.tree-folder {
+  background: url('../images/tree_icons.png') no-repeat -270px -13px
+}
+
+/*展开的文件夹图标*/
+.tree-folder-open {
+  background: url('../images/tree_icons.png') no-repeat -270px -13px
+}
+
+/*文件图标*/
+.tree-file {
+  background: url('../images/tree_icons.png') no-repeat -330px -13px
+}
+
+
+/*不选中*/
+.uncheck{
+  background: url('../images/tree_icons.png') no-repeat -270px -64px;
+}
+/*选中*/
+.check{
+  background: url('../images/tree_icons.png') no-repeat -297px -64px;
+}
+/*半选*/
+.checkmix{
+  background: url('../images/tree_icons.png') no-repeat -328px -64px;
+}
+
+.tree-loading {
+  background: url('/public/jquery-easyui/themes/default/images/loading.gif') no-repeat center center;
+}
