@@ -26,6 +26,10 @@ $(window).load(function(){
     });
 });
 function add_main(){
+    $("#my_modal input,#my_modal select,#my_modal textarea").each(function () {
+        var name = $(this).attr("name");
+        $(this).val("");
+    });
     $('#my_modal').modal('show');
 }
 function edit_main(){

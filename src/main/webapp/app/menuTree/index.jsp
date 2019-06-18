@@ -78,17 +78,17 @@
                         <input name="menuId" type="hidden"/>
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 my-col">
-                                <div class="my-col-left-div">标题：</div>
+                                <div class="my-col-left-div">菜单路径：</div>
                                 <div class="my-col-right-div">
-                                    <input class="form-control" name="title" type="text" placeholder="请输入标题" required="required"  onfocus="sz_border(this)"/>
+                                    <select class="form-control" name="urlId" onchange="sz_title(this)">
+                                        <%=sb.toString()%>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 my-col">
-                                <div class="my-col-left-div">菜单路径：</div>
+                                <div class="my-col-left-div">菜单标题：</div>
                                 <div class="my-col-right-div">
-                                    <select class="form-control" name="urlId">
-                                        <%=sb.toString()%>
-                                    </select>
+                                    <input class="form-control" name="title" type="text" placeholder="请输入标题" required="required"  onfocus="sz_border(this)"/>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 my-col">

@@ -9,8 +9,15 @@
 <%
     JSONArray arr = new JSONArray();
     List<Map<String,Object>> list = CoreMenuTreeService.getInstance().getMainInfo(null,"1");
-    if(list != null && list.size() > 0){
-        arr = JSONArray.fromObject(list);
+    List<Map<String,Object>> list1 = CoreMenuTreeService.getInstance().getMenuTree(list);
+
+    if(list1 != null && list1.size() > 0){
+        list1 = (List<Map<String,Object>>) list1.get(0).get("children");
+    }
+
+    if(list1 != null && list1.size() > 0){
+
+        arr = JSONArray.fromObject(list1);
     }
 
     CoreMenuTreeInfoEntity menuTree = Context.getMenuTree(null);
@@ -38,7 +45,7 @@
         })
     </script>
 
-    <link href="/theme/pc/main/css/index.css" rel="stylesheet">
+    <link href="/theme/pc/main/css_js/index.css" rel="stylesheet">
     <!---->
     <!--jquery-->
     <!--bootstrap-->
@@ -63,7 +70,7 @@
                 <img src="/theme/pc/main/img/pcLogo2.png" style="width: 90px" alt="好管家">
             </a>
         </div>
-        <div class="web-top-center" id="accordion"></div>
+        <div class="web-top-center" id="1"></div>
         <div class="web-top-right">
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
@@ -89,103 +96,9 @@
 </div>
 <script type="text/javascript">
     var menuTreeId = "<%=menuTreeId%>";
-    $(function(){
-        createLeftItem();
-        //左侧导航栏点击事件
-        selectMenu();
-    });
-    //创建左侧导航栏
-    function createLeftItem(){
-        var isC = true;
-        var maxW = 992;
-        var t_w = $(".web-top-center").width();
-        var jg = t_w >= maxW ? 120 : 90;
-        var maxN = parseInt(t_w / jg) - 1;
-
-        var menuList = <%=arr%>;
-        $(".web-top-center").empty();
-        for(var i = 0;i < menuList.length;i++){
-            var obj = menuList[i];
-
-            //是否存在上级菜单
-            var parentLevel = obj.outlineLevel.substring(0,obj.outlineLevel.lastIndexOf("."));
-            var thisN = obj.outlineLevel.split("\.")[0];
-
-            if(parentLevel == ""){
-                parentLevel = "accordion";
-            }
-
-            var str = '';
-            if(thisN <= maxN){
-                if(obj.type){//是应用
-                    str +='<div class="'+ (parentLevel == "accordion" ? "menu-item":"menu-item2") +'" id="item_'+ obj.menuId +'" onClick="click_item(\''+ (obj.url==""?"#":obj.url) +'\',\''+ obj.menuId +'\')">';
-                    str += '<i class="icon esg-font '+ (obj.icon?obj.icon:"icon-wenben") +'"></i>';
-                    str += obj.title;
-                    str += '</div>';
-                }else{
-                    str +='<div class="menu-item dropdown" id="item_'+ obj.menuId +'">';
-                    str += '<div id="item_'+ obj.menuId +'" class="dropdown-toggle" data-toggle="dropdown">';
-                    str += '<i class="icon esg-font '+ (obj.icon?obj.icon:"icon-wenben") +'"></i>';
-                    str += obj.title;
-                    str += '<b class="caret"></b>';
-                    str += '</div>';
-                    str += '<ul class="dropdown-menu" id="'+ obj.outlineLevel +'"></ul>';
-                    str += '</div>';
-                }
-            }else{
-                parentLevel = "other";
-                if(obj.type){//是应用
-                    str +='<div class="menu-item2" id="item_'+ obj.menuId +'" onClick="click_item(\''+ (obj.url==""?"#":obj.url) +'\',\''+ obj.menuId +'\')">';
-                    str += '<i class="icon esg-font '+ (obj.icon?obj.icon:"icon-wenben") +'"></i>';
-                    str += obj.title;
-                    str += '</div>';
-                }
-            }
-            $("#"+parentLevel).append(str);
-
-
-            str = '';
-            if(thisN == maxN && menuList.length > maxN && isC){
-                str +='<div class="menu-item dropdown" id="item_other">';
-                str += '<div class="dropdown-toggle" data-toggle="dropdown">';
-                str += '<i class="icon esg-font icon-gerenyingyon"></i>更多<b class="caret"></b>';
-                str += '</div>';
-                str += '<ul class="dropdown-menu" id="other"></ul>';
-                str += '</div>';
-                $("#accordion").append(str);
-                isC = false;
-            }
-        }
-
-        if($("#other>div").length < 1)
-            $("#item_other").remove();
-    }
-
-    function selectMenu(){
-        var mId = menuTreeId;
-        if(mId != ""){
-            $("#item_"+mId).addClass("list-group-item-click2");
-
-            if($("#item_"+mId).parents(".menu-item").length > 0){
-                $("#item_"+mId).parents(".menu-item").addClass("list-group-item-click");
-            }
-        }
-    }
-
-    function click_item(url,menuId){
-        $.post("/core/menuTree/setMenuTree.do",{menuId:menuId},function(){
-            window.location.href=url;
-        },"json");
-    }
-
-    function clone_my_nav(clas){
-        var h = $("."+clas).clone();
-        $("."+clas).remove();
-        $(".main-center-nav").empty().append(h);
-
-        $(".main-center").css({"margin-top": $(".main-center-nav").height() + "px"});
-    }
+    var menuList = <%=arr%>;
 </script>
+<script type="text/javascript" src="/theme/pc/main/css_js/index.js"></script>
 </body>
 
 </html>

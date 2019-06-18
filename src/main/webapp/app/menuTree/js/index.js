@@ -66,8 +66,10 @@ function add_main(){
     $("#my_modal input,#my_modal select,#my_modal textarea").each(function () {
         var name = $(this).attr("name");
         $(this).val("");
+        $(this)[0].removeAttribute("disabled");
     });
     $("#my_modal *[name='parentId']").val(_treeNode.id);
+    $("#right_div .panel-footer").show();
 }
 
 function edit_main(){
@@ -80,10 +82,19 @@ function edit_main(){
             $("#my_modal input,#my_modal select,#my_modal textarea").each(function () {
                 var name = $(this).attr("name");
                 $(this).val(rs[name] + "");
+                $(this)[0].removeAttribute("disabled");
             });
             sz_icon($("#my_modal input[name='icon']"));
             var parent = $('#member_tree').tree('getParent', _treeNode.target);
-            $("#my_modal *[name='parentId']").val(parent.id);
+            if(parent != null){
+                $("#my_modal *[name='parentId']").val(parent.id);
+            }
+            if(rs.menuId == "root"){
+                $("#my_modal input,#my_modal select,#my_modal textarea").attr("disabled","disabled");
+                $("#right_div .panel-footer").hide();
+            }else{
+                $("#right_div .panel-footer").show();
+            }
         }else{
             $.message("查询失败")
         }
@@ -141,6 +152,15 @@ function save_main(){
                 reset_tree();
             }
         }
+    });
+}
+
+function sz_title(e){
+    var v = $(e).val();
+    $(e).find("option").each(function(i,o){
+       if(v == $(o).attr("value")){
+           $("#my_modal *[name='title']").val($(o).text());
+       }
     });
 }
 

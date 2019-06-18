@@ -127,14 +127,15 @@ public class CoreMenuTreeService  extends
 	}
 
 	public List<Map<String,Object>> getMenuTree(List<Map<String,Object>> list){
+		CoreMenuTreeInfoEntity entity = findOne("root");
 		List<Map<String,Object>> listMenu = new ArrayList<>();
 		Map<String,Object> map = new HashMap<>();
-		map.put("id","root");
-		map.put("text","好管家");
-		map.put("outlineLevel","0");
-		map.put("iconCls","");
+		map.put("id",entity.getMenuId());
+		map.put("text",entity.getTitle());
+		map.put("outlineLevel",entity.getOutlineLevel());
+		map.put("iconCls",entity.getIcon());
 		map.put("state","open");
-		List<Map<String,Object>> lc = getMenuTree(list,"0");
+		List<Map<String,Object>> lc = getMenuTree(list,entity.getOutlineLevel());
 		if(lc.size() > 0)
 			map.put("children",lc);
 
@@ -157,17 +158,14 @@ public class CoreMenuTreeService  extends
 			}
 
 			if(isC){
-				Map<String,Object> map = new HashMap<>();
-				map.put("id",m.get("menuId"));
-				map.put("text",m.get("title"));
-				map.put("outlineLevel",m.get("outlineLevel"));
-				map.put("iconCls","");
+				m.put("id",m.get("menuId"));
+				m.put("text",m.get("title"));
 				List<Map<String,Object>> lc = getMenuTree(list,outlineLevel);
 				if(lc.size() > 0){
-					map.put("children",lc);
-					map.put("state","closed");
+					m.put("children",lc);
+					m.put("state","closed");
 				}
-				listChildren.add(map);
+				listChildren.add(m);
 			}
 		}
 
