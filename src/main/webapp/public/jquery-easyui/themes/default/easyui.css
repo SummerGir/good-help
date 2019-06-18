@@ -2311,16 +2311,16 @@
 .menu-inline {
   position: relative;
 }
-.menu-item {
-  position: relative;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  cursor: pointer;
-  border-width: 1px;
-  border-style: solid;
-}
+/*.menu-item {*/
+  /*position: relative;*/
+  /*margin: 0;*/
+  /*padding: 0;*/
+  /*overflow: hidden;*/
+  /*white-space: nowrap;*/
+  /*cursor: pointer;*/
+  /*border-width: 1px;*/
+  /*border-style: solid;*/
+/*}*/
 .menu-text {
   height: 20px;
   line-height: 20px;
