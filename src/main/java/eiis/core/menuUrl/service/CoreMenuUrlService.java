@@ -101,7 +101,7 @@ public class CoreMenuUrlService extends
 		int n = 5;
 		StringBuffer sb = new StringBuffer();
 		if(isHave){
-			sb.append("<option value='' style='display:none'>-请选择菜单路径-</option>");
+			sb.append("<option value='' style='display:none'>-空菜单-</option>");
 		}
 
 		try{

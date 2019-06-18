@@ -48,9 +48,7 @@ public class CoreMenuTreeInfoController {
     public String getMainOne(HttpServletRequest request) throws Exception {
         String mainId = request.getParameter("mainId");
         List<Map<String,Object>> list = mainService.getMainInfo(mainId,null);
-        List<Map<String,Object>> list1 = mainService.getMenuTree(list);
-        //return JSONObject.fromObject(map).toString();
-        return JSONArray.fromObject(list1).toString();
+        return JSONObject.fromObject(list.get(0)).toString();
     }
 
     //保存当前访问的菜单
@@ -92,13 +90,14 @@ public class CoreMenuTreeInfoController {
             entity.setMenuId(UUID.randomUUID().toString());
             entity.setMenuLevel(mainService.getMenuLevelByParLevel(entityP.getOutlineLevel()));
             entity.setOutlineLevel(entityP.getOutlineLevel() + "." + String.valueOf(entity.getMenuLevel()));
+            entity.setType(true);
         }else{
             entity = mainService.findOne(mainId);
         }
         entity.setTitle(title);
         entity.setUrlId(urlId);
+
         entity.setIcon(icon);
-        entity.setType(true);
         entity.setIsShow(Boolean.parseBoolean(isShow));
         list.add(entity);
 

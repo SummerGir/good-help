@@ -8,3 +8,17 @@
 }
 
 /*左边 菜单树  结束*/
+
+#right_div .my-col{
+    display: flex;
+}
+
+#right_div .my-col-left-div{
+    width: 150px;
+    text-align: right;
+    padding: 8px 10px;
+}
+#right_div .my-col-right-div{
+    flex: 1;
+    position: relative;
+}

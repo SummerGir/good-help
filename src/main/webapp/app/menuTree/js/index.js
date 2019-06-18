@@ -13,14 +13,17 @@ function initTree() {
             console.log("onSelect");
             console.log(node);
             _treeNode = node;
+            edit_main();
         },
         onLoadSuccess: function(node, data){
             console.log("onLoadSuccess");
             console.log(data);
             if(_treeNode != null){
                 _treeNode = $('#member_tree').tree('find', _treeNode.id);
-                $('#member_tree').tree('select', _treeNode.target);
-                $('#member_tree').tree('expandTo', _treeNode.target);
+                if(_treeNode != null){
+                    $('#member_tree').tree('select', _treeNode.target);
+                    $('#member_tree').tree('expandTo', _treeNode.target);
+                }
             }
         },
         onLoadError: function(arguments){
@@ -55,35 +58,32 @@ function move_tree(type){
     });
 }
 
-
 function add_main(){
     if(_treeNode == null){
-        $.message("请先选中一行数据！");
+        $.message("请先选中一个节点数据！");
         return;
     }
     $("#my_modal input,#my_modal select,#my_modal textarea").each(function () {
         var name = $(this).attr("name");
         $(this).val("");
     });
-    var parent = $('#member_tree').tree('getParent', _treeNode.target);
-    $("#my_modal *[name='parentId']").val(parent.id);
-
-    $('#my_modal').modal('show');
+    $("#my_modal *[name='parentId']").val(_treeNode.id);
 }
+
 function edit_main(){
     if(_treeNode == null){
-        $.message("请先选中一行数据！");
+        $.message("请先选中一个节点数据！");
         return;
     }
     $.post("/core/menuTree/getMainOne.do", {mainId : _treeNode.id}, function(rs) {
         if (rs != null) {
             $("#my_modal input,#my_modal select,#my_modal textarea").each(function () {
                 var name = $(this).attr("name");
-                $(this).val(rs[name]);
+                $(this).val(rs[name] + "");
             });
+            sz_icon($("#my_modal input[name='icon']"));
             var parent = $('#member_tree').tree('getParent', _treeNode.target);
             $("#my_modal *[name='parentId']").val(parent.id);
-            $('#my_modal').modal('show');
         }else{
             $.message("查询失败")
         }
@@ -93,7 +93,7 @@ function edit_main(){
 
 function delete_main(){
     if(_treeNode == null){
-        $.message("请先选中一行数据！");
+        $.message("请先选中一个节点数据！");
         return;
     }
     $.message({
@@ -138,9 +138,19 @@ function save_main(){
         success:function(rs){ ////成功之后回调
             $.message(rs.msg);
             if(rs.error == 0){
-                $('#my_modal').modal('hide');
-                loadTable();
+                reset_tree();
             }
         }
     });
+}
+
+function sz_icon(e){
+    var v = $(e).val();
+    if(v != null && v != ""){
+        v = "icon esg-font " + v;
+    }
+    $(e).parent().find(".money-unit").attr("class","money-unit " + v);
+}
+function sz_border(e){
+    $(e).css("border", "1px solid #ccc");
 }

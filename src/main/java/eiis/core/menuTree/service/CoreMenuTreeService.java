@@ -46,7 +46,7 @@ public class CoreMenuTreeService  extends
 	@Transactional
 	public void delete(String mainId) throws Exception {
 		String sql = "delete a from core_menu_tree_info a,core_menu_tree_info b where b.MENU_ID=:mainId and left(a.OUTLINE_LEVEL,length(b.OUTLINE_LEVEL))=b.OUTLINE_LEVEL and length(a.OUTLINE_LEVEL)>=length(b.OUTLINE_LEVEL)";
-		entityManager.createQuery(sql).setParameter("mainId",mainId).executeUpdate();
+		entityManager.createNativeQuery(sql).setParameter("mainId",mainId).executeUpdate();
 	}
 
 	/**
@@ -102,19 +102,19 @@ public class CoreMenuTreeService  extends
 	//得到菜单列表
 	public List<Map<String,Object>> getMainInfo(String mainId,String isShow)throws Exception{
 		Map<String,Object> values = new HashMap<>();
-		String baseSql = "select a.MENU_ID,a.MENU_LEVEL,a.OUTLINE_LEVEL,a.TITLE,a.ICON,a.TYPE,ui.CODE,ui.URL,ui.PARAMETER from core_menu_tree_info a left join core_menu_url_info ui on a.URL_ID=ui.URL_ID where 1=1";
+		String baseSql = "select a.MENU_ID,a.MENU_LEVEL,a.OUTLINE_LEVEL,a.TITLE,a.ICON,a.TYPE,ui.CODE,ui.URL_ID,ui.URL,ui.PARAMETER,a.IS_SHOW from core_menu_tree_info a left join core_menu_url_info ui on a.URL_ID=ui.URL_ID where 1=1";
 		if(StringUtils.isNotBlank(mainId)){
 			values.put("mainId",mainId);
-			baseSql += " a.MENU_ID=:mainId ";
+			baseSql += " and a.MENU_ID=:mainId ";
 		}
 		if(StringUtils.isNotBlank(isShow)){
 			values.put("isShow",isShow);
-			baseSql += " a.IS_SHOW=:isShow ";
+			baseSql += " and a.IS_SHOW=:isShow ";
 		}
 		baseSql += " order by substr(a.OUTLINE_LEVEL,1,instr(a.OUTLINE_LEVEL,'.')-1),a.MENU_LEVEL ";
-		String[] fields = {"menuId", "menuLevel", "outlineLevel", "title", "icon","type","code", "url", "parameter"};
+		String[] fields = {"menuId", "menuLevel", "outlineLevel", "title", "icon","type","code","urlId", "url", "parameter","isShow"};
 
-		List<Map<String, Object>> list = getNativeMapList(entityManager, baseSql, null, fields, 1, -1);
+		List<Map<String, Object>> list = getNativeMapList(entityManager, baseSql, values, fields, 1, -1);
 		for (Map<String, Object> m : list) {
 			for (Map.Entry<String, Object> e : m.entrySet()) {
 				if (e.getValue() == null) {
@@ -186,10 +186,19 @@ public class CoreMenuTreeService  extends
 		}
 	}
 
+	public CoreMenuTreeInfoEntity findOneByOutlineLevel(String outlineLevel){
+		List<CoreMenuTreeInfoEntity> list = entityManager.createQuery("select en from CoreMenuTreeInfoEntity en where en.outlineLevel=:outlineLevel").setParameter("outlineLevel",outlineLevel).getResultList();
+		if(list != null && list.size() > 0){
+			return list.get(0);
+		}else{
+			return null;
+		}
+	}
+
 	//根据上级，得到子级下一个排序数字
 	public int getMenuLevelByParLevel(String outlineLevel){
 		String sql = "select max(a.MENU_LEVEL) from core_menu_tree_info a where left(a.OUTLINE_LEVEL,length(:outlineLevel))=:outlineLevel and length(a.OUTLINE_LEVEL)>length(:outlineLevel)";
-		List list = entityManager.createQuery(sql).setParameter("outlineLevel",outlineLevel).getResultList();
+		List list = entityManager.createNativeQuery(sql).setParameter("outlineLevel",outlineLevel).getResultList();
 
 		int n = 1;
 		if(list != null && list.size() > 0 && list.get(0) != null){
