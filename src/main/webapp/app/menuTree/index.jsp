@@ -33,7 +33,7 @@
     </master:Content>
     <master:Content contentPlaceHolderId="body">
 
-        <div class="row" style="margin-top: 15px;">
+        <div class="row">
             <div class="col-xs-12 col-sm-4 col-md-4">
                 <div class="panel panel-default" id="left_div">
                     <div class="panel-heading">

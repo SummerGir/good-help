@@ -96,7 +96,9 @@ body{
     z-index: 1;
     right: 10px;
 }
-
+.main-center-nav .need-nav{
+    margin-bottom: 0px;!important;
+}
 
 .my-col{
     display: flex;

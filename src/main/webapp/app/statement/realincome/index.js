@@ -119,8 +119,8 @@ function loadTableData(){
 
 //加载明细表格数据
 function loadDetailTableData(data,type){
-    console.log(data);
-    console.log(type);
+    // console.log(data);
+    // console.log(type);
     if(!type){
         return;
     }

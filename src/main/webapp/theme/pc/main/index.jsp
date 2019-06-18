@@ -91,7 +91,9 @@
 
 <div class="main-center-div">
     <div class="main-center-nav"></div>
-    <div class="main-center"><master:ContentPlaceHolder id="body"/></div>
+    <div class="main-center" style="margin-top: 15px;">
+        <master:ContentPlaceHolder id="body"/>
+    </div>
 
 </div>
 <script type="text/javascript">

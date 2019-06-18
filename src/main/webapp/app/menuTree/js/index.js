@@ -10,14 +10,10 @@ function initTree() {
         lines: true,
         url: "/core/menuTree/getMenuTrees.do",
         onSelect: function (node) {
-            console.log("onSelect");
-            console.log(node);
             _treeNode = node;
             edit_main();
         },
         onLoadSuccess: function(node, data){
-            console.log("onLoadSuccess");
-            console.log(data);
             if(_treeNode != null){
                 _treeNode = $('#member_tree').tree('find', _treeNode.id);
                 if(_treeNode != null){

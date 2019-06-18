@@ -199,7 +199,7 @@
                 var mainId = $(e).val();
                 var isValid = $(e).is(":checked");
 
-                console.log(isValid);
+//                console.log(isValid);
                 $.ajax({
                     url:"/app/meterialinput/saveIsValid.do",  //请求路径
                     data:{mainId:mainId,isValid:isValid}, //请求参数
@@ -225,7 +225,7 @@
                     async:true,  //是否异步，默认值true
                     dataType:'json',
                     success:function(rs){ ////成功之后回调
-                        console.log(rs);
+//                        console.log(rs);
                         $(".count-div div[name='isValid_0']").html(rs.isValid_0);
                         $(".count-div div[name='isValid_1']").html(rs.isValid_1);
                         $(".count-div div[name='allMoney']").html(rs.allMoney);

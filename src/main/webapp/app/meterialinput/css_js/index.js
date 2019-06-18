@@ -64,7 +64,7 @@ function getMainMoneyInfo(){
         async:true,  //是否异步，默认值true
         dataType:'json',
         success:function(rs){ ////成功之后回调
-            console.log(rs);
+            // console.log(rs);
             $(".count-div div[name='isValid_0']").html(rs.isValid_0);
             $(".count-div div[name='isValid_1']").html(rs.isValid_1);
             $(".count-div div[name='allMoney']").html(rs.allMoney);
@@ -391,7 +391,7 @@ function sz_rows(e,type,val){
                         isSet = true;
                         return;
                     }
-                    console.log(v);
+                    // console.log(v);
                 });
             }
             sz_price($(".my-row-" + len).find("*[name='dicId']"));

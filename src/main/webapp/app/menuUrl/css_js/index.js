@@ -15,6 +15,7 @@ var option = {
     ]//表格列[{field:'name',title:'名称',align:'left',width:80,template:function(){}},{},{}]
 };
 $(window).load(function(){
+    clone_my_nav("need-nav");
     myTable.ghTable(option);
     myTable.on("table.created", function() {
 //                    $.message("创建表格");
