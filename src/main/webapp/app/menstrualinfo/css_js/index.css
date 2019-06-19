@@ -1,0 +1,39 @@
+
+
+
+.detail-div{
+    margin-top: 30px;
+}
+.detail-div table thead{
+    background-color: #efefef;
+}
+.detail-div table thead th{
+    text-align: center;
+}
+
+.detail-div table tbody .caozuo{
+    text-align: center;
+}
+.detail-div table tbody .caozuo>div{
+    margin: 0px auto;
+    font-size: 20px;
+    line-height: 30px;
+    cursor: pointer;
+    border-radius: 4px;
+    color: #d9534f;
+    width: 100%;
+}
+
+.detail-div table>tfoot td{
+    text-align: center;
+    padding: 20px;
+}
+.detail-div table>tfoot td>div{
+    width: 180px;
+    margin: 8px auto;
+    padding: 10px;
+    border: 1px solid #5cb85c;
+    color: #5cb85c;
+    border-radius: 4px;
+    cursor: pointer;
+}
