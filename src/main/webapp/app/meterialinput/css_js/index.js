@@ -180,7 +180,7 @@ function save_main(){
         //判断单号是否重复
         $.ajax({
             url:"/app/meterialinput/checkInputCode.do",  //请求路径
-            data:{mainId: postData.inputId,inputCode: inputCode}, //请求参数
+            data:{mainId: postData.main.inputId,inputCode: inputCode}, //请求参数
             type:"post", //请求方式
             async:true,  //是否异步，默认值true
             dataType:'json',
@@ -202,14 +202,12 @@ function save_main(){
                                     dataType:'json',
                                     success:function(rs1){ ////成功之后回调
                                         if(rs1.error == 0){
-                                            //继续新增
                                             loadTable();
+                                            //继续新增
                                             add_main();
 
                                             var text = inputCode.replaceAll("-","杠") + "保存成功";
                                             play_pronunciation(text);
-                                            $('#my_modal').modal('hide');
-                                            loadTable();
                                         }else{
                                             $.message(rs1.msg);
                                         }

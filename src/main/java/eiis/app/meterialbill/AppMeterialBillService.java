@@ -44,7 +44,7 @@ public class AppMeterialBillService extends StatementGenericService {
 			values.put("isValid",isValid);
 		}
 
-		String baseSql = "select ami.INPUT_ID,ami.INPUT_CODE,sum(amid.MONEY),ami.IS_VALID from app_meterial_input ami left join app_meterial_input_detail amid on ami.INPUT_ID=amid.INPUT_ID where 1=1 " +
+		String baseSql = "select ami.INPUT_ID,ami.INPUT_CODE,sum(amid.MONEY),ami.BILL_MONEY,ami.IS_VALID from app_meterial_input ami left join app_meterial_input_detail amid on ami.INPUT_ID=amid.INPUT_ID where 1=1 " +
 				(StringUtils.isNotBlank(searchKey)?" and locate(:searchKey,ami.INPUT_CODE)>0 ":"")+
 				(StringUtils.isNotBlank(beginTime)?" and ami.SYS_TIME >= :beginTime ":"")+
 				(StringUtils.isNotBlank(endTime)?" and ami.SYS_TIME <= :endTime ":"")+
@@ -53,21 +53,28 @@ public class AppMeterialBillService extends StatementGenericService {
 				(StringUtils.isNotBlank(isValid)?" and ami.IS_VALID = :isValid":"")+
 				" group by ami.INPUT_ID order by ami.YEAR,ami.MONTH,(ami.NUMBER+0),ami.EXCEPTION";
 
-		String[] fields = {"inputId","inputCode", "money","isValid"};
+		String[] fields = {"inputId","inputCode", "money","billMoney","isValid"};
 
 		List<Map<String, Object>> list = getNativeMapList(entityManager, baseSql, values, fields, page, rows);
 
 		for (Map<String, Object> m : list) {
 			for (Map.Entry<String, Object> e : m.entrySet()) {
 				if (e.getValue() == null) {
-					if("money".equals(e.getKey().toString())){
+					if("money".equals(e.getKey().toString()) || "billMoney".equals(e.getKey().toString())){
 						m.put(e.getKey(),"0.00");
 					}else{
 						m.put(e.getKey(), "");
 					}
-				}else if("money".equals(e.getKey().toString())){
+				}else if("money".equals(e.getKey().toString()) || "billMoney".equals(e.getKey().toString())){
 					m.put(e.getKey(),String.format("%.2f",Double.parseDouble(e.getValue().toString())));
 				}
+			}
+			double billMoney = Double.parseDouble(m.get("billMoney").toString());
+			if(billMoney > 0){
+				double cy = billMoney - Double.parseDouble(m.get("money").toString());
+				m.put("cy",String.format("%.2f",billMoney) + "&nbsp;&nbsp;（" + (cy > 0 ? "<span class='cy-d'>多" : "<span class='cy-c'>差") + String.format("%.2f",Math.abs(cy)) + "元</span>）");
+			}else{
+				m.put("cy","");
 			}
 		}
 		return list;

@@ -33,7 +33,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- 设置浏览器窗口图标 -->
     <link rel="shortcut icon"type="image/x-icon" href="/theme/pc/main/img/logoIco.ico"media="screen" />
-
     <script type="text/javascript" src="/public/jquery/jquery.js"></script>
     <script type="text/javascript" src="/public/control/resourcesload/goodhelper.js"></script>
 
@@ -44,21 +43,9 @@
             GoodHelper.Loading(GoodHelper.Common.Bootstrap);
         })
     </script>
-
     <link href="/theme/pc/main/css_js/index.css" rel="stylesheet">
-    <!---->
-    <!--jquery-->
-    <!--bootstrap-->
-    <!--bootstrap datetimepicker-->
-
-    <style type="text/css">
-        .form-control:focus{
-            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 14px rgba(233,0,0, .9);!important;
-        }
-    </style>
     <!--子页面head中的内容-->
     <master:ContentPlaceHolder id="head"/>
-
 </head>
 <body>
 

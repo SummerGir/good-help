@@ -120,7 +120,7 @@ public class AppMeterialInputService extends
 	//检查code是否存在
 	public boolean checkInputCode(String mainId,String inputCode){
 		String baseSql = "select count(1) from app_meterial_input main where main.INPUT_CODE=:inputCode " +
-				(StringUtils.isNotBlank(mainId)?" and main.INPUT_ID=:mainId ":"");
+				(StringUtils.isNotBlank(mainId)?" and main.INPUT_ID<>:mainId ":"");
 		Query query = entityManager.createNativeQuery(baseSql).setParameter("inputCode",inputCode);
 		if(StringUtils.isNotBlank(mainId)){
 			query.setParameter("mainId",mainId);

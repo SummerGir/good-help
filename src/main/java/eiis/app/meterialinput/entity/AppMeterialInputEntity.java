@@ -1,6 +1,7 @@
 package eiis.app.meterialinput.entity;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Entity
@@ -12,6 +13,7 @@ public class AppMeterialInputEntity {
     private Integer month;
     private String number;
     private String exception;
+    private BigDecimal billMoney;
     private Boolean isValid;
     private Timestamp sysTime;
     private String comment;
@@ -74,6 +76,16 @@ public class AppMeterialInputEntity {
 
     public void setException(String exception) {
         this.exception = exception;
+    }
+
+    @Basic
+    @Column(name = "BILL_MONEY")
+    public BigDecimal getBillMoney() {
+        return billMoney;
+    }
+
+    public void setBillMoney(BigDecimal billMoney) {
+        this.billMoney = billMoney;
     }
 
     @Basic

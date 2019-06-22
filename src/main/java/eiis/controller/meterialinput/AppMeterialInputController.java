@@ -130,6 +130,32 @@ public class AppMeterialInputController {
         return GenericController.returnSuccess(null);
     }
 
+    @RequestMapping("saveBillMoney")
+    @ResponseBody
+    public ObjectNode saveBillMoney(HttpServletRequest request){
+        String inputId = request.getParameter("inputId");
+        String billMoney = request.getParameter("billMoney");
+        if(StringUtils.isBlank(inputId))
+            return GenericController.returnFaild("没有获取到表单数据");
+        try{
+
+            AppMeterialInputEntity entity = mainService.findOne(inputId);
+            if(entity == null)
+                return GenericController.returnFaild("没有获取到表单数据");
+
+            entity.setIsValid(true);
+            entity.setBillMoney(new BigDecimal(billMoney));
+
+            //保存主表信息
+            mainService.save(entity);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return GenericController.returnFaild(null);
+        }
+        return GenericController.returnSuccess(null);
+    }
+
     @RequestMapping("saveIsValid")
     @ResponseBody
     public ObjectNode saveIsValid(HttpServletRequest request){

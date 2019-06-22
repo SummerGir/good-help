@@ -5,11 +5,16 @@
     width: 26px;
     height: 26px;
 }
-
-.search-div .my-search-div{
+.cy-d{
+    color: #449d44;
+}
+.cy-c{
+    color:#d9534f;
+}
+ .my-search-div{
     text-align: right;
 }
-.search-div .my-search-div button{
+.my-search-div button{
     width: 50%;!important;
 }
 

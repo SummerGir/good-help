@@ -99,6 +99,9 @@ function clone_my_nav(clas){
     var h = $("."+clas).clone();
     $("."+clas).remove();
     $(".main-center-nav").empty().append(h);
+    reset_nav();
+}
 
+function reset_nav(){
     $(".main-center").css({"margin-top": $(".main-center-nav").height() + 15 + "px"});
 }
