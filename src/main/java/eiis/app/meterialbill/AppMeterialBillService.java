@@ -23,6 +23,49 @@ public class AppMeterialBillService extends StatementGenericService {
 
 	protected AppMeterialBillService() {}
 
+	//得到列表
+	public List<Map<String,Object>> getDetailInfo(String year, String month, int page,int rows) throws Exception{
+		Map<String,Object> values = new HashedMap();
+		if(StringUtils.isNotBlank(year)){
+			values.put("year",year);
+		}if(StringUtils.isNotBlank(month)){
+			values.put("month",month);
+		}
+
+		String baseSql = "select ami.INPUT_ID,ami.INPUT_CODE,sum(amid.MONEY),ami.BILL_MONEY,group_concat(concat(dic.DIC_NAME,'：',amid.DETAIL_NUM,dic.UNIT_NAME) SEPARATOR  ' ; ') from app_meterial_input ami left join app_meterial_input_detail amid on ami.INPUT_ID=amid.INPUT_ID left join app_dic_info dic on amid.DIC_ID=dic.DIC_ID where ami.BILL_MONEY is not null " +
+				(StringUtils.isNotBlank(year)?" and ami.YEAR = :year":"")+
+				(StringUtils.isNotBlank(month)?" and ami.MONTH = :month":"")+
+				" group by ami.INPUT_ID order by ami.YEAR,ami.MONTH,(ami.NUMBER+0),ami.EXCEPTION";
+
+		String[] fields = {"inputId","inputCode", "money","billMoney","dicInfo"};
+
+		List<Map<String, Object>> list = getNativeMapList(entityManager, baseSql, values, fields, page, rows);
+
+		for (Map<String, Object> m : list) {
+			for (Map.Entry<String, Object> e : m.entrySet()) {
+				if (e.getValue() == null) {
+					if("money".equals(e.getKey().toString())){
+						m.put(e.getKey(),"0.00");
+					}else{
+						m.put(e.getKey(), "");
+					}
+				}else if("money".equals(e.getKey().toString())){
+					m.put(e.getKey(),String.format("%.2f",Double.parseDouble(e.getValue().toString())));
+				}
+			}
+
+			if(StringUtils.isNotBlank(m.get("billMoney").toString())){
+				double billMoney = Double.parseDouble(m.get("billMoney").toString());
+				m.put("billMoney",String.format("%.2f",billMoney));
+
+				double cy = billMoney - Double.parseDouble(m.get("money").toString());
+				m.put("cy",String.format("%.2f",billMoney) + "&nbsp;&nbsp;（" + (cy > 0 ? "<span class='cy-d'>多" : "<span class='cy-c'>差") + String.format("%.2f",Math.abs(cy)) + "元</span>）");
+			}else{
+				m.put("cy","");
+			}
+		}
+		return list;
+	}
 
 	//得到列表
 	public List<Map<String,Object>> getMainInfo(String searchKey,String beginTime, String endTime, String year, String month, String isValid, int page,int rows) throws Exception{
@@ -60,17 +103,20 @@ public class AppMeterialBillService extends StatementGenericService {
 		for (Map<String, Object> m : list) {
 			for (Map.Entry<String, Object> e : m.entrySet()) {
 				if (e.getValue() == null) {
-					if("money".equals(e.getKey().toString()) || "billMoney".equals(e.getKey().toString())){
+					if("money".equals(e.getKey().toString())){
 						m.put(e.getKey(),"0.00");
 					}else{
 						m.put(e.getKey(), "");
 					}
-				}else if("money".equals(e.getKey().toString()) || "billMoney".equals(e.getKey().toString())){
+				}else if("money".equals(e.getKey().toString())){
 					m.put(e.getKey(),String.format("%.2f",Double.parseDouble(e.getValue().toString())));
 				}
 			}
-			double billMoney = Double.parseDouble(m.get("billMoney").toString());
-			if(billMoney > 0){
+
+			if(StringUtils.isNotBlank(m.get("billMoney").toString())){
+				double billMoney = Double.parseDouble(m.get("billMoney").toString());
+				m.put("billMoney",String.format("%.2f",billMoney));
+
 				double cy = billMoney - Double.parseDouble(m.get("money").toString());
 				m.put("cy",String.format("%.2f",billMoney) + "&nbsp;&nbsp;（" + (cy > 0 ? "<span class='cy-d'>多" : "<span class='cy-c'>差") + String.format("%.2f",Math.abs(cy)) + "元</span>）");
 			}else{

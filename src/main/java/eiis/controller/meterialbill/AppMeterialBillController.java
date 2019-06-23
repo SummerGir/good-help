@@ -43,6 +43,25 @@ public class AppMeterialBillController {
         int count = service.getMainCount(inputCode,beginTime,endTime,year,month,isValid);
         return GenericController.getTable(list,count,page, rows);
     }
+
+    @RequestMapping("getDetailInfo")
+    @ResponseBody
+    public String getDetailInfo(HttpServletRequest request, @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer rows) throws  Exception {
+        String time = request.getParameter("month");
+        String month = "";
+        String year = "";
+        if(StringUtils.isNotBlank(time)){
+            String[] t = time.split("-");
+            if(t.length == 2){
+                month = t[1];
+                year = t[0];
+            }
+        }
+
+        List<Map<String, Object>> list = service.getDetailInfo(year,month,1, -1);
+
+        return GenericController.getTable(list,list.size(),page, rows);
+    }
     @RequestMapping("getMainMoneyInfo")
     @ResponseBody
     public String getMainMoneyInfo(HttpServletRequest request, @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer rows) throws  Exception {

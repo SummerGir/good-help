@@ -23,13 +23,15 @@ var GoodHelper = {};
         css: ["/public/bootstrap/css/bootstrap.css"]
     };
 
-    <!-- 时间控件-->
+    <!-- 表格控件-->
     GoodHelper.Common.BootstrapTable = {
         js: [
             "/public/control/bootstrap-table/js/bootstrap.table.js"
-        ]
+        ],
+        css:["/public/control/bootstrap-table/css/table.css"]
     };
 
+    <!-- 时间控件-->
     GoodHelper.Common.BootstrapDateTimepicker = {
         js: [
             "/public/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"

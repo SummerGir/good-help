@@ -144,7 +144,7 @@ public class AppMeterialInputController {
                 return GenericController.returnFaild("没有获取到表单数据");
 
             entity.setIsValid(true);
-            entity.setBillMoney(new BigDecimal(billMoney));
+            entity.setBillMoney(StringUtils.isNotBlank(billMoney) ? new BigDecimal(billMoney) : null);
 
             //保存主表信息
             mainService.save(entity);

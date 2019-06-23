@@ -102,6 +102,7 @@ function getSearch(form){
     });
     postData["queryData"] = "";
     option.data = postData;
+    option.page = 1;
     myTable.ghTable(option);
     $('#'+form).modal('hide');
 }
@@ -161,6 +162,15 @@ function save_main(){
     if(postData){
 
         var main = postData.main;
+
+        var n_l = 4;
+        if(main.number.length < n_l){
+            var l = n_l - main.number.length;
+            for(var i = 0 ; i < l ; i++){
+                main.number = "0" + main.number;
+            }
+        }
+
         var inputCode = main.year.substr(2) + (main.month > 9 ? main.month : ("0" + main.month)) + "-" + main.number;
         if(main.exception != ''){
             inputCode += "-" + main.exception;

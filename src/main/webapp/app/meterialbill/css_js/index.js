@@ -1,4 +1,5 @@
 var myTable = $("#myTableTest");
+var myDetailTable = $("#myDetailTable");
 var selectedRow;
 var loading = false;//控制项目列表频繁点击
 var thisDate = $(".search-div *[name='month']").val();
@@ -13,6 +14,19 @@ var option = {
         {name:'money',title:"单据金额",align:'right',width:'25%'},
         {name:'cy',title:"对账差异",align:'right',width:'25%'},
         {name:'caozuo',title:"是否对账",align:'center',width:'25%'}
+    ]
+};
+var option_detail = {
+    id:"#myDetailTable",//需要绑定的Id或class
+    url:"/app/meterialBill/getDetailInfo.do",//表格请求的路径
+    data:{},
+    allowSelected:false,//列不允许选中
+    isPage:false,//每页默认条数
+    columns:[
+        {name:'inputCode',title:'单据编号',align:'left',width:'15%'},
+        {name:'money',title:"单据金额",align:'right',width:'15%'},
+        {name:'cy',title:"对账差异",align:'right',width:'25%'},
+        {name:'dicInfo',title:"材料明细",align:'left'}
     ]
 };
 $(window).load(function(){
@@ -38,6 +52,19 @@ $(window).load(function(){
     $("#myTableTest .form-inline>.table-toolbar").hide();
 });
 
+function read_main(){
+    $('#read_modal').modal('show');
+    var postData = {};
+    $(".search-div input,.search-div select,.search-div textarea").each(function () {
+        var name = $(this).attr("name");
+        postData[name] = $(this).val();
+
+    });
+    option_detail.data = postData;
+
+    myDetailTable.ghTable(option_detail);//刷新列表，可以不传参
+}
+
 function edit_main(){
     if(selectedRow == null){
         $.message("请先选中一行数据！");
@@ -46,11 +73,7 @@ function edit_main(){
 
     $("#my_modal input,#my_modal select,#my_modal textarea").each(function () {
         var name = $(this).attr("name");
-        if(name == "billMoney" && selectedRow[name] == 0){
-            $(this).val("");
-        }else{
-            $(this).val(selectedRow[name]);
-        }
+        $(this).val(selectedRow[name]);
     });
 
     $('#my_modal').modal('show');
@@ -144,6 +167,7 @@ function search() {
 
     });
     option.data = postData;
+    option.page = 1;
     myTable.ghTable(option);//刷新列表，可以不传参
     getMainMoneyInfo();
 }
@@ -152,7 +176,6 @@ function se_valid(e){
     var mainId = $(e).val();
     var isValid = $(e).is(":checked");
 
-//                console.log(isValid);
     $.ajax({
         url:"/app/meterialinput/saveIsValid.do",  //请求路径
         data:{mainId:mainId,isValid:isValid}, //请求参数
@@ -161,8 +184,8 @@ function se_valid(e){
         dataType:'json',
         success:function(rs){ ////成功之后回调
             if(rs.error == 0){
-                myTable.ghTable(option);//刷新列表，可以不传参
-                getMainMoneyInfo();
+                // myTable.ghTable(option);//刷新列表，可以不传参
+                // getMainMoneyInfo();
             }else{
                 $.message(rs.msg);
             }

@@ -2,7 +2,6 @@
 <%
     boolean isPage = Boolean.parseBoolean(request.getParameter("isPage"));
 %>
-<link href="/public/control/bootstrap-table/css/table.css" rel="stylesheet">
 <div class="panel panel-default">
     <div class="panel-body table-panel-body" style="padding: 0px;">
         <div class="form-inline">

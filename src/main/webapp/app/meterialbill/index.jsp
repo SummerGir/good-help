@@ -34,43 +34,29 @@
                 <div class="row">
                     <div class="col-md-12 count-div">
                         <div class="row">
-                            <div class="col-xs-9 col-sm-9 col-md-9 my-col">
-                                <div class="my-left-div">材料统计：</div>
-                                <div class="my-right-div" name="dicInfo"></div>
-                            </div>
                             <div class="col-xs-3 col-sm-3 col-md-3 my-col">
                                 <div class="my-left-div">录入量：</div>
                                 <div class="my-right-div" name="inputNum"></div>
                                 <div class="money-unit">张</div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-9 col-sm-9 col-md-9">
-                                <div class="row">
-                                    <div class="col-xs-4 col-sm-4 col-md-4 my-col">
-                                        <div class="my-left-div">已对账：</div>
-                                        <div class="my-right-div" name="isValid_1"></div>
-                                        <div class="money-unit">￥</div>
-                                    </div>
-                                    <div class="col-xs-4 col-sm-4 col-md-4 my-col">
-                                        <div class="my-left-div">未对账：</div>
-                                        <div class="my-right-div" name="isValid_0"></div>
-                                        <div class="money-unit">￥</div>
-                                    </div>
-                                    <div class="col-xs-4 col-sm-4 col-md-4 my-col">
-                                        <div class="my-left-div">总金额：</div>
-                                        <div class="my-right-div" name="allMoney"></div>
-                                        <div class="money-unit">￥</div>
-                                    </div>
-                                </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 my-col">
+                                <div class="my-left-div">总金额：</div>
+                                <div class="my-right-div" name="allMoney"></div>
+                                <div class="money-unit">￥</div>
                             </div>
-
-                            <div class="col-xs-3 col-sm-3 col-md-3 my-search-div">
-                                <button onclick="search_show('search_form')" type="button" class="btn btn-primary">
-                                    <i class="glyphicon glyphicon-refresh"></i>刷新
+                            <div class="col-xs-6 col-sm-6 col-md-6 my-search-div" style="text-align: right;">
+                                <%--<button onclick="search_show('search_form')" type="button" class="btn btn-primary">--%>
+                                    <%--<i class="glyphicon glyphicon-refresh"></i>刷新--%>
+                                <%--</button>--%>
+                                <button onclick="read_main()" type="button" class="btn btn-primary" id="read_main">
+                                    <i class="glyphicon glyphicon-edit"></i>查看差异
+                                </button>
+                                <button onclick="edit_main()" type="button" class="btn btn-warning" id="edit_main">
+                                    <i class="glyphicon glyphicon-edit"></i>差异记录
                                 </button>
                             </div>
                         </div>
+
                     </div>
                 </div>
 
@@ -101,26 +87,6 @@
                                 </div>
                             </div>
                         </div>
-
-                            <%--<div class="row">--%>
-                            <%--<div class="col-md-4 my-col">--%>
-                            <%--<div class="my-left-div">开始日期：</div>--%>
-                            <%--<div class="my-right-div">--%>
-                            <%--<input class="form-control" name="beginTime" type="text" value="" readonly="readonly" style="background-color: #fff" placeholder="请选择开始日期：">--%>
-                            <%--</div>--%>
-                            <%--</div>--%>
-                            <%--<div class="col-md-4 my-col">--%>
-                            <%--<div class="my-left-div">结束日期：</div>--%>
-                            <%--<div class="my-right-div">--%>
-                            <%--<input class="form-control" name="endTime" type="text" value="" readonly="readonly" style="background-color: #fff" placeholder="请选择结束日期：">--%>
-                            <%--</div>--%>
-                            <%--</div>--%>
-                            <%--</div>--%>
-                    </div>
-                    <div class="col-xs-3 col-sm-3 col-md-3 my-search-div">
-                        <button onclick="edit_main()" type="button" class="btn btn-warning" id="edit_main">
-                            <i class="glyphicon glyphicon-edit"></i>差异记录
-                        </button>
                     </div>
                 </div>
             </div>
@@ -148,13 +114,37 @@
                         <div class="row">
                             <div class="col-xs-12 col-md-12">
                                 <h5>对账金额:</h5>
-                                <input type="text" class="form-control need_listen" val_type="double" name="billMoney" placeholder="请对账金额：" required="required" onfocus="sz_border(this)">
+                                <input type="text" class="form-control need_listen" val_type="double" name="billMoney" placeholder="请对账金额：" >
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>关闭</button>
                         <button type="button" class="btn btn-primary" onclick="save_main()"><i class="glyphicon glyphicon-floppy-save"></i>保存</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+
+        <!-- 模态框（Modal） -->
+        <div id="read_modal" class="modal fade" tabindex="-1" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog" style="width: 60%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">
+                            查看差异明细
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                                <div id="myDetailTable"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>关闭</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal -->
