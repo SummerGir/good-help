@@ -81,6 +81,7 @@ public class AppMeterialBillController {
         }
 
         Map<String, Object> map = service.getMainMoneyInfo(inputCode,beginTime,endTime,year,month,isValid);
+        map.put("cyMoney",service.getCMoney(year,month));
 
         return JSONObject.fromObject(map).toString();
     }

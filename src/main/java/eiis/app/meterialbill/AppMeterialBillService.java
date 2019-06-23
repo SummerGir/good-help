@@ -32,12 +32,12 @@ public class AppMeterialBillService extends StatementGenericService {
 			values.put("month",month);
 		}
 
-		String baseSql = "select ami.INPUT_ID,ami.INPUT_CODE,sum(amid.MONEY),ami.BILL_MONEY,group_concat(concat(dic.DIC_NAME,'：',amid.DETAIL_NUM,dic.UNIT_NAME) SEPARATOR  ' ; ') from app_meterial_input ami left join app_meterial_input_detail amid on ami.INPUT_ID=amid.INPUT_ID left join app_dic_info dic on amid.DIC_ID=dic.DIC_ID where ami.BILL_MONEY is not null " +
+		String baseSql = "select ami.INPUT_ID,ami.INPUT_CODE,sum(amid.MONEY),ami.BILL_MONEY,group_concat(concat(dic.DIC_NAME,'：',amid.DETAIL_NUM,dic.UNIT_NAME) SEPARATOR  ' ; '),if(ami.BILL_MONEY > 0,1,0) isN from app_meterial_input ami left join app_meterial_input_detail amid on ami.INPUT_ID=amid.INPUT_ID left join app_dic_info dic on amid.DIC_ID=dic.DIC_ID where ami.BILL_MONEY is not null " +
 				(StringUtils.isNotBlank(year)?" and ami.YEAR = :year":"")+
 				(StringUtils.isNotBlank(month)?" and ami.MONTH = :month":"")+
-				" group by ami.INPUT_ID order by ami.YEAR,ami.MONTH,(ami.NUMBER+0),ami.EXCEPTION";
+				" group by ami.INPUT_ID order by isN,ami.YEAR,ami.MONTH,(ami.NUMBER+0),ami.EXCEPTION";
 
-		String[] fields = {"inputId","inputCode", "money","billMoney","dicInfo"};
+		String[] fields = {"inputId","inputCode", "money","billMoney","dicInfo","isN"};
 
 		List<Map<String, Object>> list = getNativeMapList(entityManager, baseSql, values, fields, page, rows);
 
@@ -264,6 +264,24 @@ public class AppMeterialBillService extends StatementGenericService {
 		map.put("inputNum",inputNum);
 		map.put("dicInfo",str);
 		return map;
+	}
+
+	//得到差的总金额
+	public String getCMoney(String year, String month) throws Exception{
+
+		List<Map<String, Object>> list = getDetailInfo(year, month,1,-1);
+
+		double c = 0;
+		for (Map<String, Object> m : list) {
+			if(StringUtils.isNotBlank(m.get("billMoney").toString())){
+				double cy = Double.parseDouble(m.get("billMoney").toString()) - Double.parseDouble(m.get("money").toString());
+				if(cy < 0){
+					c += cy;
+				}
+			}
+		}
+
+		return String.format("%.2f",Math.abs(c));
 	}
 
 	public static StringBuffer getYearAndMonthOption(Boolean isHave,Boolean defSel){

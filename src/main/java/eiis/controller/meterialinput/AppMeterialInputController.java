@@ -86,6 +86,7 @@ public class AppMeterialInputController {
             if(StringUtils.isBlank(inputId)){
                 entity.setInputId(UUID.randomUUID().toString());
                 entity.setSysTime(new Timestamp(new Date().getTime()));
+                entity.setIsValid(false);
             }else{
                 entity = mainService.findOne(inputId);
             }
@@ -93,7 +94,6 @@ public class AppMeterialInputController {
             entity.setMonth(main.getInt("month"));
             entity.setNumber(main.getString("number"));
             entity.setException(main.getString("exception"));
-            entity.setIsValid(false);
 //            entity.setComment(main.getString("comment"));
             entity.setInputCode(main.getString("inputCode"));
 

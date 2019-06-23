@@ -20,7 +20,7 @@ var option_detail = {
     id:"#myDetailTable",//需要绑定的Id或class
     url:"/app/meterialBill/getDetailInfo.do",//表格请求的路径
     data:{},
-    allowSelected:false,//列不允许选中
+    allowSelected:true,//列不允许选中
     isPage:false,//每页默认条数
     columns:[
         {name:'inputCode',title:'单据编号',align:'left',width:'15%'},
@@ -30,12 +30,14 @@ var option_detail = {
     ]
 };
 $(window).load(function(){
+
     clone_my_nav("need-nav");
     //初始化日历控件
 //                $(".search-div input[name='beginTime'],.search-div input[name='endTime']").datetimepicker({
 //                    format: 'yyyy-mm-dd',
 //                    minView:2
 //                });
+    $(".search-div *[name='month']").val(defSel);
     search();
     myTable.on("table.created", function() {
 //                    $.message("创建表格");
@@ -202,11 +204,12 @@ function getMainMoneyInfo(){
         dataType:'json',
         success:function(rs){ ////成功之后回调
 //                        console.log(rs);
-            $(".count-div div[name='isValid_0']").html(rs.isValid_0);
-            $(".count-div div[name='isValid_1']").html(rs.isValid_1);
+//             $(".count-div div[name='isValid_0']").html(rs.isValid_0);
+//             $(".count-div div[name='isValid_1']").html(rs.isValid_1);
             $(".count-div div[name='allMoney']").html(rs.allMoney);
-            $(".count-div div[name='dicInfo']").html(rs.dicInfo);
+            // $(".count-div div[name='dicInfo']").html(rs.dicInfo);
             $(".count-div div[name='inputNum']").html(rs.inputNum);
+            $(".count-div div[name='cyMoney']").html(rs.cyMoney);
             reset_nav();
         }
     });

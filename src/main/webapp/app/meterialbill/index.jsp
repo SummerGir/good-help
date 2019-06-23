@@ -1,6 +1,7 @@
 <%@ page import="eiis.app.meterialbill.AppMeterialBillService" %>
 <%@ page import="eiis.core.menuTree.entity.CoreMenuTreeInfoEntity" %>
 <%@ page import="util.context.Context" %>
+<%@ page import="java.util.Calendar" %>
 <%@ taglib prefix="master" uri="util.masterPage" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--
@@ -15,7 +16,12 @@
     String menuCode = "meterial_bill";
     CoreMenuTreeInfoEntity menuTree = Context.getMenuTree(menuCode);
     String title = menuTree.getTitle();
-    StringBuffer sbMonth = AppMeterialBillService.getYearAndMonthOption(true,true);
+
+    Calendar c = Calendar.getInstance();
+    int y = c.get(Calendar.YEAR);
+    int m = c.get(Calendar.MONTH) ;
+    String defSel = y + "-" + m;//默认选中上个月
+    StringBuffer sbMonth = AppMeterialBillService.getYearAndMonthOption(true,false);
 %>
 <master:ContentPage>
     <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
@@ -44,15 +50,17 @@
                                 <div class="my-right-div" name="allMoney"></div>
                                 <div class="money-unit">￥</div>
                             </div>
-                            <div class="col-xs-6 col-sm-6 col-md-6 my-search-div" style="text-align: right;">
+                            <div class="col-xs-3 col-sm-3 col-md-3 my-col">
+                                <div class="my-left-div">差钱：</div>
+                                <div class="my-right-div" name="cyMoney"></div>
+                                <div class="money-unit">￥</div>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 my-search-div" style="text-align: right;">
                                 <%--<button onclick="search_show('search_form')" type="button" class="btn btn-primary">--%>
                                     <%--<i class="glyphicon glyphicon-refresh"></i>刷新--%>
                                 <%--</button>--%>
                                 <button onclick="read_main()" type="button" class="btn btn-primary" id="read_main">
-                                    <i class="glyphicon glyphicon-edit"></i>查看差异
-                                </button>
-                                <button onclick="edit_main()" type="button" class="btn btn-warning" id="edit_main">
-                                    <i class="glyphicon glyphicon-edit"></i>差异记录
+                                    <i class="glyphicon glyphicon-list-alt"></i>查看差异
                                 </button>
                             </div>
                         </div>
@@ -61,32 +69,33 @@
                 </div>
 
                 <div class="row search-div">
-                    <div class="col-xs-9 col-sm-9 col-md-9">
-                        <div class="row" style="margin-bottom: 10px;">
-                            <div class="col-xs-4 col-sm-4 col-md-4 my-col">
-                                <div class="my-left-div2">单据编号：</div>
-                                <div class="my-right-div2"><input type="text" class="form-control" name="inputCode" onkeyup="search()" placeholder="请填写单据编号："></div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 my-col">
+                        <div class="my-left-div2">单据编号：</div>
+                        <div class="my-right-div2"><input type="text" class="form-control" name="inputCode" onkeyup="search()" placeholder="请填写单据编号："></div>
 
-                            </div>
-                            <div class="col-xs-4 col-sm-4 col-md-4 my-col">
-                                <div class="my-left-div2">单据月份：</div>
-                                <div class="my-right-div2">
-                                    <select class="form-control" name="month" onchange="search()">
-                                        <%=sbMonth.toString()%>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-xs-4 col-sm-4 col-md-4 my-col">
-                                <div class="my-left-div2">是否对账：</div>
-                                <div class="my-right-div2">
-                                    <select class="form-control" name="isValid" onchange="search()">
-                                        <option value="">全部</option>
-                                        <option value="0">未对账</option>
-                                        <option value="1">已对账</option>
-                                    </select>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 my-col">
+                        <div class="my-left-div2">单据月份：</div>
+                        <div class="my-right-div2">
+                            <select class="form-control" name="month" onchange="search()">
+                                <%=sbMonth.toString()%>
+                            </select>
                         </div>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 my-col">
+                        <div class="my-left-div2">是否对账：</div>
+                        <div class="my-right-div2">
+                            <select class="form-control" name="isValid" onchange="search()">
+                                <option value="">全部</option>
+                                <option value="0">未对账</option>
+                                <option value="1">已对账</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 my-search-div" style="text-align: right;">
+                        <button onclick="edit_main()" type="button" class="btn btn-warning" id="edit_main">
+                            <i class="glyphicon glyphicon-edit"></i>差异记录
+                        </button>
                     </div>
                 </div>
             </div>
@@ -150,6 +159,9 @@
             </div><!-- /.modal -->
         </div>
 
+        <script type="text/javascript">
+            var defSel = "<%=defSel%>";
+        </script>
         <script src="/app/meterialbill/css_js/index.js" type="text/javascript"></script>
     </master:Content>
 </master:ContentPage>
