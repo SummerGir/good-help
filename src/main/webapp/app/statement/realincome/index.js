@@ -28,7 +28,8 @@ $(window).load(function(){
 //初始化表格
 function loadTable(){
     var index = 0;
-    var lw = getTableWidth();
+    var  n = 4;
+    var lw = getTableWidth(n);
     var col = [
         [{title : "日期",field : "cycle",width : lw[index] + '%',rowspan:2,align: 'center'}],
         []
@@ -38,7 +39,9 @@ function loadTable(){
         if(type == undefined)
             continue;
         var name = jbTypes[type];
-        col[0].push({title : name + "分析",colspan:3});
+        col[0].push({title : name + "分析",colspan:n});
+        index ++;
+        col[1].push({field:"num_" + type,title:name + "数量",readonly:true,width : lw[index] + '%',align: 'right'});
         index ++;
         col[1].push({field:"count_" + type,title:name + "金额",readonly:true,width : lw[index] + '%',align: 'right',
             formatter: function(value,row,index){

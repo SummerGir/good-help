@@ -41,14 +41,14 @@ function loadCharts(){
     }
 }
 
-function getTableWidth(){
+function getTableWidth(n){
     var len = 0;
     for(var type in jbTypes){
         if(type == undefined)
             continue;
         len++;
     }
-    len = len * 3 + 1;//列数
+    len = len * n + 1;//列数
     var maxW = 100;//总宽度
     var dy = maxW % len;//得到除不尽的宽度，将除不尽的宽度留给第一列
     var wid = parseInt((maxW - dy) / len);//得到每列宽度；

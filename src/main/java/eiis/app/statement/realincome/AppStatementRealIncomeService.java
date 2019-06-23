@@ -30,7 +30,7 @@ public class AppStatementRealIncomeService extends StatementBase {
         String endTime = sdf.format(c.getTime());
         String str = getTimeFormat(col,type);
 
-        String sql = "select c.dt,group_concat(concat(c.MAIN_TYPE,'_',c.total)) from (select b.dt,b.MAIN_TYPE,sum(d.MONEY) total from (select "+ str +" dt,0 MAIN_TYPE,a.INPUT_ID from app_meterial_input a where "+ col +">=:startTime and "+ col +"<=:endTime union all select if(a.MONTH<10,concat(a.YEAR,'年','0',a.MONTH,'月'),concat(a.YEAR,'年',a.MONTH,'月')) dt,1 MAIN_TYPE,a.INPUT_ID from app_meterial_input a where a.IS_VALID=1 and a.YEAR=:myYear) b join app_meterial_input_detail d on b.INPUT_ID=d.INPUT_ID group by b.dt,b.MAIN_TYPE) c group by c.dt";
+        String sql = "select c.dt,group_concat(concat(c.MAIN_TYPE,'_',c.total,'_',c.num)) from (select b.dt,b.MAIN_TYPE,sum(d.MONEY) total,count(1) num from (select "+ str +" dt,0 MAIN_TYPE,a.INPUT_ID from app_meterial_input a where "+ col +">=:startTime and "+ col +"<=:endTime union all select if(a.MONTH<10,concat(a.YEAR,'年','0',a.MONTH,'月'),concat(a.YEAR,'年',a.MONTH,'月')) dt,1 MAIN_TYPE,a.INPUT_ID from app_meterial_input a where a.IS_VALID=1 and a.YEAR=:myYear) b join app_meterial_input_detail d on b.INPUT_ID=d.INPUT_ID group by b.dt,b.MAIN_TYPE) c group by c.dt";
         List list = entityManager.createNativeQuery(sql).setParameter("startTime",startTime).setParameter("endTime",endTime).setParameter("myYear",year).getResultList();
 
 
@@ -46,6 +46,7 @@ public class AppStatementRealIncomeService extends StatementBase {
             for(String t : tp){
                 String[] tc = t.split("_");
                 item.put("count_" + tc[0],tc[1]);
+                item.put("num_" + tc[0],tc[2]);
             }
 
             map.put(item.get("cycle").toString(),item);
@@ -153,8 +154,8 @@ public class AppStatementRealIncomeService extends StatementBase {
 
     public static JSONObject getMainTypes(){
         JSONObject jb = new JSONObject();
-        jb.put("0","工作");
-        jb.put("1","收入");
+        jb.put("0","录入");
+        jb.put("1","对账");
         return jb;
     }
 
