@@ -65,7 +65,7 @@ public class AppCostInfoService extends GenericService<AppDailyCostInfoEntity,St
                 (StringUtils.isNotBlank(searchKey)?" and (locate(:searchKey,ani.TITLE)>0 or locate(:searchKey,ani.CONTENT)>0) ":"")+
                 (StringUtils.isNotBlank(beginTime)?" and adci.SYS_TIME>=:beginTime ":"")+
                 (StringUtils.isNotBlank(overTime)?" and adci.SYS_TIME<=:overTime ":"")+
-                " order by ani.SYS_TIME desc";
+                " order by ati.SYS_TIME desc";
         String[] fields = {"costID", "title", "costTime", "payMoney", "typeDetailId","sysTime"};
 
         List<Map<String, Object>> list = getNativeMapList(entityManager, baseSql, values, fields, page, rows);

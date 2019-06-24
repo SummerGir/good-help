@@ -1,15 +1,7 @@
-<%@ page import="eiis.app.type.entity.TypeSelectEntity" %>
-<%@ page import="eiis.app.type.service.AppTypeDetailService" %>
-<%@ page import="org.apache.commons.lang3.StringUtils" %>
-<%@ page import="eiis.app.meterialinput.service.AppMeterialInputService" %>
-<%@ page import="eiis.app.dicinfo.service.AppDicInfoService" %>
-<%@ page import="util.context.Context" %>
-<%@ page import="eiis.core.menuTree.entity.CoreMenuTreeInfoEntity" %>
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.util.Date" %>
-<%@ page import="eiis.app.statement.StatementCycleKind" %>
-<%@ page import="net.sf.json.JSONObject" %>
 <%@ page import="eiis.app.statement.realincome.AppStatementRealIncomeService" %>
+<%@ page import="eiis.core.menuTree.entity.CoreMenuTreeInfoEntity" %>
+<%@ page import="net.sf.json.JSONObject" %>
+<%@ page import="util.context.Context" %>
 <%@ taglib prefix="master" uri="util.masterPage" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--

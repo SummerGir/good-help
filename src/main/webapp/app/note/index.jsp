@@ -1,5 +1,5 @@
-<%@ page import="eiis.app.type.entity.TypeSelectEntity" %>
-<%@ page import="eiis.app.type.service.AppTypeDetailService" %>
+<%@ page import="eiis.app.typeinfo.entity.TypeSelectEntity" %>
+<%@ page import="eiis.app.typeinfo.service.AppTypeDetailService" %>
 <%@ page import="org.apache.commons.lang3.StringUtils" %>
 <%@ page import="eiis.core.menuTree.entity.CoreMenuTreeInfoEntity" %>
 <%@ page import="util.context.Context" %>
@@ -57,7 +57,7 @@
         </div>
 
         <div class="row">
-            <jsp:include page="/app/type/select.jsp" >
+            <jsp:include page="/app/typeinfo/select.jsp" >
                 <jsp:param name="listOp" value="<%=listOp%>"/>
                 <jsp:param name="finishedProOp" value="<%=finishedProOp%>"/>
                 <jsp:param name="doingProOp" value="<%=doingProOp%>"/>

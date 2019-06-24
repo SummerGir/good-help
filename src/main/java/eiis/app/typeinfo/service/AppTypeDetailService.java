@@ -1,10 +1,10 @@
-package eiis.app.type.service;
+package eiis.app.typeinfo.service;
 
-import eiis.app.type.dao.AppTypeDetailDao;
-import eiis.app.type.dao.AppTypeInfoDao;
-import eiis.app.type.entity.AppTypeDetailEntity;
-import eiis.app.type.entity.AppTypeInfoEntity;
-import eiis.app.type.entity.TypeSelectEntity;
+import eiis.app.typeinfo.dao.AppTypeDetailDao;
+import eiis.app.typeinfo.dao.AppTypeInfoDao;
+import eiis.app.typeinfo.entity.AppTypeDetailEntity;
+import eiis.app.typeinfo.entity.AppTypeInfoEntity;
+import eiis.app.typeinfo.entity.TypeSelectEntity;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service("eiis.app.type.service.AppTypeDetailService")
+@Service("eiis.app.typeinfo.service.AppTypeDetailService")
 public class AppTypeDetailService extends
 		GenericService<AppTypeDetailEntity, String> {
 
@@ -49,26 +49,26 @@ public class AppTypeDetailService extends
 		dao.save(list);
 	}
 	@Transactional
-	public void delete(String mainId) throws Exception {
-		dao.delete(mainId);
+	public void delete(String detailId) throws Exception {
+		dao.delete(detailId);
+	}
+	@Transactional
+	public void deleteByMainId(String mainId) throws Exception {
+		entityManager.createQuery("delete from AppTypeDetailEntity where typeId=:mainId").setParameter("mainId",mainId).executeUpdate();
 	}
 	//得到菜单列表
-	public List<Map<String,Object>> getDetailInfo(String mainId,String searchKey,String memberId,String beginTime,String overTime,int page,int rows)throws Exception{
+	public List<Map<String,Object>> getDetailInfo(String mainId,String searchKey,int page,int rows)throws Exception{
+		String baseSql = "select det.TYPE_DETAIL_ID,det.DETAIL_NAME,det.DETAIL_CODE,det.DETAIL_VALUE,det.DETAIL_LEVEL,det.`COMMENT`,det.IS_VALID from app_type_detail det where det.TYPE_ID=:mainId ";
 		Map<String,Object> values = new HashedMap();
-		if(StringUtils.isNotBlank(mainId)){
-			values.put("mainId",mainId);
-		}if(StringUtils.isNotBlank(searchKey)){
+		values.put("mainId",mainId);
+		if(StringUtils.isNotBlank(searchKey)){
 			values.put("searchKey",searchKey);
-		}if(StringUtils.isNotBlank(memberId)){
-			values.put("memberId",memberId);
-		}if(StringUtils.isNotBlank(beginTime)){
-			values.put("beginTime",beginTime);
-		}if(StringUtils.isNotBlank(overTime)){
-			values.put("overTime",overTime);
+			baseSql += " and (locate(:searchKey,det.DETAIL_NAME)>0 or locate(:searchKey,det.DETAIL_CODE)>0 or locate(:searchKey,det.DETAIL_VALUE)>0) ";
 		}
-		
-		String baseSql = "";
-		String[] fields = {};
+
+		baseSql += " order by det.IS_VALID desc,det.DETAIL_LEVEL ";
+
+		String[] fields = {"typeDetailId","detailName","detailCode","detailValue","detailLevel","comment","isValid"};
 
 		List<Map<String, Object>> list = getNativeMapList(entityManager, baseSql, values, fields, page, rows);
 
@@ -76,28 +76,25 @@ public class AppTypeDetailService extends
 			for (Map.Entry<String, Object> e : m.entrySet()) {
 				if (e.getValue() == null) {
 					m.put(e.getKey(), "");
-				}
-				if("sysTime".equals(e.getKey().toString())){
-					m.put(e.getKey(),e.getValue().toString().split(" ")[0]);
+				}else{
+					m.put(e.getKey(),e.getValue().toString());
 				}
 			}
 		}
 		return list;
 	}
-	public int getDetailCount(String mainId,String searchKey,String memberId,String beginTime,String overTime){
-		String baseSql = "";
-		Query query = entityManager.createNativeQuery(baseSql);
-		if(StringUtils.isNotBlank(mainId)){
-			query.setParameter("mainId",mainId);
-		}if(StringUtils.isNotBlank(searchKey)){
-			query.setParameter("searchKey",searchKey);
-		}if(StringUtils.isNotBlank(memberId)){
-			query.setParameter("memberId",memberId);
-		}if(StringUtils.isNotBlank(beginTime)){
-			query.setParameter("beginTime",beginTime);
-		}if(StringUtils.isNotBlank(overTime)){
-			query.setParameter("overTime",overTime);
+
+	public int getDetailCount(String mainId,String searchKey){
+		String baseSql = "select count(1) from app_type_info main join app_type_detail det on main.TYPE_ID=det.TYPE_ID where main.TYPE_ID=:mainId ";
+		if(StringUtils.isNotBlank(searchKey)){
+			baseSql += " and (locate(:searchKey,det.DETAIL_NAME)>0 or locate(:searchKey,det.DETAIL_CODE)>0 or locate(:searchKey,det.DETAIL_VALUE)>0) ";
 		}
+
+		Query query = entityManager.createNativeQuery(baseSql).setParameter("mainId",mainId);
+		if(StringUtils.isNotBlank(searchKey)){
+			query.setParameter("searchKey",searchKey);
+		}
+
 		int count = 0;
 		List list = query.getResultList();
 		if(list != null && list.size() > 0){
@@ -106,6 +103,53 @@ public class AppTypeDetailService extends
 		return count;
 	}
 
+	@Transactional
+	public void moveTypeDetail(String typeDetailId,boolean type) throws Exception {
+		AppTypeDetailEntity entity = dao.findOne(typeDetailId);
+		if(entity == null)
+			return;
+		int level = entity.getDetailLevel();
+
+		if(type){
+			level--;
+		}else{
+			level++;
+		}
+
+		AppTypeDetailEntity entity2 = findOneByLevel(level);
+		if(entity2 == null)
+			return;
+
+		entity2.setDetailLevel(entity.getDetailLevel());
+		entity.setDetailLevel(level);
+
+		List<AppTypeDetailEntity> list = new ArrayList<>();
+		list.add(entity);
+		list.add(entity2);
+
+		save(list);
+	}
+
+	public AppTypeDetailEntity findOneByLevel(int level){
+		List<AppTypeDetailEntity> list = entityManager.createQuery("select en from AppTypeDetailEntity en where en.detailLevel=:level").setParameter("level",level).getResultList();
+		if(list != null && list.size() > 0){
+			return list.get(0);
+		}else{
+			return null;
+		}
+	}
+
+	//根据上级，得到子级下一个排序数字
+	public int getLevelByMainId(String mainId){
+		String sql = "select max(a.DETAIL_LEVEL) from app_type_detail a where a.TYPE_ID=:mainId";
+		List list = entityManager.createNativeQuery(sql).setParameter("mainId",mainId).getResultList();
+
+		int n = 1;
+		if(list != null && list.size() > 0 && list.get(0) != null){
+			n = Integer.parseInt(list.get(0).toString()) + 1;
+		}
+		return n;
+	}
 	//类型选项
 	public TypeSelectEntity getTypeSelect(String typeCode, String selectedTypeId) {
 		TypeSelectEntity pse=new TypeSelectEntity();

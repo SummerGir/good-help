@@ -1,4 +1,4 @@
-package eiis.app.type.entity;
+package eiis.app.typeinfo.entity;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -18,8 +18,10 @@ function createLeftItem(){
         for(var i = 0;i < menuList.length;i++){
             var obj = menuList[i];
 
-            if(obj.children != undefined && obj.children != null){
+            var isApp = true;
+            if(obj.children != undefined && obj.children != null && obj.children.length > 0){
                 menuList1 = menuList1.concat(obj.children);
+                isApp = false;
             }
             //是否存在上级菜单
             var parentLevel = obj.outlineLevel.substring(0,obj.outlineLevel.lastIndexOf(".")).replaceAll(".","-");
@@ -32,7 +34,7 @@ function createLeftItem(){
 
             var str = '';
             if(thisN <= maxN){
-                if(obj.type){//是应用
+                if(isApp){//是应用
                     str +='<div class="'+ (parentLevel == "1" ? "menu-item":"menu-item2") +'" id="item_'+ obj.menuId +'" onClick="click_item(\''+ (obj.url==""?"#":obj.url) +'\',\''+ obj.menuId +'\')">';
                     str += '<i class="icon esg-font '+ (obj.icon?obj.icon:"icon-wenben") +'"></i>';
                     str += obj.title;
@@ -49,7 +51,7 @@ function createLeftItem(){
                 }
             }else{
                 parentLevel = "other";
-                if(obj.type){//是应用
+                if(isApp){//是应用
                     str +='<div class="menu-item2" id="item_'+ obj.menuId +'" onClick="click_item(\''+ (obj.url==""?"#":obj.url) +'\',\''+ obj.menuId +'\')">';
                     str += '<i class="icon esg-font '+ (obj.icon?obj.icon:"icon-wenben") +'"></i>';
                     str += obj.title;

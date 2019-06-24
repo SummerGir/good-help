@@ -1,9 +1,6 @@
-<%@ page import="eiis.app.type.entity.TypeSelectEntity" %>
-<%@ page import="eiis.app.type.service.AppTypeDetailService" %>
-<%@ page import="org.apache.commons.lang3.StringUtils" %>
-<%@ page import="util.context.Context" %>
 <%@ page import="eiis.core.menuTree.entity.CoreMenuTreeInfoEntity" %>
 <%@ page import="eiis.core.menuUrl.service.CoreMenuUrlService" %>
+<%@ page import="util.context.Context" %>
 <%@ taglib prefix="master" uri="util.masterPage" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--

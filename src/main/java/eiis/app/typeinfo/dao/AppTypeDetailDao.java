@@ -1,6 +1,6 @@
-package eiis.app.type.dao;
+package eiis.app.typeinfo.dao;
 
-import eiis.app.type.entity.AppTypeDetailEntity;
+import eiis.app.typeinfo.entity.AppTypeDetailEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -10,7 +10,7 @@ import util.dataManage.GenericDao;
 
 import java.util.List;
 
-@Repository("eiis.app.type.dao.AppTypeDetailDao")
+@Repository("eiis.app.typeinfo.dao.AppTypeDetailDao")
 public interface AppTypeDetailDao extends
         JpaRepository<AppTypeDetailEntity, String>,
         JpaSpecificationExecutor<AppTypeDetailEntity>,

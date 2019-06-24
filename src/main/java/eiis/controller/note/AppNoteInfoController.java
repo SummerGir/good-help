@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import util.context.Context;
 import util.dataManage.GenericController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -50,7 +51,6 @@ public class AppNoteInfoController {
         String typeDetailId = request.getParameter("typeDetailId");
         String title = request.getParameter("title");
         String content = request.getParameter("content");
-        String memberId = "张三";
         AppNoteInfoEntity entity = new AppNoteInfoEntity();
         if(StringUtils.isBlank(mainId)){
             entity.setNoteId(UUID.randomUUID().toString());
@@ -61,7 +61,7 @@ public class AppNoteInfoController {
         entity.setTitle(title);
         entity.setContent(content);
         entity.setSysTime(new Timestamp(new Date().getTime()));
-        entity.setMemberId(memberId);
+        entity.setMemberId(Context.getMember().getMemberId());
 
         try{
             mainService.save(entity);

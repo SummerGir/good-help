@@ -1,7 +1,7 @@
-package eiis.app.type.service;
+package eiis.app.typeinfo.service;
 
-import eiis.app.type.dao.AppTypeInfoDao;
-import eiis.app.type.entity.AppTypeInfoEntity;
+import eiis.app.typeinfo.dao.AppTypeInfoDao;
+import eiis.app.typeinfo.entity.AppTypeInfoEntity;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import javax.persistence.Query;
 import java.util.List;
 import java.util.Map;
 
-@Service("eiis.app.type.service.AppTypeInfoService")
+@Service("eiis.app.typeinfo.service.AppTypeInfoService")
 public class AppTypeInfoService extends
 		GenericService<AppTypeInfoEntity, String> {
 
@@ -46,22 +46,20 @@ public class AppTypeInfoService extends
 		dao.delete(mainId);
 	}
 	//得到菜单列表
-	public List<Map<String,Object>> getMainInfo(String mainId,String searchKey,String memberId,String beginTime,String overTime,int page,int rows)throws Exception{
+	public List<Map<String,Object>> getMainInfo(String mainId,String searchKey,int page,int rows)throws Exception{
+		String baseSql = "select main.TYPE_ID,main.TYPE_NAME,main.TYPE_CODE from app_type_info main where 1=1 ";
 		Map<String,Object> values = new HashedMap();
 		if(StringUtils.isNotBlank(mainId)){
 			values.put("mainId",mainId);
+			baseSql += " and main.TYPE_ID=:mainId ";
 		}if(StringUtils.isNotBlank(searchKey)){
 			values.put("searchKey",searchKey);
-		}if(StringUtils.isNotBlank(memberId)){
-			values.put("memberId",memberId);
-		}if(StringUtils.isNotBlank(beginTime)){
-			values.put("beginTime",beginTime);
-		}if(StringUtils.isNotBlank(overTime)){
-			values.put("overTime",overTime);
+			baseSql += " and (locate(:searchKey,main.TYPE_NAME)>0 or locate(:searchKey,main.TYPE_CODE)>0) ";
 		}
 
-		String baseSql = "";
-		String[] fields = {};
+		baseSql += " order by main.SYS_TIME desc ";
+
+		String[] fields = {"typeId","typeName","typeCode"};
 
 		List<Map<String, Object>> list = getNativeMapList(entityManager, baseSql, values, fields, page, rows);
 
@@ -70,26 +68,22 @@ public class AppTypeInfoService extends
 				if (e.getValue() == null) {
 					m.put(e.getKey(), "");
 				}
-				if("sysTime".equals(e.getKey().toString())){
-					m.put(e.getKey(),e.getValue().toString().split(" ")[0]);
-				}
 			}
 		}
 		return list;
 	}
-	public int getMainCount(String mainId,String searchKey,String memberId,String beginTime,String overTime){
-		String baseSql = "";
+	public int getMainCount(String mainId,String searchKey){
+		String baseSql = "select count(1) from app_type_info main where 1=1 ";
+		if(StringUtils.isNotBlank(mainId)){
+			baseSql += " and main.TYPE_ID=:mainId ";
+		}if(StringUtils.isNotBlank(searchKey)){
+			baseSql += " and (locate(:searchKey,main.TYPE_NAME)>0 or locate(:searchKey,main.TYPE_CODE)>0) ";
+		}
 		Query query = entityManager.createNativeQuery(baseSql);
 		if(StringUtils.isNotBlank(mainId)){
 			query.setParameter("mainId",mainId);
 		}if(StringUtils.isNotBlank(searchKey)){
 			query.setParameter("searchKey",searchKey);
-		}if(StringUtils.isNotBlank(memberId)){
-			query.setParameter("memberId",memberId);
-		}if(StringUtils.isNotBlank(beginTime)){
-			query.setParameter("beginTime",beginTime);
-		}if(StringUtils.isNotBlank(overTime)){
-			query.setParameter("overTime",overTime);
 		}
 		int count = 0;
 		List list = query.getResultList();

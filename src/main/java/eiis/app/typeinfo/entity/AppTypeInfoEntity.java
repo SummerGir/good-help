@@ -1,4 +1,4 @@
-package eiis.app.type.entity;
+package eiis.app.typeinfo.entity;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
