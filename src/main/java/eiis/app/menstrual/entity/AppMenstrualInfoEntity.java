@@ -9,6 +9,7 @@ public class AppMenstrualInfoEntity {
     private String mensId;
     private Timestamp startTime;
     private Timestamp endTime;
+    private Timestamp sysTime;
     private Integer duration;
     private Integer mensCycle;
     private Integer mensDiver;
@@ -45,6 +46,16 @@ public class AppMenstrualInfoEntity {
     }
 
     @Basic
+    @Column(name = "SYS_TIME")
+    public Timestamp getSysTime() {
+        return sysTime;
+    }
+
+    public void setSysTime(Timestamp sysTime) {
+        this.sysTime = sysTime;
+    }
+
+    @Basic
     @Column(name = "DURATION")
     public Integer getDuration() {
         return duration;
@@ -76,12 +87,12 @@ public class AppMenstrualInfoEntity {
 
     @Basic
     @Column(name = "IS_VALID")
-    public Boolean getValid() {
+    public Boolean getIsValid() {
         return isValid;
     }
 
-    public void setValid(Boolean valid) {
-        isValid = valid;
+    public void setIsValid(Boolean isValid) {
+        this.isValid = isValid;
     }
 
     @Override

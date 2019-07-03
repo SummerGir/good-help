@@ -13,14 +13,14 @@ import util.spring.ApplicationContext;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service("eiis.app.menstrual.service.AppMenstrualInfoService")
 public class AppMenstrualInfoService extends
 		GenericService<AppMenstrualInfoEntity, String> {
+	public static int DEF_CYCLE = 28;
+	public static int DEF_DURATION = 3;
+
 
 	@Autowired
 	private AppMenstrualInfoDao dao;
@@ -119,4 +119,49 @@ public class AppMenstrualInfoService extends
 		return count;
 	}
 
+	//得到最后一条数据
+	public AppMenstrualInfoEntity getLastEntity(){
+		List<AppMenstrualInfoEntity> list = entityManager.createQuery("select en from AppMenstrualInfoEntity en order by en.startTime desc").getResultList();
+
+		if(list.size() > 0)
+			return list.get(0);
+		return null;
+	}
+
+	//得到平均周期
+	public int getAvergeCycle(){
+		String sql = "select ceil(sum(main.MENS_CYCLE)/count(1)) from app_menstrual_info main";
+		List list = entityManager.createNativeQuery(sql).getResultList();
+		int cycle = DEF_CYCLE;
+		if(list.size() > 0 && list.get(0) != null){
+			cycle = Integer.parseInt(list.get(0).toString());
+		}
+		return cycle;
+	}
+	public int getDateSpace(Date startData, Date endData) throws Exception{
+		int result = 0;
+
+		Calendar calst = Calendar.getInstance();;
+		Calendar caled = Calendar.getInstance();
+
+		calst.setTime(startData);
+		caled.setTime(endData);
+
+		//设置时间为0时
+		calst.set(Calendar.HOUR_OF_DAY, 0);
+		calst.set(Calendar.MINUTE, 0);
+		calst.set(Calendar.SECOND, 0);
+		caled.set(Calendar.HOUR_OF_DAY, 0);
+		caled.set(Calendar.MINUTE, 0);
+		caled.set(Calendar.SECOND, 0);
+		//得到两个日期相差的天数
+		int days = ((int)(caled.getTime().getTime()/1000)-(int)(calst.getTime().getTime()/1000))/3600/24;
+
+		if(days >= 0){
+			days++;
+		}else{
+			days--;
+		}
+		return days;
+	}
 }
