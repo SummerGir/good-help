@@ -34,9 +34,24 @@ var GoodHelper = {};
     <!-- 时间控件-->
     GoodHelper.Common.BootstrapDateTimepicker = {
         js: [
-            "/public/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"
+            "/public/bootstrap/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"
         ],
-        css: ["/public/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"]
+        css: ["/public/bootstrap/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"]
+    };
+
+    <!-- 附件控件-->
+    GoodHelper.Common.BootstrapFileInput = {
+        js: [
+            /*调整图像大小*/
+            "/public/bootstrap/bootstrap-fileinput/js/plugins/piexif.js",
+            /*预览*/
+            "/public/bootstrap/bootstrap-fileinput/js/plugins/sortable.js",
+            "/public/bootstrap/bootstrap-fileinput/js/fileinput.js",
+            "/public/bootstrap/bootstrap-fileinput/js/locales/zh.js"
+        ],
+        css: [
+            "/public/bootstrap/bootstrap-fileinput/css/fileinput.css"
+        ]
     };
 
     GoodHelper.Common.EasyUI = {
@@ -92,6 +107,7 @@ var GoodHelper = {};
         var script = document.createElement('script');
         script.src = path;
         script.type = 'text/javascript';
+        script.async = 0;//同步加载
         head.appendChild(script);
     };
 
