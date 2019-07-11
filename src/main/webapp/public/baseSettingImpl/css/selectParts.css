@@ -1,0 +1,104 @@
+.partContainer{
+    height: 500px;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    font-size : 13px;
+    position: relative;
+}
+.partContainer .datagrid-row>td{
+    /*border-right: none;*/
+}
+.partContainer .rowGrid .datagrid-row{
+    height: 37px;
+}
+.partLeft{
+    width: 20%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;
+    -webkit-box-shadow: #ccc 1px 1px 1px;
+    -moz-box-shadow: #ccc 1px 1px 1px;
+    box-shadow: #ccc 1px 1px 1px;
+}
+.partLeft>.selectGrid{
+    width: 100%;
+}
+.partLeft .partsType{
+    border-bottom: 1px solid #d7d7d7;
+    height: 26px;
+    position: absolute;
+    left:  0;
+    top: 1px;
+    z-index: 1;
+    width: 100%;
+}
+.partsType>div{
+    width: 100%;
+    height: 100%;
+    top: -2px;
+    position: relative;
+}
+.partsType>table,.typeSelect>label,.typeSelect select{
+    width:  100%;
+    height: 100%;
+}
+.typeTitle{
+    width:  60px;
+    background-color: #f6f6f6;
+    color: #000;
+    line-height: 21px;
+    font-weight: bolder;
+}
+.typeSelect{
+    width:  100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    padding-left: 62px;
+}
+.typeSelect>label{
+    margin: 0;
+}
+.typeSelect select{
+    border: none;
+    font-weight: 100;
+}
+.partRight{
+    width: 80%;
+    height: 100%;
+    right: 0;
+    top: 0;
+    position: absolute;
+    padding-left: 10px;
+}
+.partRight>.rowGrid{
+    width: 100%;
+    height: 100%;
+    -webkit-box-shadow: #ccc -1px 1px 1px;
+    -moz-box-shadow: #ccc -1px 1px 1px;
+    box-shadow: #ccc -1px 1px 1px;
+}
+.partContainer .panel{
+    margin: 0;
+    border: none;
+}
+.textOverPoints{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space:  nowrap;
+}
+.icon-folder{
+    background:url('/public/jquery-easyui/themes/default/images/tree_icons.png') no-repeat -208px 0;
+}
+.icon-file{
+    background:url('/public/jquery-easyui/themes/default/images/tree_icons.png') no-repeat -240px 0;
+}
+.icon-folder,.icon-file{
+    display: inline-block;
+    width: 16px;
+    height: 18px;
+    vertical-align: sub;
+    overflow: hidden;
+}

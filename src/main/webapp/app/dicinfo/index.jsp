@@ -18,7 +18,7 @@
     <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
     <master:Content contentPlaceHolderId="head">
         <script type="text/javascript">
-            GoodHelper.Loading(GoodHelper.Common.BootstrapTable);
+            EIIS.Common.loadComponent(EIIS.Common.bootstrap.BootstrapTable);
         </script>
         <style type="text/css">
             button>i{
@@ -53,54 +53,50 @@
         </div>
 
         <!-- 模态框（Modal） -->
-        <div id="my_modal" class="modal fade" tabindex="-1"  aria-hidden="true" data-backdrop="static">
-            <div class="modal-dialog" style="width: 40%;height: 50%">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">
-                            新增/修改 一条数据
-                        </h4>
-                    </div>
-                    <div class="modal-body">
-                        <input type="hidden" name="dicId" value=""/>
+        <div id="my_modal" class="modal" data-width="40%" tabindex="-1" aria-hidden="true" data-backdrop="static">
+            <div class="panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">
+                    <span style="font-weight: bold;">新增/修改 一条数据</span>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <input type="hidden" name="dicId" value=""/>
 
-                        <div class="row">
-                            <div class="col-xs-6 col-md-6">
-                                <h5>字典名称:</h5>
-                                <input type="text" class="form-control" name="dicName" placeholder="请填写字典名称：" required="required">
-                            </div>
-                            <div class="col-xs-6 col-md-6">
-                                <h5>字典单位:</h5>
-                                <input type="text" class="form-control" name="unitName" placeholder="请填写字典单位：" required="required">
-                            </div>
-                        </div>
+                <div class="row">
+                    <div class="col-xs-6 col-md-6">
+                        <h5>字典名称:</h5>
+                        <input type="text" class="form-control" name="dicName" placeholder="请填写字典名称：" required="required">
+                    </div>
+                    <div class="col-xs-6 col-md-6">
+                        <h5>字典单位:</h5>
+                        <input type="text" class="form-control" name="unitName" placeholder="请填写字典单位：" required="required">
+                    </div>
+                </div>
 
-                        <div class="row">
-                            <div class="col-xs-6 col-md-6">
-                                <h5>字典价格:</h5>
-                                <input type="text" class="form-control" name="price" placeholder="请填写字典价格：" required="required" onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')" onblur="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')">
-                            </div>
-                            <div class="col-xs-6 col-md-6">
-                                <h5>字典优先级:</h5>
-                                <input type="text" class="form-control" name="priorityLevel" placeholder="请填写字典优先级：" required="required" onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12 col-md-12">
-                                <h5>备注说明:</h5>
-                                <textarea rows="3" class="form-control" name="comment" placeholder="请填写备注说明：" ></textarea>
-                            </div>
-                        </div>
+                <div class="row">
+                    <div class="col-xs-6 col-md-6">
+                        <h5>字典价格:</h5>
+                        <input type="text" class="form-control" name="price" placeholder="请填写字典价格：" required="required" onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')" onblur="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')">
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>关闭</button>
-                        <button type="button" class="btn btn-primary" onclick="save_main()">
-                            <i class="glyphicon glyphicon-floppy-save"></i>保存
-                        </button>
+                    <div class="col-xs-6 col-md-6">
+                        <h5>字典优先级:</h5>
+                        <input type="text" class="form-control" name="priorityLevel" placeholder="请填写字典优先级：" required="required" onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')">
                     </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal -->
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <h5>备注说明:</h5>
+                        <textarea rows="3" class="form-control" name="comment" placeholder="请填写备注说明：" ></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>关闭</button>
+                <button type="button" class="btn btn-primary" onclick="save_main()">
+                    <i class="glyphicon glyphicon-floppy-save"></i>保存
+                </button>
+            </div>
         </div>
 
         <script type="text/javascript">

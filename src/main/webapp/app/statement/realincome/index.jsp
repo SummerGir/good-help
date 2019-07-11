@@ -23,9 +23,8 @@
     <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
     <master:Content contentPlaceHolderId="head">
         <script type="text/javascript">
-            GoodHelper.Loading(GoodHelper.Common.BootstrapTable);
-            GoodHelper.Loading(GoodHelper.Common.EasyUI);
-            GoodHelper.Loading(GoodHelper.Common.ECharts);
+            EIIS.Common.loadComponent(EIIS.Common.bootstrap.BootstrapTable);
+            EIIS.Common.loadComponent(EIIS.Common.controls.EasyUI);
         </script>
         <link rel="stylesheet" type="text/css" href="/app/statement/css_js/indexBase.css">
     </master:Content>
@@ -64,25 +63,21 @@
             </div>
         </div>
 
-        <div id="my_modal" class="modal fade" tabindex="-1" aria-hidden="true" data-backdrop="static">
-            <div class="modal-dialog" style="width: 60%;">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">
-                            查看详细信息
-                        </h4>
-                    </div>
-                    <div class="modal-body" style="padding-bottom: 0px;">
-                        <div id="tab_detail" class="table_data">
-                            <div id="detailTable" ></div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>关闭</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal -->
+        <div id="my_modal" class="modal" data-width="50%" tabindex="-1" aria-hidden="true" data-backdrop="static">
+            <div class="panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">
+                    <span style="font-weight: bold;">查看详细信息</span>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div id="tab_detail" class="table_data">
+                    <div id="detailTable" ></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>关闭</button>
+            </div>
         </div>
 
         <script type="text/javascript">

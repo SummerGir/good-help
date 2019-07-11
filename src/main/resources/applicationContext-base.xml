@@ -14,8 +14,6 @@
         <property name="properties">
             <props>
                 <prop key="fileStorage">fileStorage</prop>
-                <prop key="copyright">Copyright &amp;copy; 2015 | EIIS 8</prop>
-                <!--<prop key="server_name">eiis</prop>-->
             </props>
         </property>
     </bean>

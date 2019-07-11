@@ -89,9 +89,14 @@ body{
 
 
 .main-center-div{
-    margin: 47px 10px 20px 10px;
+    padding: 47px 10px 20px 10px;
     overflow-x: hidden;
     position: relative;
+    height: 100%;
+}
+.main-center{
+    padding-top: 15px;
+    height: 100%;
 }
 .main-center-nav{
     position: fixed;
@@ -103,6 +108,9 @@ body{
     margin-bottom: 0px;!important;
 }
 
+.main-center{
+    overflow-x: hidden;
+}
 .my-col{
     display: flex;
     margin-bottom: 10px;

@@ -27,14 +27,12 @@
     <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
     <master:Content contentPlaceHolderId="head">
         <script type="text/javascript">
-            GoodHelper.Loading(GoodHelper.Common.BootstrapTable);
-            GoodHelper.Loading(GoodHelper.Common.BaiduTTS);
-//            GoodHelper.Loading(GoodHelper.Common.BootstrapDateTimepicker);
+            EIIS.Common.loadComponent(EIIS.Common.bootstrap.BootstrapTable);
+            EIIS.Common.loadComponent(EIIS.Common.controls.BaiduTTS);
         </script>
         <link href="/app/meterialbill/css_js/index.css" rel="stylesheet"/>
     </master:Content>
     <master:Content contentPlaceHolderId="body">
-
         <div class="panel panel-default need-nav">
             <div class="panel-body" style="padding-bottom: 0px;">
                 <div class="row">
@@ -109,54 +107,45 @@
         </div>
 
         <!-- 模态框（Modal） -->
-        <div id="my_modal" class="modal fade" tabindex="-1" aria-hidden="true" data-backdrop="static">
-            <div class="modal-dialog" style="width: 30%;">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">
-                            记录对账金额
-                        </h4>
+        <div id="my_modal" class="modal" data-width="30%" tabindex="-1" aria-hidden="true" data-backdrop="static">
+            <div class="panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">
+                    <span style="font-weight: bold;">记录对账金额</span>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <input type="hidden" name="inputId" value=""/>
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <h5>对账金额:</h5>
+                        <input type="text" class="form-control need_listen" val_type="double" name="billMoney" placeholder="请对账金额：" >
                     </div>
-                    <div class="modal-body">
-                        <input type="hidden" name="inputId" value=""/>
-                        <div class="row">
-                            <div class="col-xs-12 col-md-12">
-                                <h5>对账金额:</h5>
-                                <input type="text" class="form-control need_listen" val_type="double" name="billMoney" placeholder="请对账金额：" >
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>关闭</button>
-                        <button type="button" class="btn btn-primary" onclick="save_main()"><i class="glyphicon glyphicon-floppy-save"></i>保存</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>关闭</button>
+                <button type="button" class="btn btn-primary" onclick="save_main()"><i class="glyphicon glyphicon-floppy-save"></i>保存</button>
+            </div>
         </div>
 
-        <!-- 模态框（Modal） -->
-        <div id="read_modal" class="modal fade" tabindex="-1" aria-hidden="true" data-backdrop="static">
-            <div class="modal-dialog" style="width: 60%;">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">
-                            查看差异明细
-                        </h4>
+        <div id="read_modal" class="modal" data-width="60%" tabindex="-1" aria-hidden="true" data-backdrop="static">
+            <div class="panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">
+                    <span style="font-weight: bold;">查看差异明细</span>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <div id="myDetailTable"></div>
                     </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-xs-12 col-md-12">
-                                <div id="myDetailTable"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>关闭</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>关闭</button>
+            </div>
         </div>
 
         <script type="text/javascript">

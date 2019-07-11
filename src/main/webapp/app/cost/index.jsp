@@ -29,7 +29,7 @@
     <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
     <master:Content contentPlaceHolderId="head">
         <script type="text/javascript">
-            GoodHelper.Loading(GoodHelper.Common.BootstrapTable);
+            EIIS.Common.loadComponent(EIIS.Common.bootstrap.BootstrapTable);
         </script>
         <style type="text/css">
             button>i{
@@ -69,39 +69,35 @@
             </div>
         </div>
         <!--模态框-->
-        <div id="my_modal" class="modal fade" tabindex="1" aria-hidden="true"  data-backdrop="static">
-            <div class="modal-dialog" style="width: 450px;">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">新增/修改一条数据</h4>
-                    </div>
-                    <div class="modal-body">
-                        <input type="hidden" name="noteId" value=""/>
-                        <div class="row">
-                            <div class="col-xs-12 col-md -12">
-                                <h5>物品名称</h5>
-                                <input id="objName" type="text" class="form-control" name="title" placeholder="请填写物品名称：" required="required">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12 col-md-12">
-                                <h5>消费金额</h5>
-                                <div class="input-group">
-                                    <span class="input-group-addon">￥</span>
-                                    <input id="objPrice" type="text" class="form-control" name="price" placeholder="请填写物品价格" required="required">
-                                    <span class="input-group-addon">.00</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>关闭</button>
-                        <button type="button" class="btn btn-primary" onclick="save_main()"><i class="glyphicon glyphicon-floppy-save"></i>保存</button>
-
+        <div id="my_modal" class="modal" data-width="50%" tabindex="-1" aria-hidden="true" data-backdrop="static">
+            <div class="panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">
+                    <span style="font-weight: bold;">新增/修改一条数据</span>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <input type="hidden" name="noteId" value=""/>
+                <div class="row">
+                    <div class="col-xs-12 col-md -12">
+                        <h5>物品名称</h5>
+                        <input id="objName" type="text" class="form-control" name="title" placeholder="请填写物品名称：" required="required">
                     </div>
                 </div>
-
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <h5>消费金额</h5>
+                        <div class="input-group">
+                            <span class="input-group-addon">￥</span>
+                            <input id="objPrice" type="text" class="form-control" name="price" placeholder="请填写物品价格" required="required">
+                            <span class="input-group-addon">.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>关闭</button>
+                <button type="button" class="btn btn-primary" onclick="save_main()"><i class="glyphicon glyphicon-floppy-save"></i>保存</button>
             </div>
         </div>
         <!--js-->

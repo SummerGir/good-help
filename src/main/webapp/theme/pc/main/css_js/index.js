@@ -105,5 +105,5 @@ function clone_my_nav(clas){
 }
 
 function reset_nav(){
-    $(".main-center").css({"margin-top": $(".main-center-nav").height() + 15 + "px"});
+    $(".main-center").css({"padding-top": $(".main-center-nav").height() + 15 + "px"});
 }

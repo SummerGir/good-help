@@ -23,19 +23,23 @@
     <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
     <master:Content contentPlaceHolderId="head">
         <script type="text/javascript">
-            GoodHelper.Loading(GoodHelper.Common.BootstrapTable);
-            GoodHelper.Loading(GoodHelper.Common.BootstrapDateTimepicker);
+            EIIS.Common.loadComponent(EIIS.Common.bootstrap.BootstrapTable);
         </script>
 
         <link href="/app/menstrualinfo/css_js/index.css" rel="stylesheet"/>
     </master:Content>
     <master:Content contentPlaceHolderId="body">
 
-        <div class="row">
-            <div class="col-md-12">
-                <!--表格-->
-                <div id="datetimepicker"></div>
+        <div class="my-row">
+            <div class='sr-table'>
+                <div class='sr-thead'>
+                    <div class='sr-tr'></div>
+                </div>
+                <div class='sr-tbody'>
+
+                </div>
             </div>
+            <div class="my-right"></div>
         </div>
 
         <script type="text/javascript">

@@ -27,7 +27,7 @@
     <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
     <master:Content contentPlaceHolderId="head">
         <script type="text/javascript">
-            GoodHelper.Loading(GoodHelper.Common.BootstrapTable);
+            EIIS.Common.loadComponent(EIIS.Common.bootstrap.BootstrapTable);
         </script>
 
         <link href="/app/typeinfo/css_js/index.css" rel="stylesheet"/>

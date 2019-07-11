@@ -25,12 +25,6 @@ $(window).load(function(){
         loading = false;
 
         if(!isLoad){
-
-            //初始化日历控件
-            $(".need-nav input[name='queryData']").datetimepicker({
-                format: 'yyyy-mm-dd',
-                minView:2
-            });
             isLoad = true;
         }
         getMainMoneyInfo();
@@ -176,15 +170,15 @@ function save_main(){
             inputCode += "-" + main.exception;
         }
         postData.main.inputCode = inputCode;
-        var code = "编号：" + inputCode + "\n";
+        var code = "编号：" + inputCode + "<br/>";
 
         var detail = postData.detail;
         if(detail != undefined && detail != null){
             for(var i = 0 ; i < detail.length ; i++){
-                code += detail[i].dicName + "：" + detail[i].detailNum + " " + detail[i].unitName + " ," + detail[i].money + " 元\n";
+                code += detail[i].dicName + "：" + detail[i].detailNum + " " + detail[i].unitName + " ," + detail[i].money + " 元<br/>";
             }
         }
-        code += "总金额：<span style='color: red;'>" + main.allMoney + " 元</span>\n";
+        code += "总金额：<span style='color: red;'>" + main.allMoney + " 元</span><br/>";
 
 
         //判断单号是否重复
@@ -201,7 +195,7 @@ function save_main(){
                     play_pronunciation(text,"6");
                     $.message({
                         button:$.message.button.yesNo
-                        ,text:"确定要保存此数据?\n\n" + code
+                        ,body:"<div style='margin-left: 15px;'>确定要保存此数据?<br/><br/>" + code + "</div>"
                         ,result:function(result){
                             if(result == $.message.result.yes){
                                 $.ajax({

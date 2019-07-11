@@ -1,0 +1,332 @@
+/**
+    appSupport
+ */
+.galleryContainer{
+    position: fixed;
+    top: 0;
+    left:  0;
+    background-color: #222222;
+    z-index: 9999;
+}
+.galleryMask{
+    z-index: 10000;
+    background-color: rgba(200,200,200,0.4);
+}
+.swiper-container,.galleryMask,.imgContainer>img{
+    height: 100%;
+    width: 100%;
+}
+.galleryContainer .imgContainer,.galleryMask,.galleryMask>canvas{
+    position: absolute;
+}
+.galleryPageInfo{
+    position: absolute;
+    color:  #ffffff;
+    top: 10px;
+    left: 50%;
+    margin-left: -10px;
+    font-size:  14px;
+}
+/**
+    pcSupport
+ */
+.galleryPcContainer{
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    background-color: rgba(0,0,0,0.845);
+    overflow: hidden;
+}
+.galleryPcContainer *{
+    box-sizing:initial;
+    -webkit-box-sizing:initial;
+}
+.galleryPcWrapper{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    cursor: move;
+}
+.noSelect,.galleryPcWrapper{
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Chrome/Safari/Opera */
+    -khtml-user-select: none; /* Konqueror */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently*/
+}
+.galleryTools>div,.galleryEdge>div{
+    position: absolute;
+}
+.galleryTooTop{
+    top: 0;
+    width: 100%;
+    height: 40px;
+    z-index: 3;
+}
+.galleryToolsRight{
+    right: 0;
+    height: 100%;
+    width: 50px;
+    z-index: 2;
+}
+.galleryToolsDown{
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    z-index: 3;
+}
+.galleryToolsLeft{
+    left: 0;
+    height: 100%;
+    width: 50px;
+    z-index: 2;
+}
+.galleryEdge>div{
+    z-index: 3;
+}
+.galleryEdgeTop{
+    top: 0;
+    width: 100%;
+    height: 5px;
+    cursor: n-resize;
+}
+.galleryEdgeRight{
+    right: 0;
+    height: 100%;
+    width: 5px;
+    cursor: e-resize;
+}
+.galleryEdgeDown{
+    bottom: 0;
+    width: 100%;
+    height: 5px;
+    cursor: s-resize;
+}
+.galleryEdgeLeft{
+    left: 0;
+    height: 100%;
+    width: 5px;
+    cursor: w-resize;
+}
+.galleryEdgeLeftTop,.galleryEdgeLeftDown,.galleryEdgeRightTop,.galleryEdgeRightDown{
+    width: 5px;
+    height: 5px;
+}
+.galleryEdgeLeftTop{
+    left: 0;
+    top: 0;
+    cursor: nw-resize;
+}
+.galleryEdgeLeftDown{
+    left: 0;
+    bottom: 0;
+    cursor: ne-resize;
+}
+.galleryEdgeRightTop{
+    right: 0;
+    top: 0;
+    cursor: sw-resize;
+}
+.galleryEdgeRightDown{
+    right: 0;
+    bottom: 0;
+    cursor: se-resize;
+}
+.galleryImgName{
+    line-height: 40px;
+    color: rgba(255,255,255,0.8);
+    font-size: 14px;
+    position: absolute;
+    left: 10px;
+    display: none;
+}
+.galleryClose{
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    right:  0;
+    top: 0;
+    text-align: center;
+    line-height: 40px;
+    font-size: 34px;
+    z-index: 1;
+    display: none;
+    cursor: default;
+}
+.prepareClose>i{
+    color: #d43f27;
+}
+.gallerySwitchPre,.gallerySwitchNext{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    text-align: center;
+    line-height: 52px;
+    color: #bbbbbb;
+    display: none;
+    cursor: default;
+    background-color:rgba(0,0,0,0.2);
+    border:2px solid #bbbbbb;
+    border-radius: 30px;
+}
+.prepareSwitch{
+    border:2px solid #ffffff;
+}
+.prepareSwitch,.prepareSwitch>i{
+    color: #ffffff;
+}
+.clickSwitch{
+    background-color: rgba(61,115,206,0.8);
+}
+.gallerySwitchPre{
+    left: 20px;
+}
+.gallerySwitchNext{
+    right: 20px;
+    transform: rotate(180deg);
+}
+.galleryTs{
+    position: absolute;
+    bottom: -3px;
+    height: 40px;
+    width: 300px;
+    border-radius : 6px;
+    background-color: rgba(0,0,0,0.4);
+    display: none;
+    cursor: default;
+}
+.galleryTsWrapper{
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+.galleryTsWrapper>ul{
+    margin:  0;
+    padding:  0;
+    width:  100%;
+    height: 100%;
+    list-style: none;
+}
+.galleryTsWrapper>ul>li{
+    height: 100%;
+    float: left;
+    text-align: center;
+    line-height: 37px;
+    font-size: 24px;
+    color: #bbbbbb;
+}
+.galleryNar{
+    margin-left: 24px;
+}
+.galleryNar,.galleryAmp{
+    width: 40px;
+}
+.galleryPercent{
+    width: 50px;
+}
+.galleryTsWrapper .galleryPercent{
+    font-size: 17px;
+}
+.gallerySeparated{
+    position: relative;
+    width: 31px;
+}
+.gallerySeparated>div{
+    width: 1px;
+    height: 22px;
+    top:9px;
+    left: 15px;
+    position: absolute;
+    background-color: #999999;
+}
+.galleryAmp{
+    margin-left: 5px;
+}
+.galleryRotate{
+    width: 46px;
+}
+.galleryTs .prepareTs{
+    color: #38a9ff;
+}
+.galleryImg{
+    position: absolute;
+    z-index: 1;
+}
+.galleryDisabled{
+    color: #888888 !important;
+}
+.galleryTsPress{
+    color: #d6912d !important;
+}
+.gallerySmall{
+    width: 250px;
+    height: 150px;
+    position: absolute;
+    right: 2px;
+    bottom: 2px;
+    border-radius: 4px;
+    cursor: default;
+    background-color: rgba(0,0,0,0.4);
+    z-index: 3;
+    display: none;
+}
+.gallerySmallWrapper{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.gallerySmallClose{
+    position: absolute;
+    right: -1px;
+    border-radius: 10px;
+    top: 1px;
+    font-size: 12px;
+    color: #bbbbbb;
+    width: 16px;
+    height: 16px;
+    text-align: center;
+    line-height: 16px;
+    z-index: 3;
+}
+.gallerySmallClosePre{
+    background-color: #a23232;
+}
+.gallerySmallImg,.gallerySmallBox{
+    position: absolute;
+}
+.gallerySmallBox{
+    border: 1px solid #000000;
+    z-index: 1;
+}
+.galleryList{
+    height: 50px;
+    width: 100%;
+    display: none;
+    cursor: default;
+    background-color: rgba(0,0,0,0.8);
+}
+.galleryListImg{
+    height: 100%;
+    width: 50px;
+    margin-left: 4px;
+    float: left;
+    position: relative;
+}
+.galleryListImg>img,.galleryListImg>div{
+    height: 100%;
+    width: 100%;
+}
+.galleryListImg>div{
+    top: 2px;
+    left: 2px;
+    height: 42px !important;
+    width: 42px !important;
+    position: absolute;
+    display: none;
+}
+.galleryListImgActive>div{
+    border: 2px solid #4de2ff;
+    display: block;
+}

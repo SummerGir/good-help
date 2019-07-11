@@ -23,7 +23,7 @@
     <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
     <master:Content contentPlaceHolderId="head">
         <script type="text/javascript">
-            GoodHelper.Loading(GoodHelper.Common.EasyUI);
+            EIIS.Common.loadComponent(EIIS.Common.controls.EasyUI);
         </script>
         <link rel="stylesheet" type="text/css" href="/app/menuTree/css/tree.css" />
         <link rel="stylesheet" type="text/css" href="/app/menuTree/css/index.css" />

@@ -1,39 +1,112 @@
-
-
-
-.detail-div{
-    margin-top: 30px;
+.my-row{
+    display: flex;
 }
-.detail-div table thead{
-    background-color: #efefef;
+.my-right{
+    flex: 1;
 }
-.detail-div table thead th{
-    text-align: center;
-}
-
-.detail-div table tbody .caozuo{
-    text-align: center;
-}
-.detail-div table tbody .caozuo>div{
-    margin: 0px auto;
-    font-size: 20px;
-    line-height: 30px;
-    cursor: pointer;
+.sr-table{
+    text-align:center;
+    font-size: 13px;
+    color: #555;
+    padding:10px 5px;
+    border: 1px solid #efefef;
     border-radius: 4px;
-    color: #d9534f;
-    width: 100%;
+    width: 350px;
+    background-color: #fff;
+
+}
+.sr-table>.sr-thead{
+    border-bottom: 1px solid #efefef;
+}
+.sr-table>.sr-thead>.sr-tr{
+    padding-bottom: 10px;
+}
+.sr-table>.sr-thead>.sr-tr,.sr-table>.sr-tbody>.sr-tr{
+    display: flex;
+}
+.sr-table .sr-th,.sr-table .sr-td{
+    flex: 1;
+}
+.sr-table .sr-td>div{
+    display:flex;
+    justify-content:center;
+    padding: 6px;
+}
+.sr-table .sr-td>div>div{
+    padding: 9px 0px;
+    width: 30px;
+}
+/*选中的日期*/
+.day-checked{
+    border:4px solid #ffc1d9;
+    border-radius:50%;
+    width: 36px !important;
+    padding: 5px 0px !important;
+}
+/*预测*/
+.jq-yc{
+    border:1px dotted #ff7aad;
+    color: #555;
+}
+.jq-yc-start{
+    border-top-left-radius:25px;
+    border-right:none;
+    border-bottom-left-radius:25px;
+}
+.jq-yc-center{
+    border-left: none;
+    border-right: none;
+}
+.jq-yc-end{
+    border-top-right-radius:25px;
+    border-left:none;
+    border-bottom-right-radius:25px;
 }
 
-.detail-div table>tfoot td{
-    text-align: center;
-    padding: 20px;
+/*实际*/
+.jq-sj{
+    background-color: #ff7aad;
+    border:1px solid #ff7aad;
+    color:#fff;
 }
-.detail-div table>tfoot td>div{
-    width: 180px;
-    margin: 8px auto;
-    padding: 10px;
-    border: 1px solid #5cb85c;
-    color: #5cb85c;
-    border-radius: 4px;
-    cursor: pointer;
+.jq-sj-start{
+    border-top-left-radius:25px;
+    border-bottom-left-radius:25px;
+}
+.jq-sj-end{
+    border-top-right-radius:25px;
+    border-bottom-right-radius:25px;
+}
+
+/*排卵期*/
+.jq-plq{
+    color: #c963ff;
+}
+/*排卵日*/
+.jq-plr{
+    color: #70ceff;
+}
+.jq-msgs{
+    font-size: 10px;
+    padding:15px 0px 0px 0px
+}
+.jq-msgs>text{
+    padding: 2px 4px;
+}
+.jq-msg{
+    color:#ff6ea4;
+}
+.cycle-text,.cycle-num{
+    color:#ff6ea4;
+}
+
+.my-bottom-button{
+    position:absolute;
+    bottom:15px;
+    width:100%;
+}
+.my-bottom-button .btn-ll{
+    width: 100px;
+    background-color: #ff6ea4;
+    border: 1px solid #ff6ea4;
 }

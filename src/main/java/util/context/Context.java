@@ -6,9 +6,13 @@ import eiis.core.menuTree.service.CoreMenuTreeService;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.nio.charset.Charset;
 
 public class Context {
     private static HttpServletRequest request;
@@ -75,5 +79,98 @@ public class Context {
         if(request != null){
             request.getSession().setAttribute(key,o);
         }
+    }
+
+    public static HttpServletRequest getRequest() {
+        return request;
+    }
+
+    public static HttpServletResponse getResponse() {
+        return response;
+    }
+
+    private static boolean isPC(String agent) {
+
+        String[] keywords = new String[]{
+                "Windows NT",
+                "Macintosh"
+        };
+
+
+        for (int i = 0, j = keywords.length; i < j; i++) {
+            if (agent.indexOf(keywords[i]) >= 0) {
+                return true;
+            }
+        }
+        return false;
+
+    }
+    public static boolean isPhone(){
+        return !isPC(getRequest().getHeader("user-agent"));
+    }
+
+
+    private static ServletContext _servletContext = null;
+
+    static void setServletContext(ServletContext servletContext) {
+        _servletContext = servletContext;
+    }
+
+    public static ServletContext getServletContext() {
+        return _servletContext;
+    }
+
+
+    private static Charset _charset = null;
+
+    static void setCharset(Charset charset) {
+        _charset = charset;
+
+        //为 Tomcat 设置缺省的 Charset;
+        Class<?> tomcat = null;
+        try {
+            tomcat = Class.forName("org.apache.tomcat.util.http.Parameters");
+        } catch (ClassNotFoundException ignore) {
+        }
+        if (tomcat != null) {
+            //当前 Web 容器是 Tomcat
+            Field field;
+            Field modifiersField;
+            try {
+                field = tomcat.getDeclaredField("DEFAULT_ENCODING");
+                field.setAccessible(true);
+                modifiersField = Field.class.getDeclaredField("modifiers");
+                modifiersField.setAccessible(true);
+                modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+                //System.out.println(Modifier.toString(field.getModifiers()));
+                field.set(null, _charset.name());
+                //System.out.println("DEFAULT_ENCODING=" + field.get(tomcat));
+            } catch (NoSuchFieldException | IllegalAccessException ignore) {
+            }
+            try {
+                field = tomcat.getDeclaredField("DEFAULT_CHARSET");
+                field.setAccessible(true);
+                modifiersField = Field.class.getDeclaredField("modifiers");
+                modifiersField.setAccessible(true);
+                modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+                //System.out.println(Modifier.toString(field.getModifiers()));
+                field.set(null, _charset);
+                //System.out.println("DEFAULT_CHARSET=" + field.get(tomcat));
+            } catch (NoSuchFieldException | IllegalAccessException ignore) {
+            }
+
+        }
+    }
+
+    static void setCharset(String charset) {
+        setCharset(Charset.forName(charset));
+    }
+
+    public static Charset getCharset() {
+        return _charset;
+    }
+
+    public static String getRequestPath(){
+        return getRequest().getRequestURI();
     }
 }

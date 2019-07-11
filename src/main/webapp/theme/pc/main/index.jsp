@@ -33,14 +33,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- 设置浏览器窗口图标 -->
     <link rel="shortcut icon"type="image/x-icon" href="/theme/pc/main/img/logoIco.ico"media="screen" />
-    <script type="text/javascript" src="/public/jquery/jquery.js"></script>
-    <script type="text/javascript" src="/public/control/resourcesload/goodhelper.js"></script>
+    <script type="text/javascript" src="/public/eiis/eiis.js"></script>
 
     <script type="text/javascript">
         $(function(){
-            GoodHelper.Loading(GoodHelper.Common.Util);
-            GoodHelper.Loading(GoodHelper.Common.FontIcon);
-            GoodHelper.Loading(GoodHelper.Common.Bootstrap);
+            EIIS.Common.loadComponent(EIIS.Common.bootstrap.font_awesome);
+            EIIS.Common.loadComponent(EIIS.Common.UI);
+            EIIS.Common.loadComponent(EIIS.Common.jQuery.message);
         })
     </script>
     <link href="/theme/pc/main/css_js/index.css" rel="stylesheet">
@@ -78,7 +77,7 @@
 
 <div class="main-center-div">
     <div class="main-center-nav"></div>
-    <div class="main-center" style="margin-top: 15px;">
+    <div class="main-center">
         <master:ContentPlaceHolder id="body"/>
     </div>
 

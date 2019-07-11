@@ -20,7 +20,7 @@
     <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
     <master:Content contentPlaceHolderId="head">
         <script type="text/javascript">
-            GoodHelper.Loading(GoodHelper.Common.BootstrapTable);
+            EIIS.Common.loadComponent(EIIS.Common.bootstrap.BootstrapTable);
         </script>
         <style type="text/css">
             button>i{
@@ -62,69 +62,62 @@
         </div>
 
         <!-- 模态框（Modal） -->
-        <div id="search_form" class="modal fade" tabindex="-1" aria-hidden="true" data-backdrop="static">
-            <div class="modal-dialog" style="width: 55%;">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">
-                            搜索
-                        </h4>
+
+        <div id="search_form" class="modal" data-width="40%" tabindex="-1" aria-hidden="true" data-backdrop="static">
+            <div class="panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">
+                    <span style="font-weight: bold;">搜索</span>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <input type="hidden" name="inputId" value=""/>
+                <div class="row">
+                    <div class="col-xs-12 col-md-12" style="display: flex">
+                        <label style="width: 80px;line-height: 36px;">关键字：</label>
+                        <input type="text" class="form-control" name="searchKey" placeholder="请填写单据编号：" >
                     </div>
-                    <div class="modal-body">
-                        <input type="hidden" name="inputId" value=""/>
-                        <div class="row">
-                            <div class="col-xs-12 col-md-12" style="display: flex">
-                                <label style="width: 80px;line-height: 36px;">关键字：</label>
-                                <input type="text" class="form-control" name="searchKey" placeholder="请填写单据编号：" >
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>关闭</button>
-                        <button onclick="getSearch('search_form')" type="button" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i>搜索</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>关闭</button>
+                <button onclick="getSearch('search_form')" type="button" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i>搜索</button>
+            </div>
         </div>
 
         <!-- 模态框（Modal） -->
-        <div id="my_modal" class="modal fade" tabindex="-1" aria-hidden="true" data-backdrop="static">
-            <div class="modal-dialog" style="width: 450px;">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">
-                            新增/修改 一条数据
-                        </h4>
+        <div id="my_modal" class="modal" data-width="50%" tabindex="-1" aria-hidden="true" data-backdrop="static">
+            <div class="panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">
+                    <span style="font-weight: bold;">新增/修改 一条数据</span>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <input type="hidden" name="urlId" value=""/>
+                <div class="row">
+                    <div class="col-xs-6 col-md-6">
+                        <h5>菜单名称:</h5>
+                        <input type="text" class="form-control" name="urlTitle" placeholder="请填写菜单名称：">
                     </div>
-                    <div class="modal-body">
-                        <input type="hidden" name="urlId" value=""/>
-                        <div class="row">
-                            <div class="col-xs-6 col-md-6">
-                                <h5>菜单名称:</h5>
-                                <input type="text" class="form-control" name="urlTitle" placeholder="请填写菜单名称：">
-                            </div>
-                            <div class="col-xs-6 col-md-6">
-                                <h5>菜单编码:</h5>
-                                <input type="text" class="form-control" name="urlCode" placeholder="请填写菜单编码：">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12 col-md-12">
-                                <h5>菜单路径:</h5>
-                                <input type="text" class="form-control" name="urlStr" placeholder="请填写菜单名称：">
-                            </div>
-                        </div>
+                    <div class="col-xs-6 col-md-6">
+                        <h5>菜单编码:</h5>
+                        <input type="text" class="form-control" name="urlCode" placeholder="请填写菜单编码：">
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>关闭</button>
-                        <button type="button" class="btn btn-primary" onclick="save_main()">
-                            <i class="glyphicon glyphicon-floppy-save"></i>保存
-                        </button>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <h5>菜单路径:</h5>
+                        <input type="text" class="form-control" name="urlStr" placeholder="请填写菜单名称：">
                     </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>关闭</button>
+                <button type="button" class="btn btn-primary" onclick="save_main()">
+                    <i class="glyphicon glyphicon-floppy-save"></i>保存
+                </button>
+            </div>
         </div>
 
         <script src="/app/menuUrl/css_js/index.js" type="text/javascript"></script>

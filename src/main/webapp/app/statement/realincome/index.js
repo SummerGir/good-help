@@ -14,8 +14,11 @@ $(window).load(function(){
     detailCharts=$("#detailCharts");
     loadTable();
 
-    loadCharts();
-    loadTableData();
+    require(['echarts3'],function (ecs) {
+        echarts = ecs;
+        loadCharts();
+        loadTableData();
+    });
 
     window.onresize=function(){
         if(myCharts){
@@ -104,7 +107,8 @@ function loadTableData(){
         success : function(msg){
             if($.isEmptyObject(msg)){
                 mainTable.datagrid('loadData',{rows:[],footer:[]});
-                myCharts.clear();
+                if(myCharts)
+                    myCharts.clear();
                 return;
             }
             try{
@@ -114,7 +118,8 @@ function loadTableData(){
                 loadChartsData(msg.rows);
             }catch (e){
                 mainTable.datagrid("loaded");
-                myCharts.clear();
+                if(myCharts)
+                    myCharts.clear();
             }
         }
     });

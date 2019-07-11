@@ -30,9 +30,8 @@
     <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
     <master:Content contentPlaceHolderId="head">
         <script type="text/javascript">
-            GoodHelper.Loading(GoodHelper.Common.BootstrapTable);
-            GoodHelper.Loading(GoodHelper.Common.BootstrapDateTimepicker);
-            GoodHelper.Loading(GoodHelper.Common.BaiduTTS);
+            EIIS.Common.loadComponent(EIIS.Common.bootstrap.BootstrapTable);
+            EIIS.Common.loadComponent(EIIS.Common.controls.BaiduTTS);
         </script>
 
         <link href="/app/meterialinput/css_js/index.css" rel="stylesheet"/>
@@ -64,7 +63,8 @@
                     <div class="col-xs-3 col-sm-3 col-md-3 my-col">
                         <div class="my-left-div2">录入日期：</div>
                         <div class="my-right-div2" style="padding: 0px;">
-                            <input class="form-control" name="queryData" type="text" readonly="readonly" placeholder="请选择查询日期：" value="<%=queryData%>" onchange="getSearch2(this)" />
+                            <%--<input class="form-control" name="queryData" type="text" readonly="readonly"  />--%>
+                            <input type="text" name="queryData" class="eiis-date form-control eiis-loaded my-pointer-de" value="<%=queryData%>" onchange="getSearch2(this)" placeholder="请选择查询日期：" style="background-color: #fff;"/>
                         </div>
                     </div>
                     <div class="col-xs-9 col-sm-9 col-md-9" style="text-align: right;">
@@ -96,112 +96,104 @@
         </div>
 
         <!-- 模态框（Modal） -->
-        <div id="search_form" class="modal fade" tabindex="-1" aria-hidden="true" data-backdrop="static">
-            <div class="modal-dialog" style="width: 55%;">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">
-                            搜索
-                        </h4>
+        <div id="search_form" class="modal" data-width="60%" tabindex="-1" aria-hidden="true" data-backdrop="static">
+            <div class="panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">
+                    <span style="font-weight: bold;">搜索</span>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <input type="hidden" name="inputId" value=""/>
+                <div class="row">
+                    <div class="col-xs-12 col-md-12" style="display: flex">
+                        <label style="width: 80px;line-height: 36px;">关键字：</label>
+                        <input type="text" class="form-control" name="searchKey" placeholder="请填写单据编号：" >
                     </div>
-                    <div class="modal-body">
-                        <input type="hidden" name="inputId" value=""/>
-                        <div class="row">
-                            <div class="col-xs-12 col-md-12" style="display: flex">
-                                <label style="width: 80px;line-height: 36px;">关键字：</label>
-                                <input type="text" class="form-control" name="searchKey" placeholder="请填写单据编号：" >
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>关闭</button>
-                        <button onclick="getSearch('search_form')" type="button" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i>搜索</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>关闭</button>
+                <button onclick="getSearch('search_form')" type="button" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i>搜索</button>
+            </div>
         </div>
 
         <!-- 模态框（Modal） -->
-        <div id="my_modal" class="modal fade" tabindex="-1" aria-hidden="true" data-backdrop="static">
-            <div class="modal-dialog" style="width: 60%;">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">
-                            新增/修改 一条数据
-                        </h4>
+        <div id="my_modal" class="modal" data-width="60%" tabindex="-1" aria-hidden="true" data-backdrop="static">
+            <div class="panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">
+                    <span style="font-weight: bold;">新增/修改 一条数据</span>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <input type="hidden" name="inputId" value=""/>
+                <input type="hidden" class="form-control" name="allMoney" placeholder="自动计算单据金额：" disabled="disabled">
+                <div class="row">
+                    <div class="col-xs-3 col-md-3">
+                        <h5>年份:</h5>
+                        <select class="form-control" name="year" required="required" onfocus="sz_border(this)">
+                            <%=sbYear.toString()%>
+                        </select>
                     </div>
-                    <div class="modal-body" style="padding-bottom: 0px;">
-                        <input type="hidden" name="inputId" value=""/>
-                        <input type="hidden" class="form-control" name="allMoney" placeholder="自动计算单据金额：" disabled="disabled">
-                        <div class="row">
-                            <div class="col-xs-3 col-md-3">
-                                <h5>年份:</h5>
-                                <select class="form-control" name="year" required="required" onfocus="sz_border(this)">
-                                    <%=sbYear.toString()%>
-                                </select>
-                            </div>
-                            <div class="col-xs-3 col-md-3">
-                                <h5>月份:</h5>
-                                <select class="form-control" name="month" required="required" onfocus="sz_border(this)">
-                                    <%=sbMonth.toString()%>
-                                </select>
-                            </div>
-                            <div class="col-xs-3 col-md-3">
-                                <h5>单据编号:</h5>
-                                <input type="text" class="form-control need_listen" val_type="double" name="number" placeholder="请填写编号：" required="required" onfocus="sz_border(this)">
-                            </div>
-                            <div class="col-xs-3 col-md-3">
-                                <h5>字母:</h5>
-                                <select class="form-control" name="exception">
-                                    <%=sbExc.toString()%>
-                                </select>
-                            </div>
-                        </div>
-                        <%--<div class="row">--%>
-                            <%--<div class="col-xs-9 col-md-9">--%>
-                                <%--<h5>备注说明:</h5>--%>
-                                <%--<input type="text" class="form-control" name="comment" placeholder="备注说明（可不填写）：">--%>
-                            <%--</div>--%>
-                            <%--<div class="col-xs-3 col-md-3">--%>
-                                <%--<h5>单据金额:</h5>--%>
-                                <%--<input type="text" class="form-control" name="allMoney" placeholder="自动计算单据金额：" disabled="disabled">--%>
-                            <%--</div>--%>
-                        <%--</div>--%>
+                    <div class="col-xs-3 col-md-3">
+                        <h5>月份:</h5>
+                        <select class="form-control" name="month" required="required" onfocus="sz_border(this)">
+                            <%=sbMonth.toString()%>
+                        </select>
+                    </div>
+                    <div class="col-xs-3 col-md-3">
+                        <h5>单据编号:</h5>
+                        <input type="text" class="form-control need_listen" val_type="double" name="number" placeholder="请填写编号：" required="required" onfocus="sz_border(this)">
+                    </div>
+                    <div class="col-xs-3 col-md-3">
+                        <h5>字母:</h5>
+                        <select class="form-control" name="exception">
+                            <%=sbExc.toString()%>
+                        </select>
+                    </div>
+                </div>
+                    <%--<div class="row">--%>
+                    <%--<div class="col-xs-9 col-md-9">--%>
+                    <%--<h5>备注说明:</h5>--%>
+                    <%--<input type="text" class="form-control" name="comment" placeholder="备注说明（可不填写）：">--%>
+                    <%--</div>--%>
+                    <%--<div class="col-xs-3 col-md-3">--%>
+                    <%--<h5>单据金额:</h5>--%>
+                    <%--<input type="text" class="form-control" name="allMoney" placeholder="自动计算单据金额：" disabled="disabled">--%>
+                    <%--</div>--%>
+                    <%--</div>--%>
 
-                        <div class="row detail-div">
-                            <div class="col-xs-12 col-md-12">
-                                <table class="table table-striped table-bordered table-condensed" style="margin: 0px;">
-                                    <thead>
-                                    <tr>
-                                        <th width="15%">减一项</th>
-                                        <th>材料</th>
-                                        <th width="20%">数量</th>
-                                        <th width="20%">价格</th>
-                                        <th width="20%">金额</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                    <tfoot>
-                                    <tr>
-                                        <td colspan="5">
-                                            <div onclick="sz_rows(null,true,null)" title="加一项">
-                                                <i class="glyphicon glyphicon-plus" style="margin-right: 5px;"></i>加一项
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
-                        </div>
+                <div class="row detail-div">
+                    <div class="col-xs-12 col-md-12">
+                        <table class="table table-striped table-bordered table-condensed" style="margin: 0px;">
+                            <thead>
+                            <tr>
+                                <th width="15%">减一项</th>
+                                <th>材料</th>
+                                <th width="20%">数量</th>
+                                <th width="20%">价格</th>
+                                <th width="20%">金额</th>
+                            </tr>
+                            </thead>
+                            <tbody></tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="5">
+                                    <div onclick="sz_rows(null,true,null)" title="加一项">
+                                        <i class="glyphicon glyphicon-plus" style="margin-right: 5px;"></i>加一项
+                                    </div>
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>关闭</button>
-                        <button type="button" class="btn btn-primary" onclick="save_main()"><i class="glyphicon glyphicon-floppy-save"></i>保存</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>关闭</button>
+                <button type="button" class="btn btn-primary" onclick="save_main()"><i class="glyphicon glyphicon-floppy-save"></i>保存</button>
+            </div>
         </div>
 
         <script type="text/javascript">

@@ -4,47 +4,87 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
-        <display-name>Archetype Created Web Application</display-name>
+    <display-name>Archetype Created Web Application</display-name>
 
-        <welcome-file-list>
-           <welcome-file>/theme/pc/index.jsp</welcome-file>
-        </welcome-file-list>
+    <welcome-file-list>
+       <welcome-file>/theme/pc/index.jsp</welcome-file>
+    </welcome-file-list>
 
-        <!--过滤-->
-        <filter>
-            <filter-name>context-init</filter-name>
-            <filter-class>util.filter.ContextInitFilter</filter-class>
-        </filter>
-        <filter-mapping>
-            <filter-name>context-init</filter-name>
-            <url-pattern>*</url-pattern>
-        </filter-mapping>
+    <!--过滤-->
+    <filter>
+        <filter-name>context-init</filter-name>
+        <filter-class>util.filter.ContextInitFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>context-init</filter-name>
+        <url-pattern>*</url-pattern>
+    </filter-mapping>
 
-        <!-- Spring MVC配置 -->
-        <servlet>
-            <servlet-name>spring-mvc</servlet-name>
-            <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-            <init-param>
-                <param-name>contextConfigLocation</param-name>
-                <param-value>classpath:applicationContext-mvc.xml</param-value>
-            </init-param>
-            <load-on-startup>1</load-on-startup>
-            <multipart-config></multipart-config>
-        </servlet>
-        <servlet-mapping>
-            <servlet-name>spring-mvc</servlet-name>
-            <url-pattern>*.do</url-pattern>
-        </servlet-mapping>
-
-         <!-- Spring配置 -->
-         <listener>
-             <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-         </listener>
-
-         <!-- 指定Spring Bean的配置文件所在目录。默认配置在WEB-INF目录下 -->
-        <context-param>
+    <!-- Spring MVC配置 -->
+    <servlet>
+        <servlet-name>spring-mvc</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>classpath:applicationContext-base.xml</param-value>
-        </context-param>
+            <param-value>classpath:applicationContext-mvc.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+        <multipart-config></multipart-config>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>spring-mvc</servlet-name>
+        <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DisplayServlet</servlet-name>
+        <servlet-class>util.io.file.DisplayServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DisplayServlet</servlet-name>
+        <url-pattern>/file/display/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DownloadServlet</servlet-name>
+        <servlet-class>util.io.file.DownloadServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DownloadServlet</servlet-name>
+        <url-pattern>/file/download/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FileInfoServlet</servlet-name>
+        <servlet-class>util.io.file.FileInfoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FileInfoServlet</servlet-name>
+        <url-pattern>/file/info/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SaveServlet</servlet-name>
+        <servlet-class>util.io.file.SaveServlet</servlet-class>
+        <multipart-config></multipart-config>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SaveServlet</servlet-name>
+        <url-pattern>/file/save/*</url-pattern>
+    </servlet-mapping>
+
+     <!-- Spring配置 -->
+     <listener>
+         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+     </listener>
+    <listener>
+        <listener-class>util.context.ContextServletListener</listener-class>
+    </listener>
+
+     <!-- 指定Spring Bean的配置文件所在目录。默认配置在WEB-INF目录下 -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:applicationContext-base.xml</param-value>
+    </context-param>
 
 </web-app>

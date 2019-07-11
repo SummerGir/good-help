@@ -57,8 +57,8 @@ table { border-collapse: collapse; border-spacing: 0; }
 }
 
 .main {
-  /*padding: 30px 100px;*/
-/*width: 960px;*/
+  padding: 30px 100px;
+width: 960px;
 margin: 0 auto;
 }
 .main h1{font-size:36px; color:#333; text-align:left;margin-bottom:30px; border-bottom: 1px solid #eee;}
@@ -79,7 +79,7 @@ margin: 0 auto;
 
 .icon_lists li{
   float:left;
-  width: 120px;
+  width: 100px;
   height:180px;
   text-align: center;
   list-style: none !important;

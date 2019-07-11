@@ -339,11 +339,7 @@ function isapple(){
       $.each(imgs,function(){
         imgsrcs.push($(this).attr("src"));
       });
-      localStorage.removeItem("srcs");
-      localStorage["srcs"]=imgsrcs;
-      $("body").attr("style","overflow : hidden");
-      $("#loadin").css("top",client.y/2+"px");
-      $("#lightbox").html("<iframe id=\"iframe\" src=\"/public/imgShowMaxSmail.jsp?src="+src+"&n="+Math.random()+"\" frameBorder=\"0\" width=\""+client.x*0.85+"px\" scrolling=\"no\" height=\""+client.y*0.85+"px\" allowTransparency=\"true\"></iframe>");
+
     }
 
     // Display previous and next navigation if appropriate.
