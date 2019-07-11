@@ -18,13 +18,12 @@
     String menuCode = "meterial_image";
     CoreMenuTreeInfoEntity menuTree = Context.getMenuTree(menuCode);
     String title = menuTree.getTitle();
-
 %>
 <master:ContentPage>
     <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
     <master:Content contentPlaceHolderId="head">
         <script type="text/javascript">
-            GoodHelper.Loading(GoodHelper.Common.BootstrapFileInput);
+//            GoodHelper.Loading(GoodHelper.Common.BootstrapFileInput);
         </script>
         <link href="/app/meterialimage/css_js/index.css" rel="stylesheet"/>
     </master:Content>
@@ -113,7 +112,7 @@
         <script type="text/javascript">
 
             $(window).load(function() {
-                initFileInput("kv-explorer","/app/meterialimage/saveMain.do")
+//                initFileInput("kv-explorer","/file/save")
 
             });
 

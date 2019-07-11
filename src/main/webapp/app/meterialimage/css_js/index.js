@@ -42,10 +42,19 @@ function initFileInput(ctrlName, uploadUrl) {
     var control = $('#' + ctrlName);
 
     var path = [
+        "/file/display/temp/20190711/0dfb8bd5-b87c-11e7-96df-64510645b30a/e04cf38c-8bf8-4ef7-953a-6803ead5d6ed/20190711133350.png"
     ]
     var con = [
-
+        {caption: "People-1.jpg", size: 576237, width: "120px", url: "", key: 1}
     ]
+    // displayUri: "/file/display/temp/20190711/0dfb8bd5-b87c-11e7-96df-64510645b30a/e04cf38c-8bf8-4ef7-953a-6803ead5d6ed/20190711133350.png"
+    // downloadUri: "/file/download/temp/20190711/0dfb8bd5-b87c-11e7-96df-64510645b30a/e04cf38c-8bf8-4ef7-953a-6803ead5d6ed/20190711133350.png"
+    // fileInfoUri: "/file/info/temp/20190711/0dfb8bd5-b87c-11e7-96df-64510645b30a/e04cf38c-8bf8-4ef7-953a-6803ead5d6ed/20190711133350.png"
+    // name: "20190711133350.png"
+    // path: "E:\good-helper\target\SpringMvcTest\WEB-INF\fileStorage\temp\20190711\0dfb8bd5-b87c-11e7-96df-64510645b30a\e04cf38c-8bf8-4ef7-953a-6803ead5d6ed\20190711133350.png"
+    // relativePath: "/temp/20190711/0dfb8bd5-b87c-11e7-96df-64510645b30a/e04cf38c-8bf8-4ef7-953a-6803ead5d6ed/20190711133350.png"
+    // size: 432171
+    // webDavUri: "/file/webdav/temp/20190711/0dfb8bd5-b87c-11e7-96df-64510645b30a/e04cf38c-8bf8-4ef7-953a-6803ead5d6ed/20190711133350.png"
 //                var path = [
 //                    "http://lorempixel.com/800/460/nature/1",//图片的地址
 //                    "http://lorempixel.com/800/460/nature/2",
