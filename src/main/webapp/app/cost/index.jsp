@@ -17,13 +17,8 @@
     CoreMenuTreeInfoEntity menuTree = Context.getMenuTree(menuCode);
     String title = menuTree.getTitle();
 
-    String typeDetailId = request.getParameter("typeDetailId");
-    TypeSelectEntity pse = AppTypeDetailService.getInstance().getTypeSelect(menuCode,typeDetailId);
-    typeDetailId= StringUtils.isNotBlank(pse.getSelectedTypeId())?pse.getSelectedTypeId():"00000000-00000000-00000000";
+    TypeSelectEntity pse = AppTypeDetailService.getInstance().getTypeSelect(menuCode,"");
     StringBuffer listOp = pse.getListOp();
-    StringBuffer finishedProOp = pse.getFinishedProOp();
-    StringBuffer doingProOp = pse.getDoingProOp();
-
 %>
 <master:ContentPage>
     <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
@@ -98,7 +93,7 @@
                 <input type="hidden" name="costId" value=""/>
                 <input type="hidden" name="addType" value="false"/>
                 <div class="row">
-                    <div class="col-xs-12 col-md -12">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
                         <h5>消费类型</h5>
                         <div class="type-select">
                             <select class="form-control" name="typeDetailId" onfocus="sz_border(this)">
@@ -109,18 +104,30 @@
                             </button>
                         </div>
                         <div class="type-input">
-                            <input type="text" class="form-control" name="typeName" placeholder="请填写消费类型名称">
+                            <input type="text" class="form-control" name="typeName" placeholder="请填写消费类型名称（必填）">
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-md-12">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
                         <h5>消费金额</h5>
-                        <input type="text" class="form-control" name="payMoney" placeholder="请填写消费金额" required="required">
+                        <input type="text" class="form-control" name="payMoney" placeholder="请填写消费金额（选填）">
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-12 col-md-12">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <h5>单价</h5>
+                        <input type="text" class="form-control" name="costPrice" placeholder="请填写单价（选填）">
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <h5>数量</h5>
+                        <input type="text" class="form-control" name="costNum" placeholder="请填写数量（选填）">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <h5>消费日期</h5>
+                        <input type="text" class="eiis-date" name="costTime" placeholder="请填写消费日期（选填）">
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6">
                         <h5>备注说明:</h5>
                         <input type="text" class="form-control" name="title" placeholder="请填写备注说明：">
                     </div>

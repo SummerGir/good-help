@@ -1,5 +1,10 @@
 <%@ page import="eiis.core.menuTree.entity.CoreMenuTreeInfoEntity" %>
 <%@ page import="util.context.Context" %>
+<%@ page import="eiis.app.typeinfo.service.AppTypeDetailService" %>
+<%@ page import="eiis.app.typeinfo.entity.TypeSelectEntity" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.List" %>
+<%@ page import="eiis.app.typeinfo.entity.AppTypeDetailEntity" %>
 <%@ taglib prefix="master" uri="util.masterPage" %>
 <%--
   Created by IntelliJ IDEA.
@@ -10,11 +15,13 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
+    String menuCode = "index";
     if(true){
-        request.getRequestDispatcher("/app/meterialinput/index.jsp").forward(request,response);
+        TypeSelectEntity pse = AppTypeDetailService.getInstance().getTypeSelect(menuCode,"");
+        List<AppTypeDetailEntity> doingList = pse.getDoingList();
+        request.getRequestDispatcher(doingList.get(0).getDetailValue()).forward(request,response);
         return;
     }
-    String menuCode = "index";
     CoreMenuTreeInfoEntity menuTree = Context.getMenuTree(menuCode);
     String title = menuTree.getTitle();
 %>

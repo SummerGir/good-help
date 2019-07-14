@@ -12,8 +12,8 @@ public class TypeSelectEntity {
     //大屏幕
     private StringBuffer finishedProOp = new StringBuffer();//无效类型
     private StringBuffer doingProOp = new StringBuffer();//有效类型
-    private List<Map<String,String>> finishedList = new ArrayList<>(); //无效类型的ID及NAME List
-    private List<Map<String,String>> doingList = new ArrayList<>(); //有效类型的ID及NAME List
+    private List<AppTypeDetailEntity> finishedList = new ArrayList<>(); //无效类型的ID及NAME List
+    private List<AppTypeDetailEntity> doingList = new ArrayList<>(); //有效类型的ID及NAME List
     private String selectedTypeName; // 选中的类型Name
     private String selectedTypeId;//选中的类型ID
 
@@ -25,19 +25,19 @@ public class TypeSelectEntity {
 
     public void setSelectedTypeId(String selectedTypeId) {this.selectedTypeId = selectedTypeId;}
 
-    public List<Map<String, String>> getFinishedList() {
+    public List<AppTypeDetailEntity> getFinishedList() {
         return finishedList;
     }
 
-    public void setFinishedList(List<Map<String, String>> finishedList) {
+    public void setFinishedList(List<AppTypeDetailEntity> finishedList) {
         this.finishedList = finishedList;
     }
 
-    public List<Map<String, String>> getDoingList() {
+    public List<AppTypeDetailEntity> getDoingList() {
         return doingList;
     }
 
-    public void setDoingList(List<Map<String, String>> doingList) {
+    public void setDoingList(List<AppTypeDetailEntity> doingList) {
         this.doingList = doingList;
     }
 

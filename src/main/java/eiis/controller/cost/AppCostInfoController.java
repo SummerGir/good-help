@@ -19,6 +19,7 @@ import util.dataManage.GenericController;
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -54,8 +55,12 @@ public class AppCostInfoController {
         String typeDetailId = request.getParameter("typeDetailId");
         String typeName = request.getParameter("typeName");
         String title = request.getParameter("title");
+        String costNum = request.getParameter("costNum");
+        String costPrice = request.getParameter("costPrice");
         String payMoney = request.getParameter("payMoney");
         String addType = request.getParameter("addType");
+        String costTime = request.getParameter("costTime");
+
         AppDailyCostInfoEntity entity = new AppDailyCostInfoEntity();
         if (StringUtils.isBlank(costId)) {
             entity.setCostId(UUID.randomUUID().toString());
@@ -71,8 +76,17 @@ public class AppCostInfoController {
         }
         entity.setTypeDetailId(typeDetailId);
         entity.setTitle(title);
-        entity.setPayMoney(new BigDecimal(payMoney));
-        entity.setSysTime(new Timestamp(new Date().getTime()));
+        if(StringUtils.isNotBlank(costTime)){
+            entity.setCostTime(new Timestamp(new SimpleDateFormat("yyyy-MM-dd").parse(costTime).getTime()));
+        }else{
+            entity.setCostTime(new Timestamp(new Date().getTime()));
+        }
+        if(StringUtils.isNotBlank(costNum))
+            entity.setCostNum(new BigDecimal(costNum));
+        if(StringUtils.isNotBlank(costPrice))
+            entity.setCostPrice(new BigDecimal(costPrice));
+        if(StringUtils.isNotBlank(payMoney))
+            entity.setPayMoney(new BigDecimal(payMoney));
         try {
            service.save(entity);
         }catch (Exception e){

@@ -7,9 +7,11 @@ var option = {
     data:{},//请求的参数
     toolbar:"#main_table_customRibbon",//表格上面的工具栏用哪个容器
     columns:[
-        {name:'typeDetailName',title:"消费类型",align:'left',width:'30%'},
-        {name:'payMoney',title:"消费金额",align:'left',width:'20%'},
-        {name:'sysTime',title:"编制日期",align:'center',width:'20%'},
+        {name:'typeDetailName',title:"消费类型",align:'left',width:'20%'},
+        {name:'payMoney',title:"消费金额",align:'right',width:'15%'},
+        {name:'costNum',title:"消费数量",align:'right',width:'15%'},
+        {name:'costPrice',title:"消费价格",align:'right',width:'15%'},
+        {name:'costTime',title:"消费日期",align:'center',width:'15%'},
         {name:'title',title:'备注说明',align:'left'}
     ]//表格列[{field:'name',title:'名称',align:'left',width:80,template:function(){}},{},{}]
 };
@@ -33,6 +35,10 @@ function loadTable(){
 
 function add_main(){
     add_type(false);
+    $("#my_modal input,#my_modal select").each(function (i,o) {
+        var name = $(o).attr("name");
+        $(o).val("");
+    });
     $('#my_modal').modal('show');
 }
 

@@ -181,8 +181,8 @@ public class AppTypeDetailService extends
 		StringBuffer listOp = new StringBuffer();
 		StringBuffer finishedProOp = new StringBuffer();
 		StringBuffer doingProOp = new StringBuffer();
-		List<Map<String,String>> finishedList = new ArrayList<>(); //已竣工项目部ID及NAME List
-		List<Map<String,String>> doingList = new ArrayList<>(); //在建工项目部ID及NAME List
+		List<AppTypeDetailEntity> finishedList = new ArrayList<>(); //已竣工项目部ID及NAME List
+		List<AppTypeDetailEntity> doingList = new ArrayList<>(); //在建工项目部ID及NAME List
 
 		AppTypeInfoEntity main = mainDao.findByTypeCode(typeCode);
 		if(main==null){
@@ -210,18 +210,10 @@ public class AppTypeDetailService extends
 					listOp.append("<option "+selected+" value='"+m.getTypeDetailId()+"'>"+m.getDetailName()+"</option>");
 					if (m.getIsValid()){
 						doingProOp.append("<li class='"+cls+"' role='resentation' onclick = \"click_type('").append(m.getTypeDetailId()).append("',this);\" ><a href='javascript:void(0)'>").append(m.getDetailName()).append("</a></li>");
-						Map<String,String> doingMap = new HashMap<String,String>();
-						doingMap.put("projectId",m.getTypeDetailId());
-						doingMap.put("projectName",m.getDetailName());
-						doingMap.put("group","有效");
-						doingList.add(doingMap);
+						doingList.add(m);
 					} else{
 						finishedProOp.append("<li class='"+cls+"' role='presentation' onclick = \"click_type('").append(m.getTypeDetailId()).append("',this);\" ><a href='javascript:void(0)'>").append(m.getDetailName()).append("</a></li>");
-						Map<String,String> fishedMap = new HashMap<String,String>();
-						fishedMap.put("projectId",m.getTypeDetailId());
-						fishedMap.put("projectName",m.getDetailName());
-						fishedMap.put("group","失效");
-						finishedList.add(fishedMap);
+						finishedList.add(m);
 					}
 					i++;
 				}

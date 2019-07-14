@@ -10,6 +10,8 @@ public class AppDailyCostInfoEntity {
     private String costId;
     private String title;
     private Timestamp costTime;
+    private BigDecimal costNum;
+    private BigDecimal costPrice;
     private BigDecimal payMoney;
     private String typeDetailId;
     private Timestamp sysTime;
@@ -42,6 +44,26 @@ public class AppDailyCostInfoEntity {
 
     public void setCostTime(Timestamp costTime) {
         this.costTime = costTime;
+    }
+
+    @Basic
+    @Column(name = "COST_NUM")
+    public BigDecimal getCostNum() {
+        return costNum;
+    }
+
+    public void setCostNum(BigDecimal costNum) {
+        this.costNum = costNum;
+    }
+
+    @Basic
+    @Column(name = "COST_PRICE")
+    public BigDecimal getCostPrice() {
+        return costPrice;
+    }
+
+    public void setCostPrice(BigDecimal costPrice) {
+        this.costPrice = costPrice;
     }
 
     @Basic
