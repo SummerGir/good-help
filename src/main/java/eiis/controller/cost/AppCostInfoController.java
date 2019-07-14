@@ -5,6 +5,8 @@ import com.sun.org.apache.regexp.internal.REUtil;
 import eiis.app.cost.entity.AppDailyCostInfoEntity;
 import eiis.app.cost.service.AppCostInfoService;
 import eiis.app.note.entity.AppNoteInfoEntity;
+import eiis.app.typeinfo.entity.AppTypeDetailEntity;
+import eiis.app.typeinfo.service.AppTypeDetailService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,19 +30,17 @@ import java.util.concurrent.Callable;
 public class AppCostInfoController {
     @Autowired
     protected AppCostInfoService service;
+    @Autowired
+    protected AppTypeDetailService TypeDetService;
 
     @RequestMapping("getMainInfo")
     @ResponseBody
     public String getMainInfo(HttpServletRequest request, @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer rows) throws  Exception {
-
         String mainId = request.getParameter("mainId");
         String searchKey = request.getParameter("searchKey");
         String beginTime = request.getParameter("beginTime");
         String endTime = request.getParameter("endTime");
         String typeDetailId = request.getParameter("typeDetailId");
-        if (StringUtils.isBlank(typeDetailId)) {
-            return GenericController.getTable(null, 0, page, rows);
-        }
         List<Map<String, Object>> list = service.getMainInfo(mainId, searchKey, beginTime, endTime, typeDetailId, page, rows);
 
         int count = service.getMainCount(mainId, searchKey, beginTime, endTime, typeDetailId);
@@ -49,18 +49,27 @@ public class AppCostInfoController {
     @RequestMapping("saveMain")
     @ResponseBody
     public ObjectNode saveMain(HttpServletRequest request)throws Exception{
-
+        String menuCode = request.getParameter("menuCode");
         String costId = request.getParameter("costId");
         String typeDetailId = request.getParameter("typeDetailId");
+        String typeName = request.getParameter("typeName");
         String title = request.getParameter("title");
-        String payMoney = request.getParameter("price");
+        String payMoney = request.getParameter("payMoney");
+        String addType = request.getParameter("addType");
         AppDailyCostInfoEntity entity = new AppDailyCostInfoEntity();
         if (StringUtils.isBlank(costId)) {
             entity.setCostId(UUID.randomUUID().toString());
-            entity.setTypeDetailId(typeDetailId);
         }else {
             entity = service.findOne(costId);
         }
+        if(Boolean.parseBoolean(addType)){
+            AppTypeDetailEntity en = TypeDetService.saveOne(menuCode,typeName);
+            if(en == null){
+                return GenericController.returnFaild("新增新类型 "+ typeName +" 失败");
+            }
+            typeDetailId = en.getTypeDetailId();
+        }
+        entity.setTypeDetailId(typeDetailId);
         entity.setTitle(title);
         entity.setPayMoney(new BigDecimal(payMoney));
         entity.setSysTime(new Timestamp(new Date().getTime()));

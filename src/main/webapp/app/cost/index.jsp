@@ -31,17 +31,16 @@
         <script type="text/javascript">
             EIIS.Common.loadComponent(EIIS.Common.bootstrap.BootstrapTable);
         </script>
-        <style type="text/css">
-            button>i{
-                margin-right: 5px;
-            }
-        </style>
+        <link href="/app/cost/css_js/index.css" rel="stylesheet"/>
     </master:Content>
     <master:Content contentPlaceHolderId="body">
         <div class="panel panel-default need-nav">
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12" style="text-align: right;">
+                        <button onclick="$('#search_form').modal()" type="button" class="btn btn-primary">
+                            <i class="glyphicon glyphicon-search"></i> 搜索
+                        </button>
                         <button onclick="add_main()" type="button" class="btn btn-success" id="add_main">
                             <i class="glyphicon glyphicon-plus"></i> 新增
                         </button>
@@ -58,14 +57,33 @@
 
         <!--画表格-->
         <div class="row">
-            <jsp:include page="/app/typeinfo/select.jsp" >
-                <jsp:param name="listOp" value="<%=listOp%>"/>
-                <jsp:param name="finishedProOp" value="<%=finishedProOp%>"/>
-                <jsp:param name="doingProOp" value="<%=doingProOp%>"/>
-            </jsp:include>
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <!--表格-->
                 <div id="myTableTest"></div>
+            </div>
+        </div>
+
+        <!-- 模态框（Modal） -->
+        <div id="search_form" class="modal" data-width="30%" tabindex="-1" aria-hidden="true" data-backdrop="static">
+            <div class="panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">
+                    <span style="font-weight: bold;">搜索</span>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12" style="display: flex">
+                        <label style="width: 110px;line-height: 36px;">消费类型：</label>
+                        <select class="form-control" name="typeDetailId" onfocus="sz_border(this)">
+                            <%=listOp.toString()%>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>关闭</button>
+                <button onclick="getSearch('search_form')" type="button" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i>搜索</button>
             </div>
         </div>
         <!--模态框-->
@@ -77,21 +95,34 @@
                 </h3>
             </div>
             <div class="panel-body">
-                <input type="hidden" name="noteId" value=""/>
+                <input type="hidden" name="costId" value=""/>
+                <input type="hidden" name="addType" value="false"/>
                 <div class="row">
                     <div class="col-xs-12 col-md -12">
-                        <h5>物品名称</h5>
-                        <input id="objName" type="text" class="form-control" name="title" placeholder="请填写物品名称：" required="required">
+                        <h5>消费类型</h5>
+                        <div class="type-select">
+                            <select class="form-control" name="typeDetailId" onfocus="sz_border(this)">
+                                <%=listOp.toString()%>
+                            </select>
+                            <button onclick="add_type(true)" type="button" class="btn btn-success">
+                                <i class="glyphicon glyphicon-plus"></i>
+                            </button>
+                        </div>
+                        <div class="type-input">
+                            <input type="text" class="form-control" name="typeName" placeholder="请填写消费类型名称">
+                        </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-12 col-md-12">
                         <h5>消费金额</h5>
-                        <div class="input-group">
-                            <span class="input-group-addon">￥</span>
-                            <input id="objPrice" type="text" class="form-control" name="price" placeholder="请填写物品价格" required="required">
-                            <span class="input-group-addon">.00</span>
-                        </div>
+                        <input type="text" class="form-control" name="payMoney" placeholder="请填写消费金额" required="required">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <h5>备注说明:</h5>
+                        <input type="text" class="form-control" name="title" placeholder="请填写备注说明：">
                     </div>
                 </div>
             </div>
@@ -102,90 +133,9 @@
         </div>
         <!--js-->
         <script type="text/javascript">
-            var myTable = $("#myTableTest");
-            var selectedRow;
-            var _typeDetailId = "<%=typeDetailId%>";
-            var loading = false;//控制项目列表频繁点击
-            var option = {
-                id:"#myTableTest",//需要绑定的Id或class
-                url:"/app/cost/getMainInfo.do",//表格请求的路径
-                data:{typeDetailId:_typeDetailId},//请求的参数
-                toolbar:"#main_table_customRibbon",//表格上面的工具栏用哪个容器
-                columns:[
-                    {name:'title',title:"标题",align:'left'},
-                    {name:'content',title:'内容',align:'left'},
-                    {name:'sysTime',title:"编制日期",align:'center',width:'20%'}
-                ]//表格列[{field:'name',title:'名称',align:'left',width:80,template:function(){}},{},{}]
-            };
-            $(window).load(function(){
-                clone_my_nav("need-nav");
-                myTable.ghTable(option);
-                myTable.on("table.created", function() {
-//                    $.message("创建表格");
-                    loading = false;
-                });
-                //行选中
-                myTable.on("table.row.selected", function(event,eventData) {
-                    selectedRow = eventData.row;
-                });
-            });
-            function save_main() {
-                var flag = true;
-                var postData = {};
-                $("#my_modal input").each(function () {
-                    var name = $(this).attr("name");
-                    if ($(this).attr("required") && !$(this).val()) {
-                       flag=false;
-                       $(this).css ("border","1px,solid,red");
-                       $.message($(this).prev().text() + "不能为空");
-                       return false;
-                    }
-                    else {
-                        postData[name] = $(this).val();
-                    }
-                })
-                if(!flag)  return;
-                postData["typeDetailId"] = _typeDetailId;
-                $.ajax({
-                    url:"/app/cost/saveMain.do",  //请求路径
-                    data:postData, //请求参数
-                    type:"post", //请求方式
-                    async:true,  //是否异步，默认值true
-                    dataType:'json',
-                    success:function(rs){ ////成功之后回调
-                        $.message(rs.msg);
-                        if(rs.error == 0){
-                            $('#my_modal').modal('hide');
-                            loadTable();
-                        }
-                    }
-                });
-            }
-
-            function loadTable(){
-                selectedRow = null;//刷新列表前，把选中行设置为空
-                myTable.ghTable();//刷新列表，可以不传参
-            }
-
-
-            function add_main(){
-                $('#my_modal').modal('show');
-            }
-
-            function edit_main() {
-                if(selectedRow == null){
-                    $.message("请先选中一行");
-                    return;                    
-                }
-                $("#my_modal #objName,#my_modal select,#my_modal #objPrice").each(function () {
-                    var name = $.attr("name");
-                    $(this).val(selectedRow[name]);
-                })
-                $('#my_modal').modal('show');
-                
-            }
+            var menuCode = "<%=menuCode%>";
         </script>
-
+        <script src="/app/cost/css_js/index.js" type="text/javascript"></script>
     </master:Content>
 </master:ContentPage>
     

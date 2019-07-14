@@ -34,12 +34,8 @@ public class AppMenstrualInfoController {
     @RequestMapping("getMainInfo")
     @ResponseBody
     public String getMainInfo(HttpServletRequest request, @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer rows) throws Exception {
-        String mainId = request.getParameter("mainId");
-        String searchKey = request.getParameter("searchKey");
-        String queryData = request.getParameter("queryData");
-
-        List<Map<String,Object>> list =  mainService.getMainInfo(mainId,searchKey,queryData,page,rows);
-        int count = mainService.getMainCount(mainId,searchKey,queryData);
+        List<Map<String,Object>> list =  mainService.getMainInfo(page,rows);
+        int count = mainService.getMainCount();
 
         return GenericController.getTable(list,count,page,rows);
     }
@@ -87,7 +83,7 @@ public class AppMenstrualInfoController {
                     }
                     diver = newCycle - oldCycle;
                     oldEntity.setMensCycle(newCycle);
-                    oldEntity.setMensDiver(diver);
+//                    oldEntity.setMensDiver(diver);
                     oldEntity.setIsValid(true);
 
                     mainService.save(oldEntity);

@@ -1,0 +1,17 @@
+
+button>i{
+    margin-right: 5px;
+}
+#my_modal .type-select{
+    display: flex;
+}
+#my_modal .type-select>select{
+    flex: 1;
+    margin-right: 5px;
+}
+#my_modal .type-select>i{
+    margin: 0px !important;
+}
+#my_modal .type-input{
+    display: none;
+}

@@ -1,6 +1,7 @@
 package eiis.app.typeinfo.service;
 
 import eiis.app.typeinfo.dao.AppTypeInfoDao;
+import eiis.app.typeinfo.entity.AppTypeDetailEntity;
 import eiis.app.typeinfo.entity.AppTypeInfoEntity;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
@@ -91,5 +92,14 @@ public class AppTypeInfoService extends
 			count = Integer.parseInt(list.get(0).toString());
 		}
 		return count;
+	}
+
+	public AppTypeInfoEntity findOneByTypeCode(String typeCode){
+		List<AppTypeInfoEntity> list = entityManager.createQuery("select en from AppTypeInfoEntity en where en.typeCode=:typeCode").setParameter("typeCode",typeCode).getResultList();
+		if(list != null && list.size() > 0){
+			return list.get(0);
+		}else{
+			return null;
+		}
 	}
 }

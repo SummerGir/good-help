@@ -330,9 +330,6 @@ function delete_main(){
     });
 }
 
-function sz_border(e){
-    $(e).css("border", "1px solid #ccc");
-}
 function sz_tbody(vals){
     $(".detail-div table tbody").empty();
     if(vals != null){

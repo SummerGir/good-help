@@ -65,6 +65,7 @@ function add_main(){
         $(this)[0].removeAttribute("disabled");
     });
     $("#my_modal *[name='parentId']").val(_treeNode.id);
+    $("#my_modal *[name='isShow']").val("true");
     $("#right_div .panel-footer").show();
 }
 

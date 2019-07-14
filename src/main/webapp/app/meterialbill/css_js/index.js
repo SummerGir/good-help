@@ -135,10 +135,6 @@ function get_data(){
     return postData;
 }
 
-function sz_border(e){
-    $(e).css("border", "1px solid #ccc");
-}
-
 //重置
 function search_show(form){
     $(".search-div input,.search-div select,.search-div textarea").each(function(){

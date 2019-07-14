@@ -1,27 +1,58 @@
+
+.plan-days{
+    color: #ccc;
+}
 .my-row{
     display: flex;
 }
 .my-right{
     flex: 1;
+    margin-left: 10px;
 }
 .sr-table{
     text-align:center;
     font-size: 13px;
     color: #555;
     padding:10px 5px;
-    border: 1px solid #efefef;
+    border: 1px solid #ddd;
     border-radius: 4px;
     width: 350px;
     background-color: #fff;
 
 }
-.sr-table>.sr-thead{
+.sr-table>.sr-title{
+    padding-bottom: 10px;
     border-bottom: 1px solid #efefef;
 }
-.sr-table>.sr-thead>.sr-tr{
-    padding-bottom: 10px;
+.sr-table>.sr-title>.sr-tr>.sr-td-title{
+    font-weight: bolder;
 }
-.sr-table>.sr-thead>.sr-tr,.sr-table>.sr-tbody>.sr-tr{
+.sr-table>.sr-title>.sr-tr>.sr-td-title>div{
+    display: inline-block;
+}
+.sr-table>.sr-title>.sr-tr>.sr-td-title>.left-button,.sr-table>.sr-title>.sr-tr>.sr-td-title>.right-button{
+    padding: 0px 6px;
+    cursor: pointer;
+}
+.sr-table>.sr-title>.sr-tr>.sr-td-button{
+    flex: 1;
+    text-align: right;
+}
+.sr-table>.sr-title>.sr-tr>.sr-td-button>.comIng{
+    border: 1px solid #ffc1d9;
+    border-radius: 4px;
+    background-color: #ffc1d9;
+    display: initial;
+    padding: 4px 15px;
+    cursor: pointer;
+}
+.sr-table>.sr-thead{
+    /*border-bottom: 1px solid #efefef;*/
+}
+.sr-table>.sr-thead>.sr-tr{
+    padding: 10px 0px;
+}
+.sr-table>.sr-title>.sr-tr,.sr-table>.sr-thead>.sr-tr,.sr-table>.sr-tbody>.sr-tr{
     display: flex;
 }
 .sr-table .sr-th,.sr-table .sr-td{
@@ -35,6 +66,7 @@
 .sr-table .sr-td>div>div{
     padding: 9px 0px;
     width: 30px;
+    cursor: pointer;
 }
 /*选中的日期*/
 .day-checked{
@@ -86,14 +118,27 @@
 .jq-plr{
     color: #70ceff;
 }
+
+.msgs-div{
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 10px;
+    padding: 0px 5px;
+}
 .jq-msgs{
     font-size: 10px;
-    padding:15px 0px 0px 0px
-}
-.jq-msgs>text{
-    padding: 2px 4px;
+    padding:10px 0px;
 }
 .jq-msg{
+    display: inline-block;
+    width: 110px;
+}
+.jq-msg>div{
+    padding: 2px 4px;
+    display: initial;
+}
+.jq-txt{
     color:#ff6ea4;
 }
 .cycle-text,.cycle-num{

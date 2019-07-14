@@ -50,8 +50,9 @@ public class AppCostInfoService extends GenericService<AppDailyCostInfoEntity,St
     //得到菜单列表
     public List<Map<String,Object>> getMainInfo(String mainId,String searchKey,String beginTime,String overTime,String typeDetailId,int page,int rows)throws Exception{
         Map<String,Object> values = new HashedMap();
-        values.put("typeDetailId",typeDetailId);
-        if(StringUtils.isNotBlank(mainId)){
+        if(StringUtils.isNotBlank(typeDetailId)){
+            values.put("typeDetailId",typeDetailId);
+        }if(StringUtils.isNotBlank(mainId)){
             values.put("mainId",mainId);
         }if(StringUtils.isNotBlank(searchKey)){
             values.put("searchKey",searchKey);
@@ -60,13 +61,14 @@ public class AppCostInfoService extends GenericService<AppDailyCostInfoEntity,St
         }if(StringUtils.isNotBlank(overTime)){
             values.put("overTime",overTime);
         }
-        String baseSql = "select adci.COST_ID,adci.TITLE,adci.COST_TIME,adci.PAY_MONEY,adci.TYPE_DETAIL_ID,adci.SYS_TIME from app_daily_cost_info adci left join app_type_info ati on adci.TYPE_DETAIL_ID=ati.TYPE_ID where adci.TYPE_DETAIL_ID=:typeDetailId " +
-                (StringUtils.isNotBlank(mainId)?" and adci.COST_ID=:mainId ":"")+
+        String baseSql = "select main.COST_ID,main.TITLE,main.COST_TIME,main.PAY_MONEY,main.TYPE_DETAIL_ID,atd.DETAIL_NAME,main.SYS_TIME from app_daily_cost_info main left join app_type_detail atd on main.TYPE_DETAIL_ID=atd.TYPE_DETAIL_ID  where 1=1 " +
+                (StringUtils.isNotBlank(typeDetailId)?" and main.TYPE_DETAIL_ID=:typeDetailId ":"")+
+                (StringUtils.isNotBlank(mainId)?" and main.COST_ID=:mainId ":"")+
                 (StringUtils.isNotBlank(searchKey)?" and (locate(:searchKey,ani.TITLE)>0 or locate(:searchKey,ani.CONTENT)>0) ":"")+
-                (StringUtils.isNotBlank(beginTime)?" and adci.SYS_TIME>=:beginTime ":"")+
-                (StringUtils.isNotBlank(overTime)?" and adci.SYS_TIME<=:overTime ":"")+
-                " order by ati.SYS_TIME desc";
-        String[] fields = {"costID", "title", "costTime", "payMoney", "typeDetailId","sysTime"};
+                (StringUtils.isNotBlank(beginTime)?" and main.SYS_TIME>=:beginTime ":"")+
+                (StringUtils.isNotBlank(overTime)?" and main.SYS_TIME<=:overTime ":"")+
+                " order by main.SYS_TIME desc";
+        String[] fields = {"costId", "title", "costTime", "payMoney", "typeDetailId","typeDetailName","sysTime"};
 
         List<Map<String, Object>> list = getNativeMapList(entityManager, baseSql, values, fields, page, rows);
 
@@ -77,19 +79,24 @@ public class AppCostInfoService extends GenericService<AppDailyCostInfoEntity,St
                 }
                 if("sysTime".equals(e.getKey().toString())){
                     m.put(e.getKey(),e.getValue().toString().split(" ")[0]);
+                }else if("payMoney".equals(e.getKey().toString())){
+                    m.put(e.getKey(),String.format("%.2f",Double.parseDouble(e.getValue().toString())));
                 }
             }
         }
         return list;
     }
     public int getMainCount(String mainId,String searchKey,String beginTime,String overTime,String typeDetailId){
-        String baseSql = "select count(1) from app_daily_cost_info adci where adci.TYPE_DETAIL_ID=:typeDetailId " +
-                (StringUtils.isNotBlank(mainId)?" and adci.NOTE_ID=:mainId ":"")+
+        String baseSql = "select count(1) from app_daily_cost_info main where 1=1 " +
+                (StringUtils.isNotBlank(typeDetailId)?" and main.TYPE_DETAIL_ID=:typeDetailId ":"")+
+                (StringUtils.isNotBlank(mainId)?" and main.NOTE_ID=:mainId ":"")+
                 (StringUtils.isNotBlank(searchKey)?" and (locate(:searchKey,ani.TITLE)>0 or locate(:searchKey,ani.CONTENT)>0) ":"")+
-                (StringUtils.isNotBlank(beginTime)?" and adci.SYS_TIME>=:beginTime ":"")+
-                (StringUtils.isNotBlank(overTime)?" and adci.SYS_TIME<=:overTime ":"");
-        Query query = entityManager.createNativeQuery(baseSql).setParameter("typeDetailId",typeDetailId);
-        if(StringUtils.isNotBlank(mainId)){
+                (StringUtils.isNotBlank(beginTime)?" and main.SYS_TIME>=:beginTime ":"")+
+                (StringUtils.isNotBlank(overTime)?" and main.SYS_TIME<=:overTime ":"");
+        Query query = entityManager.createNativeQuery(baseSql);
+        if(StringUtils.isNotBlank(typeDetailId)){
+            query.setParameter("typeDetailId",typeDetailId);
+        }if(StringUtils.isNotBlank(mainId)){
             query.setParameter("mainId",mainId);
         }if(StringUtils.isNotBlank(searchKey)){
             query.setParameter("searchKey",searchKey);

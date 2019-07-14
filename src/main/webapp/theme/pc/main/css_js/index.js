@@ -107,3 +107,7 @@ function clone_my_nav(clas){
 function reset_nav(){
     $(".main-center").css({"padding-top": $(".main-center-nav").height() + 15 + "px"});
 }
+
+function sz_border(e){
+    $(e).css("border", "1px solid #ccc");
+}

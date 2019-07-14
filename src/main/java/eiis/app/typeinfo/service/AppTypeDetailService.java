@@ -5,21 +5,20 @@ import eiis.app.typeinfo.dao.AppTypeInfoDao;
 import eiis.app.typeinfo.entity.AppTypeDetailEntity;
 import eiis.app.typeinfo.entity.AppTypeInfoEntity;
 import eiis.app.typeinfo.entity.TypeSelectEntity;
+import net.sourceforge.pinyin4j.PinyinHelper;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import util.Utils;
 import util.dataManage.GenericDao;
 import util.dataManage.GenericService;
 import util.spring.ApplicationContext;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service("eiis.app.typeinfo.service.AppTypeDetailService")
 public class AppTypeDetailService extends
@@ -29,6 +28,8 @@ public class AppTypeDetailService extends
 	protected AppTypeDetailDao dao;
 	@Autowired
 	protected AppTypeInfoDao mainDao;
+	@Autowired
+	protected AppTypeInfoService mainService;
 
 	@Autowired
 	protected EntityManager entityManager;
@@ -55,6 +56,30 @@ public class AppTypeDetailService extends
 	@Transactional
 	public void deleteByMainId(String mainId) throws Exception {
 		entityManager.createQuery("delete from AppTypeDetailEntity where typeId=:mainId").setParameter("mainId",mainId).executeUpdate();
+	}
+
+	@Transactional
+	public AppTypeDetailEntity saveOne(String menuCode,String typeName){
+		try{
+			AppTypeInfoEntity en = mainService.findOneByTypeCode(menuCode);
+
+			AppTypeDetailEntity entity = new AppTypeDetailEntity();
+			entity.setTypeDetailId(UUID.randomUUID().toString());
+			entity.setTypeId(en.getTypeId());
+			entity.setDetailLevel(1);
+
+			entity.setDetailName(typeName);
+			entity.setDetailCode(Utils.getPinYins(typeName));
+			entity.setDetailValue(entity.getDetailCode());
+			entity.setComment("自动新增项");
+			entity.setIsValid(true);
+			save(entity);
+
+			return entity;
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return null;
 	}
 	//得到菜单列表
 	public List<Map<String,Object>> getDetailInfo(String mainId,String searchKey,int page,int rows)throws Exception{
@@ -161,9 +186,9 @@ public class AppTypeDetailService extends
 
 		AppTypeInfoEntity main = mainDao.findByTypeCode(typeCode);
 		if(main==null){
-			listOp.append("<option value=''>--无此类型--</option>");
-			doingProOp.append("<li role='resentation' onclick = \"click_type('").append("00000000-0000-0000-000000000000").append("',this);\" ><a href='javascript:void(0)'>无此类型</a></li>");
-			finishedProOp.append("<li role='resentation' onclick = \"click_type('").append("00000000-0000-0000-000000000000").append("',this);\" ><a href='javascript:void(0)'>无此类型</a></li>");
+			listOp.append("<option value=''>--暂无分类--</option>");
+			doingProOp.append("<li role='resentation' onclick = \"click_type('").append("00000000-0000-0000-000000000000").append("',this);\" ><a href='javascript:void(0)'>暂无分类</a></li>");
+			finishedProOp.append("<li role='resentation' onclick = \"click_type('").append("00000000-0000-0000-000000000000").append("',this);\" ><a href='javascript:void(0)'>暂无分类</a></li>");
 		}else{
 			List<AppTypeDetailEntity> list = dao.findByTypeId(main.getTypeId().toString());
 			if(list == null || list.size() < 1){
