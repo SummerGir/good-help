@@ -1,0 +1,93 @@
+﻿ul.uploadFiles {
+    display: block;
+    list-style-type: none;
+    padding: 0px 2px;
+    margin: 0px;
+}
+
+ul.uploadFiles li {
+    display: block;
+    margin: 0px;
+}
+
+ul.uploadFiles li.file {
+}
+
+ul.uploadFiles li.file span {
+    margin-left: 4px;
+}
+
+ul.uploadFiles li.file span.icon {
+}
+
+ul.uploadFiles li.file span.status {
+}
+
+ul.uploadFiles li.file span.progress {
+    height: 10px;
+    width: 100px;
+    border: 1px solid #4e86c4;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+ul.uploadFiles li.file span.progress span.value {
+    background-origin: padding-box;
+    background-clip: border-box;
+    background-size: auto;
+    overflow: hidden;
+    padding: 0px;
+    margin: 0px;
+    border-style: none;
+    border-width: 0px;
+    float: left;
+    height: 10px;
+    width: 0%;
+    background-color: rgb(137, 181, 233);
+}
+
+ul.uploadFiles li.file span.label {
+}
+
+ul.uploadFiles li.file.waiting span.label {
+    color: gray;
+}
+
+ul.uploadFiles li.file.revoke span.label {
+    text-decoration: line-through;
+}
+
+ul.uploadFiles li.file span.message {
+    color: black;
+}
+
+ul.uploadFiles li.file.error span.message {
+    color: red;
+}
+
+ul.uploadFiles li.file span.cancel {
+    cursor: pointer;
+}
+ul.uploadFiles li.file span.cancel:hover {
+    font-weight: bolder;
+}
+
+ul.uploadFiles li.file span.revoke {
+    cursor: pointer;
+}
+
+ul.uploadFiles li.file span.revoke:hover {
+    font-weight: bolder;
+}
+
+ul.uploadFiles li.file span.remove {
+    cursor: pointer;
+}
+
+ul.uploadFiles li.file span.remove:hover {
+    font-weight: bolder;
+}
+
+ul.uploadFiles li.select {
+}

@@ -330,7 +330,7 @@
         datetimepickerjs = ['/public/controls/time/js/mobiscroll.custom-3.0.0-beta.min.js'];
     }*/
     EIIS.Common.bootstrap = {
-        css: ['/public/bootstrap/css/bootstrap.min.css'],
+        css: ['/public/bootstrap/css/bootstrap.css'],
         js: ['/public/bootstrap/js/bootstrap.js'],
         theme: {
             dependency: ['EIIS.Common.bootstrap'],
@@ -634,18 +634,3 @@
     });
 
 })();
-
-
-window.addEventListener('message',function(e){
-    var data = e.data;
-    if (data.code == 'esgWeb_function') {
-        try {
-            var fname = eval(data.fname);
-            if (typeof fname === 'function') {
-                fname.call(this, data.param);
-            }
-        } catch (e) {
-            console.log("esgWeb_function:["+data.fname+"]"+JSON.stringify(e));
-        }
-    }
-},false);

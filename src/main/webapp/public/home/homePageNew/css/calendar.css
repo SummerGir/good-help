@@ -1,0 +1,158 @@
+/** { margin: 0; padding: 0; }*/
+body { font-family: "Microsoft Yahei"; font-size: 12px; color: #888; }
+a, a.ex2:hover { color: #888; text-decoration: none; }
+ul, li { list-style: none; }
+
+.calendar {
+  display: none;
+}
+.calendar-title {
+  position: relative;
+  height: 24px;
+  line-height: 24px;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+}
+.calendar-title a.title {
+  display: inline-block;
+  font-size: 15px;
+  color: #166de4;
+  font-weight: bold;
+  text-indent: 10px;
+}
+#backToday {
+  position: absolute;
+  left: 75%;
+  top: 0;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  border-radius: 50%;
+  color: #fff;
+  background-color:#00c0ef;
+  font-size: 12px;
+  z-index: 111;
+}
+.calendar-title .arrow {
+  position: absolute;
+  top: 0;
+  right: 6%;
+  width: 94%;
+}
+.calendar-title .arrow span {
+  color: #ddd;
+  font-weight: normal;
+  font-size: 16px;
+  cursor: pointer;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+.calendar-title .arrow span:hover {
+  color: #888;
+}
+.calendar-title .arrow-prev {
+  float: left;
+}
+.calendar-title .arrow-next {
+  float: left;
+}
+.calendar-week,
+.calendar-date {
+  overflow: hidden;
+}
+.calendar-week .item{
+  float: left;
+  width: 33px;
+  height: 22px;
+  line-height: 22px;
+  text-align: center;
+  font-size: 12px;
+  border: 1px solid #eee;
+  background-color: #f9f9f9;
+  cursor: default;
+  margin: 1px;
+}
+.calendar-date .item {
+  float: left;
+  width: 33px;
+  height: 22px;
+  line-height: 22px;
+  text-align: center;
+  font-size: 12px;
+  border: 1px solid #eee;
+  margin: 1px;
+}
+.calendar-week {
+  border-top: 1px solid #FBF6F6;
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 0;
+}
+.calendar-date,.calendar-week{
+  padding: 0;
+}
+.calendar-date .item:hover,
+.calendar-date .item-curMonth:hover {
+  background-color: #f0f0f0;
+}
+.calendar-date .item-curMonth {
+  color: #333;
+}
+.calendar-date .item-curDay,
+.calendar-date .item-curDay:hover {
+  color: #fff;
+  font-weight: 700;
+  border: 1px solid #00c0ef;
+  background-color: #00c0ef;
+}
+.calendar-today p {
+  color: #fff;
+  font-size: 14px;
+  line-height: 24px;
+}
+.calendar-date .item {
+  width: 13.5%;
+  cursor: pointer;
+  font-size: 14px;
+}
+.calendar-week .item{width: 13.5%}
+
+.data_admin h3 i.icon-rili{color: #7fd6fc;top: 0}
+.data_admin .only_this{height: 268px;padding: 0}
+.a_rili_i{width: 58%;}
+.a_richeng_i{width: 42%;}
+.a_richeng_i p{text-align: center;font-weight: 700;height: 27px; line-height: 27px;border-bottom: 1px solid #FBF6F6}
+.a_richeng_i ul{ border-left: 2px solid #eee;height: 130px}
+.a_richeng_i ul li{padding:4px 10px 4px 10px}
+/*.a_richeng_i ul li a{margin-left: 10px}*/
+.add_last a{display: block;width: 100%; height: 25px; background: url(/public/home/homePageNew/images/jia.png) 20px no-repeat; background-size:14px 14px ;background-color: #2ac68d;border-radius: 2px;color: #fff;}
+
+.calendar-date .item.xuanzhong{border:1PX SOLID #1093ed}
+.richengList{
+  padding: 0;
+}
+/*.richengList span{*/
+  /*display: inherit;*/
+/*}*/
+.richengList li{
+  word-break:keep-all;
+  white-space:nowrap;
+  overflow: hidden;
+  text-overflow:ellipsis;
+}
+.richengTemp{
+  overflow-y:scroll;
+}
+.nobrRichen{
+  /*margin-left: 10px*/
+  display : block;
+}
+.nobrRichenTop{
+  color : #333;
+}

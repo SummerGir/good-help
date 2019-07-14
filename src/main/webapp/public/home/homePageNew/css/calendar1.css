@@ -1,0 +1,157 @@
+/** { margin: 0; padding: 0; }*/
+body { font-family: "Microsoft Yahei"; font-size: 12px; color: #888; }
+a, a.ex1:hover { color: #888; text-decoration: none; }
+ul, li { list-style: none; }
+
+.calendars {
+  display: none;
+}
+.calendars-titles {
+  position: relative;
+  height: 24px;
+  line-height: 24px;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+}
+.calendars-titles a.titles {
+  display: inline-block;
+  font-size: 15px;
+  color: #166de4;
+  font-weight: bold;
+  text-indent: 10px;
+}
+#backTodays {
+  position: absolute;
+  left: 75%;
+  top: 0;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  border-radius: 50%;
+  color: #fff;
+  background-color: #00c0ef;
+  font-size: 12px;
+  z-index: 111;
+}
+.calendars-titles .arrow {
+  position: absolute;
+  top: 0;
+  right: 6%;
+  width: 94%;
+}
+.calendars-titles .arrow span {
+  color: #ddd;
+  font-weight: normal;
+  font-size: 16px;
+  cursor: pointer;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+.calendars-titles .arrow span:hover {
+  color: #888;
+}
+.calendars-titles .arrow-prevs {
+  float: left;
+}
+.calendars-titles .arrow-nexts {
+  float: left;
+}
+.calendars-weeks,
+.calendars-dates {
+  overflow: hidden;
+}
+.calendars-weeks .items{
+  float: left;
+  width: 33px;
+  height: 22px;
+  line-height: 22px;
+  text-align: center;
+  font-size: 12px;
+  border: 1px solid #eee;
+  background-color: #f9f9f9;
+  cursor: default;
+  margin: 1px;
+}
+.calendars-dates .items {
+  float: left;
+  width: 33px;
+  height: 22px;
+  line-height: 22px;
+  text-align: center;
+  font-size: 12px;
+  border: 1px solid #eee;
+  margin: 1px;
+}
+.calendars-weeks {
+  border-top: 1px solid #FBF6F6;
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 0;
+}
+.calendars-dates,.calendars-weeks{
+  padding: 0;
+}
+.calendars-dates .items:hover,
+.calendars-dates .items-curMonth:hover {
+  background-color: #f0f0f0;
+}
+.calendars-dates .items-curMonth {
+  color: #333;
+}
+.calendars-dates .items-curDay,
+.calendars-dates .items-curDay:hover {
+  color: #fff;
+  font-weight: 700;
+  border: 1px solid #00c0ef;
+  background-color: #00c0ef;
+}
+.calendars-today p {
+  color: #fff;
+  font-size: 14px;
+  line-height: 24px;
+}
+.calendars-dates .items {
+  width: 13.5%;
+  cursor: pointer;
+  font-size: 14px;
+}
+.calendars-weeks .items{width: 13.5%}
+
+.data_admin h3 i.icon-rili{color: #7fd6fc;top: 0}
+.data_admin .only_this{height: 268px;padding: 0}
+.a_rili_rizhi{width: 58%;}
+.a_rizhi_i{width: 42%;}
+.a_rizhi_i p{text-align: center;font-weight: 700;height: 27px; line-height: 27px;border-bottom: 1px solid #FBF6F6}
+.a_rizhi_i ul{ border-left: 2px solid #eee;height: 130px}
+.a_rizhi_i ul li{padding:4px 10px 4px 10px}
+.add_next a{display: block;width: 100%; height: 25px; background: url(/public/home/homePageNew/images/jia.png) 20px no-repeat; background-size:14px 14px ;background-color: #2ac68d;border-radius: 2px;color: #fff;}
+
+.calendars-dates .items.xuanzhong{border:1PX SOLID #1093ed}
+.rizhiList{
+  padding: 0;
+}
+/*.richengList span{*/
+  /*display: inherit;*/
+/*}*/
+.rizhiList li{
+  word-break:keep-all;
+  white-space:nowrap;
+  overflow: hidden;
+  text-overflow:ellipsis;
+}
+.richengTemp{
+  overflow-y:scroll;
+}
+.nobrRichen{
+  /*margin-left: 10px*/
+  display : block;
+}
+.nobrRichenTop{
+  color : #333;
+}
