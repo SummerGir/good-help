@@ -1,0 +1,36 @@
+@media all and (min-width: 768px) {
+    .fix-fixed-top {
+        border: 1px solid #ddd;
+        background-color: white;
+        z-index: 1000;
+        position: fixed;
+    }
+}
+/* default state */
+div.state-indicator {
+    position: absolute;
+    top: -999em;
+    left: -999em;
+    z-index: 1;
+}
+
+/* small desktop */
+@media all and (max-width: 1200px) {
+    div.state-indicator {
+        position: fixed;
+    }
+}
+
+/* tablet */
+@media all and (max-width: 1024px) {
+    div.state-indicator {
+        z-index: 3;
+    }
+}
+
+/* mobile phone */
+@media all and (max-width: 768px) {
+    div.state-indicator {
+        z-index: 4;
+    }
+}

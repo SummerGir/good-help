@@ -1,0 +1,63 @@
+.businessView .modal-footer,.businessView .modal-header{
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+.businessView .bodyWrapper{
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+.businessView .bodyWrapper>div{
+    position: absolute;
+    width: 100%;
+}
+.businessView .bodyWrapper>.pickMember{
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+.businessView .bodyWrapper>.selectAll{
+    width: auto;
+    right: 0;
+    height: 31px;
+    z-index: 1;
+    display: none;
+}
+.businessView .bodyWrapper>.dataGrid{
+    top: 0;
+    left: 0;
+    height: 100%;
+    padding-top: 45px;
+    padding-bottom: 32px;
+}
+.businessView .bodyWrapper>.paging{
+    bottom: 0;
+    left: 0;
+    height: 32px;
+}
+.businessView .bodyWrapper>.paging>.pagination{
+    width: 100%;
+    margin: 0;
+}
+.businessView .bodyWrapper>.dataGrid .datagrid-wrap{
+    border-width: 1px 1px 1px 1px;
+}
+.businessView .bodyWrapper>.dataGrid .datagrid-header-row{
+    height: 30px;
+}
+.businessView .bodyWrapper>.dataGrid .datagrid-row{
+    height: 28px;
+}
+.businessView .bodyWrapper>.dataGrid .icon-jujue{
+    font-size: 15px;
+    position: relative;
+    left: -1px;
+    top: -1px;
+}
+.businessView .bodyWrapper>.dataGrid .datagrid-mask-msg{
+    line-height: 17px !important;
+}
+.businessView .bodyWrapper .pickContainer>.pickInput>span{
+    color: #a1a1a1;
+}

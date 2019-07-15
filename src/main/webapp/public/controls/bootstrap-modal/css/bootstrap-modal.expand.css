@@ -1,0 +1,30 @@
+
+.modal-backdrop-expand {
+    position: fixed;
+    bottom: 0;
+}
+
+.modal-object-hidden {
+    /*display: none;*/
+    visibility: hidden;
+}
+
+@media (max-width: 979px) {
+    .modal,
+    .modal.container,
+    .modal.modal-overflow {
+        right: 20%;
+        left: 20%;
+        width: 60% !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal,
+    .modal.container,
+    .modal.modal-overflow {
+        right: 1%;
+        left: 1%;
+        width: auto !important;
+    }
+}

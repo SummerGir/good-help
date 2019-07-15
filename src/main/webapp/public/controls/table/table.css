@@ -1,0 +1,76 @@
+/*.table-template {
+        display: none;
+    }*/
+
+.table-toolbar {
+    padding: 1px;
+}
+
+/*.table-toolbar-fixed-top {*/
+    /*position: fixed;*/
+    /*border: 1px solid #ddd;*/
+    /*background-color: white;*/
+    /*z-index: 1000;*/
+/*}*/
+
+.table-custom-ribbon {
+    text-align: right;
+}
+
+.table-pagination {
+    margin: 0px !important;
+}
+
+.table-page-number {
+}
+
+.table-panel-body .table {
+    font-size: 13px;
+}
+
+.table-panel-body .table .sorting,
+.table-panel-body .table .sorting_asc,
+.table-panel-body .table .sorting_desc {
+    cursor: pointer;
+    *cursor: hand;
+}
+
+.table-panel-body .table .sorting {
+    background: url('sort_both.png') no-repeat center right;
+}
+
+.table-panel-body .table .sorting_asc {
+    background: url('sort_asc.png') no-repeat center right;
+}
+
+.table-panel-body .table .sorting_desc {
+    background: url('sort_desc.png') no-repeat center right;
+}
+
+.pagination > li > a {
+    border-radius: 50px;
+    border: 1px solid #5990de;
+    margin: 0px 2px;
+    color: #5990de;
+    /*font-size: small;*/
+    font-weight: bold;
+}
+
+.pagination > li > a:hover,
+.pagination > li > a:focus {
+    color: #fff;
+    background-color: #5990de;
+}
+
+.pagination > li.table-page-number > a:hover,
+.pagination > li.table-page-number > a:focus {
+    text-decoration: underline !important;
+}
+tr.info > td{
+    background-color: #5ba4db !important;
+    color: #f5fdfa;
+}
+
+tr.info > td *{
+    color: #f5fdfa;
+}

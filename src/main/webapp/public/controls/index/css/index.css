@@ -1,0 +1,4 @@
+﻿.table-responsive th{text-align: center;}
+.table-responsive td{vertical-align: middle!important;}
+.one-split{position: relative}
+.one-split>div.split{position: absolute;bottom: 7px;left: -7px;}

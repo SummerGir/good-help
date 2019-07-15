@@ -1,0 +1,5 @@
+
+.modal-object-hidden {
+    /*display: none;*/
+    visibility: hidden;
+}
