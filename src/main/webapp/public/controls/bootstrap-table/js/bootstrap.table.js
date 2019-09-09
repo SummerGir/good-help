@@ -129,7 +129,7 @@ TableEntity.prototype.loadTable = function(){
                     });
                     myDiv.find(".table-responsive table>tbody").append(myTd);
                     if(p_this.defaultOpt.allowSelected){
-                        myTd.bind("click",function(){
+                        myTd.unbind("click").bind("click",function(){
                             var m = $(this).attr("data-num");
                             var clas = "info";
                             if(!$(this).hasClass(clas)){
@@ -163,7 +163,7 @@ TableEntity.prototype.loadTable = function(){
                 myDiv.find(".table-footer .table-info").html("第&nbsp;"+s+"&nbsp;至&nbsp;"+e+"&nbsp;项,共&nbsp;"+records+"&nbsp;项");
                 myDiv.find(".table-toolbar .pull-left select").show();
 
-                myDiv.find(".table-toolbar .pull-left select").bind("click",function(){
+                myDiv.find(".table-toolbar .pull-left select").unbind("change").bind("change",function(){
                     p_this.defaultOpt.page = 1;
                     p_this.defaultOpt.rows = $(this).val();
                     p_this.loadTable();
@@ -198,8 +198,7 @@ TableEntity.prototype.loadTable = function(){
             }
             myDiv.find(".table-page-number").remove();
             myDiv.find(".table-footer .table-page-prev").after(myLi);
-            myDiv.find(".table-footer li").unbind("click");
-            myDiv.find(".table-footer li").bind("click",function(){
+            myDiv.find(".table-footer li").unbind("click").bind("click",function(){
                 if($(this).hasClass("disabled")){
                     return;
                 }
