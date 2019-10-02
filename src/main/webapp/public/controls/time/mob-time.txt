@@ -1,0 +1,34 @@
+1.引用插件
+	if(!EIIS.browser.pc)
+		EIIS.Common.loadComponent(EIIS.Common.bootstrap.mobdatetimepicker);
+		
+2.input定义属性：
+	eiis-dateType="yy-MM-dd HH:ii"
+	备注：	yy:年 MM:月 dd:日 HH:时 ii:分
+		可自由排列 自由组合
+	sTime="2016-6-6" 最小时间
+	eTime="2016-8-8" 最大时间
+	
+3.事件（可选）：
+	var conf = {
+		//初始化时
+		onInit: function (inst) {
+			
+		},
+		//弹出时
+		onShow: function (html, valueText, inst) {
+			
+		},
+		//滑动停止后
+		onChange: function (valueText, inst) {
+			
+		},
+		//关闭弹框时
+		onCancel: function (valueText, inst) {
+			
+		},
+		//点击确定后 d:日期+周  d2:日期  d:当前对象
+		callback: function(d,d2,d3){
+			
+		}
+	}
