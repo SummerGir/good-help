@@ -56,7 +56,7 @@ function delete_main(){
         ,result:function(result){
             if(result == $.message.result.yes){
                 $.post("/core/menuUrl/deleteMain.do", {
-                    mainId : selectedRow.noteId
+                    mainId : selectedRow.urlId
                 }, function(rs) {
                     $.message(rs.msg);
                     if (rs.error == 0) {
