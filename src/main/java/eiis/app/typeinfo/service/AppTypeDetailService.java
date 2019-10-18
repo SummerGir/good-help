@@ -207,7 +207,7 @@ public class AppTypeDetailService extends
 						pse.setSelectedTypeId(m.getTypeDetailId());
 						pse.setSelectedTypeName(m.getDetailName());
 					}
-					listOp.append("<option "+selected+" value='"+m.getTypeDetailId()+"'>"+m.getDetailName()+"</option>");
+					listOp.append("<option "+selected+" value='"+m.getTypeDetailId()+"' data-val='"+m.getDetailValue()+"'>"+m.getDetailName()+"</option>");
 					if (m.getIsValid()){
 						doingProOp.append("<li class='"+cls+"' role='resentation' onclick = \"click_type('").append(m.getTypeDetailId()).append("',this);\" ><a href='javascript:void(0)'>").append(m.getDetailName()).append("</a></li>");
 						doingList.add(m);

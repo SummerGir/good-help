@@ -124,6 +124,10 @@ function sz_border(e){
     $(e).css("border", "1px solid #ccc");
 }
 
+function sz_price(e){
+    $(e).css("border", "1px solid #ccc");
+}
+
 function loadTable(){
     selectedRow = null;//刷新列表前，把选中行设置为空
     myTable.ghTable();//刷新列表，可以不传参

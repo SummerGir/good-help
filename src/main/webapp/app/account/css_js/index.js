@@ -3,16 +3,14 @@ var selectedRow;
 var loading = false;//控制项目列表频繁点击
 var option = {
     id:"#myTableTest",//需要绑定的Id或class
-    url:"/app/cost/getMainInfo.do",//表格请求的路径
+    url:"/app/account/getMainInfo.do",//表格请求的路径
     data:{},//请求的参数
     toolbar:"#main_table_customRibbon",//表格上面的工具栏用哪个容器
     columns:[
-        {name:'typeDetailName',title:"消费类型",align:'left',width:'20%'},
-        {name:'payMoney',title:"消费金额",align:'right',width:'15%'},
-        {name:'costNum',title:"消费数量",align:'right',width:'15%'},
-        {name:'costPrice',title:"消费价格",align:'right',width:'15%'},
-        {name:'costTime',title:"消费日期",align:'center',width:'15%'},
-        {name:'title',title:'备注说明',align:'left'}
+        {name:'accountName',title:"账户",align:'left',width:'20%'},
+        {name:'accountPassword',title:"密码",align:'right',width:'25%'},
+        {name:'memberId',title:"用户",align:'right',width:'25%'},
+        {name:'comment',title:"备注",align:'right',width:'30%'}
     ]//表格列[{field:'name',title:'名称',align:'left',width:80,template:function(){}},{},{}]
 };
 $(window).load(function(){
@@ -35,7 +33,7 @@ function loadTable(){
 
 function add_main(){
     add_type(false);
-    $("#my_modal input,#my_modal select").each(function (i,o) {
+    $("#my_modal input,#my_modal select,#my_modal textarea").each(function (i,o) {
         var name = $(o).attr("name");
         $(o).val("");
     });
@@ -49,7 +47,7 @@ function edit_main() {
     }
     add_type(false);
 
-    $("#my_modal input,#my_modal select").each(function (i,o) {
+    $("#my_modal input,#my_modal select,#my_modal textarea").each(function (i,o) {
         var name = $(o).attr("name");
         $(o).val(selectedRow[name]);
     });
@@ -61,7 +59,7 @@ function edit_main() {
 function save_main() {
     var flag = true;
     var postData = {};
-    $("#my_modal input,#my_modal select").each(function () {
+    $("#my_modal input,#my_modal select,#my_modal textarea").each(function () {
         var name = $(this).attr("name");
         if ($(this).attr("required") && !$(this).val()) {
             flag=false;
@@ -73,20 +71,10 @@ function save_main() {
             postData[name] = $(this).val();
         }
     });
-    if(!flag)  return;
 
-    if(!Boolean.parse(postData.addType) && String.isNullOrWhiteSpace(postData.typeDetailId)){
-        $("#my_modal .type-select>select").css ("border","1px,solid,red");
-        $.message("请选择消费类型");
-        return false;
-    }else if(Boolean.parse(postData.addType) && String.isNullOrWhiteSpace(postData.typeName)){
-        $("#my_modal .type-input>input").css ("border","1px,solid,red");
-        $.message("请输入消费类型名称");
-        return false;
-    }
-    postData["menuCode"] = menuCode;
+    if(!flag)  return;
     $.ajax({
-        url:"/app/cost/saveMain.do",  //请求路径
+        url:"/app/account/saveMain.do",  //请求路径
         data:postData, //请求参数
         type:"post", //请求方式
         async:true,  //是否异步，默认值true
@@ -111,8 +99,8 @@ function delete_main(){
         ,text:"确定要删除此数据?"
         ,result:function(result){
             if(result == $.message.result.yes){
-                $.post("/app/cost/deleteMain.do", {
-                    mainId : selectedRow.costId
+                $.post("/app/account/deleteMain.do", {
+                    accountId : selectedRow.accountId
                 }, function(rs) {
                     $.message(rs.msg);
                     if (rs.error == 0) {

@@ -1,3 +1,6 @@
+<%@ page import="eiis.app.typeinfo.entity.TypeSelectEntity" %>
+<%@ page import="eiis.app.typeinfo.service.AppTypeDetailService" %>
+<%@ page import="org.apache.commons.lang3.StringUtils" %>
 <%@ page import="eiis.core.menuTree.entity.CoreMenuTreeInfoEntity" %>
 <%@ page import="util.context.Context" %>
 <%@ taglib prefix="master" uri="util.masterPage" %>
@@ -10,9 +13,17 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%
-    String menuCode = "menu_url";
+    String menuCode = "account";
     CoreMenuTreeInfoEntity menuTree = Context.getMenuTree(menuCode);
     String title = menuTree.getTitle();
+
+//    String typeDetailId = request.getParameter("typeDetailId");
+//    TypeSelectEntity pse = AppTypeDetailService.getInstance().getTypeSelect(menuCode,typeDetailId);
+//    typeDetailId= StringUtils.isNotBlank(pse.getSelectedTypeId())?pse.getSelectedTypeId():"00000000-00000000-00000000";
+//    StringBuffer listOp = pse.getListOp();
+//    StringBuffer finishedProOp = pse.getFinishedProOp();
+//    StringBuffer doingProOp = pse.getDoingProOp();
+
 %>
 <master:ContentPage>
     <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
@@ -27,17 +38,12 @@
         </style>
     </master:Content>
     <master:Content contentPlaceHolderId="body">
+
+        <!--表头-->
         <div class="panel panel-default need-nav">
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12" style="text-align: right">
-                        <button onclick="search_show('search_form')" type="button" class="btn btn-primary">
-                            <i class="glyphicon glyphicon-refresh"></i>刷新
-                        </button>
-                        <button onclick="$('#search_form').modal()" type="button" class="btn btn-primary">
-                            <i class="glyphicon glyphicon-search"></i> 搜索
-                        </button>
-
+                    <div class="col-md-12" style="text-align: right;">
                         <button onclick="add_main()" type="button" class="btn btn-success" id="add_main">
                             <i class="glyphicon glyphicon-plus"></i> 新增
                         </button>
@@ -52,6 +58,9 @@
             </div>
         </div>
 
+
+
+        <!--画表格-->
         <div class="row">
             <div class="col-md-12">
                 <!--表格-->
@@ -59,29 +68,7 @@
             </div>
         </div>
 
-        <!-- 模态框（Modal） -->
 
-        <div id="search_form" class="modal" data-width="40%" tabindex="-1" aria-hidden="true" data-backdrop="static">
-            <div class="panel-heading">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3 class="modal-title">
-                    <span style="font-weight: bold;">搜索</span>
-                </h3>
-            </div>
-            <div class="panel-body">
-                <input type="hidden" name="inputId" value=""/>
-                <div class="row">
-                    <div class="col-xs-12 col-md-12" style="display: flex">
-                        <label style="width: 80px;line-height: 36px;">关键字：</label>
-                        <input type="text" class="form-control" name="searchKey" placeholder="请填写单据编号：" >
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>关闭</button>
-                <button onclick="getSearch('search_form')" type="button" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i>搜索</button>
-            </div>
-        </div>
 
         <!-- 模态框（Modal） -->
         <div id="my_modal" class="modal" data-width="50%" tabindex="-1" aria-hidden="true" data-backdrop="static">
@@ -92,21 +79,33 @@
                 </h3>
             </div>
             <div class="panel-body">
-                <input type="hidden" name="urlId" value=""/>
+                <input type="hidden" name="noteId" value=""/>
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <h5>用户:</h5>
+                        <select class="form-control" name="memberId">
+                            <option>A</option>
+                            <option>a</option>
+                            <option>v</option>
+                        </select>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-xs-6 col-md-6">
-                        <h5>菜单名称:</h5>
-                        <input type="text" class="form-control" name="urlTitle" placeholder="请填写菜单名称：">
+                        <h5>账号:</h5>
+                        <input type="text" class="form-control" name="accountName" placeholder="请填写账号：">
                     </div>
                     <div class="col-xs-6 col-md-6">
-                        <h5>菜单编码:</h5>
-                        <input type="text" class="form-control" name="urlCode" placeholder="请填写菜单编码：">
+                        <h5>密码:</h5>
+                        <input type="text" class="form-control" name="accountPassword" placeholder="请填写密码：">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-12 col-md-12">
-                        <h5>菜单路径:</h5>
-                        <input type="text" class="form-control" name="urlStr" placeholder="请填写菜单名称：">
+                        <h5>备注:</h5>
+                        <textarea rows="3" class="form-control" name="comment" placeholder="请填写备注：" required="required"></textarea>
                     </div>
                 </div>
             </div>
@@ -118,6 +117,8 @@
             </div>
         </div>
 
-        <script src="/app/menuUrl/css_js/index.js" type="text/javascript"></script>
+
+        <script src="/app/account/css_js/index.js" type="text/javascript"></script>
+
     </master:Content>
 </master:ContentPage>

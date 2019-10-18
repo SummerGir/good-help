@@ -3,7 +3,7 @@ var weeks = ["周日", "周一", "周二", "周三", "周四", "周五", "周六
 var thisYear;
 var thisMonth;
 var thisDayStr = "";
-var thisCycle =  28;
+var thisCycle =  30;
 var mensDiver =  "准时来了";
 var jqState = 1;//1:来了，0走了
 
