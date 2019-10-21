@@ -3,6 +3,7 @@
 <%@ page import="org.apache.commons.lang3.StringUtils" %>
 <%@ page import="eiis.core.menuTree.entity.CoreMenuTreeInfoEntity" %>
 <%@ page import="util.context.Context" %>
+<%@ page import="eiis.core.memberInfo.service.CoreMemberInfoService" %>
 <%@ taglib prefix="master" uri="util.masterPage" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--
@@ -23,6 +24,10 @@
 //    StringBuffer listOp = pse.getListOp();
 //    StringBuffer finishedProOp = pse.getFinishedProOp();
 //    StringBuffer doingProOp = pse.getDoingProOp();
+
+
+    CoreMemberInfoService service =  CoreMemberInfoService.getInstance();
+    StringBuffer listOp = service.getListMember();
 
 %>
 <master:ContentPage>
@@ -85,9 +90,7 @@
                     <div class="col-xs-12 col-md-12">
                         <h5>用户:</h5>
                         <select class="form-control" name="memberId">
-                            <option>A</option>
-                            <option>a</option>
-                            <option>v</option>
+                            <%=listOp.toString()%>
                         </select>
                     </div>
                 </div>

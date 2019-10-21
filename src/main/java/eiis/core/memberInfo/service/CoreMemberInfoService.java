@@ -21,8 +21,12 @@ import java.util.Map;
 
 @Service("eiis.core.memberInfo.service.CoreMemberInfoService")
 public class CoreMemberInfoService extends GenericService<CoreMemberInfoEntity, String> {
+
+
     @PersistenceContext
     protected EntityManager entityManager;
+
+
     @Autowired
     private CoreMemberInfoDao dao;
 
@@ -90,6 +94,25 @@ public class CoreMemberInfoService extends GenericService<CoreMemberInfoEntity, 
     }
 
 
+    public StringBuffer getListMember(){
+        StringBuffer listOp = new StringBuffer();
+
+        List<CoreMemberInfoEntity> list = dao.findAll();
+        for (CoreMemberInfoEntity entity : list ){
+            System.out.println(entity.getMemberName());
+           // listOp.append("<option selected value='"+entity.getMemberName()+"' </option>");
+
+
+            listOp.append("<option selected value='"+entity.getMemberName()+"' data-val='"+entity.getMemberName()+"'>"+entity.getMemberName()+"</option>");
+        }
+
+        return listOp;
+    }
+
+
+
+
+
     @Transactional
     public void save(CoreMemberInfoEntity entity) throws Exception {
         dao.save(entity);
@@ -101,11 +124,6 @@ public class CoreMemberInfoService extends GenericService<CoreMemberInfoEntity, 
     }
 
 
-    public String getMemberNameInfo (){
 
-
-
-        return "";
-    }
 
 }
