@@ -170,7 +170,7 @@ function sz_price(e) {
 }
 function click_type(memberId,s) {
     $("#types_list li[class='active']").removeClass("active");
-    $(this).addClass("active");
+    $(s).addClass("active");
     if(memberId == "-1"){
         option.data.memberId = "";
         js_memberId = "";
