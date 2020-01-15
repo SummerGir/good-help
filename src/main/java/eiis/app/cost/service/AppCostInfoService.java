@@ -64,7 +64,7 @@ public class AppCostInfoService extends GenericService<AppDailyCostInfoEntity,St
         String baseSql = "select main.COST_ID,main.TITLE,main.COST_TIME,main.COST_NUM,main.COST_PRICE,main.PAY_MONEY,main.TYPE_DETAIL_ID,atd.DETAIL_NAME,main.SYS_TIME from app_daily_cost_info main left join app_type_detail atd on main.TYPE_DETAIL_ID=atd.TYPE_DETAIL_ID  where 1=1 " +
                 (StringUtils.isNotBlank(typeDetailId)?" and main.TYPE_DETAIL_ID=:typeDetailId ":"")+
                 (StringUtils.isNotBlank(mainId)?" and main.COST_ID=:mainId ":"")+
-                (StringUtils.isNotBlank(searchKey)?" and (locate(:searchKey,ani.TITLE)>0 or locate(:searchKey,ani.CONTENT)>0) ":"")+
+                (StringUtils.isNotBlank(searchKey)?" and (locate(:searchKey,mani.TITLE)>0 or locate(:searchKey,mani.CONTENT)>0) ":"")+
                 (StringUtils.isNotBlank(beginTime)?" and main.SYS_TIME>=:beginTime ":"")+
                 (StringUtils.isNotBlank(overTime)?" and main.SYS_TIME<=:overTime ":"")+
                 " order by main.COST_TIME desc";
@@ -86,6 +86,8 @@ public class AppCostInfoService extends GenericService<AppDailyCostInfoEntity,St
         }
         return list;
     }
+
+
     public int getMainCount(String mainId,String searchKey,String beginTime,String overTime,String typeDetailId){
         String baseSql = "select count(1) from app_daily_cost_info main where 1=1 " +
                 (StringUtils.isNotBlank(typeDetailId)?" and main.TYPE_DETAIL_ID=:typeDetailId ":"")+

@@ -103,7 +103,7 @@ public class CoreMemberInfoService extends GenericService<CoreMemberInfoEntity, 
            // listOp.append("<option selected value='"+entity.getMemberName()+"' </option>");
 
 
-            listOp.append("<option selected value='"+entity.getMemberName()+"' data-val='"+entity.getMemberName()+"'>"+entity.getMemberName()+"</option>");
+            listOp.append("<option selected value='"+entity.getMemberId()+"'>"+entity.getMemberName()+"</option>");
         }
 
         return listOp;

@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service("eiis.app.cost.service.AppAccountInfoService")
+@Service("eiis.app.account.service.AppAccountInfoService")
 public class AppAccountInfoService extends GenericService<AppAccountInfoEntity,String> {
 
     @Autowired
@@ -49,10 +49,10 @@ public class AppAccountInfoService extends GenericService<AppAccountInfoEntity,S
             values.put("accountId",accountId);
         }
 
-        String basicSql = "select aai.ACCOUNT_ID,aai.ACCOUNT_NAME,aai.ACCOUNT_PASSWORD,aai.MEMBER_ID,aai.`COMMENT` from app_account_info aai where 1=1 " +
+        String basicSql = "select aai.ACCOUNT_ID,aai.ACCOUNT_NAME,aai.ACCOUNT_PASSWORD,aai.MEMBER_ID,cmi.MEMBER_NAME,aai.`COMMENT` from app_account_info aai join core_member_info cmi on aai.MEMBER_ID = cmi.MEMBER_ID where 1=1 " +
                 (StringUtils.isNotBlank(accountId)?"and aai.ACCOUNT_ID=:accountId ":"");
 
-        String[] fields = {"accountId","accountName","accountPassword","memberId","comment"};
+        String[] fields = {"accountId","accountName","accountPassword","memberId","memberName","comment"};
 
         List<Map<String,Object>> list = getNativeMapList(entityManager,basicSql,values,fields,page,rows);
 

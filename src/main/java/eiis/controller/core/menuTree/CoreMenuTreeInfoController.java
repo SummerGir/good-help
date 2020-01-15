@@ -96,7 +96,6 @@ public class CoreMenuTreeInfoController {
         }
         entity.setTitle(title);
         entity.setUrlId(urlId);
-
         entity.setIcon(icon);
         entity.setIsShow(Boolean.parseBoolean(isShow));
         list.add(entity);

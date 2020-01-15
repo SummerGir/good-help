@@ -117,8 +117,8 @@ function get_det_data(){
             postData[name] = $(this).val();
         }
     });
+    console.log(postData);
     if(!flag) return;
-
     return postData;
 }
 

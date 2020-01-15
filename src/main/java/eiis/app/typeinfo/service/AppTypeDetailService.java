@@ -100,6 +100,7 @@ public class AppTypeDetailService extends
 		for (Map<String, Object> m : list) {
 			for (Map.Entry<String, Object> e : m.entrySet()) {
 				if (e.getValue() == null) {
+
 					m.put(e.getKey(), "");
 				}else{
 					m.put(e.getKey(),e.getValue().toString());
@@ -175,6 +176,9 @@ public class AppTypeDetailService extends
 		}
 		return n;
 	}
+
+
+
 	//类型选项
 	public TypeSelectEntity getTypeSelect(String typeCode, String selectedTypeId) {
 		TypeSelectEntity pse=new TypeSelectEntity();

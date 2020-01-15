@@ -243,6 +243,7 @@ TableEntity.prototype.mesTable = function(text){
         if(this.tableEntity == undefined){
             this.tableEntity = new TableEntity();
         }
+
         this.tableEntity.initTable(options);
     };
 })(jQuery);

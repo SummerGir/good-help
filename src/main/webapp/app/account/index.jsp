@@ -29,6 +29,7 @@
     CoreMemberInfoService service =  CoreMemberInfoService.getInstance();
     StringBuffer listOp = service.getListMember();
 
+    System.out.println("aa");
 %>
 <master:ContentPage>
     <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
@@ -89,7 +90,7 @@
                 <div class="row">
                     <div class="col-xs-12 col-md-12">
                         <h5>用户:</h5>
-                        <select class="form-control" name="memberId">
+                        <select class="form-control" name="memberId" required="required">
                             <%=listOp.toString()%>
                         </select>
                     </div>
@@ -98,17 +99,17 @@
                 <div class="row">
                     <div class="col-xs-6 col-md-6">
                         <h5>账号:</h5>
-                        <input type="text" class="form-control" name="accountName" placeholder="请填写账号：">
+                        <input type="text" class="form-control" name="accountName" placeholder="请填写账号：" required="required">
                     </div>
                     <div class="col-xs-6 col-md-6">
                         <h5>密码:</h5>
-                        <input type="text" class="form-control" name="accountPassword" placeholder="请填写密码：">
+                        <input type="text" class="form-control" name="accountPassword" placeholder="请填写密码：" required="required">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-12 col-md-12">
                         <h5>备注:</h5>
-                        <textarea rows="3" class="form-control" name="comment" placeholder="请填写备注：" required="required"></textarea>
+                        <textarea rows="3" class="form-control" name="comment" placeholder="请填写备注：" ></textarea>
                     </div>
                 </div>
             </div>
@@ -121,7 +122,7 @@
         </div>
 
 
-        <script src="/app/account/css_js/index.js" type="text/javascript"></script>
+        <script src="/app/account/css_js/index.js?r=<%=Math.random()%>" type="text/javascript"></script>
 
     </master:Content>
 </master:ContentPage>

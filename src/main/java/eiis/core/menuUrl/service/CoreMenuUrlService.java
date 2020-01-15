@@ -32,6 +32,7 @@ public class CoreMenuUrlService extends
 	protected GenericDao<CoreMenuUrlInfoEntity, String> getDaoInstance() {
 		return dao;
 	}
+
 	public static CoreMenuUrlService getInstance() {
 		return ApplicationContext.getCurrent().getBean(CoreMenuUrlService.class);
 	}

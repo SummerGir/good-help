@@ -3,7 +3,6 @@ package eiis.controller.core.memberInfo;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import eiis.core.memberInfo.entity.CoreMemberInfoEntity;
 import eiis.core.memberInfo.service.CoreMemberInfoService;
-import eiis.core.menuUrl.entity.CoreMenuUrlInfoEntity;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import util.dataManage.GenericController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;

@@ -163,19 +163,19 @@ function loadTbody() {
 }
 
 function changeMonth(type){
-    var d = new Date();
-    d.setFullYear(thisYear);
-    d.setMonth(thisMonth);
-
     if(type){
-        d.setMonth(d.getMonth() - 1);
-    }else{
-        d.setMonth(d.getMonth() + 1);
+        thisMouth ++;
+        if(thisMouth > 11){
+            thisYear++;
+            thisMouth = 0;
+        }
+    }else {
+        thisMouth --;
+        if(thisMouth<0){
+            thisYear--;
+            thisMouth = 11;
+        }
     }
-    // console.log(text)
-    //将当前坐标进行保存以进行下一次计算
-    thisYear = d.getFullYear();
-    thisMonth = d.getMonth();
     loadTbody();
 }
 function getDayCls(){
@@ -225,7 +225,7 @@ function getDayCls(){
                         }
 
                         // console.log(ds);
-                        var plqStart = 19;//排卵期开始。下次经期开始往前推14天是排卵日，排卵日的前五天后四天共十天为排卵期
+                        var plqStart = 19;//排卵期开始。下次经期的开始往前推14天是排卵日，排卵日前五天后四天共十天为排卵期
                         var plqLength = 10;//排卵期长度
                         var plr = 6;//排卵期开始后的第几天是排卵日
                         var d1 = new Date();//今天的日期

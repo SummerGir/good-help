@@ -73,6 +73,8 @@ public class AppTypeInfoService extends
 		}
 		return list;
 	}
+
+
 	public int getMainCount(String mainId,String searchKey){
 		String baseSql = "select count(1) from app_type_info main where 1=1 ";
 		if(StringUtils.isNotBlank(mainId)){

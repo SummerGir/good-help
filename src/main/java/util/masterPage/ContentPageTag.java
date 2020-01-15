@@ -22,7 +22,7 @@ public class ContentPageTag extends BodyTagSupport {
         //将当前页面当成一个参数放到request里面
         this.pageContext.getRequest().setAttribute(Consts.PAGE_ATTRIBUTE, this.bodyContent.getString());
         try {
-            //页面跳转到母版页
+            //页面转发到母版页
             this.pageContext.getServletContext().getRequestDispatcher(Consts.INDEX_JSP).include(this.pageContext.getRequest(),this.pageContext.getResponse());
         } catch (ServletException | IOException e) {
             e.printStackTrace();

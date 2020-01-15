@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="good-helper:war exploded">
-    <output-path>$PROJECT_DIR$/out/artifacts/good_helper_war_exploded</output-path>
+    <output-path>$PROJECT_DIR$/target/good_helper_war_exploded</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">

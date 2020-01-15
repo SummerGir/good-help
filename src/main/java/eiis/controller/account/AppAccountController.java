@@ -24,13 +24,9 @@ public class AppAccountController {
     @Autowired
     protected AppAccountInfoService service;
 
-
-
-
     @RequestMapping("getMainInfo")
     @ResponseBody
     public String getMainInfo(HttpServletRequest request, @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer rows) throws  Exception {
-
         String accountId = request.getParameter("accountId");
         String serchKey = request.getParameter("serchKey");
 
@@ -39,7 +35,6 @@ public class AppAccountController {
 
         return GenericController.getTable(list,count,page, rows);
     }
-
 
     @RequestMapping("saveMain")
     @ResponseBody
@@ -53,8 +48,7 @@ public class AppAccountController {
         AppAccountInfoEntity entity = new AppAccountInfoEntity();
         if (StringUtils.isBlank(accountId)) {
             entity.setAccountId(UUID.randomUUID().toString());
-        }
-        else {
+        } else {
             entity = service.findOne(accountId);
         }
         entity.setAccountName(accountName);

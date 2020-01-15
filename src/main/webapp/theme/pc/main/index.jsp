@@ -18,10 +18,12 @@
     if(list1 != null && list1.size() > 0){
 
         arr = JSONArray.fromObject(list1);
+
     }
 
     CoreMenuTreeInfoEntity menuTree = Context.getMenuTree(null);
     String menuTreeId = menuTree == null?"":menuTree.getMenuId();//选中的菜单
+
 
 %>
 <html>
@@ -32,7 +34,7 @@
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- 设置浏览器窗口图标 -->
-    <link rel="shortcut icon"type="image/x-icon" href="/theme/pc/main/img/logoIco.ico"media="screen" />
+    <link rel="shortcut icon" type="image/x-icon" href="/theme/pc/main/img/logoIco.ico"media="screen" />
     <script type="text/javascript" src="/public/eiis/eiis.js"></script>
 
     <script type="text/javascript">
@@ -80,8 +82,10 @@
     <div class="main-center">
         <master:ContentPlaceHolder id="body"/>
     </div>
-
 </div>
+
+
+
 <script type="text/javascript">
     var menuTreeId = "<%=menuTreeId%>";
     var menuList = <%=arr%>;

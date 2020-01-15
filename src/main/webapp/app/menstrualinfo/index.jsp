@@ -84,7 +84,7 @@
                             <div class='jq-yc jq-yc-start'>1</div>
                             <div class='jq-yc jq-yc-center'>2</div>
                             <div class='jq-yc jq-yc-end'>3</div>
-                            <div class='jq-txt'>预测经期</div>
+                            <div class='jq-txt'>预测期</div>
                         </div>
 
                     </div>

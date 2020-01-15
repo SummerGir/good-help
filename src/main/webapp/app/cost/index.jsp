@@ -81,6 +81,7 @@
                 <button onclick="getSearch('search_form')" type="button" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i>搜索</button>
             </div>
         </div>
+
         <!--模态框-->
         <div id="my_modal" class="modal" data-width="50%" tabindex="-1" aria-hidden="true" data-backdrop="static">
             <div class="panel-heading">

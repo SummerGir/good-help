@@ -7,7 +7,7 @@ var option = {
     data:{},//请求的参数
     toolbar:"#main_table_customRibbon",//表格上面的工具栏用哪个容器
     columns:[
-        {name:'memberId',title:"用户",align:'left',width:'25%'},
+        {name:'memberName',title:"用户",align:'left',width:'25%'},
         {name:'accountName',title:"账户",align:'left',width:'20%'},
         {name:'accountPassword',title:"密码",align:'right',width:'25%'},
         {name:'comment',title:"备注",align:'right',width:'30%'}
@@ -16,6 +16,7 @@ var option = {
 $(window).load(function(){
     clone_my_nav("need-nav");
     myTable.ghTable(option);
+
     myTable.on("table.created", function() {
 //                    $.message("创建表格");
         loading = false;
@@ -53,7 +54,6 @@ function edit_main() {
     });
     $("#my_modal input[name='addType']").val(false);
     $('#my_modal').modal('show');
-
 }
 
 function save_main() {
