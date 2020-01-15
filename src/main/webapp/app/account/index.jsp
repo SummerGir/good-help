@@ -27,10 +27,12 @@
 
 
     CoreMemberInfoService service =  CoreMemberInfoService.getInstance();
-    StringBuffer listOp = service.getListMember();
+    StringBuffer optionMember = service.getOptionMember();
+    StringBuffer memberList = service.getLiMember();
 
-    System.out.println("aa");
+
 %>
+
 <master:ContentPage>
     <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
     <master:Content contentPlaceHolderId="head">
@@ -41,6 +43,14 @@
             button>i{
                 margin-right: 5px;
             }
+            #left_div .panel-heading li>a{border-bottom: 1px solid #ddd}
+            #left_div .nav-tabs>li.active>a{border-top: 2px solid #F6CA18;border-bottom: none;}
+            #types_list{min-height: 126px;}
+            #types_list .nav>li>a{padding-left: 20px;text-align: left;}
+            #types_list .nav>li>a{
+                padding-left: 10px;
+                text-align: left;
+            }
         </style>
     </master:Content>
     <master:Content contentPlaceHolderId="body">
@@ -50,6 +60,9 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12" style="text-align: right;">
+                        <button onclick=$("#search_modal").modal() type="button" class="btn btn-primary" id="search_main">
+                            <i class="glyphicon glyphicon-search"></i>  搜索
+                        </button>
                         <button onclick="add_main()" type="button" class="btn btn-success" id="add_main">
                             <i class="glyphicon glyphicon-plus"></i> 新增
                         </button>
@@ -68,7 +81,25 @@
 
         <!--画表格-->
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-2">
+                <div class="panel panel-default " id="left_div" style="padding-left: 0px;padding-right:0px;">
+                    <div class="panel-heading" style="background: white;background-color: #f5f5f5;padding:0px;border-bottom: 0">
+                        <ul class="nav nav-tabs" style="padding-left: 0px;">
+                            <li role="presentation" class="active" style="width: 100%;">
+                                <a href="#user" data-toggle="tab" aria-controls="doing_type" style="padding: 12px 0px;text-align: center;margin-right: 0px;border-left: none;border-top-right-radius: 0px;">用户</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content" id="types_list">
+                        <div role="tabpanel" class="tab-pane active" id="user">
+                            <ul class="nav nav-pills nav-stacked">
+                                <%=memberList.toString() %>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10">
                 <!--表格-->
                 <div id="myTableTest"></div>
             </div>
@@ -86,24 +117,26 @@
             </div>
             <div class="panel-body">
                 <input type="hidden" name="noteId" value=""/>
-
                 <div class="row">
-                    <div class="col-xs-12 col-md-12">
+                    <div class="col-xs-6 col-md-6">
                         <h5>用户:</h5>
                         <select class="form-control" name="memberId" required="required">
-                            <%=listOp.toString()%>
+                            <%=optionMember.toString()%>
                         </select>
                     </div>
+                    <div class="col-xs-6 col-md-6">
+                        <h5>账户类型:</h5>
+                        <input type="text" class="form-control" name="accountType" placeholder="请填写账户类型：">
+                    </div>
                 </div>
-
                 <div class="row">
                     <div class="col-xs-6 col-md-6">
                         <h5>账号:</h5>
-                        <input type="text" class="form-control" name="accountName" placeholder="请填写账号：" required="required">
+                        <input type="text" class="form-control" name="accountName" placeholder="请填写账号：">
                     </div>
                     <div class="col-xs-6 col-md-6">
                         <h5>密码:</h5>
-                        <input type="text" class="form-control" name="accountPassword" placeholder="请填写密码：" required="required">
+                        <input type="text" class="form-control" name="accountPassword" placeholder="请填写密码：" >
                     </div>
                 </div>
                 <div class="row">
@@ -117,6 +150,30 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>关闭</button>
                 <button type="button" class="btn btn-primary" onclick="save_main()">
                     <i class="glyphicon glyphicon-floppy-save"></i>保存
+                </button>
+            </div>
+        </div>
+
+        <div id="search_modal" class="modal" data-width="50%" tabindex="-1" aria-hidden="true" data-backdrop="static">
+            <div class="panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">
+                    <span style="font-weight: bold;">搜索</span>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12" style="display: flex">
+                        <h5 style="width: 60px">关键字:</h5>
+                        <input type="text" class="form-control" name="searchKey" placeholder="请输入搜索关键字：" required="required">
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>关闭</button>
+                <button type="button" class="btn btn-primary" onclick="search_main()">
+                    <i class="glyphicon glyphicon-floppy-save"></i>搜索
                 </button>
             </div>
         </div>

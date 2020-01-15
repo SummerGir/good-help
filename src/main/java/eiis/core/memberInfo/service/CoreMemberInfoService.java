@@ -94,22 +94,25 @@ public class CoreMemberInfoService extends GenericService<CoreMemberInfoEntity, 
     }
 
 
-    public StringBuffer getListMember(){
-        StringBuffer listOp = new StringBuffer();
-
+    public StringBuffer getOptionMember(){
+        StringBuffer optionMember = new StringBuffer();
         List<CoreMemberInfoEntity> list = dao.findAll();
         for (CoreMemberInfoEntity entity : list ){
-            System.out.println(entity.getMemberName());
-           // listOp.append("<option selected value='"+entity.getMemberName()+"' </option>");
-
-
-            listOp.append("<option selected value='"+entity.getMemberId()+"'>"+entity.getMemberName()+"</option>");
+            optionMember.append("<option selected value='"+entity.getMemberId()+"'>"+entity.getMemberName()+"</option>");
         }
-
-        return listOp;
+        return optionMember;
     }
 
 
+    public StringBuffer getLiMember(){
+        StringBuffer memberList = new StringBuffer();
+        List<CoreMemberInfoEntity> list = dao.findAll();
+        memberList.append("<li cls='active' role='presentation' onclick = \"click_type('").append("-1").append("',this)\" ><a href='javascript:void(0)'>").append("显示全部").append("</a></li>");
+        for (CoreMemberInfoEntity entity : list ){
+            memberList.append("<li cls='active' role='presentation' onclick = \"click_type('").append(entity.getMemberId()).append("',this)\" ><a href='javascript:void(0)'>").append(entity.getMemberName()).append("</a></li>");
+        }
+        return memberList;
+    }
 
 
 

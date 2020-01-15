@@ -42,17 +42,23 @@ public class AppAccountInfoService extends GenericService<AppAccountInfoEntity,S
     }
 
 
-    public List<Map<String,Object>> getMainInfo(String accountId, String searchKey, int page, int rows)throws Exception{
+    public List<Map<String,Object>> getMainInfo(String accountId,String memberId, String searchKey, int page, int rows)throws Exception{
         Map<String,Object> values = new HashMap();
 
         if (StringUtils.isNotBlank(accountId)){
             values.put("accountId",accountId);
+        }if (StringUtils.isNotBlank(memberId)){
+            values.put("memberId",memberId);
+        }if (StringUtils.isNotBlank(searchKey)){
+            values.put("searchKey",searchKey);
         }
 
-        String basicSql = "select aai.ACCOUNT_ID,aai.ACCOUNT_NAME,aai.ACCOUNT_PASSWORD,aai.MEMBER_ID,cmi.MEMBER_NAME,aai.`COMMENT` from app_account_info aai join core_member_info cmi on aai.MEMBER_ID = cmi.MEMBER_ID where 1=1 " +
-                (StringUtils.isNotBlank(accountId)?"and aai.ACCOUNT_ID=:accountId ":"");
+        String basicSql = "select aai.ACCOUNT_ID,aai.ACCOUNT_TYPE,aai.ACCOUNT_NAME,aai.ACCOUNT_PASSWORD,aai.MEMBER_ID,cmi.MEMBER_NAME,aai.COMMENT from app_account_info aai join core_member_info cmi on aai.MEMBER_ID = cmi.MEMBER_ID where 1=1 " +
+                (StringUtils.isNotBlank(accountId)?" and aai.ACCOUNT_ID=:accountId ":"") +
+                (StringUtils.isNotBlank(memberId)?" and aai.MEMBER_ID=:memberId ":"")+
+                (StringUtils.isNotBlank(searchKey)?" and (locate(:searchKey,aai.ACCOUNT_TYPE)>0) OR (locate(:searchKey,aai.COMMENT)>0) ":"");
 
-        String[] fields = {"accountId","accountName","accountPassword","memberId","memberName","comment"};
+        String[] fields = {"accountId","accountType","accountName","accountPassword","memberId","memberName","comment"};
 
         List<Map<String,Object>> list = getNativeMapList(entityManager,basicSql,values,fields,page,rows);
 
@@ -66,10 +72,19 @@ public class AppAccountInfoService extends GenericService<AppAccountInfoEntity,S
         return list;
     }
 
-    public int getMainCount(String accountId){
+    public int getMainCount(String accountId,String memberId, String searchKey){
         String baseSql = "select count(1) from app_account_info aai  where 1=1 "+
-                (StringUtils.isNotBlank(accountId)?"and aai.ACCOUNT_ID=:accountId ":"");
+                (StringUtils.isNotBlank(accountId)?" and aai.ACCOUNT_ID=:accountId ":"") +
+                (StringUtils.isNotBlank(memberId)?" and aai.MEMBER_ID=:memberId ":"")+
+                (StringUtils.isNotBlank(searchKey)?" and (locate(:searchKey,aai.ACCOUNT_TYPE)>0) OR (locate(:searchKey,aai.COMMENT)>0) ":"");
         Query query = entityManager.createNativeQuery(baseSql);
+        if (StringUtils.isNotBlank(accountId)){
+            query.setParameter("accountId",accountId);
+        }if (StringUtils.isNotBlank(memberId)){
+            query.setParameter("memberId",memberId);
+        }if (StringUtils.isNotBlank(searchKey)){
+            query.setParameter("searchKey",searchKey);
+        }
         int count = 0;
         List list = query.getResultList();
         if(list != null && list.size() > 0){

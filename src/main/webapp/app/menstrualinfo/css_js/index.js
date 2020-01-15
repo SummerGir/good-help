@@ -163,17 +163,17 @@ function loadTbody() {
 }
 
 function changeMonth(type){
-    if(type){
-        thisMouth ++;
-        if(thisMouth > 11){
+    if(!type){
+        thisMonth ++;
+        if(thisMonth > 11){
             thisYear++;
-            thisMouth = 0;
+            thisMonth = 0;
         }
     }else {
-        thisMouth --;
-        if(thisMouth<0){
+        thisMonth --;
+        if(thisMonth<0){
             thisYear--;
-            thisMouth = 11;
+            thisMonth = 11;
         }
     }
     loadTbody();
@@ -219,12 +219,12 @@ function getDayCls(){
                         thisCycle = cycle;
                         var duration = (entity == null || entity.duration == null) ? 3 : parseInt(entity.duration);//经期长度
 
-                        while(d.getFullYear() <= thisYear && d.getMonth() <= thisMonth + 1){
+                        while(d.getFullYear() < thisYear || (d.getFullYear() == thisYear && d.getMonth() <= thisMonth + 1)){
                             ds.push(getDateStr(d));
                             d.setDate(d.getDate() + cycle);
                         }
 
-                        // console.log(ds);
+                        console.log(ds);
                         var plqStart = 19;//排卵期开始。下次经期的开始往前推14天是排卵日，排卵日前五天后四天共十天为排卵期
                         var plqLength = 10;//排卵期长度
                         var plr = 6;//排卵期开始后的第几天是排卵日

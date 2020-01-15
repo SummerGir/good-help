@@ -6,6 +6,7 @@ import javax.persistence.*;
 @Table(name = "app_account_info")
 public class AppAccountInfoEntity {
     private String accountId;
+    private String accountType;
     private String accountName;
     private String accountPassword;
     private String memberId;
@@ -19,6 +20,16 @@ public class AppAccountInfoEntity {
 
     public void setAccountId(String accountId) {
         this.accountId = accountId;
+    }
+
+    @Basic
+    @Column(name = "ACCOUNT_TYPE")
+    public String getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(String accountType) {
+        this.accountType = accountType;
     }
 
     @Basic
@@ -69,18 +80,18 @@ public class AppAccountInfoEntity {
         AppAccountInfoEntity that = (AppAccountInfoEntity) o;
 
         if (accountId != null ? !accountId.equals(that.accountId) : that.accountId != null) return false;
+        if (accountType != null ? !accountType.equals(that.accountType) : that.accountType != null) return false;
         if (accountName != null ? !accountName.equals(that.accountName) : that.accountName != null) return false;
         if (accountPassword != null ? !accountPassword.equals(that.accountPassword) : that.accountPassword != null)
             return false;
         if (memberId != null ? !memberId.equals(that.memberId) : that.memberId != null) return false;
-        if (comment != null ? !comment.equals(that.comment) : that.comment != null) return false;
-
-        return true;
+        return comment != null ? comment.equals(that.comment) : that.comment == null;
     }
 
     @Override
     public int hashCode() {
         int result = accountId != null ? accountId.hashCode() : 0;
+        result = 31 * result + (accountType != null ? accountType.hashCode() : 0);
         result = 31 * result + (accountName != null ? accountName.hashCode() : 0);
         result = 31 * result + (accountPassword != null ? accountPassword.hashCode() : 0);
         result = 31 * result + (memberId != null ? memberId.hashCode() : 0);

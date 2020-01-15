@@ -1,16 +1,18 @@
 var myTable = $("#myTableTest");
 var selectedRow;
 var loading = false;//控制项目列表频繁点击
+var js_memberId = "";
 var option = {
     id:"#myTableTest",//需要绑定的Id或class
     url:"/app/account/getMainInfo.do",//表格请求的路径
     data:{},//请求的参数
     toolbar:"#main_table_customRibbon",//表格上面的工具栏用哪个容器
     columns:[
-        {name:'memberName',title:"用户",align:'left',width:'25%'},
-        {name:'accountName',title:"账户",align:'left',width:'20%'},
-        {name:'accountPassword',title:"密码",align:'right',width:'25%'},
-        {name:'comment',title:"备注",align:'right',width:'30%'}
+        {name:'memberName',title:"用户",align:'left',width:'20%'},
+        {name:'accountType',title:"账户类型",align:'left',width:'20%'},
+        {name:'accountName',title:"账号",align:'left',width:'20%'},
+        {name:'accountPassword',title:"密码",align:'right',width:'20%'},
+        {name:'comment',title:"备注",align:'left'}
     ]//表格列[{field:'name',title:'名称',align:'left',width:80,template:function(){}},{},{}]
 };
 $(window).load(function(){
@@ -38,6 +40,9 @@ function add_main(){
         var name = $(o).attr("name");
         $(o).val("");
     });
+    if(js_memberId !=""){
+        $("#my_modal select").val(js_memberId);
+    }
     $('#my_modal').modal('show');
 }
 
@@ -162,5 +167,29 @@ function sz_price(e) {
             lab.val(data_value);
         }
     })
+}
+function click_type(memberId,s) {
+    $("#types_list li[class='active']").removeClass("active");
+    $(this).addClass("active");
+    if(memberId == "-1"){
+        option.data.memberId = "";
+        js_memberId = "";
+    }else {
+        option.data.memberId = memberId;
+        js_memberId = memberId;
+    }
+
+
+    myTable.ghTable(option);
+
+
+}
+function search_main() {
+    var postData = {};
+    $("#search_modal input").each(function () {
+        option.data[$(this).attr("name")] = $(this).val();
+    });
+    myTable.ghTable(option);
+    $("#search_modal").modal("hide");
 }
 

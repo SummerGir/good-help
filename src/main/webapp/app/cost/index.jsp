@@ -109,25 +109,27 @@
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6">
-                        <h5>消费金额</h5>
-                        <input type="text" class="form-control" name="payMoney" placeholder="请填写消费金额（选填）">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-6">
                         <h5>单价</h5>
                         <input type="text" class="form-control" name="costPrice" placeholder="请填写单价（选填）">
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <h5>数量</h5>
-                        <input type="text" class="form-control" name="costNum" placeholder="请填写数量（选填）">
-                    </div>
+
                 </div>
                 <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <h5>消费金额</h5>
+                        <input type="text" class="form-control" name="payMoney" placeholder="请填写消费金额（选填）">
+                    </div>
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <h5>消费日期</h5>
                         <input type="text" class="eiis-date" name="costTime" placeholder="请填写消费日期（选填）">
                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <h5>数量</h5>
+                        <input type="text" class="form-control" name="costNum" placeholder="请填写数量（选填）">
+                    </div>
+
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <h5>备注说明:</h5>
                         <input type="text" class="form-control" name="title" placeholder="请填写备注说明：">

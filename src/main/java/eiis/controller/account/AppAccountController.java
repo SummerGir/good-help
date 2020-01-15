@@ -28,11 +28,10 @@ public class AppAccountController {
     @ResponseBody
     public String getMainInfo(HttpServletRequest request, @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer rows) throws  Exception {
         String accountId = request.getParameter("accountId");
-        String serchKey = request.getParameter("serchKey");
-
-        List<Map<String,Object>> list = service.getMainInfo(accountId,serchKey,page,rows);
-        int count = service.getMainCount(accountId);
-
+        String memberId = request.getParameter("memberId");
+        String searchKey = request.getParameter("searchKey");
+        List<Map<String,Object>> list = service.getMainInfo(accountId,memberId,searchKey,page,rows);
+        int count = service.getMainCount(accountId,memberId,searchKey);
         return GenericController.getTable(list,count,page, rows);
     }
 
@@ -40,6 +39,7 @@ public class AppAccountController {
     @ResponseBody
     public ObjectNode saveMain(HttpServletRequest request)throws Exception{
          String accountId = request.getParameter("accountId");
+         String accountType= request.getParameter("accountType");
          String accountName= request.getParameter("accountName");
          String accountPassword= request.getParameter("accountPassword");
          String memberId= request.getParameter("memberId");
@@ -51,6 +51,7 @@ public class AppAccountController {
         } else {
             entity = service.findOne(accountId);
         }
+        entity.setAccountName(accountType);
         entity.setAccountName(accountName);
         entity.setAccountPassword(accountPassword);
         entity.setMemberId(memberId);
