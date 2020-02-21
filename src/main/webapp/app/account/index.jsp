@@ -116,7 +116,7 @@
                 </h3>
             </div>
             <div class="panel-body">
-                <input type="hidden" name="noteId" value=""/>
+                <input type="hidden" name="accountId" value=""/>
                 <div class="row">
                     <div class="col-xs-6 col-md-6">
                         <h5>用户:</h5>

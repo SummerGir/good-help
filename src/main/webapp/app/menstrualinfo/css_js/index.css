@@ -7,8 +7,32 @@
 }
 .my-right{
     flex: 1;
+    position: relative;
     margin-left: 10px;
+    padding-left: 50px;
+    padding-top: 50px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
 }
+
+.mySelect{
+    display: flex;
+    position: absolute;
+    top: 5px;
+    width: 120px;
+    z-index: 1;
+    left: 0px;
+}
+
+
+.mySelect > span{
+    margin-left: 10px;
+    margin-top: 8px;
+    font-weight: bold;
+
+}
+
 .sr-table{
     text-align:center;
     font-size: 13px;
@@ -38,14 +62,30 @@
     flex: 1;
     text-align: right;
 }
-.sr-table>.sr-title>.sr-tr>.sr-td-button>.comIng{
-    border: 1px solid #ffc1d9;
+.sr-table>.sr-title>.sr-tr>.sr-td-button>div{
     border-radius: 4px;
-    background-color: #ffc1d9;
     display: initial;
     padding: 4px 15px;
     cursor: pointer;
+    color: white;
 }
+
+
+.sr-table>.sr-title>.sr-tr>.sr-td-button>.comIng{
+    border: 1px solid #ffc1d9;
+    background-color: #ffc1d9;
+}
+.sr-table>.sr-title>.sr-tr>.sr-td-button>.ove{
+    border: 1px solid #70ceff;
+    background-color: #70ceff;
+}
+
+.sr-table>.sr-title>.sr-tr>.sr-td-button>.delete_last{
+    border: 1px solid #d9534f;
+    background-color: #d9534f;
+}
+
+
 .sr-table>.sr-thead{
     /*border-bottom: 1px solid #efefef;*/
 }

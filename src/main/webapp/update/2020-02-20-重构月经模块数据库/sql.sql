@@ -1,0 +1,45 @@
+-- --------------------------------------------------------
+-- 主机:                           127.0.0.1
+-- 服务器版本:                        5.7.17-log - MySQL Community Server (GPL)
+-- 服务器操作系统:                      Win64
+-- HeidiSQL 版本:                  8.2.0.4675
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+-- 导出  表 good-helper.app_menstrual_info 结构
+DROP TABLE IF EXISTS `app_menstrual_info`;
+CREATE TABLE IF NOT EXISTS `app_menstrual_info` (
+  `MENS_ID` char(36) NOT NULL,
+  `PLAN_START_TIME` datetime DEFAULT NULL COMMENT '计划开始时间',
+  `ACT_START_TIME` datetime DEFAULT NULL COMMENT '实际开始时间',
+  `PLAN_MENS_CYCLE` int(11) DEFAULT NULL COMMENT '计划周期',
+  `ACT_MENS_CYCLE` int(11) DEFAULT NULL COMMENT '实际周期',
+  `PLAN_OVE_TIME` datetime DEFAULT NULL COMMENT '计划排卵时间',
+  `ACT_OVE_TIME` datetime DEFAULT NULL COMMENT '实际排卵时间',
+  `PLAN_OVE_CYCLE` int(11) DEFAULT NULL COMMENT '计划排卵周期',
+  `ACT_OVE_CYCLE` int(11) DEFAULT NULL COMMENT '实际排卵周期 默认14',
+  `IS_VALID` bit(1) DEFAULT NULL,
+  `SYS_TIME` datetime DEFAULT NULL,
+  PRIMARY KEY (`MENS_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 正在导出表  good-helper.app_menstrual_info 的数据：~8 rows (大约)
+DELETE FROM `app_menstrual_info`;
+/*!40000 ALTER TABLE `app_menstrual_info` DISABLE KEYS */;
+INSERT INTO `app_menstrual_info` (`MENS_ID`, `PLAN_START_TIME`, `ACT_START_TIME`, `PLAN_MENS_CYCLE`, `ACT_MENS_CYCLE`, `PLAN_OVE_TIME`, `ACT_OVE_TIME`, `PLAN_OVE_CYCLE`, `ACT_OVE_CYCLE`, `IS_VALID`, `SYS_TIME`) VALUES
+	('36a71717-516f-4286-b9c2-a6a664380d52', NULL, '2019-12-31 00:00:00', 33, 38, '2020-01-19 00:00:00', '2020-01-21 00:00:00', 14, 12, b'1', '2020-02-21 23:02:03'),
+	('4b10454a-34b9-4ed7-8d06-8b2974a2ab0a', NULL, '2019-08-16 00:00:00', 30, 40, '2019-09-01 00:00:00', NULL, 14, NULL, b'1', '2020-02-21 23:01:39'),
+	('6f455a12-7864-4103-8f3a-9910224897d0', NULL, '2019-10-28 00:00:00', 34, 31, '2019-11-17 00:00:00', NULL, 14, NULL, b'1', '2020-02-21 23:01:50'),
+	('8677828b-3268-4d79-a201-9406f68f5e3d', NULL, '2020-02-07 00:00:00', 34, NULL, '2020-02-28 00:00:00', NULL, 13, NULL, b'0', '2020-02-21 23:02:50'),
+	('9933fe6a-5e2e-402b-89df-70aa327d1278', NULL, '2019-06-17 00:00:00', 30, 30, '2019-07-03 00:00:00', NULL, 14, NULL, b'1', '2020-02-21 23:01:26'),
+	('9ce49f29-1c6c-45ad-8eed-3d2634aa13c0', NULL, '2019-09-25 00:00:00', 34, 33, '2019-10-15 00:00:00', NULL, 14, NULL, b'1', '2020-02-21 23:01:43'),
+	('a3f8975b-94be-47a8-bbf1-b4b01b91e6c9', NULL, '2019-11-28 00:00:00', 33, 33, '2019-12-17 00:00:00', NULL, 14, NULL, b'1', '2020-02-21 23:01:58'),
+	('f6f31690-3152-4134-93f5-11054610b180', NULL, '2019-07-17 00:00:00', 30, 30, '2019-08-02 00:00:00', NULL, 14, NULL, b'1', '2020-02-21 23:01:31');
+/*!40000 ALTER TABLE `app_menstrual_info` ENABLE KEYS */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

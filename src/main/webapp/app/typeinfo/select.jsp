@@ -1,7 +1,6 @@
 
 <%
 
-    String listOp=request.getParameter("listOp");
     String finishedProOp=request.getParameter("finishedProOp");
     String doingProOp=request.getParameter("doingProOp");
 

@@ -51,7 +51,7 @@ public class AppAccountController {
         } else {
             entity = service.findOne(accountId);
         }
-        entity.setAccountName(accountType);
+        entity.setAccountType(accountType);
         entity.setAccountName(accountName);
         entity.setAccountPassword(accountPassword);
         entity.setMemberId(memberId);

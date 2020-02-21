@@ -2,6 +2,7 @@
 <%@ page import="util.context.Context" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Date" %>
+<%@ page import="eiis.app.menstrual.service.AppMenstrualInfoService" %>
 <%@ taglib prefix="master" uri="util.masterPage" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--
@@ -18,6 +19,8 @@
     String title = menuTree.getTitle();
 
     String queryData = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+    AppMenstrualInfoService appMenstrualInfoService = AppMenstrualInfoService.getInstance();
+    StringBuffer yearList = appMenstrualInfoService.getYearList();
 %>
 <master:ContentPage>
     <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
@@ -25,6 +28,9 @@
         <script type="text/javascript">
             EIIS.Common.loadComponent(EIIS.Common.bootstrap.BootstrapTable);
         </script>
+
+        <script charset="utf-8" type="text/javascript" src="/public/ECharts/require.js"></script>
+
 
         <link href="/app/menstrualinfo/css_js/index.css" rel="stylesheet"/>
     </master:Content>
@@ -62,6 +68,8 @@
                                 </div>
                             </div>
                             <div class='sr-td-button'>
+                                <div class="delete_last" onclick="delete_last()">删&nbsp;&nbsp;除</div>
+                                <div class="ove" onclick="ove()">排&nbsp;&nbsp;卵</div>
                                 <div class="comIng" onclick="jqComIng()">来&nbsp;&nbsp;了</div>
                             </div>
                         </div>
@@ -105,7 +113,14 @@
                 </div>
             </div>
             <div class="my-right">
-                <div id="myTableTest"></div>
+                <div class="mySelect">
+                    <span>年：</span>
+                    <select class="form-control" id="select-year" onchange="selectChange()">
+                        <%=yearList.toString()%>
+                    </select>
+                </div>
+                <div id="myTableTest" style="width: 100%;height: 400px;"></div>
+                <div id="oveCycle" style="width: 100%;height: 400px;"></div>
             </div>
         </div>
 
