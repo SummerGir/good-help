@@ -1,6 +1,64 @@
 var myTable = $("#myTableTest");
 var selectedRow;
 var loading = false;//控制项目列表频繁点击
+var myChart;
+var _typeDetailId;
+var optionECharts = {
+    title:{
+        show:true,
+        // text:"月经周期变化图"
+    },
+    tooltip: {
+        trigger: 'axits'
+    },
+    toolbox: {
+        show: true,
+        feature: {
+            dataView: {readOnly: false},
+            magicType: {type: ['line', 'bar']},
+            restore: {},
+            saveAsImage: {}
+        }
+    },
+
+    xAxis: {
+        name:'消费日期',
+        data: []
+    },
+    yAxis: {
+        name:'消费价格',
+        type: 'value',
+        scale: true
+    },
+    series: [
+        {
+            // name:"真实数据",
+            type: 'line',
+            data: [],
+            itemStyle : {
+                normal: {
+                    label : {
+                        show: true,
+                        color:"#000",
+                        fontSize:15
+                    }
+                }
+            },
+            lineStyle: {
+                color:"#ffc1d9",
+                width:3
+            },
+            markLine: {
+                data: [
+                    {type: 'average', name: '平均值'}
+
+                ]
+            }
+
+        },
+
+    ]
+};
 var option = {
     id:"#myTableTest",//需要绑定的Id或class
     url:"/app/cost/getMainInfo.do",//表格请求的路径
@@ -17,20 +75,77 @@ var option = {
 };
 $(window).load(function(){
     clone_my_nav("need-nav");
-    myTable.ghTable(option);
     myTable.on("table.created", function() {
-//                    $.message("创建表格");
         loading = false;
     });
     //行选中
     myTable.on("table.row.selected", function(event,eventData) {
         selectedRow = eventData.row;
     });
+    require(["/public/ECharts/echarts_1.js",""],function(es){/// aaa 接收aaa模块暴露的方法，没有暴露则可以不写
+        myChart = es.init($("#myECharts")[0]);
+        $("#types_list .active").click();
+    });
+
+
+
 });
+
+function click_type(typeDetailId,e){
+    // if(loading)return;
+    // loading = true;
+    $("#types_list li[class='active']").removeClass("active");
+    $(e).addClass("active");
+    _typeDetailId = typeDetailId;
+    option.data.typeDetailId = _typeDetailId;
+    myTable.ghTable(option);
+    fillSelect();
+
+
+}
+
+function fillSelect() {
+    $.ajax({
+        url:"/app/cost/getYearList.do",
+        data:{"typeDetailId":_typeDetailId},
+        type:"post",
+        async:"false",
+        dataType:"text",
+        success:function (rs) {
+            $("#select-year").html(rs);
+            selectChange();
+        }
+    })
+}
 
 function loadTable(){
     selectedRow = null;//刷新列表前，把选中行设置为空
     myTable.ghTable();//刷新列表，可以不传参
+}
+
+function selectChange() {
+    var year = $("#select-year").val();
+    getYearInfo(year);
+}
+function getYearInfo(year) {
+    $.ajax({
+        url:"/app/cost/getMainInfo.do",
+        data:{"myYear":year,"typeDetailId":_typeDetailId},
+        type:"post",
+        async:"false",
+        dataType:"json",
+        success:function (rs) {
+            optionECharts.xAxis.data = [];
+            optionECharts.series[0].data = [];
+            for(var i=rs.rows.length-1;i>=0;i--){
+                var obj = rs.rows[i];
+                optionECharts.xAxis.data.push(obj.costTime);
+                optionECharts.series[0].data.push(obj.payMoney);
+            }
+            myChart.setOption(optionECharts);
+
+        }
+    })
 }
 
 function add_main(){
@@ -38,7 +153,9 @@ function add_main(){
     $("#my_modal input,#my_modal select").each(function (i,o) {
         var name = $(o).attr("name");
         $(o).val("");
+
     });
+    $("#my_modal select").val(_typeDetailId);
     $('#my_modal').modal('show');
 }
 
@@ -138,6 +255,10 @@ function add_type(type){
     }
 
 }
+
+//点击项目名称
+
+
 
 //重置
 function search_show(form){

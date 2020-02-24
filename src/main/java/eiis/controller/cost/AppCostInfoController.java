@@ -39,12 +39,13 @@ public class AppCostInfoController {
     public String getMainInfo(HttpServletRequest request, @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer rows) throws  Exception {
         String mainId = request.getParameter("mainId");
         String searchKey = request.getParameter("searchKey");
+        String myYear = request.getParameter("myYear");
         String beginTime = request.getParameter("beginTime");
         String endTime = request.getParameter("endTime");
         String typeDetailId = request.getParameter("typeDetailId");
-        List<Map<String, Object>> list = service.getMainInfo(mainId, searchKey, beginTime, endTime, typeDetailId, page, rows);
+        List<Map<String, Object>> list = service.getMainInfo(mainId, searchKey,myYear, beginTime, endTime, typeDetailId, page, rows);
 
-        int count = service.getMainCount(mainId, searchKey, beginTime, endTime, typeDetailId);
+        int count = service.getMainCount(mainId, searchKey,myYear, beginTime, endTime, typeDetailId);
         return GenericController.getTable(list,count,page, rows);
     }
     @RequestMapping("saveMain")
@@ -108,6 +109,19 @@ public class AppCostInfoController {
             return GenericController.returnFaild(null);
         }
         return GenericController.returnSuccess(null);
+    }
+
+
+    @RequestMapping("getYearList")
+    @ResponseBody
+    public String getYearList(HttpServletRequest request){
+        String typeDetailId =  request.getParameter("typeDetailId");
+        try {
+            return service.getYearList(typeDetailId).toString();
+        }catch (Exception e){
+            e.printStackTrace();
+            return "";
+        }
     }
 
 

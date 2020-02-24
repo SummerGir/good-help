@@ -48,7 +48,7 @@ public class AppCostInfoService extends GenericService<AppDailyCostInfoEntity,St
         dao.delete(costID);
     }
     //得到菜单列表
-    public List<Map<String,Object>> getMainInfo(String mainId,String searchKey,String beginTime,String overTime,String typeDetailId,int page,int rows)throws Exception{
+    public List<Map<String,Object>> getMainInfo(String mainId,String searchKey,String myYear,String beginTime,String overTime,String typeDetailId,int page,int rows)throws Exception{
         Map<String,Object> values = new HashedMap();
         if(StringUtils.isNotBlank(typeDetailId)){
             values.put("typeDetailId",typeDetailId);
@@ -56,7 +56,12 @@ public class AppCostInfoService extends GenericService<AppDailyCostInfoEntity,St
             values.put("mainId",mainId);
         }if(StringUtils.isNotBlank(searchKey)){
             values.put("searchKey",searchKey);
-        }if(StringUtils.isNotBlank(beginTime)){
+        }
+        if(StringUtils.isNotBlank(myYear)){
+            values.put("myYear",myYear);
+        }
+
+        if(StringUtils.isNotBlank(beginTime)){
             values.put("beginTime",beginTime);
         }if(StringUtils.isNotBlank(overTime)){
             values.put("overTime",overTime);
@@ -65,6 +70,7 @@ public class AppCostInfoService extends GenericService<AppDailyCostInfoEntity,St
                 (StringUtils.isNotBlank(typeDetailId)?" and main.TYPE_DETAIL_ID=:typeDetailId ":"")+
                 (StringUtils.isNotBlank(mainId)?" and main.COST_ID=:mainId ":"")+
                 (StringUtils.isNotBlank(searchKey)?" and (locate(:searchKey,mani.TITLE)>0 or locate(:searchKey,mani.CONTENT)>0) ":"")+
+                (StringUtils.isNotBlank(myYear)?" and year(main.COST_TIME)=:myYear ":"")+
                 (StringUtils.isNotBlank(beginTime)?" and main.SYS_TIME>=:beginTime ":"")+
                 (StringUtils.isNotBlank(overTime)?" and main.SYS_TIME<=:overTime ":"")+
                 " order by main.COST_TIME desc";
@@ -88,11 +94,12 @@ public class AppCostInfoService extends GenericService<AppDailyCostInfoEntity,St
     }
 
 
-    public int getMainCount(String mainId,String searchKey,String beginTime,String overTime,String typeDetailId){
+    public int getMainCount(String mainId,String searchKey,String myYear,String beginTime,String overTime,String typeDetailId){
         String baseSql = "select count(1) from app_daily_cost_info main where 1=1 " +
                 (StringUtils.isNotBlank(typeDetailId)?" and main.TYPE_DETAIL_ID=:typeDetailId ":"")+
                 (StringUtils.isNotBlank(mainId)?" and main.NOTE_ID=:mainId ":"")+
                 (StringUtils.isNotBlank(searchKey)?" and (locate(:searchKey,ani.TITLE)>0 or locate(:searchKey,ani.CONTENT)>0) ":"")+
+                (StringUtils.isNotBlank(myYear)?" and year(main.COST_TIME)=:myYear":"")+
                 (StringUtils.isNotBlank(beginTime)?" and main.SYS_TIME>=:beginTime ":"")+
                 (StringUtils.isNotBlank(overTime)?" and main.SYS_TIME<=:overTime ":"");
         Query query = entityManager.createNativeQuery(baseSql);
@@ -102,6 +109,8 @@ public class AppCostInfoService extends GenericService<AppDailyCostInfoEntity,St
             query.setParameter("mainId",mainId);
         }if(StringUtils.isNotBlank(searchKey)){
             query.setParameter("searchKey",searchKey);
+        }if(StringUtils.isNotBlank(myYear)){
+            query.setParameter("myYear",myYear);
         }if(StringUtils.isNotBlank(beginTime)){
             query.setParameter("beginTime",beginTime);
         }if(StringUtils.isNotBlank(overTime)){
@@ -113,5 +122,24 @@ public class AppCostInfoService extends GenericService<AppDailyCostInfoEntity,St
             count = Integer.parseInt(list.get(0).toString());
         }
         return count;
+    }
+
+
+    public StringBuffer getYearList(String typeDetailId){
+        StringBuffer stringBuffer = new StringBuffer();
+        String sql = "Select distinct year(main.COST_TIME) from app_daily_cost_info main where 1=1  ";
+        if(StringUtils.isNotBlank(typeDetailId)){
+            sql += " and main.TYPE_DETAIL_ID = :typeDetailId";
+        }
+        sql += " ORDER by main.COST_TIME desc";
+        Query query = entityManager.createNativeQuery(sql);
+        if(StringUtils.isNotBlank(typeDetailId)){
+            query.setParameter("typeDetailId",typeDetailId);
+        }
+        List list = query.getResultList();
+        for(int i=0; i<list.size();i++){
+            stringBuffer.append("<option value='"+list.get(i)+"'>"+list.get(i)+"</option>");
+        }
+        return stringBuffer;
     }
 }

@@ -470,7 +470,6 @@ function getStrDate(s) {
 function selectChange() {
     var year = $("#select-year").val();
     getYearInfo(year);
-
 }
 
 

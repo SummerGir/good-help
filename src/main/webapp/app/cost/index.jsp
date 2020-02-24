@@ -4,6 +4,7 @@
 <%@ page import="org.apache.commons.lang.StringUtils" %>
 <%@ page import="eiis.core.menuTree.entity.CoreMenuTreeInfoEntity" %>
 <%@ page import="util.context.Context" %>
+<%@ page import="eiis.app.cost.service.AppCostInfoService" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %><%--
   Created by IntelliJ IDEA.
   User: Jane
@@ -19,13 +20,20 @@
 
     TypeSelectEntity pse = AppTypeDetailService.getInstance().getTypeSelect(menuCode,"");
     StringBuffer listOp = pse.getListOp();
+    StringBuffer finishedProOp = pse.getFinishedProOp();
+    StringBuffer doingProOp = pse.getDoingProOp();
+
+//    AppCostInfoService service = AppCostInfoService.getInstance();
+//    StringBuffer yearList = service.getYearList();
 %>
 <master:ContentPage>
     <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
     <master:Content contentPlaceHolderId="head">
         <script type="text/javascript">
             EIIS.Common.loadComponent(EIIS.Common.bootstrap.BootstrapTable);
+
         </script>
+        <script charset="utf-8" type="text/javascript" src="/public/ECharts/require.js"></script>
         <link href="/app/cost/css_js/index.css" rel="stylesheet"/>
     </master:Content>
     <master:Content contentPlaceHolderId="body">
@@ -50,13 +58,32 @@
             </div>
         </div>
 
-        <!--画表格-->
+
         <div class="row">
-            <div class="col-md-12">
+            <jsp:include page="/app/typeinfo/select.jsp" >
+                <jsp:param name="listOp" value="<%=listOp%>"/>
+                <jsp:param name="finishedProOp" value="<%=finishedProOp%>"/>
+                <jsp:param name="doingProOp" value="<%=doingProOp%>"/>
+            </jsp:include>
+            <!--画表格-->
+            <div class="col-md-10">
                 <!--表格-->
                 <div id="myTableTest"></div>
+
+                <div class="myCensus">
+                    <div class="mySelect">
+                        <span>年：</span>
+                        <select class="form-control" id="select-year" onchange="selectChange()">
+                            <%--<%=yearList.toString()%>--%>
+                        </select>
+                    </div>
+                    <div id="myECharts" style="width: 100%;height: 400px;"></div>
+                </div>
             </div>
         </div>
+
+
+
 
         <!-- 模态框（Modal） -->
         <div id="search_form" class="modal" data-width="30%" tabindex="-1" aria-hidden="true" data-backdrop="static">
