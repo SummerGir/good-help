@@ -41,9 +41,9 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12" style="text-align: right;">
-                        <button onclick="$('#search_form').modal()" type="button" class="btn btn-primary">
-                            <i class="glyphicon glyphicon-search"></i> 搜索
-                        </button>
+                        <%--<button onclick="$('#search_form').modal()" type="button" class="btn btn-primary">--%>
+                            <%--<i class="glyphicon glyphicon-search"></i> 搜索--%>
+                        <%--</button>--%>
                         <button onclick="add_main()" type="button" class="btn btn-success" id="add_main">
                             <i class="glyphicon glyphicon-plus"></i> 新增
                         </button>

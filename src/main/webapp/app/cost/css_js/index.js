@@ -121,6 +121,7 @@ function fillSelect() {
 function loadTable(){
     selectedRow = null;//刷新列表前，把选中行设置为空
     myTable.ghTable();//刷新列表，可以不传参
+    selectChange();
 }
 
 function selectChange() {
@@ -156,6 +157,7 @@ function add_main(){
 
     });
     $("#my_modal select").val(_typeDetailId);
+    sz_price($("#my_modal select"));
     $('#my_modal').modal('show');
 }
 
@@ -213,6 +215,7 @@ function save_main() {
             if(rs.error == 0){
                 $('#my_modal').modal('hide');
                 loadTable();
+
             }
         }
     });

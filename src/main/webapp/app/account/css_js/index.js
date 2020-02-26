@@ -17,7 +17,7 @@ var option = {
 };
 $(window).load(function(){
     clone_my_nav("need-nav");
-    myTable.ghTable(option);
+    // myTable.ghTable(option);
 
     myTable.on("table.created", function() {
 //                    $.message("创建表格");
@@ -27,6 +27,7 @@ $(window).load(function(){
     myTable.on("table.row.selected", function(event,eventData) {
         selectedRow = eventData.row;
     });
+    $("#types_list .active").click();
 });
 
 function loadTable(){

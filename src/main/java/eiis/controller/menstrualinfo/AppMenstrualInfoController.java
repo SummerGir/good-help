@@ -70,31 +70,31 @@ public class AppMenstrualInfoController {
 
                     if(tempEntity.getActStartTime() != null){
                         tempCalendar.setTime(new Date(tempEntity.getActStartTime().getTime()));
-                        if((tempCalendar.get(Calendar.YEAR) == Integer.parseInt(year)) && (tempCalendar.get(Calendar.MONTH) == Integer.parseInt(month)-1)){
+//                        if((tempCalendar.get(Calendar.YEAR) == Integer.parseInt(year)) && (tempCalendar.get(Calendar.MONTH) == Integer.parseInt(month)-1)){
                             map.put("actStartTime",simpleDateFormat.format(tempCalendar.getTime()));
                             flag = true;
-                        }
+//                        }
                     }
                     if(tempEntity.getPlanStartTime() != null){
                         tempCalendar.setTime(new Date(tempEntity.getPlanStartTime().getTime()));
-                        if((tempCalendar.get(Calendar.YEAR) == Integer.parseInt(year)) && (tempCalendar.get(Calendar.MONTH) == Integer.parseInt(month)-1)){
+//                        if((tempCalendar.get(Calendar.YEAR) == Integer.parseInt(year)) && (tempCalendar.get(Calendar.MONTH) == Integer.parseInt(month)-1)){
                             map.put("planStartTime",simpleDateFormat.format(tempCalendar.getTime()));
                             flag = true;
-                        }
+//                        }
                     }
                     if(tempEntity.getActOveTime() != null){
                         tempCalendar.setTime(new Date(tempEntity.getActOveTime().getTime()));
-                        if((tempCalendar.get(Calendar.YEAR) == Integer.parseInt(year)) && (tempCalendar.get(Calendar.MONTH) == Integer.parseInt(month)-1)){
+//                        if((tempCalendar.get(Calendar.YEAR) == Integer.parseInt(year)) && (tempCalendar.get(Calendar.MONTH) == Integer.parseInt(month)-1)){
                             map.put("actOveTime",simpleDateFormat.format(tempCalendar.getTime()));
                             flag = true;
-                        }
+//                        }
                     }
                     if(tempEntity.getPlanOveTime() != null){
                         tempCalendar.setTime(new Date(tempEntity.getPlanOveTime().getTime()));
-                        if((tempCalendar.get(Calendar.YEAR) == Integer.parseInt(year)) && (tempCalendar.get(Calendar.MONTH) == Integer.parseInt(month)-1)){
+//                        if((tempCalendar.get(Calendar.YEAR) == Integer.parseInt(year)) && (tempCalendar.get(Calendar.MONTH) == Integer.parseInt(month)-1)){
                             map.put("planOveTime",simpleDateFormat.format(tempCalendar.getTime()));
                             flag = true;
-                        }
+//                        }
                     }
 
                     if(flag){
@@ -120,6 +120,7 @@ public class AppMenstrualInfoController {
             int diver = 0;
             //如果能够找到上一次的数据，完善上一次的数据
             AppMenstrualInfoEntity oldEntity = mainService.getLastEntity();
+            AppMenstrualInfoEntity entity = new AppMenstrualInfoEntity();
             if (oldEntity != null) {
                 //结束时间是本次开始时间的前一天
                 Calendar c = Calendar.getInstance();
@@ -128,7 +129,6 @@ public class AppMenstrualInfoController {
 
                 //根据结束时间和开始时间计算周期
                 int newCycle = mainService.getDateSpace(oldEntity.getActStartTime(), c.getTime());
-
 
                 //如果超过两次的周期长度，默认为中间有几次没有记录
                 int oldCycle = oldEntity.getPlanMensCycle();
@@ -139,15 +139,26 @@ public class AppMenstrualInfoController {
                     newCycle = oldCycle;
                 }
                 oldEntity.setActMensCycle(newCycle);
+                if(oldEntity.getActOveTime() != null){
+                    oldEntity.setActOveCycle(mainService.getDateSpace(oldEntity.getActOveTime(),c.getTime()));
+                }
+
                 oldEntity.setValid(true);
                 mainService.save(oldEntity);
+                c.setTime(oldEntity.getActStartTime());
+                c.set(Calendar.DATE,c.get(Calendar.DATE)+oldEntity.getPlanMensCycle());
+                entity.setPlanStartTime(new Timestamp(c.getTime().getTime()));
             }
 
             Calendar c = Calendar.getInstance();
             c.setTime(sdf.parse(startTime));
-            AppMenstrualInfoEntity entity = new AppMenstrualInfoEntity();
+
             entity.setMensId(UUID.randomUUID().toString());
             entity.setActStartTime(new Timestamp(c.getTime().getTime()));
+
+            if(entity.getPlanStartTime() == null){
+                entity.setPlanStartTime(new Timestamp(c.getTime().getTime()));
+            }
             entity.setPlanMensCycle(mainService.getActMensCycleAvergeCycle());
             entity.setPlanOveCycle(mainService.getActOveCycleAvergeCycle());
 
@@ -178,6 +189,7 @@ public class AppMenstrualInfoController {
             oldEntity = mainService.getLastEntity();
             if(oldEntity != null){
                 oldEntity.setValid(false);
+                oldEntity.setActMensCycle(null);
                 mainService.save(oldEntity);
             }
         }catch (Exception e){
@@ -203,8 +215,8 @@ public class AppMenstrualInfoController {
             }
 
             oldEntity.setActOveTime(new Timestamp(calendar.getTime().getTime()));
-            int n =  mainService.getDateSpace(new Date(oldEntity.getPlanOveTime().getTime()),calendar.getTime());
-            oldEntity.setActOveCycle(oldEntity.getPlanOveCycle() - n +1);
+//            int n =  mainService.getDateSpace(new Date(oldEntity.getPlanOveTime().getTime()),calendar.getTime());
+//            oldEntity.setActOveCycle(oldEntity.getPlanOveCycle() - n +1);
             mainService.save(oldEntity);
             return GenericController.returnSuccess(null);
         }catch (Exception e){

@@ -15,7 +15,7 @@ function TableEntity(){
         allowSelected:true,//表格上面的工具栏用哪个容器
         isPage:true,//是否分页
         page:1,//加载数据的初始页
-        rows:10,//每页默认条数
+        rows:5,//每页默认条数
         columns:[]//表格列[{field:'name',title:'名称',align:'left',width:80,template:function(){}},{},{}]
     };
 }

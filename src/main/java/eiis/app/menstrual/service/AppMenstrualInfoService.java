@@ -13,6 +13,7 @@ import util.spring.ApplicationContext;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service("eiis.app.menstrual.service.AppMenstrualInfoService")
@@ -54,14 +55,22 @@ public class AppMenstrualInfoService extends
 		String[] fields = {"mensId", "planStartTime","actStartTime","planMensCycle","actMensCycle","planOveTime","actOveTime","planOveCycle","actOveCycle","isValid","sysTime"};
 
 		Map values = new HashMap();
-		if(StringUtils.isNotBlank(year)){
-			baseSql += " and year(ami.ACT_START_TIME) = :year";
+		if(StringUtils.isNotBlank(year) && StringUtils.isBlank(month)){
 			values.put("year",year);
-
-			if(StringUtils.isNotBlank(month)){
-				baseSql += " and month(ami.ACT_START_TIME) = :month or (year(ifnull(ami.ACT_OVE_TIME,ami.PLAN_OVE_TIME)) = :year  and  month(ifnull(ami.ACT_OVE_TIME,ami.PLAN_OVE_TIME)) = :month)";
-				values.put("month",month);
-			}
+			baseSql += " and year(ami.ACT_START_TIME) = :year";
+		}else if(StringUtils.isNotBlank(year) && StringUtils.isNotBlank(month)){
+			Calendar calendar = Calendar.getInstance();
+			calendar.set(Integer.parseInt(year),Integer.parseInt(month)-1,1);
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//			String date_1 = simpleDateFormat.format(calendar.getTime());
+			calendar.set(Calendar.MONTH,calendar.get(Calendar.MONTH)-1);
+			String data_before = simpleDateFormat.format(calendar.getTime());
+			calendar.set(Calendar.MONTH,calendar.get(Calendar.MONTH)+2);
+			String data_after = simpleDateFormat.format(calendar.getTime());
+			values.put("data_before",data_before);
+			values.put("data_after",data_after);
+//			baseSql += " and ((year(ami.ACT_START_TIME) = :year and month(ami.ACT_START_TIME) = :month) or (year(ifnull(ami.ACT_OVE_TIME,ami.PLAN_OVE_TIME)) = :year and  month(ifnull(ami.ACT_OVE_TIME,ami.PLAN_OVE_TIME)) = :month)) ";
+			baseSql += " and ( (ami.ACT_START_TIME>=:data_before and ami.ACT_START_TIME<:data_after) or (ifnull(ami.ACT_OVE_TIME,ami.PLAN_OVE_TIME)>=:data_before and ifnull(ami.ACT_OVE_TIME,ami.PLAN_OVE_TIME)<:data_after)   )";
 		}
 
 		baseSql += " order by ami.ACT_START_TIME asc";
@@ -114,7 +123,7 @@ public class AppMenstrualInfoService extends
 
 	//得到实际平均周期
 	public int getActMensCycleAvergeCycle(){
-		String sql = "select ceil(sum(ifnull(main.ACT_MENS_CYCLE,main.PLAN_MENS_CYCLE))/count(1)) from app_menstrual_info main";
+		String sql = "select ROUND(sum(ifnull(main.ACT_MENS_CYCLE,main.PLAN_MENS_CYCLE))/count(1)) from app_menstrual_info main";
 		List list = entityManager.createNativeQuery(sql).getResultList();
 		int cycle = 0;
 		if(list.size() > 0 && list.get(0) != null){
@@ -128,7 +137,7 @@ public class AppMenstrualInfoService extends
 
 	//得到实际平均周期getActOveCycleAvergeCycle
 	public int getActOveCycleAvergeCycle(){
-		String sql = "select floor(sum(ifnull(main.ACT_OVE_CYCLE,main.PLAN_OVE_CYCLE))/count(1)) from app_menstrual_info main";
+		String sql = "select ROUND(sum(ifnull(main.ACT_OVE_CYCLE,main.PLAN_OVE_CYCLE))/count(1)) from app_menstrual_info main";
 		List list = entityManager.createNativeQuery(sql).getResultList();
 		int cycle = 0;
 		if(list.size() > 0 && list.get(0) != null){

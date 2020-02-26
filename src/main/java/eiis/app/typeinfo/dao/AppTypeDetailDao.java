@@ -16,6 +16,6 @@ public interface AppTypeDetailDao extends
         JpaSpecificationExecutor<AppTypeDetailEntity>,
         GenericDao<AppTypeDetailEntity, String> {
 
-    @Query("select apd from AppTypeDetailEntity apd where apd.typeId=:typeId")
+    @Query("select apd from AppTypeDetailEntity apd where apd.typeId=:typeId order by apd.detailLevel asc")
     List<AppTypeDetailEntity> findByTypeId(@Param("typeId") String typeId);
 }
