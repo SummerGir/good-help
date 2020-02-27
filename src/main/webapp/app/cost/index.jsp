@@ -33,7 +33,6 @@
             EIIS.Common.loadComponent(EIIS.Common.bootstrap.BootstrapTable);
 
         </script>
-        <script charset="utf-8" type="text/javascript" src="/public/ECharts/require.js"></script>
         <link href="/app/cost/css_js/index.css" rel="stylesheet"/>
     </master:Content>
     <master:Content contentPlaceHolderId="body">

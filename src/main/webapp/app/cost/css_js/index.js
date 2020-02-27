@@ -82,7 +82,7 @@ $(window).load(function(){
     myTable.on("table.row.selected", function(event,eventData) {
         selectedRow = eventData.row;
     });
-    require(["/public/ECharts/echarts_1.js",""],function(es){/// aaa 接收aaa模块暴露的方法，没有暴露则可以不写
+    require(['echarts3'],function (es) {/// aaa 接收aaa模块暴露的方法，没有暴露则可以不写
         myChart = es.init($("#myECharts")[0]);
         $("#types_list .active").click();
     });

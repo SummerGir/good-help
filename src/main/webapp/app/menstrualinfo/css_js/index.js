@@ -166,7 +166,7 @@ $(window).load(function(){
     thisYear = d.getFullYear();
     thisMonth = d.getMonth();
     loadCalendar();
-    require(["/public/ECharts/echarts_1.js",""],function(es){/// aaa 接收aaa模块暴露的方法，没有暴露则可以不写
+    require(['echarts3'],function (es) {/// aaa 接收aaa模块暴露的方法，没有暴露则可以不写
         myChart = es.init($("#myTableTest")[0]);
         oveCycleChart = es.init($("#oveCycle")[0]);
         selectChange();

@@ -140,181 +140,14 @@
         cycle: {
             js: ['/public/jquery/jquery.cycle.js']
         },
-        html: {
-            css: ['/public/kindeditor/themes/eiis_kindeditor.css'],
-            js: ['/public/kindeditor/kindeditor-min.js'
-                , '/public/kindeditor/lang/zh_CN.js']
-        },
+
         message: {
             //loadSequence: true,
             dependency: ['EIIS.Common.UI', 'EIIS.Common.bootstrap.modal'],
             js: ['/public/controls/message/message.js']
         },
-        appmessage: {
-            //loadSequence: true,
-            dependency: ['EIIS.Common.UI', 'EIIS.Common.bootstrap.modal'],
-            js: ['/public/controls/message-app/message.js']
-        },
         xmlext: {
             js: ['/public/jquery/jquery.xmlext.js']
-        },
-        fancytree: {
-            dependency: ['EIIS.Common.jQuery.ui'],
-            css: ['/public/jquery/fancytree/esg_all/src/jquery-ui.css', '/public/jquery/fancytree/esg_all/src/skin-xp/ui.fancytree.css'],
-            js: [ '/public/jquery/fancytree/jquery.fancytree.js','/public/jquery/fancytree/jquery.fancytree.expand.js'],
-            childcounter: {
-                dependency: ['EIIS.Common.jQuery.fancytree'],
-                js: ['/public/jquery/fancytree/src/jquery.fancytree.childcounter.js']
-            },
-            clones: {
-                dependency: ['EIIS.Common.jQuery.fancytree'],
-                js: ['/public/jquery/fancytree/src/jquery.fancytree.clones.js']
-            },
-            columnview: {
-                dependency: ['EIIS.Common.jQuery.fancytree'],
-                js: ['/public/jquery/fancytree/src/jquery.fancytree.columnview.js']
-            },
-            dnd: {
-                dependency: ['EIIS.Common.jQuery.fancytree'],
-                css: ['/public/jquery/fancytree/esg_all/src/skin-xp/ui.fancytree.css'],
-                js: ['/public/jquery/fancytree/src/jquery.fancytree.dnd.js']
-            },
-            edit: {
-                dependency: ['EIIS.Common.jQuery.fancytree'],
-                js: ['/public/jquery/fancytree/src/jquery.fancytree.edit.js']
-            },
-            filter: {
-                dependency: ['EIIS.Common.jQuery.fancytree'],
-                js: ['/public/jquery/fancytree/src/jquery.fancytree.filter.js']
-            },
-            glyph: {
-                dependency: ['EIIS.Common.jQuery.fancytree'],
-                js: ['/public/jquery/fancytree/src/jquery.fancytree.glyph.js']
-            },
-            gridnav: {
-                dependency: ['EIIS.Common.jQuery.fancytree'],
-                js: ['/public/jquery/fancytree/src/jquery.fancytree.gridnav.js']
-            },
-            menu: {
-                dependency: ['EIIS.Common.jQuery.fancytree'],
-                js: ['/public/jquery/fancytree/src/jquery.fancytree.menu.js']
-            },
-            persist: {
-                dependency: ['EIIS.Common.jQuery.fancytree'],
-                js: ['/public/jquery/fancytree/src/jquery.fancytree.persist.js']
-            },
-            table: {
-                dependency: ['EIIS.Common.jQuery.fancytree'],
-                js: ['/public/jquery/fancytree/src/jquery.fancytree.table.js']
-            },
-            themeroller: {
-                dependency: ['EIIS.Common.jQuery.fancytree'],
-                js: ['/public/jquery/fancytree/src/jquery.fancytree.themeroller.js']
-            },
-            wide: {
-                dependency: ['EIIS.Common.jQuery.fancytree'],
-                js: ['/public/jquery/fancytree/src/jquery.fancytree.wide.js']
-            }
-        },
-        /*
-        fancytree1: {
-            dependency: ['EIIS.Common.jQuery.ui'],
-            css: ['/public/jquery/fancytree1/esg_all/src/jquery-ui.css', '/public/jquery/fancytree1/esg_all/src/skin-xp/ui.fancytree.css'],
-            //css: ['/public/jquery/fancytree/skin-bootstrap/ui.fancytree.min.css', '/public/jquery/fancytree/skin-bootstrap/ui.fancytree.expand.css'],
-            //js: ['/public/jquery/fancytree1/esg_all/src/jquery.fancytree.expand.js','/public/jquery/fancytree1/esg_all/lib/jquery.js', '/public/jquery/fancytree1/esg_all/lib/jquery-ui.custom.js', '/public/jquery/fancytree1/esg_all/src/jquery.fancytree.js', '/public/jquery/fancytree1/esg_all/lib/jquery-ui-contextmenu/jquery.ui-contextmenu.min.js'],
-            js: ['/public/jquery/fancytree1/jquery.fancytree.min.js', '/public/jquery/fancytree1/esg_all/src/jquery.fancytree.expand.js'],
-            childcounter: {
-                dependency: ['EIIS.Common.jQuery.fancytree1'],
-                js: ['/public/jquery/fancytree1/esg_all/src/jquery.fancytree.childcounter.js']
-            },
-            clones: {
-                dependency: ['EIIS.Common.jQuery.fancytree1'],
-                css: ['/public/jquery/fancytree1/esg_all/src/skin-xp/ui.fancytree.css'],
-                js: ['/public/jquery/fancytree1/esg_all/src/jquery.fancytree.clones.js']
-            },
-            columnview: {
-                dependency: ['EIIS.Common.jQuery.fancytree1'],
-                js: ['/public/jquery/fancytree1/esg_all/src/jquery.fancytree.columnview.js']
-            },
-            dnd: {
-                dependency: ['EIIS.Common.jQuery.fancytree1'],
-                css: ['/public/jquery/fancytree1/esg_all/src/skin-xp/ui.fancytree.css'],
-                js: ['/public/jquery/fancytree1/esg_all/src/jquery.fancytree.dnd.js']
-            },
-            edit: {
-                dependency: ['EIIS.Common.jQuery.fancytree1'],
-                css: ['/public/jquery/fancytree1/esg_all/src/skin-xp/ui.fancytree.css'],
-                js: ['/public/jquery/fancytree1/esg_all/src/jquery.fancytree.edit.js']
-            },
-            filter: {
-                dependency: ['EIIS.Common.jQuery.fancytree1'],
-                css: ['/public/jquery/fancytree1/esg_all/src/skin-xp/ui.fancytree.css'],
-                js: ['/public/jquery/fancytree1/esg_all/src/jquery.fancytree.filter.js']
-            },
-            glyph: {
-                dependency: ['EIIS.Common.jQuery.fancytree1'],
-                css: ['/public/jquery/fancytree1/esg_all/src/skin-xp/ui.fancytree.css'],
-                js: ['/public/jquery/fancytree1/esg_all/src/jquery.fancytree.glyph.js']
-            },
-            gridnav: {
-                dependency: ['EIIS.Common.jQuery.fancytree1'],
-                js: ['/public/jquery/fancytree1/esg_all/src/jquery.fancytree.gridnav.js']
-            },
-            menu: {
-                dependency: ['EIIS.Common.jQuery.fancytree1'],
-                js: ['/public/jquery/fancytree1/esg_all/src/jquery.fancytree.menu.js']
-            },
-            persist: {
-                dependency: ['EIIS.Common.jQuery.fancytree1'],
-                js: ['/public/jquery/fancytree1/esg_all/src/jquery.fancytree.persist.js']
-            },
-            table: {
-                dependency: ['EIIS.Common.jQuery.fancytree1'],
-                js: ['/public/jquery/fancytree1/esg_all/src/jquery.fancytree.table.js']
-            },
-            themeroller: {
-                dependency: ['EIIS.Common.jQuery.fancytree1'],
-                js: ['/public/jquery/fancytree1/esg_all/src/jquery.fancytree.themeroller.js']
-            },
-            wide: {
-                dependency: ['EIIS.Common.jQuery.fancytree1'],
-                js: ['/public/jquery/fancytree1/esg_all/src/jquery.fancytree.wide.js']
-            }
-        },
-        */
-        select240: {
-            load: function () {
-                require.config({
-                    paths: {
-                        "jquery.select240": ["/public/controls/select2/js/select2","/public/controls/select2/js/i18n/zh-CN"]
-                    },
-                    map: {
-                        '*': {
-                            'css': '/public/utilities/require/css.min.js'
-                        }
-                    },
-                    shim : {
-                        "jquery.select240": ['css!/public/controls/select2/css/select2.css']
-                    }
-                });
-            }
-        },
-        intro: {
-            load: function () {
-                require.config({
-                    paths: {
-                        "jquery.introJs": ["/public/controls/intro/intro"]
-                    },
-                    map: {
-                        '*': {
-                            'css': '/public/utilities/require/css.min.js'
-                        }
-                    },
-                    shim : {
-                        "jquery.introJs": ['css!/public/controls/intro/introjs.min.css']
-                    }
-                });
-            }
         }
     };
 
@@ -344,28 +177,7 @@
             css: datetimepickercss,
             js: datetimepickerjs
         },
-        //人员树形
-        mobpersontree:{
-            css: ['/public/controls/getPersonTree/css/pinyin.css'],
-            js: ['/public/controls/getPersonTree/js2/jquery.charfirst.pinyin.js',
-            '/public/controls/getPersonTree/js2/sort.js',
-            '/public/controls/getPersonTree/js2/jqm-tree.js',
-            '/public/controls/getPersonTree/js2/persontree.js']
-        },
-        //滑动加载
-        moveload:{
-            css:['/public/controls/moveload/css/scrollbar.css'],
-            js:[ '/public/controls/moveload/js/iscroll.js',
-                '/public/controls/searchDic/js/loading.js',
-                '/public/controls/moveload/js/moveload.js']
-        },
-        //多选字典(内含滑动加载，要和滑动加载一起引用)
-        searchdic:{
-            css:["/public/controls/searchDic/css/searchdic.css"],
-            js:["/public/controls/searchDic/js/loading.js",
-                "/public/controls/searchDic/js/searchdic.js",
-                "/public/controls/getPersonTree/js2/jquery.charfirst.pinyin.js"]
-        },
+
         modal: { //第三方对话框
             css: ['/public/controls/bootstrap-modal/css/bootstrap-modal-bs3patch.css',
                 '/public/controls/bootstrap-modal/css/bootstrap-modal.css',
@@ -373,13 +185,6 @@
             js: ['/public/controls/bootstrap-modal/js/bootstrap-modalmanager.js',
                 '/public/controls/bootstrap-modal/js/bootstrap-modal.js',
                 '/public/controls/bootstrap-modal/js/bootstrap-modal.expand.js']
-        },
-        /*modal: { //原生对话框的扩展
-         css: ['/public/controls/modal/modal.css'],
-         js: ['/public/controls/modal/modal.js']
-         },*/
-        signature: {
-            js: ['/public/controls/signature/signature.js']
         },
         table: {
             dependency: ['EIIS.Common.controls.fix'],
@@ -394,130 +199,15 @@
             loadSequence: true,
             dependency: ['EIIS.Common.jQuery.livequery'],
             js: ['/public/controls/tabs/tabs-expand.js']
-        },
-        bswitch: {
-            css: ['/public/controls/bootstrap-switch/css/bootstrap-switch.css',
-                '/public/controls/bootstrap-switch/css/highlight.css'],
-            js: ['/public/controls/bootstrap-switch/js/bootstrap-switch.js',
-                '/public/jquery/jquery.highlight.js']
-        },
-        bselect: {
-            css: ['/public/controls/bootstrap-select/bootstrap-select.min.css'],
-            js: ['/public/controls/bootstrap-select/bootstrap-select.min.js']
-        },
-        three: {
-            css: [
-                '/public/controls/three/css/dxf_3d.css'
-            ],
-            js: [
-                '/public/controls/three/js/OrbitControls.js',
-                '/public/controls/three/js/CanvasRenderer.js',
-                '/public/controls/three/js/dxf_3d.js'
-            ]
         }
     };
 
     EIIS.Common.controls = {
-        icons: {
-            js: ['/public/controls/selector/icons/selector.icons.js']
-        },
-        member: {
-            dependency: [
-                "EIIS.Common.bootstrap.modal",
-                'EIIS.Common.jQuery.fancytree',
-                'EIIS.Common.controls.tagsinput',
-                'EIIS.Common.controls.pickMember',
-                'EIIS.Common.controls.materialPickMember'
-            ],
-            js: ['/public/controls/selector/member/selector.member.js']
-        },
-        materialPickMember: {
-            js: ['/app/statementmoney/meterial/selector/selector.pickMember.js']
-        },
-        docmember: {
-            dependency: [
-                "EIIS.Common.bootstrap.modal",
-                'EIIS.Common.jQuery.fancytree',
-                'EIIS.Common.controls.tagsinput'
-            ],
-            js: ['/public/controls/selector/member/selector.docmember.js']
-        },
-        dialog: {
-            dependency: [
-                "EIIS.Common.bootstrap.modal",
-                "EIIS.Common.bootstrap.table",
-                "EIIS.Common.jQuery.fancytree.glyph",
-                "EIIS.Common.jQuery.fancytree.clones",
-                "EIIS.Common.controls.tagsinput"
-            ],
-            js: ['/public/controls/dialog/dialog.js']
-        },
-        businessView:{
-            dependency:[
-                "EIIS.Common.controls.pickMember"
-            ],
-            js:['/public/controls/businessView/businessView.js'],
-            css:['/public/controls/businessView/businessView.css','/public/jquery-easyui/themes/default/easyui.css']
-        },
-        dialoghaspagecount: {
-            dependency: [
-                "EIIS.Common.bootstrap.modal",
-                "EIIS.Common.bootstrap.table",
-                "EIIS.Common.jQuery.fancytree.glyph",
-                "EIIS.Common.jQuery.fancytree.clones",
-                "EIIS.Common.controls.tagsinput"
-            ],
-            js: ['/public/controls/dialoghaspagecount/dialog.js','/public/controls/dialoghaspagecount/page.js']
-        },
-        tagsinput: {
-            css: ['/public/controls/tagsinput/tagsinput.css'],
-            js: ['/public/controls/tagsinput/tagsinput.js']
-        },
         fix: {
             css: ['/public/controls/fix/fix.css'],
             js: ['/public/controls/fix/fix.js']
         },
-        document: {
-            dependency: [
-                'EIIS.Common.jQuery.message',
-                'EIIS.Common.controls.gallery'
-            ],
-            css: ['/public/controls/document/document.css'],
-            js: ['/public/controls/document/document.js'],
-            plugins: {
-                all: {
-                    dependency: [
-                        'EIIS.Common.controls.document',
-                        'EIIS.Common.controls.document.plugins.readbyhtml'
-                    ]
-                },
-                readbyhtml: {
-                    dependency: [
-                        'EIIS.Common.controls.document'
-                    ],
-                    js: ['/public/controls/document/document.plugin.readbyhtml.js']
-                }
-            },
-            upload: {
-                dependency: [
-                    'EIIS.Common.controls.document'
-                ],
-                css: ['/public/controls/document/document.upload.css'],
-                js: ['/public/controls/document/document.upload.js?v=1.1']
-            }
-        },
-        pickMember : {
-            css : ['/public/controls/selector/pickMember/pickMember.css'],
-            js : ['/public/controls/selector/pickMember/pickMember.js']
-        },
-        gallery : {
-            css : ['/public/mobileImgSupport/css/gallery.css'],
-            js : ['/public/mobileImgSupport/js/gallery.js']
-        },
         treeSelect : {
-            dependency: [
-                'EIIS.Common.controls.custom'
-            ],
             css : ['/public/jquery-easyui/themes/default/easyui.css','/public/jquery-easyui/selectPlugins/jquery-easyui.select.css'],
             js : ['/public/jquery-easyui/jquery.easyui.min.js','/public/mobileImgSupport/js/sonic.js','/public/jquery-easyui/selectPlugins/jquery-easyui.select.js']
         },
