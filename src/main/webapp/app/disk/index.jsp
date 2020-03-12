@@ -74,8 +74,9 @@
                 <div class="box-head">
                     <div class="box-head-left">1号</div>
                     <div class="box-head-right">
-                        <i class="update-i fa fa-pencil" title="编辑" id="edit"></i>
                         <i class="delete-i fa fa-trash-o" title="删除" id="delete"></i>
+                        <i class="update-i fa fa-pencil" title="编辑" id="edit"></i>
+                        <i class="download-i fa fa-download" title="下载" id="download"></i>
                     </div>
                 </div>
                 <div class="box-body">
@@ -116,7 +117,7 @@
         </div>
 
         <div id="details_modal" class="modal" data-width="30%"  tabindex="-1" aria-hidden="true" data-backdrop="static">
-            <form method="post" enctype="multipart/form-data" action="/app/file/saveMain.do" id="frm-reg">
+            <form method="post" enctype="multipart/form-data" action="/app/file/saveMain.do" id="frm-reg" >
                 <div class="panel-heading">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h3 class="modal-title">
@@ -162,6 +163,8 @@
 
 
             </form>
+
+
 
         </div>
 

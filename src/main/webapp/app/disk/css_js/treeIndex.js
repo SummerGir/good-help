@@ -19,6 +19,7 @@ function initTree() {
         },
         onSelect:function (node) {
             _treeNode = node;
+            getMainInfo(_treeNode);
          }
     })
 }

@@ -32,7 +32,7 @@ public class AttachmentUtils {
         return _rootPath;
     }
 
-    public static String getUrl(String url){
+    public static String addPrefix(String url){
         if(StringUtils.isBlank(url)) {
             return "";
         }
@@ -42,5 +42,15 @@ public class AttachmentUtils {
            url = "/" + url;
         }
         return temp + url;
+    }
+
+    public static String deletePrefix(String url){
+        if(StringUtils.isBlank(url)) {
+            return "";
+        }
+        if(url.substring(0,14)=="/file/download/"){
+            return url.substring(15);
+        }
+        return url;
     }
 }

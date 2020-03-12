@@ -1,46 +1,127 @@
 var _imgURL;
+var _fileInfo = {};
 
 $(window).load(function () {
+    getMainInfo(_treeNode);
+});
+
+function getMainInfo(treeNode) {
+    $("#file_Content").empty();
     $.ajax({
         url:"/app/file/getMainInfo.do",
-        data:{},
+        data:{"fileTreeId":treeNode},
         type:"post",
         dataType:'json',
         success:function (rs) {
             for(var i=0;i<rs.length;i++){
                 var file = rs[i];
+                //组装方块
                 var modal_file = $("div[name='modal_file']").clone();
                 $(modal_file).find(".box-head-left").text(file.fileName);
                 $(modal_file).find(".box-body img").attr("src",file.filePath);
-                $(modal_file).find(".box-head-right i").attr("data-str",i);
+                $(modal_file).find(".box-head-right i").attr("data-str",file.fileId);
                 $("#file_Content").append($(modal_file).html());
-            }
 
+                //填充数据
+                var singleInfo = {};
+                singleInfo["fileId"] = file.fileId;
+                singleInfo["fileTreeId"] = file.fileTreeId;
+                singleInfo["fileName"] = file.fileName;
+                singleInfo["filePath"] = file.filePath;
+                singleInfo["createdTime"] = file.createdTime;
+                singleInfo["systime"] = file.systime;
+                singleInfo["comment"] = file.comment;
+                _fileInfo[file.fileId] = singleInfo;
+            }
+            $("#file_Content").find(".box-head-right #edit").unbind("click").bind("click",function () {
+                edit_file($(this).attr("data-str"));
+            });
+            $("#file_Content").find(".box-head-right #delete").unbind("click").bind("click",function () {
+                delete_file($(this).attr("data-str"));
+            });
+
+            $("#file_Content").find(".box-head-right #download").unbind("click").bind("click",function () {
+                download_file($(this).attr("data-str"));
+            });
             $(".pimg").click(function () {
                 var _this = $(this);//将当前的pimg元素作为_this传入函数
                 imgShow("#outerdiv", "#innerdiv", "#bigimg", _this);
-
             });
 
         }
     })
+}
 
-});
-// $("#sub").click(function () {
-//     $("#frm-reg").ajaxSubmit(function (data) {
-//         alert(data.Message);
-//     });
-// });
+
+
+
+function edit_file(fileId) {
+    var file_info = _fileInfo[fileId];
+    console.log(file_info);
+
+    $("#details_modal input,#details_modal textarea").each(function (i,o) {
+        if($(o).attr("type") == "file"){
+            $(o).css("display","none");
+        }else {
+            var name = $(o).attr("name");
+            var val = file_info[name];
+            console.log(name +"...."+ val);
+            $(o).val(val);
+        }
+    });
+    $("#img-change").attr("src",file_info.filePath);
+    $("#img-change").css("display","block");
+    $('#details_modal').modal('show');
+}
+
+function delete_file(fileId) {
+    console.log(fileId);
+    $.message({
+        button:$.message.button.yesNo
+        ,text:"确定要删除此数据?"
+        ,result:function(result){
+            if(result == $.message.result.yes){
+                $.post(
+                    "/app/file/deleteMain.do",
+                    {fileId : fileId},
+                    function(rs) {
+                        $.message(rs.msg);
+                        if (rs.error == 0) {
+                            getMainInfo(_treeNode);
+                        }
+                     },
+                    "json");
+            }
+        }
+    });
+}
+
+function download_file() {
+
+}
 
 function add_file() {
+    if(_treeNode == null || (_treeNode["children"] != null)){
+        $.message("请先选中一个可用的节点数据！");
+        return;
+    }
+
+
     $("#details_modal input,#details_modal textarea").each(function () {
-       $(this).val("");
+        if($(this).attr("type") == "file"){
+            $(this).css("display","block");
+        }
+        $(this).val("");
+        if($(this).attr("name") == "fileTreeId"){
+            $(this).val(_treeNode);
+        }
     });
 
     $("#img-change").css("display","none");
 
     $('#details_modal').modal('show');
 }
+
 var filechange=function(event){
     var files = event.target.files, file;
     if (files && files.length > 0) {

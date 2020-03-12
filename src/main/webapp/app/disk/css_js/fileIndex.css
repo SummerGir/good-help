@@ -36,12 +36,17 @@
 
 .box-head-right .delete-i{
     padding-left: 4px;
-    color: #ff5d5e;
+    /*color: #ff5d5e;*/
 }
 .box-head-right .update-i{
-    padding-left: 8px;
-    color: #f8a326 ;
+    padding-left: 4px;
+    /*color: #f8a326 ;*/
 }
+.box-head-right .download-i{
+    padding-left: 4px;
+    /*color: #f8a326 ;*/
+}
+
 
 .box-div .box-body{
     text-align: center;

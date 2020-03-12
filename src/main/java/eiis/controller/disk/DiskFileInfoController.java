@@ -48,6 +48,8 @@ public class DiskFileInfoController {
     @ResponseBody
     public String saveMain(HttpServletRequest request,HttpServletResponse response){
         //消息提示
+        boolean isNew = true;
+
         String message = "文件上传失败";;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM");
@@ -62,7 +64,7 @@ public class DiskFileInfoController {
             //解决上传文件名的中文乱码
             fileUpload.setHeaderEncoding("UTF-8");
             //3、判断提交上来的数据是否是上传表单的数据
-            if(!fileUpload.isMultipartContent(request)){
+            if(!ServletFileUpload.isMultipartContent(request)){
                 //按照传统方式获取数据
                 return message;
             }
@@ -82,17 +84,24 @@ public class DiskFileInfoController {
             String fileId = map.get("fileId");
             if(StringUtils.isNotBlank(fileId)){
                 entity = service.findOne(fileId);
+                isNew = false;
             }else {
                 entity = new DiskFileInfoEntity();
                 entity.setFileId(UUID.randomUUID().toString());
+                isNew = true;
             }
             entity.setFileTreeId(map.get("fileTreeId"));
             entity.setFileName(map.get("fileName"));
-            entity.setFilePath(map.get("filePath"));
-            entity.setCreatedTime(new Timestamp(simpleDateFormat.parse(map.get("createdTime")).getTime()));
-            entity.setSystime(new Timestamp(new Date().getTime()));
+            if(map.get("createdTime") != null ){
+                entity.setCreatedTime(new Timestamp(simpleDateFormat.parse(map.get("createdTime")).getTime()));
+            }
+            entity.setSystime(new Timestamp(System.currentTimeMillis()));
             entity.setComment(map.get("comment"));
             //处理fileitem中的文件
+            if(!isNew){
+                service.save(entity);
+                return "修改信息成功！";
+            }
             for (FileItem item : list) {
                 if(!item.isFormField()) {
                     //如果fileitem中封装的是上传文件，得到上传的文件名称，
@@ -103,6 +112,7 @@ public class DiskFileInfoController {
                     //注意：不同的浏览器提交的文件名是不一样的，有些浏览器提交上来的文件名是带有路径的，如：  c:\a\b\1.txt，而有些只是单纯的文件名，如：1.txt
                     //处理获取到的上传文件的文件名的路径部分，只保留文件名部分
                     fileName = fileName.substring(fileName.lastIndexOf(File.separator) + 1);
+                    fileName += System.currentTimeMillis();
                     //获取item中的上传文件的输入流
                     InputStream is = item.getInputStream();
 
@@ -141,6 +151,24 @@ public class DiskFileInfoController {
             message = "文件上传失败";
         }
         return message;
+    }
+
+
+    @RequestMapping("deleteMain")
+    @ResponseBody
+    public ObjectNode deleteMain(HttpServletRequest request){
+        String fileId = request.getParameter("fileId");
+        DiskFileInfoEntity entity = service.findOne(fileId);
+        Path path = AttachmentUtils.getAttachRootPath().resolve(entity.getFilePath());
+
+        try {
+            path.toFile().deleteOnExit();
+            service.delete(request.getParameter("fileId"));
+            return GenericController.returnSuccess(null);
+        }catch (Exception e){
+            e.printStackTrace();
+            return GenericController.returnFaild(null);
+        }
     }
 
 }
