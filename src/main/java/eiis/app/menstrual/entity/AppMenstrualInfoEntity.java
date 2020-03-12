@@ -130,24 +130,48 @@ public class AppMenstrualInfoEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         AppMenstrualInfoEntity that = (AppMenstrualInfoEntity) o;
 
-        if (mensId != null ? !mensId.equals(that.mensId) : that.mensId != null) return false;
-        if (planStartTime != null ? !planStartTime.equals(that.planStartTime) : that.planStartTime != null)
+        if (mensId != null ? !mensId.equals(that.mensId) : that.mensId != null) {
             return false;
-        if (actStartTime != null ? !actStartTime.equals(that.actStartTime) : that.actStartTime != null) return false;
-        if (planMensCycle != null ? !planMensCycle.equals(that.planMensCycle) : that.planMensCycle != null)
+        }
+        if (planStartTime != null ? !planStartTime.equals(that.planStartTime) : that.planStartTime != null) {
             return false;
-        if (actMensCycle != null ? !actMensCycle.equals(that.actMensCycle) : that.actMensCycle != null) return false;
-        if (planOveTime != null ? !planOveTime.equals(that.planOveTime) : that.planOveTime != null) return false;
-        if (actOveTime != null ? !actOveTime.equals(that.actOveTime) : that.actOveTime != null) return false;
-        if (planOveCycle != null ? !planOveCycle.equals(that.planOveCycle) : that.planOveCycle != null) return false;
-        if (actOveCycle != null ? !actOveCycle.equals(that.actOveCycle) : that.actOveCycle != null) return false;
-        if (isValid != null ? !isValid.equals(that.isValid) : that.isValid != null) return false;
-        if (sysTime != null ? !sysTime.equals(that.sysTime) : that.sysTime != null) return false;
+        }
+        if (actStartTime != null ? !actStartTime.equals(that.actStartTime) : that.actStartTime != null) {
+            return false;
+        }
+        if (planMensCycle != null ? !planMensCycle.equals(that.planMensCycle) : that.planMensCycle != null) {
+            return false;
+        }
+        if (actMensCycle != null ? !actMensCycle.equals(that.actMensCycle) : that.actMensCycle != null) {
+            return false;
+        }
+        if (planOveTime != null ? !planOveTime.equals(that.planOveTime) : that.planOveTime != null) {
+            return false;
+        }
+        if (actOveTime != null ? !actOveTime.equals(that.actOveTime) : that.actOveTime != null) {
+            return false;
+        }
+        if (planOveCycle != null ? !planOveCycle.equals(that.planOveCycle) : that.planOveCycle != null) {
+            return false;
+        }
+        if (actOveCycle != null ? !actOveCycle.equals(that.actOveCycle) : that.actOveCycle != null) {
+            return false;
+        }
+        if (isValid != null ? !isValid.equals(that.isValid) : that.isValid != null) {
+            return false;
+        }
+        if (sysTime != null ? !sysTime.equals(that.sysTime) : that.sysTime != null) {
+            return false;
+        }
 
         return true;
     }

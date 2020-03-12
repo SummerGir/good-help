@@ -76,16 +76,30 @@ public class CoreMemberInfoEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         CoreMemberInfoEntity that = (CoreMemberInfoEntity) o;
 
-        if (isFrozen != that.isFrozen) return false;
-        if (memberId != null ? !memberId.equals(that.memberId) : that.memberId != null) return false;
-        if (memberName != null ? !memberName.equals(that.memberName) : that.memberName != null) return false;
-        if (photo != null ? !photo.equals(that.photo) : that.photo != null) return false;
-        if (account != null ? !account.equals(that.account) : that.account != null) return false;
+        if (isFrozen != that.isFrozen) {
+            return false;
+        }
+        if (memberId != null ? !memberId.equals(that.memberId) : that.memberId != null) {
+            return false;
+        }
+        if (memberName != null ? !memberName.equals(that.memberName) : that.memberName != null) {
+            return false;
+        }
+        if (photo != null ? !photo.equals(that.photo) : that.photo != null) {
+            return false;
+        }
+        if (account != null ? !account.equals(that.account) : that.account != null) {
+            return false;
+        }
         return password != null ? password.equals(that.password) : that.password == null;
     }
 

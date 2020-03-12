@@ -57,8 +57,9 @@ public class CoreMenuTreeService  extends
 	@Transactional
 	public void moveTree(String treeId,boolean type) throws Exception {
 		CoreMenuTreeInfoEntity entity = dao.findOne(treeId);
-		if(entity == null)
-			return;
+		if(entity == null) {
+            return;
+        }
 		int menuLevel = entity.getMenuLevel();
 
 		if(type){
@@ -74,8 +75,9 @@ public class CoreMenuTreeService  extends
 		}
 
 		CoreMenuTreeInfoEntity entity2 = findOneByOutlineLevel(outlineLevel);
-		if(entity2 == null)
-			return;
+		if(entity2 == null) {
+            return;
+        }
 
 		moveChildren(entity2.getOutlineLevel(),"temp");
 		moveChildren(entity.getOutlineLevel(),entity2.getOutlineLevel());
@@ -136,8 +138,9 @@ public class CoreMenuTreeService  extends
 		map.put("iconCls",entity.getIcon());
 		map.put("state","open");
 		List<Map<String,Object>> lc = getMenuTree(list,entity.getOutlineLevel());
-		if(lc.size() > 0)
-			map.put("children",lc);
+		if(lc.size() > 0) {
+            map.put("children", lc);
+        }
 
 		listMenu.add(map);
 		return listMenu;
@@ -175,8 +178,9 @@ public class CoreMenuTreeService  extends
 	public CoreMenuTreeInfoEntity findOneByCode(String code){
 		List<CoreMenuTreeInfoEntity> list = entityManager.createQuery("select en from CoreMenuTreeInfoEntity en,CoreMenuUrlInfoEntity en2 where en.urlId=en2.urlId and en2.code=:code").setParameter("code",code).getResultList();
 		if(list != null && list.size() > 0){
-			if(list.size() > 1)
-				System.out.println("菜单code："+code+"重复了。");
+			if(list.size() > 1) {
+                System.out.println("菜单code：" + code + "重复了。");
+            }
 			return list.get(0);
 		}else{
 			System.out.println("菜单code："+code+"没有找到。");

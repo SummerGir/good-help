@@ -1,7 +1,6 @@
 package util.context;
 
 import org.apache.commons.lang3.StringUtils;
-import util.io.WebPathUtils;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -21,7 +20,7 @@ public class ContextServletListener implements ServletContextListener {
         Context.setCharset(charset);
 
 
-        WebPathUtils.setWebAppRootPath(Paths.get(Context.getServletContext().getRealPath("/")));
+//        WebPathUtils.setWebAppRootPath(Paths.get(Context.getServletContext().getRealPath("/")));
 
         System.out.println("eiis startup ...............");
     }

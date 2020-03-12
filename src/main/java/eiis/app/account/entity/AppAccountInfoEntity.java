@@ -74,17 +74,30 @@ public class AppAccountInfoEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         AppAccountInfoEntity that = (AppAccountInfoEntity) o;
 
-        if (accountId != null ? !accountId.equals(that.accountId) : that.accountId != null) return false;
-        if (accountType != null ? !accountType.equals(that.accountType) : that.accountType != null) return false;
-        if (accountName != null ? !accountName.equals(that.accountName) : that.accountName != null) return false;
-        if (accountPassword != null ? !accountPassword.equals(that.accountPassword) : that.accountPassword != null)
+        if (accountId != null ? !accountId.equals(that.accountId) : that.accountId != null) {
             return false;
-        if (memberId != null ? !memberId.equals(that.memberId) : that.memberId != null) return false;
+        }
+        if (accountType != null ? !accountType.equals(that.accountType) : that.accountType != null) {
+            return false;
+        }
+        if (accountName != null ? !accountName.equals(that.accountName) : that.accountName != null) {
+            return false;
+        }
+        if (accountPassword != null ? !accountPassword.equals(that.accountPassword) : that.accountPassword != null) {
+            return false;
+        }
+        if (memberId != null ? !memberId.equals(that.memberId) : that.memberId != null) {
+            return false;
+        }
         return comment != null ? comment.equals(that.comment) : that.comment == null;
     }
 

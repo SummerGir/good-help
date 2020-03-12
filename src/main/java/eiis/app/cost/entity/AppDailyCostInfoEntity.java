@@ -98,17 +98,33 @@ public class AppDailyCostInfoEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         AppDailyCostInfoEntity that = (AppDailyCostInfoEntity) o;
 
-        if (costId != null ? !costId.equals(that.costId) : that.costId != null) return false;
-        if (title != null ? !title.equals(that.title) : that.title != null) return false;
-        if (costTime != null ? !costTime.equals(that.costTime) : that.costTime != null) return false;
-        if (payMoney != null ? !payMoney.equals(that.payMoney) : that.payMoney != null) return false;
-        if (typeDetailId != null ? !typeDetailId.equals(that.typeDetailId) : that.typeDetailId != null) return false;
-        if (sysTime != null ? !sysTime.equals(that.sysTime) : that.sysTime != null) return false;
+        if (costId != null ? !costId.equals(that.costId) : that.costId != null) {
+            return false;
+        }
+        if (title != null ? !title.equals(that.title) : that.title != null) {
+            return false;
+        }
+        if (costTime != null ? !costTime.equals(that.costTime) : that.costTime != null) {
+            return false;
+        }
+        if (payMoney != null ? !payMoney.equals(that.payMoney) : that.payMoney != null) {
+            return false;
+        }
+        if (typeDetailId != null ? !typeDetailId.equals(that.typeDetailId) : that.typeDetailId != null) {
+            return false;
+        }
+        if (sysTime != null ? !sysTime.equals(that.sysTime) : that.sysTime != null) {
+            return false;
+        }
 
         return true;
     }

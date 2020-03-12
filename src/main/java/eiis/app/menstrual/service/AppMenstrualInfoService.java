@@ -116,8 +116,9 @@ public class AppMenstrualInfoService extends
 		if(list.size() == 0){
 			 list = entityManager.createQuery("select en from AppMenstrualInfoEntity en order by en.actStartTime desc").getResultList();
 		}
-		if(list.size() > 0)
-			return list.get(0);
+		if(list.size() > 0) {
+            return list.get(0);
+        }
 		return null;
 	}
 

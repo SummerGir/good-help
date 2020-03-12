@@ -67,16 +67,30 @@ public class AppTypeInfoEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         AppTypeInfoEntity that = (AppTypeInfoEntity) o;
 
-        if (typeId != null ? !typeId.equals(that.typeId) : that.typeId != null) return false;
-        if (typeName != null ? !typeName.equals(that.typeName) : that.typeName != null) return false;
-        if (typeCode != null ? !typeCode.equals(that.typeCode) : that.typeCode != null) return false;
-        if (sysTime != null ? !sysTime.equals(that.sysTime) : that.sysTime != null) return false;
-        if (memberId != null ? !memberId.equals(that.memberId) : that.memberId != null) return false;
+        if (typeId != null ? !typeId.equals(that.typeId) : that.typeId != null) {
+            return false;
+        }
+        if (typeName != null ? !typeName.equals(that.typeName) : that.typeName != null) {
+            return false;
+        }
+        if (typeCode != null ? !typeCode.equals(that.typeCode) : that.typeCode != null) {
+            return false;
+        }
+        if (sysTime != null ? !sysTime.equals(that.sysTime) : that.sysTime != null) {
+            return false;
+        }
+        if (memberId != null ? !memberId.equals(that.memberId) : that.memberId != null) {
+            return false;
+        }
 
         return true;
     }

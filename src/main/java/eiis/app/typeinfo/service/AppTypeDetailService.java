@@ -132,8 +132,9 @@ public class AppTypeDetailService extends
 	@Transactional
 	public void moveTypeDetail(String typeDetailId,boolean type) throws Exception {
 		AppTypeDetailEntity entity = dao.findOne(typeDetailId);
-		if(entity == null)
-			return;
+		if(entity == null) {
+            return;
+        }
 		int level = entity.getDetailLevel();
 
 		if(type){
@@ -143,8 +144,9 @@ public class AppTypeDetailService extends
 		}
 
 		AppTypeDetailEntity entity2 = findOneByLevel(level);
-		if(entity2 == null)
-			return;
+		if(entity2 == null) {
+            return;
+        }
 
 		entity2.setDetailLevel(entity.getDetailLevel());
 		entity.setDetailLevel(level);

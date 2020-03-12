@@ -86,18 +86,36 @@ public class AppMeterialInputDetailEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         AppMeterialInputDetailEntity that = (AppMeterialInputDetailEntity) o;
 
-        if (detailId != null ? !detailId.equals(that.detailId) : that.detailId != null) return false;
-        if (inputId != null ? !inputId.equals(that.inputId) : that.inputId != null) return false;
-        if (dicId != null ? !dicId.equals(that.dicId) : that.dicId != null) return false;
-        if (detailNum != null ? !detailNum.equals(that.detailNum) : that.detailNum != null) return false;
-        if (detailPrice != null ? !detailPrice.equals(that.detailPrice) : that.detailPrice != null) return false;
-        if (money != null ? !money.equals(that.money) : that.money != null) return false;
-        if (comment != null ? !comment.equals(that.comment) : that.comment != null) return false;
+        if (detailId != null ? !detailId.equals(that.detailId) : that.detailId != null) {
+            return false;
+        }
+        if (inputId != null ? !inputId.equals(that.inputId) : that.inputId != null) {
+            return false;
+        }
+        if (dicId != null ? !dicId.equals(that.dicId) : that.dicId != null) {
+            return false;
+        }
+        if (detailNum != null ? !detailNum.equals(that.detailNum) : that.detailNum != null) {
+            return false;
+        }
+        if (detailPrice != null ? !detailPrice.equals(that.detailPrice) : that.detailPrice != null) {
+            return false;
+        }
+        if (money != null ? !money.equals(that.money) : that.money != null) {
+            return false;
+        }
+        if (comment != null ? !comment.equals(that.comment) : that.comment != null) {
+            return false;
+        }
 
         return true;
     }

@@ -75,17 +75,33 @@ public class AppNoteInfoEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         AppNoteInfoEntity that = (AppNoteInfoEntity) o;
 
-        if (noteId != null ? !noteId.equals(that.noteId) : that.noteId != null) return false;
-        if (typeDetailId != null ? !typeDetailId.equals(that.typeDetailId) : that.typeDetailId != null) return false;
-        if (title != null ? !title.equals(that.title) : that.title != null) return false;
-        if (content != null ? !content.equals(that.content) : that.content != null) return false;
-        if (sysTime != null ? !sysTime.equals(that.sysTime) : that.sysTime != null) return false;
-        if (memberId != null ? !memberId.equals(that.memberId) : that.memberId != null) return false;
+        if (noteId != null ? !noteId.equals(that.noteId) : that.noteId != null) {
+            return false;
+        }
+        if (typeDetailId != null ? !typeDetailId.equals(that.typeDetailId) : that.typeDetailId != null) {
+            return false;
+        }
+        if (title != null ? !title.equals(that.title) : that.title != null) {
+            return false;
+        }
+        if (content != null ? !content.equals(that.content) : that.content != null) {
+            return false;
+        }
+        if (sysTime != null ? !sysTime.equals(that.sysTime) : that.sysTime != null) {
+            return false;
+        }
+        if (memberId != null ? !memberId.equals(that.memberId) : that.memberId != null) {
+            return false;
+        }
 
         return true;
     }

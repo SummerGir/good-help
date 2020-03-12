@@ -26,7 +26,9 @@ public class StatementGenericService{
 		}
 		page = page < 1 ? 1 : page;
 		query.setFirstResult((page - 1) * rows);
-		if(rows>0)query.setMaxResults(rows);
+		if(rows>0) {
+            query.setMaxResults(rows);
+        }
 		List<Map<String, Object>> result = new ArrayList<Map<String,Object>>();
 
 		if(fieldNames.length > 1){

@@ -96,19 +96,39 @@ public class AppTypeDetailEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         AppTypeDetailEntity that = (AppTypeDetailEntity) o;
 
-        if (detailLevel != that.detailLevel) return false;
-        if (isValid != that.isValid) return false;
-        if (typeDetailId != null ? !typeDetailId.equals(that.typeDetailId) : that.typeDetailId != null) return false;
-        if (typeId != null ? !typeId.equals(that.typeId) : that.typeId != null) return false;
-        if (detailName != null ? !detailName.equals(that.detailName) : that.detailName != null) return false;
-        if (detailCode != null ? !detailCode.equals(that.detailCode) : that.detailCode != null) return false;
-        if (detailValue != null ? !detailValue.equals(that.detailValue) : that.detailValue != null) return false;
-        if (comment != null ? !comment.equals(that.comment) : that.comment != null) return false;
+        if (detailLevel != that.detailLevel) {
+            return false;
+        }
+        if (isValid != that.isValid) {
+            return false;
+        }
+        if (typeDetailId != null ? !typeDetailId.equals(that.typeDetailId) : that.typeDetailId != null) {
+            return false;
+        }
+        if (typeId != null ? !typeId.equals(that.typeId) : that.typeId != null) {
+            return false;
+        }
+        if (detailName != null ? !detailName.equals(that.detailName) : that.detailName != null) {
+            return false;
+        }
+        if (detailCode != null ? !detailCode.equals(that.detailCode) : that.detailCode != null) {
+            return false;
+        }
+        if (detailValue != null ? !detailValue.equals(that.detailValue) : that.detailValue != null) {
+            return false;
+        }
+        if (comment != null ? !comment.equals(that.comment) : that.comment != null) {
+            return false;
+        }
 
         return true;
     }

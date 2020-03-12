@@ -38,15 +38,15 @@
     <script type="text/javascript" src="/public/eiis/eiis.js"></script>
 
     <script type="text/javascript">
-        $(function(){
-            EIIS.Common.loadComponent(EIIS.Common.bootstrap.font_awesome);
-            EIIS.Common.loadComponent(EIIS.Common.UI);
-            EIIS.Common.loadComponent(EIIS.Common.jQuery.message);
-        })
+        EIIS.Common.loadComponent(EIIS.Common.UI);
+        EIIS.Common.loadComponent(EIIS.Common.controls.EasyUI);
+        EIIS.Common.loadComponent(EIIS.Common.bootstrap);
+        EIIS.Common.loadComponent(EIIS.Common.bootstrap.font_awesome);
+        EIIS.Common.loadComponent(EIIS.Common.jQuery.message);
     </script>
     <link href="/theme/pc/main/css_js/index.css" rel="stylesheet">
-    <!--子页面head中的内容-->
     <master:ContentPlaceHolder id="head"/>
+    <!--子页面head中的内容-->
 </head>
 <body>
 

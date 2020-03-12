@@ -21,8 +21,9 @@ public enum StatementCycleKind {
         StringBuffer sb = new StringBuffer();
         for(StatementCycleKind sc : StatementCycleKind.values()){
             String se = "";
-            if(def_type == sc.getType())
+            if(def_type == sc.getType()) {
                 se = "selected='selected'";
+            }
             sb.append("<option value='"+sc.getType()+"' "+se+" >").append(sc.getName()).append("</option>");
         }
         return sb;

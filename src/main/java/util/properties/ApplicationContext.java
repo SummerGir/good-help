@@ -9,7 +9,6 @@ import org.springframework.web.context.ContextLoader;
 @Service("eiis.util.spring.applicationcontext")
 public class ApplicationContext implements ApplicationContextAware {
     private static org.springframework.context.ApplicationContext currentApplicationContext = null;
-
     public ApplicationContext() {
     }
 
@@ -28,3 +27,6 @@ public class ApplicationContext implements ApplicationContextAware {
         currentApplicationContext = applicationContext;
     }
 }
+
+
+

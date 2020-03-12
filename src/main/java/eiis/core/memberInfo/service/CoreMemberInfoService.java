@@ -60,7 +60,8 @@ public class CoreMemberInfoService extends GenericService<CoreMemberInfoEntity, 
         }
 
         String baseSql = "select cmi.MEMBER_ID,cmi.MEMBER_NAME,cmi.PHOTO,cmi.ACCOUNT,cmi.PASSWORD,cmi.IS_FROZEN  from core_member_info cmi where 1=1 " +
-                (StringUtils.isNotBlank(mainId)?" and cmi.MEMBER_ID=:mainId ":"");
+                (StringUtils.isNotBlank(mainId)?" and cmi.MEMBER_ID=:mainId ":"") +
+                (StringUtils.isNotBlank(searchKey)?" and ((locate(:searchKey,cmi.MEMBER_NAME)>0) or(locate(:searchKey,cmi.ACCOUNT))>0 or (locate(:searchKey,cmi.PASSWORD))>0)":"") ;
 
         String[] fields = {"memberId","memberName","photo","account","password","isFrozen"};
 
@@ -78,7 +79,8 @@ public class CoreMemberInfoService extends GenericService<CoreMemberInfoEntity, 
 
     public int getMainCount(String mainId,String searchKey){
         String baseSql = "select count(1) from core_member_info cmi where 1=1 " +
-                (StringUtils.isNotBlank(mainId)?" and cmi.MEMBER_ID=:mainId ":"");
+                (StringUtils.isNotBlank(mainId)?" and cmi.MEMBER_ID=:mainId ":"") +
+                (StringUtils.isNotBlank(searchKey)?" and ((locate(:searchKey,cmi.MEMBER_NAME)>0) or(locate(:searchKey,cmi.ACCOUNT))>0 or (locate(:searchKey,cmi.PASSWORD))>0)":"") ;
         Query query = entityManager.createNativeQuery(baseSql);
         if(StringUtils.isNotBlank(mainId)){
             query.setParameter("mainId",mainId);

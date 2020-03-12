@@ -75,8 +75,9 @@ public class AppMeterialInputController {
     @ResponseBody
     public ObjectNode saveMain(HttpServletRequest request){
         String postData = request.getParameter("postData");
-        if(StringUtils.isBlank(postData))
+        if(StringUtils.isBlank(postData)) {
             return GenericController.returnFaild("没有获取到表单数据");
+        }
         try{
             JSONObject jb = JSONObject.fromObject(postData);
 
@@ -135,13 +136,15 @@ public class AppMeterialInputController {
     public ObjectNode saveBillMoney(HttpServletRequest request){
         String inputId = request.getParameter("inputId");
         String billMoney = request.getParameter("billMoney");
-        if(StringUtils.isBlank(inputId))
+        if(StringUtils.isBlank(inputId)) {
             return GenericController.returnFaild("没有获取到表单数据");
+        }
         try{
 
             AppMeterialInputEntity entity = mainService.findOne(inputId);
-            if(entity == null)
+            if(entity == null) {
                 return GenericController.returnFaild("没有获取到表单数据");
+            }
 
             entity.setIsValid(true);
             entity.setBillMoney(StringUtils.isNotBlank(billMoney) ? new BigDecimal(billMoney) : null);
@@ -161,8 +164,9 @@ public class AppMeterialInputController {
     public ObjectNode saveIsValid(HttpServletRequest request){
         String mainId = request.getParameter("mainId");
         String isValid = request.getParameter("isValid");
-        if(StringUtils.isBlank(mainId))
+        if(StringUtils.isBlank(mainId)) {
             return GenericController.returnFaild("没有获取到单据编号");
+        }
         try{
             AppMeterialInputEntity entity = mainService.findOne(mainId);
             entity.setIsValid(Boolean.parseBoolean(isValid));

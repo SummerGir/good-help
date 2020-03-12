@@ -82,12 +82,15 @@ public class AppCostInfoController {
         }else{
             entity.setCostTime(new Timestamp(new Date().getTime()));
         }
-        if(StringUtils.isNotBlank(costNum))
+        if(StringUtils.isNotBlank(costNum)) {
             entity.setCostNum(new BigDecimal(costNum));
-        if(StringUtils.isNotBlank(costPrice))
+        }
+        if(StringUtils.isNotBlank(costPrice)) {
             entity.setCostPrice(new BigDecimal(costPrice));
-        if(StringUtils.isNotBlank(payMoney))
+        }
+        if(StringUtils.isNotBlank(payMoney)) {
             entity.setPayMoney(new BigDecimal(payMoney));
+        }
         try {
            service.save(entity);
         }catch (Exception e){

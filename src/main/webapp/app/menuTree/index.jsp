@@ -22,11 +22,9 @@
 <master:ContentPage>
     <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
     <master:Content contentPlaceHolderId="head">
-        <script type="text/javascript">
-            EIIS.Common.loadComponent(EIIS.Common.controls.EasyUI);
-        </script>
-        <link rel="stylesheet" type="text/css" href="/app/menuTree/css/tree.css" />
-        <link rel="stylesheet" type="text/css" href="/app/menuTree/css/index.css" />
+        <link rel="stylesheet" type="text/css" href="/public/jquery-easyui/extend/css/tree.css" />
+        <link rel="stylesheet" type="text/css" href="/app/menuTree/css_js/index.css" />
+
     </master:Content>
     <master:Content contentPlaceHolderId="body">
 
@@ -113,6 +111,6 @@
             </div>
         </div>
 
-        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="css_js/index.js"></script>
     </master:Content>
 </master:ContentPage>

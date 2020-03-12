@@ -73,7 +73,7 @@
                 <div class="row">
                     <div class="col-xs-12 col-md-12" style="display: flex">
                         <label style="width: 80px;line-height: 36px;">关键字：</label>
-                        <input type="text" class="form-control" name="searchKey" placeholder="请填写单据编号：" >
+                        <input type="text" class="form-control" name="searchKey" placeholder="请填写关键字：" >
                     </div>
                 </div>
             </div>
@@ -92,7 +92,7 @@
                 </h3>
             </div>
             <div class="panel-body">
-                <input type="hidden" name="urlId" value=""/>
+                <input type="hidden" name="memberId" value=""/>
                 <div class="row">
                     <div class="col-xs-6 col-md-6">
                         <h5>用户名称:</h5>
