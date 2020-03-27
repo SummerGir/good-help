@@ -1,4 +1,4 @@
-package eiis.controller.note;
+package eiis.controller.app.note;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import eiis.app.note.entity.AppNoteInfoEntity;
