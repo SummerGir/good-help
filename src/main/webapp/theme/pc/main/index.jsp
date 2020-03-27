@@ -43,6 +43,7 @@
         EIIS.Common.loadComponent(EIIS.Common.bootstrap);
         EIIS.Common.loadComponent(EIIS.Common.bootstrap.font_awesome);
         EIIS.Common.loadComponent(EIIS.Common.jQuery.message);
+        EIIS.Common.loadComponent(EIIS.Common.jQuery.form)
     </script>
     <link href="/theme/pc/main/css_js/index.css" rel="stylesheet">
     <master:ContentPlaceHolder id="head"/>

@@ -13,6 +13,7 @@ import util.dataManage.GenericService;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.xml.transform.Result;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,6 +67,10 @@ public class AppAccountInfoService extends GenericService<AppAccountInfoEntity,S
             for (Map.Entry<String,Object> e: m.entrySet()){
                 if (e.getValue() == null){
                     m.put(e.getKey(),"");
+                }
+                if("accountPassword".equals(e.getKey())){
+                    byte[] decode = Base64.getDecoder().decode(e.getValue().toString());
+                    m.put(e.getKey(),new String(decode, "UTF-8"));
                 }
             }
         }

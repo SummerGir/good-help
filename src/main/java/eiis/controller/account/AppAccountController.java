@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import util.dataManage.GenericController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -42,6 +43,10 @@ public class AppAccountController {
          String accountType= request.getParameter("accountType");
          String accountName= request.getParameter("accountName");
          String accountPassword= request.getParameter("accountPassword");
+         String encode = Base64.getEncoder().encodeToString(accountPassword.getBytes("UTF-8"));
+
+
+
          String memberId= request.getParameter("memberId");
          String comment= request.getParameter("comment");
 
@@ -53,7 +58,7 @@ public class AppAccountController {
         }
         entity.setAccountType(accountType);
         entity.setAccountName(accountName);
-        entity.setAccountPassword(accountPassword);
+        entity.setAccountPassword(encode);
         entity.setMemberId(memberId);
         entity.setComment(comment);
 

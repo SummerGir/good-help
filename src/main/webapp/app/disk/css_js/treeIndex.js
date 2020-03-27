@@ -3,25 +3,47 @@ var _data = null;
 var moduleTree = null;
 $(window).load(function () {
     initTree();
+
 });
 function initTree() {
-     moduleTree  = $("#disk_tree").tree({
-        animate: true,
-        lines: true,
-        url: "/app/disk/getMainInfo.do",
-        queryParams: { "parentId":""},
-        onBeforeExpand:function(node){
-            moduleTree.tree("options").queryParams = {"parentId":node.treeId};
-            if(node.isLoad){
-                node.isLoad = false;
-                moduleTree.tree("reload",node.target);
+        moduleTree  = $("#disk_tree").tree({
+            animate: true,
+            lines: true,
+            url: "/app/disk/getMainInfo.do",
+            queryParams: { "parentId":""},
+            onBeforeExpand:function(node){
+                if(node != null){
+                    if(!node.isLoad){
+                        node.isLoad = true;
+                        moduleTree.tree("options").queryParams = {"parentId":node.treeId};
+                        // moduleTree.tree("reload",node.target);
+                        return;
+                    }
+                }
+            },
+            onSelect:function (node) {
+                _treeNode = node;
+                getMainInfo(_treeNode.treeId);
+            },
+            onLoadSuccess:function (node, data) {
+                if(_treeNode != null){
+                    if(!_treeNode.isLoad){
+                        moduleTree.tree("options").queryParams = {"parentId":_treeNode.treeId};
+                        moduleTree.tree("reload",_treeNode.target);
+                    }else{
+                        var id = _treeNode.treeId;
+                        moduleTree.tree("select",moduleTree.tree("find",id).target);
+                        moduleTree.tree("expand",moduleTree.tree("find",id).target);
+                    }
+                }
             }
-        },
-        onSelect:function (node) {
-            _treeNode = node;
-            getMainInfo(_treeNode);
-         }
-    })
+        });
+}
+function iniFirst() {
+    //获取根节点
+    var rooNode = moduleTree.tree('getRoot');
+    //调用expand方法
+    $("#disk_tree").tree('expand',rooNode.target);
 }
 
 function reset_tree() {
@@ -43,11 +65,11 @@ function move_tree(bool) {
         type:"post",
         dataType:"json",
         success:function (rs) {
-            // $.message(rs.msg);
             if(rs.error == 0){
+                var id = _treeNode.treeId;
                 var node = moduleTree.tree("getParent",_treeNode.target);
+                moduleTree.tree("options").queryParams = {"parentId":node.treeId};
                 moduleTree.tree("reload",node.target);
-                moduleTree.tree("select",_treeNode.target);
             }
         }
     })
@@ -95,7 +117,6 @@ function save_main() {
             postData[name] = $(this).val();
         }
     });
-    console.log(postData);
     if(!flag)  return;
     if(dataVal == "add"){
         $.ajax({
@@ -106,8 +127,15 @@ function save_main() {
             success:function (rs) {
                 $.message(rs.msg);
                 if(rs.error == 0){
-                    // var node = moduleTree.tree("getParent",_treeNode.target);
-                    moduleTree.tree("reload",_treeNode.target);
+                    if(_treeNode.children == null || _treeNode.children.length  < 1){
+                        _treeNode.isLoad = true;
+                        var node = moduleTree.tree("getParent",_treeNode.target);
+                        moduleTree.tree("options").queryParams = {"parentId":node.treeId};
+                        moduleTree.tree("reload",node.target);
+                    }else{
+                        moduleTree.tree("options").queryParams = {"parentId":_treeNode.treeId};
+                        moduleTree.tree("reload",_treeNode.target);
+                    }
                 }
             }
         })
@@ -122,6 +150,7 @@ function save_main() {
                 $.message(rs.msg);
                 if(rs.error == 0){
                     var node = moduleTree.tree("getParent",_treeNode.target);
+                    moduleTree.tree("options").queryParams = {"parentId":node.treeId};
                     moduleTree.tree("reload",node.target);
                 }
 
@@ -149,6 +178,7 @@ function delete_main() {
             $.message(rs.msg);
             if(rs.error == 0){
                 var node = moduleTree.tree("getParent",_treeNode.target);
+                moduleTree.tree("options").queryParams = {"parentId":node.treeId};
                 moduleTree.tree("reload",node.target);
             }
 

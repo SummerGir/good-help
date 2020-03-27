@@ -97,8 +97,8 @@ public class CoreMenuTreeService  extends
 	}
 
 	private void moveChildren(String oldParen,String newParen){
-		String sql = "update core_menu_tree_info a set a.OUTLINE_LEVEL=concat(:newParen,'.',a.MENU_LEVEL) where left(a.OUTLINE_LEVEL,length(:oldParen))=:oldParen and length(a.OUTLINE_LEVEL)>length(:oldParen)";
-		entityManager.createNativeQuery(sql).setParameter("oldParen",oldParen).setParameter("newParen",newParen).executeUpdate();
+		String sql = "update core_menu_tree_info a set a.OUTLINE_LEVEL=concat(:newParen,a.MENU_LEVEL) where left(a.OUTLINE_LEVEL,length(:oldParen))=:oldParen and length(a.OUTLINE_LEVEL)>length(:oldParen)";
+		entityManager.createNativeQuery(sql).setParameter("oldParen",oldParen + ".").setParameter("newParen",newParen + ".").executeUpdate();
 	}
 
 	//得到菜单列表

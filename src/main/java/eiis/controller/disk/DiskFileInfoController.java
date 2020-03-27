@@ -8,9 +8,8 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
+import java.io.*;
+import java.net.URL;
 import java.nio.file.Path;
 import java.sql.Timestamp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,11 +45,9 @@ public class DiskFileInfoController {
 
     @RequestMapping("saveMain")
     @ResponseBody
-    public String saveMain(HttpServletRequest request,HttpServletResponse response){
+    public ObjectNode saveMain(HttpServletRequest request){
         //消息提示
         boolean isNew = true;
-
-        String message = "文件上传失败";;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM");
         Date date = new Date();
@@ -66,7 +63,7 @@ public class DiskFileInfoController {
             //3、判断提交上来的数据是否是上传表单的数据
             if(!ServletFileUpload.isMultipartContent(request)){
                 //按照传统方式获取数据
-                return message;
+                return GenericController.returnFaild(null);
             }
             //4、使用ServletFileUpload解析器解析上传数据，解析结果返回的是一个List<FileItem>集合，每一个FileItem对应一个Form表单的输入项
             List<FileItem> list = fileUpload.parseRequest(request);
@@ -77,8 +74,8 @@ public class DiskFileInfoController {
                 if(item.isFormField()){
                     String name = item.getFieldName();
                     String value = item.getString("UTF-8");
-                    String value1 = new String(value.getBytes("iso8859-1"),"UTF-8");
-                    map.put(name,value1);
+//                    String value1 = new String(value.getBytes("iso8859-1"),"UTF-8");
+                    map.put(name,value);
                 }
             }
             String fileId = map.get("fileId");
@@ -100,7 +97,8 @@ public class DiskFileInfoController {
             //处理fileitem中的文件
             if(!isNew){
                 service.save(entity);
-                return "修改信息成功！";
+                //修改信息成功
+                return GenericController.returnSuccess(null);
             }
             for (FileItem item : list) {
                 if(!item.isFormField()) {
@@ -112,7 +110,7 @@ public class DiskFileInfoController {
                     //注意：不同的浏览器提交的文件名是不一样的，有些浏览器提交上来的文件名是带有路径的，如：  c:\a\b\1.txt，而有些只是单纯的文件名，如：1.txt
                     //处理获取到的上传文件的文件名的路径部分，只保留文件名部分
                     fileName = fileName.substring(fileName.lastIndexOf(File.separator) + 1);
-                    fileName += System.currentTimeMillis();
+                    fileName = System.currentTimeMillis()+"_"+fileName;
                     //获取item中的上传文件的输入流
                     InputStream is = item.getInputStream();
 
@@ -141,16 +139,14 @@ public class DiskFileInfoController {
                     fos.close();
                     //删除处理文件上传时生成的临时文件
                     item.delete();
-                    message = "文件上传成功";
                 }
             }
             service.save(entity);
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
-            message = "文件上传失败";
+            return GenericController.returnFaild(null);
         }
-        return message;
+        return GenericController.returnSuccess(null);
     }
 
 
@@ -160,9 +156,8 @@ public class DiskFileInfoController {
         String fileId = request.getParameter("fileId");
         DiskFileInfoEntity entity = service.findOne(fileId);
         Path path = AttachmentUtils.getAttachRootPath().resolve(entity.getFilePath());
-
         try {
-            path.toFile().deleteOnExit();
+            path.toFile().delete();
             service.delete(request.getParameter("fileId"));
             return GenericController.returnSuccess(null);
         }catch (Exception e){
@@ -171,4 +166,38 @@ public class DiskFileInfoController {
         }
     }
 
+
+    @RequestMapping("downLoadMain")
+    @ResponseBody
+    public void downLoadMain(HttpServletRequest request,HttpServletResponse response){
+        String fileId = request.getParameter("fileId");
+//        String targetPath = request.getParameter("targetPath");
+        DiskFileInfoEntity entity = service.findOne(fileId);
+        Path sourcePath = AttachmentUtils.getAttachRootPath().resolve(entity.getFilePath());
+        File sourceFile = sourcePath.toFile();
+        String fileName = sourceFile.getName();
+        //取得文件后缀名
+        String ext = fileName.substring(fileName.lastIndexOf(".") + 1).toUpperCase();
+        try {
+            //以流的形式下载文件
+            InputStream in = new BufferedInputStream(new FileInputStream(sourceFile));
+            byte[] bytes = new byte[in.available()];
+            in.read(bytes);
+            in.close();
+            //清空response
+            response.reset();
+            //设置response的header
+            response.addHeader("Content-Disposition","attachment;filename=" + new String(fileName.getBytes()));
+            response.addHeader("Content-Length", "" + sourceFile.length());
+            OutputStream out = new BufferedOutputStream(response.getOutputStream());
+            response.setContentType("application/octet-stream");
+            out.write(bytes);
+            out.flush();
+            out.close();
+//            return response;
+        }catch (Exception e){
+            e.printStackTrace();
+//            return response;
+        }
+    }
 }

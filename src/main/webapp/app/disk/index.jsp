@@ -1,4 +1,5 @@
-<%--
+<%@ page import="util.context.Context" %>
+<%@ page import="eiis.core.menuTree.entity.CoreMenuTreeInfoEntity" %><%--
   Created by IntelliJ IDEA.
   User: Lenovo
   Date: 2020/2/27
@@ -7,8 +8,14 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="master" uri="util.masterPage" %>
+
+<%
+    String menuCode = "disk";
+    CoreMenuTreeInfoEntity menuTree = Context.getMenuTree(menuCode);
+    String title = menuTree.getTitle();
+%>
 <master:ContentPage>
-    <master:Content contentPlaceHolderId="title">云盘</master:Content>
+    <master:Content contentPlaceHolderId="title"><%=title%></master:Content>
     <master:Content contentPlaceHolderId="head">
 
         <link rel="stylesheet" type="text/css" href="/public/jquery-easyui/extend/css/tree.css" />
@@ -16,14 +23,14 @@
     </master:Content>
     <master:Content contentPlaceHolderId="body">
         <div class="row">
-            <div class="col-xs-12 col-sm-4 col-md-4">
+            <div class="col-xs-3 col-sm-3 col-md-3">
                 <div class="panel panel-default" id="left_div">
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-sm-12" style="text-align:right">
-                                <button onclick="reset_tree()" type="button" class="btn btn-info">
-                                    <i class="glyphicon glyphicon-refresh"></i>刷新
-                                </button>
+                                <%--<button onclick="reset_tree()" type="button" class="btn btn-info">--%>
+                                    <%--<i class="glyphicon glyphicon-refresh"></i>--%>
+                                <%--</button>--%>
                                 <button onclick="move_tree(true)" type="button" class="btn btn-primary">
                                     <i class="glyphicon glyphicon-arrow-up"></i>上移
                                 </button>
@@ -47,7 +54,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-8 col-md-8">
+            <div class="col-xs-9 col-sm-9 col-md-9">
                 <div class="panel panel-default " id="right_div">
                     <div class="panel-heading" style="text-align: right;">
                         <div class="row">
@@ -76,11 +83,11 @@
                     <div class="box-head-right">
                         <i class="delete-i fa fa-trash-o" title="删除" id="delete"></i>
                         <i class="update-i fa fa-pencil" title="编辑" id="edit"></i>
-                        <i class="download-i fa fa-download" title="下载" id="download"></i>
+                        <a class="download-i fa fa-download" title="下载" id="download" href=""></a>
                     </div>
                 </div>
                 <div class="box-body">
-                    <img src="" class="pimg" width="200px" height="200px">
+                        <img src="" class="pimg" style="display: none">
                 </div>
             </div>
         </div>
@@ -88,7 +95,7 @@
 
         <div id="outerdiv">
             <div id="innerdiv">
-                <img id="bigimg"  src="" />
+                <img id="bigimg"  src=""/>
             </div>
         </div>
 
@@ -117,7 +124,8 @@
         </div>
 
         <div id="details_modal" class="modal" data-width="30%"  tabindex="-1" aria-hidden="true" data-backdrop="static">
-            <form method="post" enctype="multipart/form-data" action="/app/file/saveMain.do" id="frm-reg" >
+            <%--<form method="post" enctype="multipart/form-data" action="/app/file/saveMain.do" id="saveReportForm" onsubmit="return saveReport();">--%>
+            <form method="post" enctype="multipart/form-data" action="/app/file/saveMain.do" id="saveReportForm">
                 <div class="panel-heading">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h3 class="modal-title">
@@ -136,14 +144,14 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <h5>文件内容</h5>
-                            <input type="file" class="form-control" name="filePath" id="fileInput" onchange="filechange(event)">
+                            <input type="file" class="form-control" name="filePath" id="fileInput" onchange="filechange(event)" required="required">
                             <img src=""  id="img-change"  width="200px" height="200px" style="margin-top: 10px" hidden>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <h5>创建时间</h5>
-                            <input type="text" class="eiis-date"  name="createdTime">
+                            <input type="text" class="eiis-date"  name="createdTime" required="required" placeholder="请选择创建时间">
                         </div>
 
                     </div>
@@ -157,11 +165,8 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>取消</button>
                     <%--<button type="button" class="btn btn-primary" onclick="save_file()"><i class="glyphicon glyphicon-floppy-save"></i>保存</button>--%>
-                    <button type="submit" id="sub" class="btn btn-primary" ><i class="glyphicon glyphicon-floppy-save"></i>保存</button>
+                    <button type="button"  class="btn btn-primary" onclick="submitForm()"><i class="glyphicon glyphicon-floppy-save"></i>保存</button>
                 </div>
-
-
-
             </form>
 
 
@@ -170,6 +175,5 @@
 
         <script type="text/javascript" src="css_js/treeIndex.js"></script>
         <script type="text/javascript" src="css_js/fileIndex.js"></script>
-        <%--<script type="text/javascript" src="public/jquery/jquery.form.js"></script>--%>
     </master:Content>
 </master:ContentPage>

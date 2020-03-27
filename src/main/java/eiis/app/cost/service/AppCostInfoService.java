@@ -86,7 +86,10 @@ public class AppCostInfoService extends GenericService<AppDailyCostInfoEntity,St
                 if("sysTime".equals(e.getKey().toString()) || "costTime".equals(e.getKey().toString())){
                     m.put(e.getKey(),e.getValue().toString().split(" ")[0]);
                 }else if("payMoney".equals(e.getKey().toString())){
-                    m.put(e.getKey(),String.format("%.2f",Double.parseDouble(e.getValue().toString())));
+                    if(StringUtils.isNotBlank(e.getValue().toString())){
+                        m.put(e.getKey(),String.format("%.2f",Double.parseDouble(e.getValue().toString())));
+                    }
+
                 }
             }
         }

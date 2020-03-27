@@ -2,7 +2,8 @@ var _imgURL;
 var _fileInfo = {};
 
 $(window).load(function () {
-    getMainInfo(_treeNode);
+    // getMainInfo(_treeNode.treeId);
+
 });
 
 function getMainInfo(treeNode) {
@@ -20,8 +21,9 @@ function getMainInfo(treeNode) {
                 $(modal_file).find(".box-head-left").text(file.fileName);
                 $(modal_file).find(".box-body img").attr("src",file.filePath);
                 $(modal_file).find(".box-head-right i").attr("data-str",file.fileId);
+                $(modal_file).find(".box-head-right a").attr("data-str",file.fileId);
+                $(modal_file).find(".box-head-right a").attr("href","/app/file/downLoadMain.do?fileId="+file.fileId);
                 $("#file_Content").append($(modal_file).html());
-
                 //填充数据
                 var singleInfo = {};
                 singleInfo["fileId"] = file.fileId;
@@ -39,33 +41,53 @@ function getMainInfo(treeNode) {
             $("#file_Content").find(".box-head-right #delete").unbind("click").bind("click",function () {
                 delete_file($(this).attr("data-str"));
             });
-
-            $("#file_Content").find(".box-head-right #download").unbind("click").bind("click",function () {
-                download_file($(this).attr("data-str"));
-            });
             $(".pimg").click(function () {
                 var _this = $(this);//将当前的pimg元素作为_this传入函数
                 imgShow("#outerdiv", "#innerdiv", "#bigimg", _this);
             });
-
+            alterImgSize();
         }
     })
 }
 
+function alterImgSize() {
+    $(".pimg").each(function(i){
+        var img = $(this);
+        var realWidth;//真实的宽度
+        var realHeight;//真实的高度
+        //这里做下说明，$("<img/>")这里是创建一个临时的img标签，类似js创建一个new Image()对象！
+        $("<img/>").attr("src", $(img).attr("src")).load(function() {
+            /*
+              如果要获取图片的真实的宽度和高度有三点必须注意
+              1、需要创建一个image对象：如这里的$("<img/>")
+              2、指定图片的src路径
+              3、一定要在图片加载完成后执行如.load()函数里执行
+             */
+            realWidth = this.width;
+            realHeight = this.height;
+            //如果真实的宽度大于浏览器的宽度就按照100%显示
+            if(realWidth > realHeight){
+                var n = Math.round((200 - (realHeight /  realWidth  * 200)) / 2)-30;
+                $(img).css("width","100%").css("height","auto").css("padding-top",n).css("display","inline");
+                // $(img).css("width","100%").css("height","auto").css("padding-top",n)
+            }else {
+                $(img).css("height","100%").css("width","auto").css("display","inline");
+                // $(img).css("height","100%").css("width","auto")
+            }
 
+        });
+    });
+}
 
 
 function edit_file(fileId) {
     var file_info = _fileInfo[fileId];
-    console.log(file_info);
-
     $("#details_modal input,#details_modal textarea").each(function (i,o) {
         if($(o).attr("type") == "file"){
             $(o).css("display","none");
         }else {
             var name = $(o).attr("name");
             var val = file_info[name];
-            console.log(name +"...."+ val);
             $(o).val(val);
         }
     });
@@ -75,7 +97,6 @@ function edit_file(fileId) {
 }
 
 function delete_file(fileId) {
-    console.log(fileId);
     $.message({
         button:$.message.button.yesNo
         ,text:"确定要删除此数据?"
@@ -87,7 +108,7 @@ function delete_file(fileId) {
                     function(rs) {
                         $.message(rs.msg);
                         if (rs.error == 0) {
-                            getMainInfo(_treeNode);
+                            getMainInfo(_treeNode.treeId);
                         }
                      },
                     "json");
@@ -96,9 +117,7 @@ function delete_file(fileId) {
     });
 }
 
-function download_file() {
 
-}
 
 function add_file() {
     if(_treeNode == null || (_treeNode["children"] != null)){
@@ -113,7 +132,7 @@ function add_file() {
         }
         $(this).val("");
         if($(this).attr("name") == "fileTreeId"){
-            $(this).val(_treeNode);
+            $(this).val(_treeNode.treeId);
         }
     });
 
@@ -122,15 +141,16 @@ function add_file() {
     $('#details_modal').modal('show');
 }
 
-var filechange=function(event){
+
+function filechange(event){
     var files = event.target.files, file;
     if (files && files.length > 0) {
         // 获取目前上传的文件
         file = files[0];// 文件大小校验的动作
-        if(file.size > 1024 * 1024 * 2) {
-            alert('图片大小不能超过 2MB!');
-            return false;
-        }
+        // if(file.size > 1024 * 1024 * 2) {
+        //     alert('图片大小不能超过 2MB!');
+        //     return false;
+        // }
         // 获取 window 的 URL 工具
         var URL = window.URL || window.webkitURL;
         // 通过 file 生成目标 url
@@ -142,41 +162,14 @@ var filechange=function(event){
         // URL.revokeObjectURL(imgURL);
         // console.log(_imgURL);
     }
-};
+}
+
 $("#fileInput").click(function () {
     $("#img-change").css("display","none");
 });
-$("#img-change").click(function () {
-    $("#fileInput").click();
-});
 
-function save_file() {
-    var flag = true;
-    var postData = {};
-    $("#details_modal input,#details_modal select,#details_modal textarea").each(function () {
-        var name = $(this).attr("name");
-        if($(this).attr("required") && !$(this).val()){
-            $(this).css("border","1px solid red");
-            flag = false;
-            $.message($(this).prev().text() + " 不能为空!");
-            return;
-        }else {
-            postData[name] = $(this).val();
-        }
-    });
-    console.log(postData);
-    if(!flag) return;
-    $.ajax({
-        url:"/app/file/saveMain.do",
-        data:postData,
-        type:"post",
-        dataType:'json',
-        success:function (rs) {
 
-        }
-    })
 
-}
 
 
 
@@ -256,3 +249,38 @@ function imgShow(outerdiv, innerdiv, bigimg, _this) {
 
 }
 
+
+
+function submitForm() {
+    var flag = true;
+    var isEdit = false;
+    if($("#details_modal input[name='fileId']").val()){
+        isEdit = true;
+    }
+    if(isEdit){
+        $("#details_modal input[type='file']").removeAttr("required");
+    }
+    $("#details_modal input").each(function () {
+        if(!$(this).val() && $(this).attr("required")){
+            flag = false;
+            $(this).css("border", "1px solid red");
+            $.message($(this).prev().text() + " 不能为空!");
+            return false;
+        }
+    });
+    if(!flag){
+        return;
+    }
+    // jquery 表单提交
+    $("#saveReportForm").ajaxSubmit(function(result) {
+        // 对于表单提交成功后处理，result为表单正常提交后返回的内容
+        if(result.error == 0){
+            $.message(result.msg);
+            $('#details_modal').modal('hide');
+            getMainInfo(_treeNode.treeId);
+        }
+
+    });
+    return false; // 必须返回false，否则表单会自己再做一次提交操作，并且页面跳转
+
+}
