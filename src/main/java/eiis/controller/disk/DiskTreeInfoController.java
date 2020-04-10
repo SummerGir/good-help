@@ -32,7 +32,6 @@ public class DiskTreeInfoController {
         try {
             String parentId = request.getParameter("parentId");
             List<Map<String,Object>> list = service.getMainInfo(parentId);
-
             return JSONArray.fromObject(list).toString();
         }catch (Exception e){
             e.printStackTrace();

@@ -49,7 +49,7 @@ public class DiskTreeInfoService extends GenericService<DiskTreeInfoEntity,Strin
         dao.delete(treeId);
     }
 
-    public List<Map<String,Object>> getMainInfo(String parentId) throws Exception{
+        public List<Map<String,Object>> getMainInfo(String parentId) throws Exception{
         List<Map<String,Object>> list = new ArrayList<>();
         Map values = new HashMap();
         String basicSql = "";
@@ -169,8 +169,6 @@ public class DiskTreeInfoService extends GenericService<DiskTreeInfoEntity,Strin
         query.setParameter("fatherRight",deleteEntity.getTreeRight());
         query.executeUpdate();
 
-
-
         //改前面的
         String basicSql_1 = "update disk_tree_info d set d.TREE_RIGHT= d.TREE_RIGHT-(:n*2) where d.TREE_LEFT <:left and d.TREE_RIGHT>:right";
         query = entityManager.createNativeQuery(basicSql_1);
@@ -185,11 +183,6 @@ public class DiskTreeInfoService extends GenericService<DiskTreeInfoEntity,Strin
         query.setParameter("lastSonleft",lastSonleft);
         query.setParameter("n",n);
         query.executeUpdate();
-
-
-
-
-
     }
     @Transactional
     public void moveMainInfo(DiskTreeInfoEntity moveEntity,Boolean moveOn) throws Exception{

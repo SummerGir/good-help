@@ -57,7 +57,6 @@ public class CoreMenuTreeInfoController {
     public ObjectNode moveTree(HttpServletRequest request) throws Exception {
         String treeId = request.getParameter("treeId");
         String type = request.getParameter("type");
-
         try{
             mainService.moveTree(treeId,Boolean.parseBoolean(type));
             return GenericController.returnSuccess(null);
