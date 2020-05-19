@@ -137,15 +137,15 @@
                     <input type="hidden" name="fileTreeId" value=""/>
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12">
-                            <h5>文件标题</h5>
-                            <input type="text" class="form-control" name="fileName" placeholder="请填写文件标题">
+                            <h5>文件内容</h5>
+                            <input type="file" class="form-control" name="filePath" id="fileInput" onchange="filechange(event)" required="required">
+                            <img src=""  id="img-change"  width="200px" height="200px" style="margin-top: 10px" hidden>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12">
-                            <h5>文件内容</h5>
-                            <input type="file" class="form-control" name="filePath" id="fileInput" onchange="filechange(event)" required="required">
-                            <img src=""  id="img-change"  width="200px" height="200px" style="margin-top: 10px" hidden>
+                            <h5>文件标题</h5>
+                            <input type="text" class="form-control" name="fileName" placeholder="请填写文件标题" onfocus="selectall(this)">
                         </div>
                     </div>
                     <div class="row">

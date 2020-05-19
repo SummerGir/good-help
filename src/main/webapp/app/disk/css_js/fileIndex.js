@@ -18,7 +18,7 @@ function getMainInfo(treeNode) {
                 var file = rs[i];
                 //组装方块
                 var modal_file = $("div[name='modal_file']").clone();
-                $(modal_file).find(".box-head-left").text(file.fileName);
+                $(modal_file).find(".box-head-left").text(file.fileName).attr("title",file.fileName);
                 $(modal_file).find(".box-body img").attr("src",file.filePath);
                 $(modal_file).find(".box-head-right i").attr("data-str",file.fileId);
                 $(modal_file).find(".box-head-right a").attr("data-str",file.fileId);
@@ -136,6 +136,7 @@ function add_file() {
         }
     });
 
+    $("#details_modal input[name='createdTime']").val((new Date()).pattern("yyyy-MM-dd"));
     $("#img-change").css("display","none");
 
     $('#details_modal').modal('show');
@@ -161,7 +162,13 @@ function filechange(event){
         // 使用下面这句可以在内存中释放对此 url 的伺服，跑了之后那个 URL 就无效了
         // URL.revokeObjectURL(imgURL);
         // console.log(_imgURL);
+        var name = file.name;
+        $("#details_modal input[name='fileName']").val(name.substring(0,name.lastIndexOf('.')));
     }
+}
+
+function selectall(e){
+    e.select();
 }
 
 $("#fileInput").click(function () {

@@ -24,6 +24,11 @@
 }
 .box-div .box-head-left{
     font-weight: bold;
+    cursor: default;
+    max-width:129px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .box-div .box-head-right{
     text-align: right;
@@ -54,6 +59,7 @@
     min-height: 34px;
     height: 200px;
     width: 200px;
+    cursor: pointer;
 }
 
 
