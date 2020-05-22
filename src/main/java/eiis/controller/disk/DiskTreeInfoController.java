@@ -5,6 +5,7 @@ import eiis.app.disk.entity.DiskTreeInfoEntity;
 import eiis.app.disk.service.DiskFileInfoService;
 import eiis.app.disk.service.DiskTreeInfoService;
 import net.sf.json.JSONArray;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,7 +32,8 @@ public class DiskTreeInfoController {
     public String getMainInfo(HttpServletRequest request){
         try {
             String parentId = request.getParameter("parentId");
-            List<Map<String,Object>> list = service.getMainInfo(parentId);
+            String loadnum = request.getParameter("loadnum");
+            List<Map<String,Object>> list = service.getMainInfo(parentId,loadnum);
             return JSONArray.fromObject(list).toString();
         }catch (Exception e){
             e.printStackTrace();
@@ -39,22 +41,42 @@ public class DiskTreeInfoController {
         }
     }
 
+
+
+
     @RequestMapping("editMainInfo")
     @ResponseBody
     public ObjectNode editMainInfo(HttpServletRequest request){
         String treeId = request.getParameter("treeId");
         String text = request.getParameter("text");
+        String fatherId = request.getParameter("fatherId");
         DiskTreeInfoEntity entity = service.findOne(treeId);
         entity.setTreeName(text);
         try {
-            service.save(entity);
+            if(StringUtils.isNotBlank(entity.getParentId()) && !entity.getParentId().equals(fatherId)){
+                service.moveParent(entity,fatherId);
+            }else{
+                service.save(entity);
+            }
             return GenericController.returnSuccess(null);
         }catch (Exception e){
+            e.printStackTrace();
             return GenericController.returnFaild(null);
         }
 
     }
 
+    @RequestMapping("getFatherNodeName")
+    @ResponseBody
+    public ObjectNode getFatherNodeName(HttpServletRequest request){
+        String treeId = request.getParameter("treeId");
+        try {
+            String fatherName = service.getFatherNodeName(treeId);
+            return GenericController.returnSuccess(fatherName);
+        }catch (Exception e){
+            return GenericController.returnFaild(null);
+        }
+    }
     @RequestMapping("saveMainInfo")
     @ResponseBody
     public ObjectNode saveMainInfo(HttpServletRequest request){

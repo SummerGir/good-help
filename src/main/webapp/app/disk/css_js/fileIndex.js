@@ -124,8 +124,6 @@ function add_file() {
         $.message("请先选中一个可用的节点数据！");
         return;
     }
-
-
     $("#details_modal input,#details_modal textarea").each(function () {
         if($(this).attr("type") == "file"){
             $(this).css("display","block");
@@ -138,7 +136,6 @@ function add_file() {
 
     $("#details_modal input[name='createdTime']").val((new Date()).pattern("yyyy-MM-dd"));
     $("#img-change").css("display","none");
-
     $('#details_modal').modal('show');
 }
 

@@ -100,4 +100,15 @@ public class DiskTreeInfoEntity {
         result = 31 * result + (treeRight != null ? treeRight.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "DiskTreeInfoEntity{" +
+                "treeId='" + treeId + '\'' +
+                ", parentId='" + parentId + '\'' +
+                ", treeName='" + treeName + '\'' +
+                ", treeLeft=" + treeLeft +
+                ", treeRight=" + treeRight +
+                '}';
+    }
 }

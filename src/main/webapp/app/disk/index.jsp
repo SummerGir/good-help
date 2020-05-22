@@ -106,14 +106,31 @@
             <div class="panel-heading">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h3 class="modal-title">
-                    <span style="font-weight: bold;">新增/修改节点</span>
+                    <span style="font-weight: bold;"></span>
                 </h3>
             </div>
             <div class="panel-body">
                 <input type="hidden" name="treeId" value=""/>
+                <input type="hidden" name="fatherId" value=""/>
+                <div class="row">
+                    <div class="col-xs-3 col-sm-3 col-md-3">
+                        <h5>父节点</h5>
+                    </div>
+                    <div class="col-xs-9 col-sm-9 col-md-9">
+                        <input type="text" class="form-control" id="fatherName" name="fatherName" readonly></input>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-3 col-sm-3 col-md-3">
+                        <h5>节点名称</h5>
+                    </div>
+                    <div class="col-xs-9 col-sm-9 col-md-9">
+                        <input type="text" class="form-control" name="text" placeholder="请填写节点名称（必填）">
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12">
-                           <input type="text" class="form-control" name="text" placeholder="请填写节点名称（必填）">
+                        <ul id="disk_father_tree" class="easyui-tree"></ul>
                     </div>
                 </div>
             </div>

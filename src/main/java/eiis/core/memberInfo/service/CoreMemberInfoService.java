@@ -16,6 +16,7 @@ import util.spring.ApplicationContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -44,6 +45,38 @@ public class CoreMemberInfoService extends GenericService<CoreMemberInfoEntity, 
         CoreMemberInfoEntity entity = findOne("0dfb8bd5-b87c-11e7-96df-64510645b30a");
         System.out.println("当前登录人："+entity.getMemberName());
         Context.setMember(entity);
+    }
+
+    public CoreMemberInfoEntity loginCheck(String username,String pwd){
+        String sql = "select cmi.MEMBER_ID,cmi.MEMBER_NAME,cmi.PHOTO,cmi.ACCOUNT,cmi.PASSWORD,cmi.IS_FROZEN from core_member_info cmi where 1=1";
+        Map<String,Object> values = new HashedMap();
+        if(StringUtils.isNotBlank(username)){
+            values.put("username",username);
+            sql += " and cmi.ACCOUNT = :username";
+        }if(StringUtils.isNotBlank(pwd)){
+            values.put("pwd",pwd);
+            sql += " and cmi.PASSWORD = :pwd";
+        }
+        String[] fields = {"memberId","memberName","photo","account","password","isFrozen"};
+        List<Map<String, Object>> list = new LinkedList<>();
+        try{
+             list = getNativeMapList(entityManager, sql, values, fields, 1, 1);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        if(list != null && list.size()>0){
+            CoreMemberInfoEntity entity = new CoreMemberInfoEntity();
+            entity.setMemberId(list.get(0).get("memberId").toString());
+            entity.setMemberName(list.get(0).get("memberName").toString());
+//            entity.setPhoto(list.get(0).get("photo").toString());
+            entity.setAccount(list.get(0).get("account").toString());
+            entity.setPassword(list.get(0).get("password").toString());
+            entity.setIsFrozen(Boolean.parseBoolean(list.get(0).get("isFrozen").toString()));
+            return entity;
+        }else {
+            return null;
+        }
+
     }
 
 
