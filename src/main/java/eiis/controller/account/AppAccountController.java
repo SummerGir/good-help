@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import util.dataManage.GenericController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Base64;
 import java.util.List;
 import java.util.Map;
@@ -38,7 +39,7 @@ public class AppAccountController {
 
     @RequestMapping("saveMain")
     @ResponseBody
-    public ObjectNode saveMain(HttpServletRequest request)throws Exception{
+    public ObjectNode saveMain(HttpServletRequest request, HttpServletResponse response)throws Exception{
          String accountId = request.getParameter("accountId");
          String accountType= request.getParameter("accountType");
          String accountName= request.getParameter("accountName");

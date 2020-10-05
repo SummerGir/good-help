@@ -82,14 +82,15 @@ public class AppCostInfoService extends GenericService<AppDailyCostInfoEntity,St
             for (Map.Entry<String, Object> e : m.entrySet()) {
                 if (e.getValue() == null) {
                     m.put(e.getKey(), "");
-                }
-                if("sysTime".equals(e.getKey().toString()) || "costTime".equals(e.getKey().toString())){
-                    m.put(e.getKey(),e.getValue().toString().split(" ")[0]);
-                }else if("payMoney".equals(e.getKey().toString())){
-                    if(StringUtils.isNotBlank(e.getValue().toString())){
-                        m.put(e.getKey(),String.format("%.2f",Double.parseDouble(e.getValue().toString())));
-                    }
+                }else{
+                    if("sysTime".equals(e.getKey().toString()) || "costTime".equals(e.getKey().toString())){
+                        m.put(e.getKey(),e.getValue().toString().split(" ")[0]);
+                    }else if("payMoney".equals(e.getKey().toString())){
+                        if(StringUtils.isNotBlank(e.getValue().toString())){
+                            m.put(e.getKey(),String.format("%.2f",Double.parseDouble(e.getValue().toString())));
+                        }
 
+                    }
                 }
             }
         }

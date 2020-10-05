@@ -1,48 +1,6 @@
-#file_Content{
-    display: flex;
-    flex-wrap: wrap;
-}
-.box-div{
-    display: flex;
-    flex-flow: column;
-    font-size: 17px;
-    border: 1px solid #666;
-    border-radius: 4px;
-    min-width: 145px;
-    margin: 12px 8px;
 
-}
-.box-div-have{
-    background-color: #e9f5eb;
-    border-color: #49ec68;
-}
-
-.box-div .box-head{
-    display: flex;
-    padding: 6px 10px;
-    /*border-bottom: 1px solid #666;*/
-}
-.box-div .box-head-left{
-    font-weight: bold;
-}
-.box-div .box-head-right{
-    text-align: right;
-    font-size: 20px;
-    flex: 1;
-}
-.box-head-right i{
-    cursor: pointer;
-}
-.box-head-right .update-i{
-    padding-right: 8px;
-    color: #f8a326 ;
-}
-.box-head-right .delete-i{
-    padding-left: 4px;
-    color: #ff5d5e;
-}
-.box-div .box-body{
-    text-align: center;
-    padding: 6px 0px;
-    min-height: 34px;
+#disk_father_tree{
+    padding: 5px 10px;
+    background-color: #eee;
+    border-radius: 25px;
 }

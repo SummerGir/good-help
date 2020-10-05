@@ -20,6 +20,7 @@
 
         <link rel="stylesheet" type="text/css" href="/public/jquery-easyui/extend/css/tree.css" />
         <link rel="stylesheet" type="text/css" href="css_js/fileIndex.css"/>
+        <link rel="stylesheet" type="text/css" href="css_js/treeIndex.css"/>
     </master:Content>
     <master:Content contentPlaceHolderId="body">
         <div class="row">
@@ -120,6 +121,11 @@
                         <input type="text" class="form-control" id="fatherName" name="fatherName" readonly></input>
                     </div>
                 </div>
+                <div class="row my-col">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <ul id="disk_father_tree" class="easyui-tree"></ul>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-xs-3 col-sm-3 col-md-3">
                         <h5>节点名称</h5>
@@ -128,11 +134,7 @@
                         <input type="text" class="form-control" name="text" placeholder="请填写节点名称（必填）">
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <ul id="disk_father_tree" class="easyui-tree"></ul>
-                    </div>
-                </div>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>关闭</button>

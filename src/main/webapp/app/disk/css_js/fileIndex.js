@@ -67,7 +67,7 @@ function alterImgSize() {
             realHeight = this.height;
             //如果真实的宽度大于浏览器的宽度就按照100%显示
             if(realWidth > realHeight){
-                var n = Math.round((200 - (realHeight /  realWidth  * 200)) / 2)-30;
+                var n = Math.round((200 - (realHeight /  realWidth  * 200)) / 2)-20;
                 $(img).css("width","100%").css("height","auto").css("padding-top",n).css("display","inline");
                 // $(img).css("width","100%").css("height","auto").css("padding-top",n)
             }else {

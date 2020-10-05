@@ -8,7 +8,7 @@
     font-size: 17px;
     border: 1px solid #666;
     border-radius: 4px;
-    padding: 5px;
+    min-width: 145px;
     margin: 12px 8px;
 
 }
@@ -25,7 +25,7 @@
 .box-div .box-head-left{
     font-weight: bold;
     cursor: default;
-    max-width:129px;
+    max-width:100px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -40,22 +40,23 @@
 }
 
 .box-head-right .delete-i{
-    padding-left: 4px;
-    /*color: #ff5d5e;*/
+    padding-right:4px;
+    padding-left: 10px;
+    color: #ff5d5e;
 }
 .box-head-right .update-i{
-    padding-left: 4px;
-    /*color: #f8a326 ;*/
+    padding-right: 4px;
+    color: #f8a326 ;
 }
 .box-head-right .download-i{
-    padding-left: 4px;
-    /*color: #f8a326 ;*/
+    padding-right: 4px;
+    color: #5f5f5f ;
 }
 
 
 .box-div .box-body{
     text-align: center;
-    padding: 6px 0px;
+    margin: 10px 10px;
     min-height: 34px;
     height: 200px;
     width: 200px;

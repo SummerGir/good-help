@@ -78,7 +78,8 @@ public class DiskTreeInfoService extends GenericService<DiskTreeInfoEntity,Strin
 
         for(Map<String,Object> map:list){
             map.put("id",map.get("treeId"));
-            map.put("text",map.get("text")+"  ("+map.get("treeLeft")+"-"+map.get("treeRight")+")");
+//            map.put("text",map.get("text")+"  ("+map.get("treeLeft")+"-"+map.get("treeRight")+")");
+            map.put("text",map.get("text"));
             if((Integer.parseInt(map.get("treeRight").toString())-Integer.parseInt(map.get("treeLeft").toString()))>1){
 //                if ("root".equalsIgnoreCase(map.get("treeId").toString())) {
                     map.put("children", getMainInfo(map.get("treeId").toString(),"1"));

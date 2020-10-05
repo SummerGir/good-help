@@ -181,10 +181,7 @@ function loadCalendar() {
 
 function loadTbody() {
     var rs = getDayCls();
-    var d = new Date();
-    d.setFullYear(thisYear);
-    d.setMonth(thisMonth);
-    d.setDate(1);
+    var d = new Date(thisYear,thisMonth,1);
     var d2 = new Date();
     var ds = [];
     var thisDayStr = thisDayStr;
@@ -258,13 +255,6 @@ function ove() {
     if(thisDayStr == ""){
         isError = true;
         msg = "请选择一天！";
-    }else{
-        var l = thisDayStr.split("-");
-        var d1 = new Date();
-        var d = new Date();
-        d.setFullYear(l[0]);
-        d.setMonth(l[1] - 1);
-        d.setDate(l[2]);
     }
     if (isError) {
         $.message(msg);
@@ -294,12 +284,8 @@ function jqComIng(){
         isError = true;
         msg = "请选择一天！";
     }else{
-        var l = thisDayStr.split("-");
         var d1 = new Date();
-        var d = new Date();
-        d.setFullYear(l[0]);
-        d.setMonth(l[1] - 1);
-        d.setDate(l[2]);
+        var d = new Date(thisDayStr);
 
         if ((d.getFullYear() == d1.getFullYear() && d.getMonth() == d1.getMonth() && d.getDate() > d1.getDate()) || (d.getFullYear() == d1.getFullYear() && d.getMonth() > d1.getMonth()) || d.getFullYear() > d1.getFullYear()) {
             isError = true;
@@ -375,7 +361,7 @@ function getDayCls(){
             for(var i=0;i<rows.length;i++){
                 var row = rows[i];
                 if(!String.isNullOrWhiteSpace(row.actStartTime)){
-                    var d = getStrDate(row.actStartTime);
+                    var d = new Date(row.actStartTime);
                     cls = "jq-sj jq-sj-start";//经期开始
                     r[getDateStr(d)] = cls;
 
@@ -387,7 +373,7 @@ function getDayCls(){
                     cls = "jq-sj jq-sj-end";//经期结束
                     r[getDateStr(d)] = cls;
                 }else if(!String.isNullOrWhiteSpace(row.planStartTime) ){
-                    var d = getStrDate(row.planStartTime);
+                    var d = new Date(row.planStartTime);
                     cls = "jq-yc jq-yc-start";//预测经期开始
                     r[getDateStr(d)] = cls;
 
@@ -401,7 +387,7 @@ function getDayCls(){
                 }
 
                 if(!String.isNullOrWhiteSpace(row.actOveTime)){
-                    var d = getStrDate(row.actOveTime);
+                    var d = new Date(row.actOveTime);
                     cls = "jq-plr";//排卵日
                     r[getDateStr(d)] = cls;
 
@@ -416,7 +402,7 @@ function getDayCls(){
                         r[getDateStr(d)] = cls;
                     }
                 }else if(!String.isNullOrWhiteSpace(row.planOveTime)){
-                    var d = getStrDate(row.planOveTime);
+                    var d = new Date(row.planOveTime);
                     cls = "jq-plr";//排卵日
                     r[getDateStr(d)] = cls;
 
@@ -459,14 +445,6 @@ function getDateStr(d){
     return str;
 }
 
-function getStrDate(s) {
-    var l = s.split("-");
-    var d = new Date();
-    d.setFullYear(l[0]);
-    d.setMonth(l[1] - 1);
-    d.setDate(l[2]);
-    return d;
-}
 function selectChange() {
     var year = $("#select-year").val();
     getYearInfo(year);

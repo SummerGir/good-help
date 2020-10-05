@@ -89,6 +89,7 @@ function add_main() {
         return;
     }
     $("#disk_father_tree").hide();
+    $('#fatherName').css({"background-color":"#eee","cursor": "not-allowed"});
     $('#fatherName').unbind(); //移除所有
     $('#member_tree').tree('expandTo', _treeNode.target);
     $("#my_modal input").each(function () {
@@ -110,6 +111,8 @@ function edit_main() {
     $("#fatherName").on("click",function(){
         $("#disk_father_tree").show();
     });
+
+    $('#fatherName').css({"background-color":"white","cursor":"pointer"});
     $('#member_tree').tree('expandTo', _treeNode.target);
     $("#my_modal input").each(function () {
         $(this).val(_treeNode[$(this).attr("name")])
